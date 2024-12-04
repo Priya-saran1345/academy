@@ -45,5 +45,5 @@ jobs:
           script: |
             cd ${{ secrets.SERVER_PATH }}
             source ~/.nvm/nvm.sh
-           pm2 restart ${{ secrets.PM2_APP}}
+            pm2 restart ${{ secrets.PM2_APP}}
 
