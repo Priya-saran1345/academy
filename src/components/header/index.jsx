@@ -1,5 +1,6 @@
 "use client"
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
@@ -11,10 +12,9 @@ const Header = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-
   return (
 <>
-<header className="absolute top-0 left-0 right-0 flex justify-between items-center p-4 bg-transparent text-black z-50 px-4 md:px-60 mt-2">
+<header className="absolute top-0 left-0 right-0 flex justify-between items-center p-4 bg-transparent text-black z-50 px-6 w-full  mx-auto xl:w-[77%] mt-2">
   <div className="text-lg font-bold">
     <a href="/">
     <Image src="/images/Browk Shop.svg" alt="logo" width={130} height={100} className=''  />
@@ -25,15 +25,19 @@ const Header = () => {
       <li className="relative group cursor-pointer underlineHover font-medium text-lg text-black hover:text-orange">
       <a href="/">Home</a>
       </li>
+      <Link href="/courses">
       <li className="relative group cursor-pointer underlineHover font-medium text-lg text-black hover:text-orange">
         Courses
-        <ul className="absolute left-0 mt-1 rounded-lg bg-white text-black shadow-lg hidden group-hover:block">
-          <li className="px-4 py-2 hover:bg-gray-200">Web Development</li>
-          <li className="px-4 py-2 hover:bg-gray-200">App Development</li>
-          <li className="px-4 py-2 hover:bg-gray-200">SEO Services</li>
-        </ul>
+        {/* <ul className="absolute left-0 mt-1 w-[200px] rounded-lg text-[16px] bg-white text-black fomt-medium shadow-lg hidden group-hover:block">
+          <li className="px-4 py-2 hover:bg-gray-200"><p>Web Development</p></li>
+          <li className="px-4 py-2 hover:bg-gray-200"><p>App Development</p></li>
+          <li className="px-4 py-2 hover:bg-gray-200"><p>SEO Services</p></li>
+          </ul> */}
       </li>
+          </Link>
+          <Link href={'/contact'}>
       <li className="cursor-pointer underlineHover font-medium text-lg text-black hover:text-orange">Contact Us</li>
+          </Link>
       <li className="cursor-pointer underlineHover font-medium text-lg text-orange"><a href="/signup">Sign Up</a></li>
       <li className="cursor-pointer smooth1 hover:text-white font-medium text-lg border border-orange px-4 py-2 rounded-lg text-orange hover:bg-orange"><a href="/login">Log In</a></li>
     </ul>
@@ -56,14 +60,12 @@ const Header = () => {
           <li className="px-4 py-2 hover:bg-gray-200">SEO Services</li>
         </ul>
       </li>
-      <li className="cursor-pointer text-lg text-black hover:text-orange">Contact Us</li>
+      <li className={`cursor-pointer text-lg text-black hover:text-orange`}>Contact Us</li>
       <li className="cursor-pointer text-lg text-orange">Sign Up</li>
       <li className="cursor-pointer smooth1 hover:text-white border border-orange px-4 py-2 rounded-lg text-orange hover:bg-orange">Log In</li>
     </ul>
   </div>
 )}
-
-
 </>
   );
 };

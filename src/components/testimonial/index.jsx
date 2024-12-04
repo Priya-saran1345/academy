@@ -1,45 +1,69 @@
-"use client"
-import React, { useState, useEffect } from 'react';
+"use client";
+import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { BASE_URL_IMAGE } from '@/utils/api';
 
-const testimonialsData = [
-  // Sample data for demonstration; replace with your own testimonials
-  ['Testimonial 1', 'Testimonial 2', 'Testimonial 3'],
-  ['Testimonial 4', 'Testimonial 5', 'Testimonial 6'],
-  ['Testimonial 7', 'Testimonial 8', 'Testimonial 9'],
-];
-
-const Testimonial = () => {
+const Testimonial = ({ testimonials = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  
-  const totalSets = testimonialsData.length;
-
-  const handleButtonClick = (index) => {
-    setCurrentIndex(index);
-  };
+  const totalSets = testimonials.length;
+  const scrollStep = 370; // Set scroll step to 350px
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSets);
-    }, 5000); // Change set every 5 seconds
-
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % (totalSets * 2));
+    }, 5000); // Change set every 6 seconds
     return () => clearInterval(interval);
   }, [totalSets]);
+  // To create a smooth continuous scrolling effect
+  const visibleTestimonials = [...testimonials, ...testimonials]; // Duplicate testimonials
 
   return (
     <>
-      <div className='w-full flex gap-4 overflow-hidden'>
-        {testimonialsData[currentIndex].map((testimonial, index) => (
-          <div key={index} className='flex-1 h-[221px] bg-[#F8F8F8] hover:bg-orange hover:text-white rounded-lg flex items-center justify-center'>
-            {testimonial}
-          </div>
-        ))}
+      <div className='w-full overflow-hidden'>
+        <div
+          ref={containerRef}
+          className='flex gap-5 transition-transform ease-in-out duration-500'
+          style={{
+            transform: `translateX(-${(currentIndex * scrollStep)}px)`,
+            width: `${visibleTestimonials.length * 350}px`, // Total width of the visible area
+          }}
+        >
+          {visibleTestimonials.map((elem, index) => (
+            <div key={index} className='text-slate-700 min-w-[350px] md:min-w-[470px] group min-h-[221px] 
+              bg-lightGrey hover:bg-orange p-5 hover:text-white rounded-lg
+              flex flex-wrap justify-center sm:flex-nowrap items-start gap-4'>
+              <div className='min-w-[60px] h-[60px] border-[5px] group-hover:border-red-300 flex justify-center testimonial-img items-center rounded-full'>
+                <Image
+                  src={`${BASE_URL_IMAGE}${elem.profile_image}`}  
+                  width={54}
+                  height={54}
+                  className='rounded-full'
+                  alt={elem.author_name}
+                />
+              </div>
+              <div className=' text-center md:text-left'>
+                <p className='text-[16px]'>Name:&nbsp;&nbsp;
+                  <span className='font-semibold'>{elem.author_name}</span>
+                </p>
+                <p className='text-[16px]'>Course:&nbsp;&nbsp;
+                  <span className='font-semibold'>{elem.author_position}</span>
+                </p>
+                <p className=''>Rating:
+                  {/* Add your star rating logic here */}
+                </p>
+                <p className='text-[14px] mt-4'>{elem.feedback}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
       <div className='w-full flex justify-center gap-2 mt-4'>
         {Array.from({ length: totalSets }).map((_, index) => (
           <button
             key={index}
-            onClick={() => handleButtonClick(index)}
-            className={`w-4 h-4 rounded-full ${currentIndex === index ? 'bg-orange' : 'bg-orange/50'}`}
+            onClick={() => setCurrentIndex(index)}
+            className={`w-3 h-3 rounded-full ${currentIndex % totalSets === index ? 'bg-orange' : 'bg-orange/50'}`}
           ></button>
         ))}
       </div>

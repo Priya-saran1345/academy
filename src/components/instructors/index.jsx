@@ -1,52 +1,41 @@
+
 import Image from 'next/image'
-import React from 'react'
-
-const Instructors = () => {
-  return (
+import React, { useEffect, useState } from 'react'
+import { BASE_URL_IMAGE } from '@/utils/api'
+const Instructors = ({instructor=[]}) => {
+ console.log(instructor)
+ return (
   <>
-  <div className='flex gap-4 md:flex-row flex-col'> 
-  <div className='h-[437px] w-[389px] relative mt-44 group '>
-      <Image src={"/images/Frame 1116607721.svg"} className='absolute -top-1/4 left-1/4'  alt='' width={180} height={180}/>
-<div className='w-full h-[352px] bg-white group-hover:shadow-lg smooth1 rounded-lg flex flex-col pt-20 px-8 gap-2'>
-<h3><span className='font-bold'>Name:</span> John Doe</h3>
-<h3><span className='font-bold'>Expertise:</span> Senior Python Developer</h3>
-<h3>With over 10 years of experience in Python programming and a background in software development, John has taught thousands of students worldwide.</h3>
-<h3 className='font-bold'>Courses Taught: </h3>
-<div>
-<h3>1. Master Python Programming, </h3>
-<h3>2. Advanced Python Techniques</h3>
-</div>
-</div>
-    </div>
 
-    <div className='h-[437px] w-[389px] relative mt-44 group '>
-      <Image src={"/images/Frame 1116607721.svg"} className='absolute -top-1/4 left-1/4'  alt='' width={180} height={180}/>
-<div className='w-full h-[352px] bg-white group-hover:shadow-lg smooth1 rounded-lg flex flex-col pt-20 px-8 gap-2'>
-<h3><span className='font-bold'>Name:</span> John Doe</h3>
-<h3><span className='font-bold'>Expertise:</span> Senior Python Developer</h3>
-<h3>With over 10 years of experience in Python programming and a background in software development, John has taught thousands of students worldwide.</h3>
-<h3 className='font-bold'>Courses Taught: </h3>
-<div>
-<h3>1. Master Python Programming, </h3>
-<h3>2. Advanced Python Techniques</h3>
-</div>
-</div>
-    </div>
-
-
-    <div className='h-[437px] w-[389px] relative mt-44 group '>
-      <Image src={"/images/Frame 1116607721.svg"} className='absolute -top-1/4 left-1/4'  alt='' width={180} height={180}/>
-<div className='w-full h-[352px] bg-white group-hover:shadow-lg smooth1 rounded-lg flex flex-col pt-20 px-8 gap-2'>
-<h3><span className='font-bold'>Name:</span> John Doe</h3>
-<h3><span className='font-bold'>Expertise:</span> Senior Python Developer</h3>
-<h3>With over 10 years of experience in Python programming and a background in software development, John has taught thousands of students worldwide.</h3>
-<h3 className='font-bold'>Courses Taught: </h3>
-<div>
-<h3>1. Master Python Programming, </h3>
-<h3>2. Advanced Python Techniques</h3>
-</div>
-</div>
-    </div>
+  <div className='flex gap-4 w-[94%] justify-center mx-auto pb-8 xl:w-[77%] flex-wrap lg:flex-nowrap  2xl:flex-nowrap  '> 
+    {
+instructor.map((elem) => {
+ return(
+      <div key={elem.id} className='min-h-[437px] group w-[350px] mt-44  group'>
+        <div className='w-[170px] relative bg-black h-[170]px mx-auto flex justify-center items-center rounded-full'>
+        <Image         
+      src={`${BASE_URL_IMAGE}${elem.profile_image}`}  
+      className='group-hover:shadow-lg  shadow-red-400 rounded-full '  
+      alt='' 
+      width={180} 
+      height={180}
+      />
+      </div>
+        <div className='w-full min-h-[390px] -mt-[55px] bg-white  pb-5 group-hover:shadow-lg smooth1 rounded-lg flex justify-between flex-col pt-20 px-8 gap-2'>
+          <h3><span className='font-bold'>Name:</span> {elem.name}</h3>
+          <h3><span className='font-bold'>Expertise:</span> {elem.bio}</h3>
+          <h3 className='text-[16px]'>With over {elem.experience} years of experience in {elem.expertise} and a background in software development, {elem.name} has taught thousands of students worldwide.</h3>
+          <h3 className='font-bold'>Courses Taught: </h3>
+          <div className='pb-3'>
+            {elem.courses_taught.map((course, index) => (
+              <h3 key={index}>{index + 1}. {course}</h3>
+            ))}
+          </div>
+        </div>
+      </div>
+ )
+})
+}
 
   </div>
 

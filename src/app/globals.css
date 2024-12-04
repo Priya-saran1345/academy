@@ -1,16 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   --orange: #F24A25; 
+ --lightGrey:#F8F8F8;
+ --textGrey: #616161;
+ --lightOrange:  #F24A2540;
+ ;
+ 
+
 
 }
-
-
+.active{
+  background-color: var(--orange)!important;
+  color: white!important;
+}
 *{
   margin: 0;
   padding: 0;
@@ -21,7 +27,6 @@ body{
 }
 .smooth1{
 transition:  all 0.1s ease-in-out;
-
 }
 .smooth3{
 transition:  all 0.3s ease-in-out;
@@ -35,7 +40,6 @@ transition:  all 0.3s ease-in-out;
   position: relative;
   display: inline-block;
 }
-
 .underlineHover::after {
   content: '';
   position: absolute;
@@ -58,7 +62,6 @@ transition:  all 0.3s ease-in-out;
 .scrollbarHidden::-webkit-scrollbar {
   display: none; /* Hides scrollbar for WebKit browsers (Chrome, Safari) */
 }
-
 .scrollbarHidden {
   -ms-overflow-style: none; /* Hides scrollbar for Internet Explorer and Edge */
   scrollbar-width: none; /* Hides scrollbar for Firefox */
@@ -67,11 +70,11 @@ transition:  all 0.3s ease-in-out;
   transition: all 0.3s ease; /* Smooth transition for all properties */
 }
 
-
 .button-visible {
   opacity: 1;
   transform: scale(1); /* Scale up effect */
 }
+
 .testimonial-container {
   display: flex;
   transition: transform 0.5s ease-in-out;
@@ -100,75 +103,158 @@ transition:  all 0.3s ease-in-out;
 /* From Uiverse.io by AbanoubMagdy1 */ 
 .wave-group {
   position: relative;
+  width: 100%;
 }
 
 .wave-group .input {
-  font-size: 16px;
-  padding: 10px 10px 10px 5px;
+  font-size: 14px;
+  padding: 10px 10px;
   display: block;
-  width: 210%;
-  border: none;
-  border-bottom: 1px solid #515151;
+  width: 100%;
+  border: 1px solid grey;
+  border-radius: 5px;
+  /* border: none; */
+  /* border-bottom: 1px solid #515151; */
   background: transparent;
-
 }
-
 .wave-group .input:focus {
 background-color: transparent;
-  outline: none;
+outline: none;
 }
-
 .wave-group .label {
-  color: #999;
-  font-size: 18px;
+  padding:0px 0px ;
+  color: #474646;
+  font-size: 16px;
   font-weight: normal;
   position: absolute;
   pointer-events: none;
-  left: 5px;
-  top: 10px;
+  left: 1px;
+  top: -14px;
+  background-color: white;
   display: flex;
 }
 
-.wave-group .label-char {
-  transition: 0.2s ease all;
-  transition-delay: calc(var(--index) * .05s);
+
+.loader {
+  width: fit-content;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 30px;
+  background: radial-gradient(circle closest-side,#000 94%,#0000) right/calc(200% - 1em) 100%;
+  animation: l24 1s infinite alternate linear;
 }
 
-.wave-group .input:focus ~ label .label-char,
-.wave-group .input:valid ~ label .label-char {
-  transform: translateY(-20px);
-  font-size: 14px;
-  color: #999;
+.loader::before {
+  content: "Loading...";
+  line-height: 1em;
+  color: #0000;
+  background: inherit;
+  background-image: radial-gradient(circle closest-side,#fff 94%,#000);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
-.wave-group .bar {
-  position: relative;
-  display: block;
-  width: 210%;
+@keyframes l24 {
+  100% {
+    background-position: left
+  }
+}
+/* From Uiverse.io by javierBarroso */ 
+.social-login-icons {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  -webkit-box-reflect: below 5px linear-gradient(transparent, #00000055);
+}
+.social-login-icons svg {
+  width: 40px;
 }
 
-.wave-group .bar:before,.wave-group .bar:after {
-  content: '';
-  height: 2px;
-  width: 0;
-  bottom: 1px;
-  position: absolute;
-  background: #999;
-  transition: 0.2s ease all;
-  -moz-transition: 0.2s ease all;
-  -webkit-transition: 0.2s ease all;
+.social-icon-1,
+.social-icon-1-1,
+.social-icon-2,
+.social-icon-2-2,
+.social-icon-3,
+.social-icon-3-3,
+.social-icon-4,
+.social-icon-4-4 {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  margin: 20px 0 0px 0;
 }
 
-.wave-group .bar:before {
-  left: 50%;
+.icon svg {
+  fill: #111;
 }
 
-.wave-group .bar:after {
-  right: 50%;
+.socialcontainer {
+  height: 70px;
+  overflow: hidden;
+
+}
+.social-icon-1 {
+  transition-duration: 0.4s;
+  background-color: rgb(0, 0, 0);
+  transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
+}
+.social-icon-1 svg,
+.social-icon-2 svg,
+.social-icon-3 svg,
+.social-icon-4 svg {
+  opacity: 0;
+  transition-duration: 0.5s;
+  transition-delay: 0.2s;
+}
+.social-icon-1-1 {
+  transition-duration: 0.4s;
+  background-color: rgb(0, 0, 0, 0);
+}
+.socialcontainer:hover .social-icon-1 {
+  transform: translateY(-70px);
+}
+.socialcontainer:hover .social-icon-1 svg,
+.socialcontainer:hover .social-icon-2 svg,
+.socialcontainer:hover .social-icon-3 svg,
+.socialcontainer:hover .social-icon-4 svg {
+  opacity: 1;
+}
+.social-icon-2 {
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
+  background: linear-gradient(
+    72.44deg,
+    #ff7a00 11.92%,
+    #ff0169 51.56%,
+    #d300c5 85.69%
+  );
+}
+.socialcontainer:hover .social-icon-2 {
+  transform: translateY(-70px);
+}
+.social-icon-3 {
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
+  background: #316ff6;
 }
 
-.wave-group .input:focus ~ .bar:before,
-.wave-group .input:focus ~ .bar:after {
-  width: 50%;
+.socialcontainer:hover .social-icon-3 {
+  transform: translateY(-70px);
+}
+.social-icon-4 {
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
+
+  background: linear-gradient(
+    180deg,
+    rgba(129, 34, 144, 1) 0%,
+    rgba(77, 34, 124, 1) 91%
+  );
 }
 
+.socialcontainer:hover .social-icon-4 {
+  transform: translateY(-70px);
+}

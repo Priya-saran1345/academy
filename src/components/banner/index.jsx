@@ -1,7 +1,9 @@
+"use client"
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
-
+import Link from 'next/link';
+import {BASE_URL_IMAGE} from '@/utils/api'
 const people = [
     {
       id: 1,
@@ -35,41 +37,61 @@ const people = [
       image:
         "/images/Group 1000004307.svg",
     },
-
   ];
-
-  const Banner = () => {
+  const Banner = ({ props }) => {
+    const [str, setStr] = useState('');
+    const [lastFour, setLastFour] = useState('');
+    const [restOfString, setRestOfString] = useState('');
+    useEffect(() => {
+        const heading = localStorage.getItem('banner-heading');
+        setStr(heading);
+        setLastFour(heading?.slice(-4).trim());
+        setRestOfString(heading?.slice(0, -4).trim());
+    }, []); // Include props.heading in the dependency array
     return (
-      <div className='h-screen flex flex-col md:flex-row w-full bg-banner px-6 md:px-60'>
-        <div className='flex-1 flex flex-col justify-center gap-8'>
+      <div className='h-screen flex flex-col md:flex-row  bg-banner px-6 w-full  mx-auto xl:w-[77%]'>
+        <div className='flex-1 flex flex-col  md:mt-20 lg:mt-0  justify-center gap-8'>
           <div className='flex flex-col gap-4'>
-            <h1 className='text-4xl md:text-[68px] font-bold leading-tight'>
-              Master New Skills Anytime, Anywhere <span className='text-orange'>Studilyft</span>
+            <h1 className='text-4xl md:text-[68px] text-black font-bold leading-tight'>
+              <span>
+              {restOfString} 
+              </span>
+           <span className=' px-0 mx-0 text-orange'>{lastFour}</span>
             </h1>
             <p className='text-lg md:text-xl'>
-              You can read this text, but it doesn&apos;t matter. It&apos;s concept, not important for your life or life your friends.
+              {/* You can read this text, but it doesn&apos;t matter. It&apos;s concept, not important for your life or life your friends. */}
+              {
+              props?.short_description
+
+              }
             </p>
           </div>
-  
-          <div className='flex items-center justify-start'>
+           <Link href={`${props?.button_action}`}>
+           <div className='flex items-center justify-start'>
             <button className='bg-orange text-white text-center text-lg px-6 py-3 font-medium hover:bg-white border border-orange hover:border-orange hover:text-orange smooth1 rounded-full'>
-              Start Learning Today
+              {props?.button_text}
             </button>
           </div>
-  
+         </Link>
+          
           <div className='flex flex-col gap-1'>
             <div className="flex flex-row w-full">
               <AnimatedTooltip items={people} />
             </div>
-            <h3 className='font-medium text-gray-500 w-[250px] bg-[#F8F8F8] p-1 rounded-lg'>
+            <h3 className='font-medium text-gray-500 w-[250px] bg-lightGrey p-1 rounded-lg'>
               <span className='text-orange'>Students</span>, achieve their goals.
             </h3>
           </div>
         </div>
-  
-        <div className='md:flex flex-1 items-center justify-center hidden'>
-          <Image src={"/images/Group 1000004304.svg"} alt='banner' height={600} width={600} />
-        </div>
+       
+ <div className='md:flex flex-1 items-center justify-center hidden'>
+  {!props?.image&&
+    <div class="loader"></div>
+  }
+  {props?.image&&
+ <Image src={`${BASE_URL_IMAGE}${props?.image}`} alt='banner' height={600} width={600} />
+}
+</div>
       </div>
     );
   }
