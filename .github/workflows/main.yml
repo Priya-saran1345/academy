@@ -45,4 +45,4 @@ jobs:
           script: |
             cd ${{ secrets.SERVER_PATH }}
             source ~/.nvm/nvm.sh
-            pm2 restart next_w3era
+            pm2 restart next_studilyft
