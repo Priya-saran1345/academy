@@ -43,7 +43,6 @@ export default function Home() {
 
   return (
     <>
-      <Header />
       {
         !Apidata && <div className="min-h-[90vh] w-full flex justify-center items-center">
           <div className="loader"></div>
@@ -53,12 +52,13 @@ export default function Home() {
       {
         Apidata &&
         <div>
+          <Header />
 
           <Banner props={website_banner} />
 
           {/* Master the Most In-Demand */}
           <div className="center bg-lightGrey">
-            <div className="flex flex-col py-14 gap-10">
+            <div className="flex flex-col px-4 py-14 gap-10">
               <h3 className="text-black text-3xl md:text-4xl font-bold text-center">
                 Master the Most In-Demand <span className="text-orange">Skills</span> <br /> of Today&apos;s Job Market
               </h3>
@@ -176,7 +176,7 @@ export default function Home() {
           {/* ends */}
 
           {/* Meet Our Expert Instructors */}
-          <div className=" flex text-center flex-col gap-4 center bg-lightGrey pt-20">
+          <div className=" flex text-center flex-col gap-4 px-4 center bg-lightGrey pt-20">
             <h3 className="text-4xl font-bold">Meet Our <span className="text-orange">Expert Instructors</span>  </h3>
             <h3 className="text-sm text-gray-500 font-medium ">
               Learn from industry professionals who are passionate about sharing their knowledge and guiding you to success.
@@ -217,10 +217,10 @@ export default function Home() {
           {/* ends */}
           
           <FooterBanner />
+          <Footer />
         </div>
       }
 
-      <Footer />
     </>
   );
 }

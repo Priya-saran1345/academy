@@ -13,6 +13,7 @@
     "@nextui-org/system": "^2.2.6",
     "@nextui-org/theme": "^2.2.11",
     "axios": "^1.7.7",
+    "bootstrap": "^5.3.3",
     "chart.js": "^4.4.4",
     "clsx": "^2.1.1",
     "cookies-next": "^4.2.1",
@@ -27,6 +28,7 @@
     "react-slick": "^0.30.2",
     "react-use-downloader": "^1.2.8",
     "slick-carousel": "^1.8.1",
+    "swiper": "^11.1.14",
     "tailwind-merge": "^2.5.2"
   },
   "devDependencies": {

@@ -52,7 +52,7 @@ const people = [
       <div className='h-screen flex flex-col md:flex-row  bg-banner px-6 w-full  mx-auto xl:w-[77%]'>
         <div className='flex-1 flex flex-col  md:mt-20 lg:mt-0  justify-center gap-8'>
           <div className='flex flex-col gap-4'>
-            <h1 className='text-4xl md:text-[68px] text-black font-bold leading-tight'>
+            <h1 className='xl:text-[68px] md:text-[55px] text-[35px] text-black font-bold leading-tight'>
               <span>
               {restOfString} 
               </span>

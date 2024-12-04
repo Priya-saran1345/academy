@@ -5,9 +5,11 @@ import Header from '@/components/header'
 import { GoStarFill } from "react-icons/go";
 import { GoPlus } from "react-icons/go";
 import Image from 'next/image';
-import { BASE_URL } from '@/utils/api'
+import { BASE_URL, BASE_URL_IMAGE } from '@/utils/api'
 import axios from 'axios';
 import { useRouter } from "next/navigation"
+import { FaMinus } from "react-icons/fa6";
+
 import Footer from '@/components/footer';
 import FooterBanner from '@/components/footerBanner'
 import { LiaNewspaper } from "react-icons/lia";
@@ -20,6 +22,8 @@ const page = () => {
     const [error, setError] = useState();
     const pathname = usePathname()
     const id = pathname.split('/').pop();
+    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen1, setisOpen1] = useState(false)
     const fetchData = async () => {
         try {
             const response = await axios.get(`${BASE_URL}courses/${id}/`);
@@ -39,7 +43,16 @@ const page = () => {
             fetchData(); // Call fetchData when the component mounts
         }
     }, [id, router]);
-    console.log(ApiData)
+
+  
+    const toggleAccordion = () => {
+        setIsOpen(!isOpen);
+    };
+    const toggleAccordion1 = () => {
+        setisOpen1(!isOpen1);
+    };
+    console.log(`${BASE_URL_IMAGE}${ApiData?.instructor_name?.profile_image}`);
+
     return (
         ApiData && <div>
             <Header />
@@ -56,7 +69,7 @@ const page = () => {
                             <div className='flex  pb-5 gap-2 border-b-2 border-slate-300'>
                                 <button className='rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]'>Enroll now</button>
                                 <div>
-                                    <p className='text-[32px] font-bold'> <span className='text-orange'>$</span>{ApiData?.price}</p>
+                                    <p className='text-[32px] font-bold'> {ApiData?.price}<span className='text-[24px] text-orange'>Rs.</span></p>
                                 </div>
                             </div>
                             <p className='text-textGrey'><span className='text-orange'>{ApiData?.
@@ -119,7 +132,7 @@ const page = () => {
                                 <div>
                                     <p className='text-black text-[18px] font-bold mb-4'>Skills You’ll Master in This Course</p>
                                     <div className='flex justify-center gap-3 flex-wrap text-[16px]'>
-                                        {ApiData?.course_skills.map((elem: any) => (
+                                        {ApiData?.skills?.map((elem: any) => (
                                             <span key={elem} className='bg-lightGrey rounded-md p-1'>{elem}</span>
                                         ))}
                                     </div>
@@ -131,67 +144,104 @@ const page = () => {
                                     <div className='bg-white flex gap-3 text-textGrey p-4 rounded-lg'>
                                         <div className='size-[88px] bg-white  rounded-full'>
                                             <Image
-                                                src="/images/Frame 1116607704.svg"
-                                                height={88}
-                                                width={88}
-                                                alt='Course Image'
-                                                className='rounded-full' />
+                                                src={`${BASE_URL_IMAGE}${ApiData?.instructor_name?.profile_image}`} // Fallback to a default image if profile_image is not available
+                                                height={58}
+                                                width={58}
+                                                alt='Instructor Profile Image'
+                                                className='rounded-full object-cover' // Added object-cover to ensure the image fits well inside the rounded container
+                                            />
+
                                         </div>
                                         <div>
-                                            <p> <span className='text-black font-semibold mr-2'>Instructor&nbsp;:</span>{ApiData?.instructor_name}</p>
-                                            <p> <span className='text-black font-semibold mr-2'>Expertise&nbsp;:</span>Senior Python Developer</p>
-                                            <p className='text-[16px] '>"John Doe has over 10 years of experience as a Python developer and software engineer. He’s worked with top tech companies to build
-                                                scalable web applications and is passionate about teaching others.
-                                                His unique teaching style combines theory with hands-on practice, ensuring you can apply what you learn in real-world scenarios."</p>
+                                            <p> <span className='text-black font-semibold mr-2'>Instructor&nbsp;:</span>{ApiData?.instructor_name?.name}</p>
+                                            <p> <span className='text-black font-semibold mr-2'>Expertise&nbsp;:</span>{ApiData?.instructor_name?.expertise}</p>
+                                            <p className='text-[16px] '>"{ApiData?.instructor_name?.bio}"</p>
                                         </div>
                                     </div>
-                                    <div className='bg-white flex gap-3 py-3 px-10 mt-3 rounded-lg justify-between'>
+                                    <div
+                                        className='bg-white flex gap-3 py-3 px-10 mt-3 rounded-lg justify-between cursor-pointer'
+                                        onClick={toggleAccordion} // Toggle accordion on click
+                                    >
                                         <p className='text-[18px] font-medium text-black'>Instructor Expertise</p>
-                                        <GoPlus className='text-orange text-[20px]' />
+                                        {isOpen ? (
+                                            <FaMinus
+                                                className='text-orange text-[20px]' /> // Minus icon when open
+                                        ) : (
+                                            <GoPlus className='text-orange text-[20px]' /> // Plus icon when closed
+                                        )}
                                     </div>
-                                    <div className='bg-white flex gap-3 py-3 px-10 mt-3 rounded-lg justify-between'>
+                                    {isOpen && (
+                                        <div className='p-5 bg-gray-100 rounded-lg mt-2'>
+                                            <p className='text-[16px] text-black'>
+                                            <span className='font-medium'>Expertise &nbsp;:</span> {ApiData?.instructor_name?.expertise}
+                                                <p className='text-[17px] font-medium'>course Teaches:</p>
+                                                <ul className='list-disc ml-7'>
+                                                    {
+                                                        ApiData?.instructor_name?.courses_taught.map((elem:any)=>(
+                                                             <li className='text-[15px]'>{elem}</li>
+                                                        ))
+                                                    }
+                                                </ul>
+                                            </p>
+                                        </div>
+                                    )}
+                                    <div className='bg-white flex gap-3 py-3 px-10 mt-3 rounded-lg justify-between'  onClick={toggleAccordion1}>
                                         <p className='text-[18px] font-medium text-black'>Instructor Achievements</p>
-                                        <GoPlus className='text-orange text-[20px]' />
+                                        {isOpen1 ? (
+                                            <FaMinus
+                                                className='text-orange text-[20px]' /> // Minus icon when open
+                                        ) : (
+                                            <GoPlus className='text-orange text-[20px]' /> // Plus icon when closed
+                                        )}
+                                        {/* <GoPlus className='text-orange text-[20px]' /> */}
                                     </div>
+                                    {isOpen1 && (
+                                    <div className='p-5 bg-gray-100 rounded-lg mt-2'>
+                                            <p className='text-[16px] text-black'>
+                                            <span className='font-medium capitalize'>achievements &nbsp;:</span> {ApiData?.instructor_name?.achievements}
+                                            </p>
+                                            <span className='font-medium capitalize'>experience &nbsp;:</span> {ApiData?.instructor_name?.experience}
+
+                                        </div>)}
                                 </div>
                             </div>
                             <div>
-                            <div className='flex gap-2 mt-6  items-center'>
-                                <div className='size-[13px] rounded-full bg-orange'></div>
-                                <p className='text-[24px]'>Details to know</p>
-                            </div>
-                            <div className='flex mt-6 justify-between'>
-                                <div className='flex  gap-4'>
-                                <TbCertificate 
-                                className='text-[40px] text-orange' />
-                                <div>
-                                    <p className='text-[18px] font-medium'>Shareable certificate</p>
-                                    <p className='text-textGrey mt-2'>Add to your LinkedIn profile</p>
+                                <div className='flex gap-2 mt-6  items-center'>
+                                    <div className='size-[13px] rounded-full bg-orange'></div>
+                                    <p className='text-[24px]'>Details to know</p>
                                 </div>
+                                <div className='flex mt-6 justify-between'>
+                                    <div className='flex  gap-4'>
+                                        <TbCertificate
+                                            className='text-[40px] text-orange' />
+                                        <div>
+                                            <p className='text-[18px] font-medium'>Shareable certificate</p>
+                                            <p className='text-textGrey mt-2'>Add to your LinkedIn profile</p>
+                                        </div>
+
+                                    </div>
+                                    <div className='flex  gap-4'>
+                                        <MdOutlineAddchart
+                                            className='text-[40px] text-orange' />
+                                        <div>
+                                            <p className='text-[18px] font-medium'>Recently updated!</p>
+                                            <p className='text-textGrey mt-2'>Add to your LinkedIn profile</p>
+                                        </div>
+
+                                    </div>
+                                    <div className='flex  gap-4'>
+                                        <LiaNewspaper
+
+
+                                            className='text-[40px] text-orange' />
+                                        <div>
+                                            <p className='text-[18px] font-medium'>Assessments</p>
+                                            <p className='text-textGrey mt-2'>Add to your LinkedIn profile</p>
+                                        </div>
+
+                                    </div>
 
                                 </div>
-                                <div className='flex  gap-4'>
-                                <MdOutlineAddchart 
-                                className='text-[40px] text-orange' />
-                                <div>
-                                    <p className='text-[18px] font-medium'>Recently updated!</p>
-                                    <p className='text-textGrey mt-2'>Add to your LinkedIn profile</p>
-                                </div>
-
-                                </div>
-                                <div className='flex  gap-4'>
-                                <LiaNewspaper
-
-
-                                className='text-[40px] text-orange' />
-                                <div>
-                                    <p className='text-[18px] font-medium'>Assessments</p>
-                                    <p className='text-textGrey mt-2'>Add to your LinkedIn profile</p>
-                                </div>
-
-                                </div>
-
-                            </div>
                             </div>
 
 

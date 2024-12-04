@@ -1,26 +1,45 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { useapi } from '@/helpers/apiContext';
 import CourseCard from "@/components/coursecard"
+import Cookies from 'js-cookie';
+import { BASE_URL } from '@/utils/api';
+import axios from 'axios';
+
 const MyCourses = () => {
-  const { dashboard } = useapi();
   const [allvalue, setAllValue] = useState(true);
   const [filterValue, setFilterValue] = useState('');
-  const [apiData, setApiData] = useState({ purchased_courses: [] });
+  const [apiData, setApiData] = useState();
   const [finalData, setFinalData] = useState([]);
 
   
-  useEffect(() => {
-setApiData(dashboard)
-  }, [dashboard]);
+const fetch = async () => { // dashboard api==========================================
+  try {
+      const token = Cookies.get('login_access_token');
+      if (!token) {
+          console.error('No token found');
+          return;
+      }
+      const response = await axios.get(`${BASE_URL}purchased-courses/`, {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+      });
+    setApiData  (response.data); 
+  } catch (error) {
+      console.log("my courses error", error.message);
+  }
+};
 
+useEffect(() => {
+  fetch();
+}, []);
 
   useEffect(() => {
-    if (apiData.purchased_courses.length > 0) {
+    if (apiData?.length> 0) {
       if (allvalue) {
-        setFinalData(apiData.purchased_courses);
+        setFinalData(apiData);
       } else {
-        const filteredData = apiData.purchased_courses.filter((course) =>
+        const filteredData = apiData?.filter((course) =>
           course?.completion_status.toLowerCase().includes(filterValue.toLowerCase())
         );
         setFinalData(filteredData);
@@ -29,7 +48,7 @@ setApiData(dashboard)
       setFinalData([]);
     }
   }, [allvalue, filterValue, apiData]);
-
+console.log('purchased--------- data',apiData)
   return (
     <div>
     <div className='flex items-end  gap-3'>

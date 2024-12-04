@@ -6,7 +6,6 @@ interface DashboardContextType {
   profileState: string;
   setProfileState: React.Dispatch<React.SetStateAction<string>>;
 }
-
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
 export const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
   const [profileState, setProfileState] = useState<string>('dashboard');

@@ -104,7 +104,21 @@ const data2 = [
     ],
   };
   return (
-    <div>
+
+
+<>
+
+
+
+    {
+      !Apidata && <div className="min-h-[90vh] w-full flex justify-center items-center">
+        <div className="loader"></div>
+      </div>
+
+    }
+    {
+      Apidata&&
+      <div>
       <div className='w-full flex gap-8 rounded-sm px-6 py-5 '>
         <div className='flex flex-col gap-3'>
           <div>
@@ -202,7 +216,9 @@ const data2 = [
         </div>
       </div>
     </div>
-
+    }
+   
+    </>
 
   )
 }

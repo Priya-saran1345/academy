@@ -11,8 +11,58 @@ import toast from 'react-hot-toast';
 import { json } from 'stream/consumers';
 
 const Support = () => {
-  const [data, setdata] = useState({name:'',email:'',subject:'',message:"",phone_number:""})
-  const submitdata = async () => {
+  const [data, setData] = useState({ name: '', email: '', subject: '', message: '', phone_number: '' });
+  const [errors, setErrors] = useState({ name: '', email: '', subject: '', message: '', phone_number: '' });
+
+  // Regex for email and phone validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^[0-9]{10}$/; // Adjust according to your requirements
+
+  const validateForm = () => {
+    let formErrors = { name: '', email: '', subject: '', message: '', phone_number: '' };
+    let isValid = true;
+
+    // Check if each field is empty
+    if (!data.name) {
+      formErrors.name = 'Full name is required.';
+      isValid = false;
+    }
+
+    if (!data.email) {
+      formErrors.email = 'Email is required.';
+      isValid = false;
+    } else if (!emailRegex.test(data.email)) {
+      formErrors.email = 'Enter a valid email address.';
+      isValid = false;
+    }
+
+    if (!data.subject) {
+      formErrors.subject = 'Subject is required.';
+      isValid = false;
+    }
+
+    if (!data.phone_number) {
+      formErrors.phone_number = 'Phone number is required.';
+      isValid = false;
+    } else if (!phoneRegex.test(data.phone_number)) {
+      formErrors.phone_number = 'Enter a valid phone number (10 digits).';
+      isValid = false;
+    }
+
+    if (!data.message) {
+      formErrors.message = 'Message is required.';
+      isValid = false;
+    }
+
+    setErrors(formErrors);
+    return isValid;
+  };
+
+  const submitData = async () => {
+    if (!validateForm()) {
+      return; // Stop the submission if validation fails
+    }
+
     try {
       const response = await axios.post(`${BASE_URL}contact/`, data, {
         headers: {
@@ -20,16 +70,18 @@ const Support = () => {
         },
       });
       toast.success('Message sent successfully');
+      setData({ name: '', email: '', subject: '', message: '', phone_number: '' }); // Clear the form
     } catch (error: any) {
       console.error('Error submitting data:', error);
       toast.error('Try again');
     }
   };
- const handlechange=(e:any)=>{
-   const dataTosent={...data ,[e.target.name]:e.target.value}
-  setdata(dataTosent)
- }
- console.log(data)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
   return (
     <div>
       <div className='flex justify-between
@@ -87,87 +139,84 @@ const Support = () => {
 
       </div>
       <div className='mt-10 w-1/2'>
-        <p className='text-[22px] font-semibold text-black'>Contact Us</p>
-        <div className='border-[1px] p-8 border-slate-200 flex justify-between gap-7 shadow-lg rounded-lg'>
-          <div className=' flex flex-wrap gap-6'>
-            <div className=''>
-              <label  className='text[17px] font-medium  text-black '>Full Name</label>
-              <br />
-              <input type="text" name='name' className='capitalize  text-textGrey mt-3 
-              w-full woutline-none border-[2px] px-8 py-3 border-slate-200 rounded-lg ' required placeholder='Enter your full name' onChange={handlechange} />
-            </div>
-            <div>
-              <label htmlFor="email" className='text[17px] font-medium text-black '>Email
-                Address
-              </label>
-              <br />
-              <input type="text" required name='email' className='capitalize mt-3 text-textGrey 
-              outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg '
-                placeholder='Enter your Email' onChange={handlechange}/>
-            </div>
-      
-            <div>
-              <div>
-                <label htmlFor="subject" className='text[17px] font-medium text-black '>Subject
-                </label>
-                <br />
-                <input type="text" name='subject' className='capitalize mt-3 text-textGrey outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg ' 
-                required placeholder='Enter your Subject'onChange={handlechange} />
+      <p className='text-[22px] font-semibold text-black'>Contact Us</p>
+      <div className='border-[1px] p-8 border-slate-200 flex justify-between gap-7 shadow-lg rounded-lg'>
+        <div className='flex flex-wrap gap-6'>
+          <div>
+            <label className='text-[17px] font-medium text-black'>Full Name</label>
+            <br />
+            <input
+              type="text"
+              name='name'
+              className='capitalize text-textGrey mt-3 w-full outline-none border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              required
+              placeholder='Enter your full name'
+              onChange={handleChange}
+            />
+            {errors.name && <p className='text-red-500 text-sm'>{errors.name}</p>}
+          </div>
 
-              </div>
+          <div>
+            <label htmlFor="email" className='text-[17px] font-medium text-black'>Email Address</label>
+            <br />
+            <input
+              type="text"
+              required
+              name='email'
+              className='capitalize mt-3 text-textGrey outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              placeholder='Enter your Email'
+              onChange={handleChange}
+            />
+            {errors.email && <p className='text-red-500 text-sm'>{errors.email}</p>}
+          </div>
 
-            </div>
-            <div>
-                <label className='text[17px] font-medium text-black '>Phone Number
-                </label>
-                <br />
-                <input type="phone" name='phone_number' className='capitalize mt-3 text-textGrey outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg ' 
-                required placeholder='Enter Your Phone no' onChange={handlechange} />
+          <div>
+            <label htmlFor="subject" className='text-[17px] font-medium text-black'>Subject</label>
+            <br />
+            <input
+              type="text"
+              name='subject'
+              className='capitalize mt-3 text-textGrey outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              required
+              placeholder='Enter your Subject'
+              onChange={handleChange}
+            />
+            {errors.subject && <p className='text-red-500 text-sm'>{errors.subject}</p>}
+          </div>
 
-              </div>
+          <div>
+            <label className='text-[17px] font-medium text-black'>Phone Number</label>
+            <br />
+            <input
+              type="text"
+              name='phone_number'
+              className='capitalize mt-3 text-textGrey outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              required
+              placeholder='Enter Your Phone no'
+              onChange={handleChange}
+            />
+            {errors.phone_number && <p className='text-red-500 text-sm'>{errors.phone_number}</p>}
+          </div>
 
-            <div className='w-[87%]'>
-              <label htmlFor="email" className='text[17px] font-medium text-black '>
-                Message
-              </label>
-              <br />
-              <textarea name='message' className='capitalize mt-3 text-textGrey w-full outline-none border-[2px] px-8 py-3 border-slate-200 rounded-lg ' required placeholder='Describe your
-          MessIssues or Questions' onChange={handlechange}/>
-            </div>
-            <button className='px-7 mt-4 py-3 rounded-md bg-orange text-white text-[18px] font-medium' onClick={submitdata}>
+          <div className='w-[87%]'>
+            <label htmlFor="message" className='text-[17px] font-medium text-black'>Message</label>
+            <br />
+            <textarea
+              name='message'
+              className='capitalize mt-3 text-textGrey w-full outline-none border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              required
+              placeholder='Describe your issues or questions'
+              onChange={handleChange}
+            />
+            {errors.message && <p className='text-red-500 text-sm'>{errors.message}</p>}
+          </div>
+
+          <button className='px-7 mt-4 py-3 rounded-md bg-orange text-white text-[18px] font-medium' onClick={submitData}>
             Submit Request
-            </button>
-          </div>
-        
-         
-             
-          
-            {/* <div className=''>
-              <label htmlFor="attachment" className='text-[17px] w-full font-medium text-black '>
-                Attachment (Optional)
-              </label>
-              <br />
-              <div className="custom-file-upload mt-3">
-                <label
-                  htmlFor="file-upload"
-                  className='cursor-pointer bg-white border-[2px] border-slate-200 text-gray-500 px-8 py-3 rounded-lg inline-block'
-                >
-                  <div className='flex text-textGrey items-center justify-between'>
-
-                    Attach file or screenshot <FiPaperclip className='text-orange ml-3 text-[18px]' />
-                  </div>
-                </label>
-                <input
-                  id="file-upload"
-                  type="file"
-                  className="hidden"
-                />
-              </div>
-              <p className='text-[13px] text-textGrey mt-2'>PNG, JPEG, PDF</p>
-            </div> */}
-          
-          </div>
+          </button>
         </div>
+      </div>
+    </div>
       </div>
   )
 }

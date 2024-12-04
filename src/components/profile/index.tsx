@@ -1,3 +1,4 @@
+"use client"
 import { BASE_URL } from '@/utils/api';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
@@ -11,7 +12,21 @@ import toast from 'react-hot-toast';
 const Profile = () => {
   const { profile, fetch } = useapi();
   const [apidata, setApiData] = useState<any>()
-  const [updateddata, setupdateddata] = useState({})
+  const [updateddata, setupdateddata] = useState({
+    username: '',
+    email: '',
+    address:  '',
+    alternate_phone:  '',
+    course_interested:  '',
+    date_of_birth: '',
+    extracurriculars:'',
+    first_name: '',
+    gender:  '',
+    goals:  '',
+    last_name:  '',
+    phone: '',
+    qualification: ''
+  })
 const [showupdate, setshowupdate] = useState(false)
  
   useEffect(() => { 
@@ -20,7 +35,6 @@ const [showupdate, setshowupdate] = useState(false)
 
   useEffect(() => {
     if (apidata) {
-     
       setupdateddata({
         username: apidata.username || '',
         email: apidata.email || '',
@@ -38,11 +52,11 @@ const [showupdate, setshowupdate] = useState(false)
       });
     }
   }, [apidata]);
-const changevalue=(event:any)=>{
+const changeValue=(event:any)=>{
 const newdata={...updateddata ,[event.target.name]:event.target.value}
 setupdateddata(newdata)
 }
-const submitdata=async()=>{
+const submitData=async()=>{
   try {
     const token = Cookies.get('login_access_token');
     if (!token) {
@@ -205,140 +219,166 @@ const submitdata=async()=>{
       {/* //editable form is here */}
       {
           showupdate&&
-      <div className='w-full backdrop-blur-lg h-full flex justify-center items-center absolute top-0 left-0'>
- 
-          <div className='w-[75%] p-8 gap-5 border-[1px] flex flex-wrap border-slate-200 relative shadow-xl rounded-lg bg-white '>
-          <div className='absolute right-3 top-3 ' onClick={()=>{
-          setshowupdate(false)
-        }}><RxCross1 className='text-[22px]' />
-          </div>
-          
-        <div className=''>
-                <label htmlFor="name" className='text[17px] mb-3 font-medium text-black  uppercase'>First Name
-                </label>
-                <br />
-                <input
-                  type="text"
-                  value={apidata?.first_name ?? ''}
-                  name='first_name'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                  placeholder='Enter Your Name'
-                  onChange={changevalue} /> 
-        </div>
-        <div className=''>
-                <label htmlFor="name" className='text[17px] mb-3 font-medium text-black  uppercase'>Last Name
-                </label>
-                <br />
-                <input
-                  type="text"
-                  name='last_name'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                  placeholder='Enter Your Name'
-                  onChange={changevalue} /> 
-        </div>
-              <div className=''>
-                <label htmlFor="phone" className='text[17px] mb-3 font-medium text-black  uppercase'>phone
-                </label>
-                <br />
-                <input
+          <div className='w-full backdrop-blur-lg h-full flex justify-center items-center absolute top-0 left-0'>
+          <div className='w-[75%] p-8 gap-5 border-[1px] flex flex-wrap border-slate-200 relative shadow-xl rounded-lg bg-white'>
+            <div className='absolute right-3 top-3' onClick={() => setshowupdate(false)}>
+              <RxCross1 className='text-[22px]' />
+            </div>
+    
+            {/** Form Fields **/}
+            <div>
+              <label htmlFor="first_name" className='text[17px] mb-3 font-medium text-black uppercase'>First Name</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.first_name}
+                name='first_name'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter Your Name'
+                onChange={changeValue}
+              />
+            </div>
+    
+            <div>
+              <label htmlFor="last_name" className='text[17px] mb-3 font-medium text-black uppercase'>Last Name</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.last_name}
+                name='last_name'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter Your Name'
+                onChange={changeValue}
+              />
+            </div>
+    
+            <div>
+              <label htmlFor="phone" className='text[17px] mb-3 font-medium text-black uppercase'>Phone</label>
+              <br />
+              <input
+                type="number"
+                value={updateddata.phone}
                 name='phone'
-                  type="number"
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                  placeholder='Enter Your phone no'
-                  onChange={changevalue}/> 
-              </div>
-              <div className=''>
-                <label htmlFor="phone" className='text[17px] mb-3 font-medium text-black  uppercase'>alternate_phone
-                </label>
-                <br />
-                <input
-                  type="number"
-                  name='alternate_phone'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                  placeholder='Enter alternate phone no'
-                  onChange={changevalue}/> 
-              </div>
-              <div className=''>
-                <label htmlFor="phone" className='text[17px] mb-3 font-medium text-black  uppercase'>qualification
-                </label>
-                <br />
-                <input
-                  type="text"
-                  name='qualification'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                  placeholder='Enter Qualification'
-                  onChange={changevalue}/> 
-              </div>
-              <div className=''>
-                <label htmlFor="phone" className='text[17px] mb-3 font-medium text-black uppercase'>gender
-                </label>
-                <br />
-                <input
-                  type="text"
-                  name='gender'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                  placeholder='Enter Gender'
-                  onChange={changevalue}/> 
-              </div>
-              <div className=''>
-                <label htmlFor="" className='text[17px] mb-3 font-medium text-black  uppercase'>course interested
-                </label>
-                <br />
-                <input
-                  type="text"
-                  name='course_interested'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                  placeholder='Enter Entersted Course'
-                  onChange={changevalue}/> 
-              </div>
-              <div className=''>
-                <label htmlFor="" className='text[17px] mb-3 font-medium text-black  uppercase'>date of birth
-                </label>
-                <br />
-                <input
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter Your phone no'
+                onChange={changeValue}
+              />
+            </div>
+    
+            <div>
+              <label htmlFor="alternate_phone" className='text[17px] mb-3 font-medium text-black uppercase'>Alternate Phone</label>
+              <br />
+              <input
+                type="number"
+                value={updateddata.alternate_phone}
+                name='alternate_phone'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter alternate phone no'
+                onChange={changeValue}
+              />
+            </div>
+    
+            <div>
+              <label htmlFor="qualification" className='text[17px] mb-3 font-medium text-black uppercase'>Qualification</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.qualification}
+                name='qualification'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter Qualification'
+                onChange={changeValue}
+              />
+            </div>
+    
+            <div>
+              <label htmlFor="gender" className='text[17px] mb-3 font-medium text-black uppercase'>Gender</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.gender}
+                name='gender'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter Gender'
+                onChange={changeValue}
+              />
+            </div>
+    
+            <div>
+              <label htmlFor="course_interested" className='text[17px] mb-3 font-medium text-black uppercase'>Course Interested</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.course_interested}
+                name='course_interested'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter Interested Course'
+                onChange={changeValue}
+              />
+            </div>
+    
+            <div>
+              <label htmlFor="date_of_birth" className='text[17px] mb-3 font-medium text-black uppercase'>Date of Birth</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.date_of_birth}
                 name='date_of_birth'
-                  type="text"
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                  placeholder='yyyy-mm-dd'
-                  onChange={changevalue}/> 
-              </div>
-              <div className=''>
-                <label htmlFor="" className='text[17px] mb-3 font-medium text-black  uppercase'>Goals</label>
-                <br />
-                <input
-                  type="text"
-                  name='goals'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                  placeholder='Enter Goals '
-                  onChange={changevalue}/> 
-              </div>
-              <div className=''>
-                <label htmlFor="" className='text[17px] mb-3 font-medium text-black  uppercase'>extracurriculars</label>
-                <br />
-                <input
-                  type="text"
-                  name='extracurriculars'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                  placeholder='Enter Extracurriculars '
-                  onChange={changevalue}/> 
-              </div>
-              <div className=''>
-                <label htmlFor="" className='text[17px] mb-3 font-medium text-black  uppercase'>address</label>
-                <br />
-                <input
-                  type="text"
-                  name='address'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                  placeholder='Enter Extracurriculars '
-                  onChange={changevalue}/> 
-              </div>
-              <div className='w-full ' onClick={submitdata}>
-                <button className="bg-orange text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px] font-semibold hover:text-orange duration-150">Submit </button>
-              </div>
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='yyyy-mm-dd'
+                onChange={changeValue}
+              />
+            </div>
+    
+            <div>
+              <label htmlFor="goals" className='text[17px] mb-3 font-medium text-black uppercase'>Goals</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.goals}
+                name='goals'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter Goals'
+                onChange={changeValue}
+              />
+            </div>
+    
+            <div>
+              <label htmlFor="extracurriculars" className='text[17px] mb-3 font-medium text-black uppercase'>Extracurriculars</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.extracurriculars}
+                name='extracurriculars'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter Extracurriculars'
+                onChange={changeValue}
+              />
+            </div>
+    
+            <div>
+              <label htmlFor="address" className='text[17px] mb-3 font-medium text-black uppercase'>Address</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.address}
+                name='address'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter Address'
+                onChange={changeValue}
+              />
+            </div>
+    
+            <div className='w-full'>
+              <button
+                onClick={submitData}
+                className="bg-orange text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px] font-semibold hover:text-orange duration-150"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
         </div>
-  
-     
-      </div>
         }
 
     </div>

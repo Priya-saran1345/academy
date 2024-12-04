@@ -11,15 +11,15 @@ interface DashboardData {
 
 interface ApiContextType {
     dashboard: any;
-    profile:any// Change to your actual data type
-    fetch:any// Change to your actual data type
+    profile: any// Change to your actual data type
+    fetch: any// Change to your actual data type
 }
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
 
 export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     const [dashboard, setDashboard] = useState<any>(null);
-    const [error, setError] = useState<string | null>(null); // State for error handling
+    // const [error, setError] = useState<string | null>(null); // State for error handling
     const [profile, setprofile] = useState<any>()
     const fetch = async () => {
         // dashboard api==========================================
@@ -27,7 +27,7 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
             const token = Cookies.get('login_access_token');
 
             if (!token) {
-                setError('No token found'); // Update error state
+                // setError('No token found'); // Update error state
                 console.error('No token found');
                 return;
             }
@@ -38,34 +38,31 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
             });
             setDashboard(response.data); // Update state with fetched data
         } catch (error: any) {
-            setError(error.message); // Update error state with the error message
+            // Update error state with the error message
             console.log("dashboard error", error.message);
         }
-// profile api==========================================================
+        // profile api==========================================================
 
-try {
-    const token = Cookies.get('login_access_token');
+        try {
+            const token = Cookies.get('login_access_token');
 
-    if (!token) {
-        setError('No token found'); // Update error state
-        console.error('No token found');
-        return;
-    }
-    const response = await axios.get(`${BASE_URL}profile/`, {
+            if (!token) {
+                console.error('No token found');
+                return;
+            }
+            const response = await axios.get(`${BASE_URL}profile/`, {
 
-              headers: {
-                Authorization: `Bearer ${token}`
-              }
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             });
-            
-    setprofile(response.data); // Update state with fetched data
-} catch (error: any) {
-    setError(error.message); // Update error state with the error message
-    console.log("profile error", error.message);
-}
 
+            setprofile(response.data); // Update state with fetched data
+        } catch (error: any) {
+            // Update error state with the error message
+            console.log("profile error", error.message);
+        }
 
-      
     };
 
     useEffect(() => {
@@ -73,9 +70,9 @@ try {
     }, []);
 
     return (
-        <ApiContext.Provider value={{ dashboard,profile,fetch }}>
+        <ApiContext.Provider value={{ dashboard, profile, fetch }}>
             {children}
-            {error && <div>{error}</div>} {/* Display error message if any */}
+           {/* Display error message if any */}
         </ApiContext.Provider>
     );
 };

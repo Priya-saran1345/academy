@@ -7,5 +7,4 @@ const DashboardCourseCard = ({props}:any) => {
     </div>
   )
 }
-
 export default DashboardCourseCard

@@ -7,27 +7,40 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { BASE_URL, BASE_URL_IMAGE } from '@/utils/api';
 import useDownloader  from "react-use-downloader";
-import { useapi } from '@/helpers/apiContext';
-
-interface Certificate {
-  course_name: string;
-  issue_date: string;
-  instructor_name: string;
-  certificate_image: string;
-}
 
 const Certificates: React.FC = () => {
-  const { dashboard } = useapi();
   const { download } = useDownloader(); // Use the downloader hook
-  const [apidata, setApidata] = useState<Certificate[] | null>(null);
+  const [apidata, setApidata] = useState< any>(null);
   const [error, setError] = useState<string | null>(null);
   const [showCertificate, setShowCertificate] = useState(false);
   const [selectedCertificate, setSelectedCertificate] = useState<string | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setApidata(dashboard?.certificates);
-  }, [dashboard]);
+
+  const fetch = async () => {
+    try {
+        const token = Cookies.get('login_access_token');
+
+        if (!token) {
+            // setError('No token found'); // Update error state
+            console.error('No token found');
+            return;
+        }
+        const response = await axios.get(`${BASE_URL}certificates/`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        setApidata(response.data); // Update state with fetched data
+    } catch (error: any) {
+        // setError(error.message); // Update error state with the error message
+        console.log("dashboard error", error.message);
+    }
+
+};
+useEffect(() => {
+    fetch();
+}, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -57,11 +70,12 @@ const Certificates: React.FC = () => {
     return <div>Loading...</div>;
   }
 
+  console.log(apidata)
   return (
     <div className='w-full relative'>
       <p className='text-[22px] font-semibold'>Certificates</p>
       <div className='flex flex-wrap justify-start gap-5 mt-8'>
-        {apidata.map((elem, index) => (
+        {apidata.map((elem:any, index:number) => (
           <div key={index}>
             <div className='border-[1px] h-[217px] w-[493px] gap-3 rounded-lg border-slate-200 shadow-xl p-3 flex'>
               <div>
@@ -107,8 +121,9 @@ const Certificates: React.FC = () => {
               </div>
             </div>
             {showCertificate && selectedCertificate && (
+              // bg-black/20
               <div
-                className='flex items-center justify-center absolute top-0 left-0 right-0 w-full h-[87vh] bg-black/20'
+                className='flex items-center justify-center absolute top-0 left-0 right-0 w-full h-[87vh] '
               >
                 <div ref={modalRef}>
                   <Image
