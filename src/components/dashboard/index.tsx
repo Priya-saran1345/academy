@@ -9,7 +9,7 @@ import { useapi } from '@/helpers/apiContext';
 const Dashboard = () => {
   const { dashboard } = useapi();
   
-  ChartJS.register(ArcElement, Tooltip, Legend);
+  ChartJS.register(ArcElement, Tooltip, Legend  );
   const [Apidata, setApidata] = useState<any>()
   const [purchased_courses, setpurchased_courses] = useState<any>()
   let purchasedCoursesLength = purchased_courses?.length ?? 0;
@@ -17,7 +17,7 @@ const Dashboard = () => {
   let gainercertificate=Apidata?.certificates?.length??0;
   useEffect(() => {
     setApidata(dashboard)
-    setpurchased_courses(dashboard?.purchased_courses)
+    setpurchased_courses(dashboard?.purchased_courses)  
   }, [dashboard]);
 
   //data for pi chart
@@ -86,7 +86,6 @@ const data2 = [
       },
     ],
   };
-  //data for bar chart
 
   const data1 = {
     labels: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'], // Days of the week
@@ -107,8 +106,6 @@ const data2 = [
 
 
 <>
-
-
 
     {
       !Apidata && <div className="min-h-[90vh] w-full flex justify-center items-center">
@@ -193,7 +190,6 @@ const data2 = [
             })
           }
         
-         
         </div>
       </div>
       {/* last cards */}

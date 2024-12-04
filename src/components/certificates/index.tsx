@@ -127,7 +127,7 @@ useEffect(() => {
               >
                 <div ref={modalRef}>
                   <Image
-                    src={`${BASE_URL_IMAGE}${selectedCertificate}`}
+                    src={selectedCertificate}
                     alt='Certificate'
                     height={800}
                     width={800}

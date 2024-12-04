@@ -15,16 +15,14 @@ const Dashboardpage = () => {
       <div className='flex px-4 pt-7 bg-[#F7F7F7]'>
         <div className='w-[15%]'>
          <DashboardSidebar />
-        </div>
+         </div>
             <div className='w-[85%]'>
             <DashboardHeader />
             <div className='w-full min-h-[88vh] bg-white rounded-sm px-8 py-5 '>
-
             <Dashboard/>  
             </div>        
               </div>
       </div>
-
     </>
   )
 }
