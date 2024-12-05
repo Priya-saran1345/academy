@@ -109,7 +109,7 @@ useEffect(() => {
                     className='bg-orange text-white w-[50px] flex justify-center items-center text-[20px] rounded-md h-[36px] cursor-pointer'
                     onClick={() =>
                       downloadCertificate(
-                        `https://academy.w3era.com/media/certificates/priyanshu_saran_full_stack_web_development_certificate.jpg`,
+                        `${elem.certificate_image}`,
                         `${elem.course_name}-certificate.jpg` 
                       )
                     }
@@ -120,7 +120,6 @@ useEffect(() => {
               </div>
             </div>
             {showCertificate && selectedCertificate && (
-              // bg-black/20
               <div
                 className='flex items-center justify-center absolute top-0 left-0 right-0 w-full h-[87vh] '
               >

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { Chart, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Chart, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, BarController } from 'chart.js';
 
 const BarChart = () => {
   useEffect(() => {
-    // Register the required components
-    Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+    // Register the required components, including BarController
+    Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, BarController);
 
     // Chart configuration
     const config = {
-      type: "bar",
+      type: "bar",  // Make sure 'bar' is the type used
       data: {
         labels: [
           "Mon",
@@ -17,7 +17,6 @@ const BarChart = () => {
           "Thur",
           "Fri",
           "Sat",
-          
         ],
         datasets: [
           {
@@ -66,7 +65,6 @@ const BarChart = () => {
             grid: {
               borderDash: [2],
               borderDashOffset: [2],
-              // color: "#F24A25",
               zeroLineColor: "#EFEFEF",
               zeroLineBorderDash: [2],
               zeroLineBorderDashOffset: [2],
@@ -80,7 +78,6 @@ const BarChart = () => {
               borderDashOffset: [2],
               color: "#EFEFEF",
               zeroLineColor: "#EFEFEF",
-
               zeroLineBorderDash: [2],
               zeroLineBorderDashOffset: [2],
             },
@@ -102,12 +99,10 @@ const BarChart = () => {
     <div className="relative flex flex-col min-w-0 break-words h-full bg-white w-full mb-6 shadow-lg rounded">
       <div className="rounded-t mb-0 px-4 h-full py-8 bg-transparent">
         <div className="flex flex-wrap items-center">
-          <div className="relative w-full max-w-full flex-grow flex-1">
-            
-          </div>
+          <div className="relative w-full max-w-full flex-grow flex-1"></div>
         </div>
       </div>
-      <div className="p-4  flex-auto">
+      <div className="p-4 flex-auto">
         {/* Chart */}
         <div className="relative h-full">
           <canvas id="bar-chart"></canvas>
