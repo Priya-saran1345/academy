@@ -12,7 +12,8 @@ const MyCourses = () => {
   const [finalData, setFinalData] = useState([]);
 
   
-const fetch = async () => { // dashboard api==========================================
+const fetch = async () => { 
+ 
   try {
       const token = Cookies.get('login_access_token');
       if (!token) {
@@ -91,17 +92,15 @@ console.log('purchased--------- data',apiData)
 
   <button
     className={`h-11  px-7 text-[18px] font-medium rounded-full
-      ${!allvalue && filterValue === 'not_started' ? 'bg-orange text-white' : 'bg-[#F24A2533] text-orange hover:bg-orange hover:text-white'}`}
+      ${!allvalue && filterValue === 'Not Started' ? 'bg-orange text-white' : 'bg-[#F24A2533] text-orange hover:bg-orange hover:text-white'}`}
     onClick={() => {
       setAllValue(false);
-      setFilterValue('not_started');
+      setFilterValue('Not Started');
     }}
   >
     Not Started
   </button>
 </div>
-
-
       <div className='flex gap-8 mt-8 flex-wrap'>
         {finalData.length > 0 ? (
           finalData.map((course) => (
@@ -109,7 +108,7 @@ console.log('purchased--------- data',apiData)
             <CourseCard slug={course.slug||''} name={course.course_name} description={course.short_description} level={course.completion_status} 
              category={course.instructor_name|| ''} id={course.id} text={"Start"} />
 
-           
+          
             </>
           ))
         ) : (

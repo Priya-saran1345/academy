@@ -69,7 +69,6 @@ useEffect(() => {
   if (!apidata) {
     return <div>Loading...</div>;
   }
-
   console.log(apidata)
   return (
     <div className='w-full relative'>
@@ -110,7 +109,7 @@ useEffect(() => {
                     className='bg-orange text-white w-[50px] flex justify-center items-center text-[20px] rounded-md h-[36px] cursor-pointer'
                     onClick={() =>
                       downloadCertificate(
-                        `${BASE_URL_IMAGE}${elem.certificate_image}`,
+                        `https://academy.w3era.com/media/certificates/priyanshu_saran_full_stack_web_development_certificate.jpg`,
                         `${elem.course_name}-certificate.jpg` 
                       )
                     }

@@ -53,7 +53,6 @@ export default function Home() {
         Apidata &&
         <div>
           <Header />
-
           <Banner props={website_banner} />
 
           {/* Master the Most In-Demand */}
