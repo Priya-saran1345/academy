@@ -38,7 +38,6 @@ const handleLogin = async (e) => {
     });
     // Log the response
     console.log("Login response:", response.data);
-
     Cookies.set('login_access_token', response.data.access, {
       expires: 1/24, // valid for 1 day
       path: '/',
@@ -46,7 +45,7 @@ const handleLogin = async (e) => {
       sameSite: 'Strict',
     });
     Cookies.set('login_refresh_token', response.data.refresh, {
-      expires: 7, // valid for 7 days
+      expires: 1, // valid for 1 days
       path: '/',
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'Strict',

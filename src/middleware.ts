@@ -5,8 +5,15 @@ export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
     const protectedPaths = [
         '/dashboard',
-    ];
+        '/dashboard/certificate',
+        '/dashboard/mycourses',
+        '/dashboard/allcourses',
+        '/dashboard/profile',
+        '/dashboard/support',
+        '/dashboard/updates',
+        '/enroll'   
 
+    ];
     const authPaths = ['/login', '/signup'];
     const token = request.cookies.get('login_access_token');
 console.log(token)
@@ -17,7 +24,6 @@ console.log(token)
     if (authPaths.includes(path) && token) {
         return NextResponse.redirect(new URL('/dashboard', request.nextUrl));
     }
-
     return NextResponse.next();
 }
 export const config = {
@@ -27,6 +33,14 @@ export const config = {
         '/login',
         '/signup',
         '/profile',
+        '/dashboard/mycourses',
+        '/dashboard/allcourses',
+        '/dashboard/certificate',
+        '/dashboard/profile',
+        '/dashboard/support',
+       '/dashboard/updates',
+       '/enroll'   
+
 
     ]
 };

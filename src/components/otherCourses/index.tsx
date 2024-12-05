@@ -8,12 +8,13 @@ import CourseCard from '@/components/coursecard';
 import axios from 'axios';
 import { BASE_URL } from '@/utils/api';
 import { IoMdSearch } from "react-icons/io";
-
 const OtherCourses = () => {
   const [allcourse, setAllCourse] = useState<Record<string, any[]>>({});
   const sliderRefs = useRef<{ [key: string]: React.RefObject<Slider> }>({}); // Define the sliderRefs as RefObjects
   const [searched, setsearched] = useState<any[]>([]);
-  
+
+
+
   const settings = {
     infinite: true,
     speed: 300,
@@ -74,17 +75,17 @@ const OtherCourses = () => {
 
   const handleselect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = event.target.value.toLowerCase().trim();
-  
+
     if (!searchValue) {
       setsearched([]);
       return;
     }
-  
+
     let selectedData: any[] = [];
-  
+
     Object.keys(allcourse).forEach((category: string) => {
       const items = allcourse[category];
-  
+
       const filteredItems = items.filter((elem: any) => {
         return (
           elem?.category.toLowerCase().includes(searchValue) ||
@@ -92,15 +93,12 @@ const OtherCourses = () => {
           elem?.short_description.toLowerCase().includes(searchValue)
         );
       });
-  
       selectedData = [...selectedData, ...filteredItems];
     });
-  
     setsearched(selectedData);
   };
-
   return (
-    <div className='w-full'>
+    <div className='w-full relative'>
       <div className='flex justify-between mb-5'>
         <p className='text-[22px] text-black font-semibold mb-5 border-orange border-b-2 w-fit'>
           Courses For You
@@ -122,7 +120,8 @@ const OtherCourses = () => {
             key={course.id}
             slug={course.slug}
             name={course.name}
-            text={'Enroll'}
+            text={'View'}
+            text1={'Enroll'}
             description={course.short_description}
             level={course.course_level}
             category={course.category || ''}
@@ -166,6 +165,7 @@ const OtherCourses = () => {
                     name={course.name}
                     text={'View'}
                     text1={'Enroll'}
+                    link={'enroll'}
                     description={course.short_description}
                     level={course.course_level}
                     category={course.category || ''}
@@ -177,7 +177,6 @@ const OtherCourses = () => {
           </div>
         );
       })}
-
 
     </div>
   );

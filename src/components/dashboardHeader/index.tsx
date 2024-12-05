@@ -8,22 +8,22 @@ import { CgProfile } from "react-icons/cg";
 import { RxDashboard } from "react-icons/rx";
 import { MdSupportAgent } from "react-icons/md";
 import { BsBoxArrowRight } from "react-icons/bs";
-import {useDashboard} from '@/helpers/dashboardContext';
+import { useDashboard } from '@/helpers/dashboardContext';
 import { useapi } from '@/helpers/apiContext';
 
-const DashboardHeader = ({props}:any) => {
+const DashboardHeader = ({ props }: any) => {
   const { profile } = useapi();
   const { setProfileState } = useDashboard();
   const router = useRouter();
   const [showLogout, setShowLogout] = useState(false);
   const [ApiData, setApiData] = useState<any>(); // Use a more standard naming convention
 
-  
+
   useEffect(() => {
     setApiData(profile)
-     // Call fetchData when the component mounts
+    // Call fetchData when the component mounts
   }, [profile]);
-  console.log("dashboard data",profile)
+  console.log("dashboard data", profile)
 
   const logout = () => {
     // Delete cookies using js-cookie
@@ -44,8 +44,10 @@ const DashboardHeader = ({props}:any) => {
         <div className='flex gap-6 items-center'>
           <IoIosNotifications className='text-orange text-[35px]' />
           <div className='flex gap-2 items-center'>
-            <div className='size-[50px] rounded-full bg-orange border-4 border-red-200 text-[27px] center text-white capitalize'>{ApiData?.username[0]}</div>
-            <div>
+            <div className='size-[50px] rounded-full bg-orange border-4 border-red-200 text-[27px] center text-white capitalize'>
+              {ApiData?.username[0]}
+            </div>
+            <div onClick={() => router.push('/dashboard/profile')} className='cursor-pointer'>
               <p className='text-[16px] font-semibold'>{ApiData?.username}</p>
               <p className='text-[14px] font-medium text-[#616161]'>{ApiData?.email}</p>
             </div>
@@ -54,28 +56,28 @@ const DashboardHeader = ({props}:any) => {
                 className='text-orange text-[35px]'
                 onMouseEnter={() => setShowLogout(true)}
               />
-              {showLogout && 
+              {showLogout &&
                 <div className='bg-white z-50 shadow-lg border-[2px] rounded-md right-4 flex flex-col justify-start gap-1 items-start font-medium text-[17px]
                  absolute text-slate-600  px-7 py-3 top-24 logout-div'  onMouseLeave={() => setShowLogout(false)}>
-                  <div className='flex hover:text-orange cursor-pointer justify-center items-center gap-3' onClick={()=> router.push('/dashboard/profile')}>
-                  <CgProfile />
+                  <div className='flex hover:text-orange cursor-pointer justify-center items-center gap-3' onClick={() => router.push('/dashboard/profile')}>
+                    <CgProfile />
                     Profile
                   </div>
-                  <div className='flex hover:text-orange cursor-pointer justify-center items-center gap-3' onClick={()=>router.push('/dashboard/mycourses')
-}>
-                  <RxDashboard />
-                   My Purchases
+                  <div className='flex hover:text-orange cursor-pointer justify-center items-center gap-3' onClick={() => router.push('/dashboard/mycourses')
+                  }>
+                    <RxDashboard />
+                    My Purchases
                   </div>
-                  <div className='flex hover:text-orange cursor-pointer justify-center items-center gap-3' onClick={()=>router.push('/dashboard/support')
-}>
-                  <MdSupportAgent className='text-[24px]' />
-                  Support
+                  <div className='flex hover:text-orange cursor-pointer justify-center items-center gap-3' onClick={() => router.push('/dashboard/support')
+                  }>
+                    <MdSupportAgent className='text-[24px]' />
+                    Support
                   </div>
-                   <div onClick={logout} className='flex cursor-pointer hover:text-orange justify-center items-center gap-3'>
-                   <BsBoxArrowRight />
-                  Log out
+                  <div onClick={logout} className='flex cursor-pointer hover:text-orange justify-center items-center gap-3'>
+                    <BsBoxArrowRight />
+                    Log out
                   </div>
-                </div> 
+                </div>
               }
             </div>
           </div>

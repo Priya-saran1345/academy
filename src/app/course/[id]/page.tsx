@@ -9,7 +9,7 @@ import { BASE_URL, BASE_URL_IMAGE } from '@/utils/api'
 import axios from 'axios';
 import { useRouter } from "next/navigation"
 import { FaMinus } from "react-icons/fa6";
-
+import Link from 'next/link'
 import Footer from '@/components/footer';
 import FooterBanner from '@/components/footerBanner'
 import { LiaNewspaper } from "react-icons/lia";
@@ -67,7 +67,9 @@ const page = () => {
                             <p className='text-[38px] font-bold text-black leading-tight'>{ApiData?.name}</p>
                             <p className='text-textGrey text-[14px] mb-7'>{ApiData?.short_description}</p>
                             <div className='flex  pb-5 gap-2 border-b-2 border-slate-300'>
+                            <Link href={`/enroll`}>
                                 <button className='rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]'>Enroll now</button>
+                                </Link>
                                 <div>
                                     <p className='text-[32px] font-bold'> {ApiData?.price}<span className='text-[24px] text-orange'>Rs.</span></p>
                                 </div>

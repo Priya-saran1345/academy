@@ -12,15 +12,17 @@ interface DashboardData {
 interface ApiContextType {
     dashboard: any;
     profile: any// Change to your actual data type
-    fetch: any// Change to your actual data type
+    fetch: any
+    enroll:any
+    setenroll: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
 
 export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     const [dashboard, setDashboard] = useState<any>(null);
-    // const [error, setError] = useState<string | null>(null); // State for error handling
     const [profile, setprofile] = useState<any>()
+    const [enroll, setenroll] = useState<any>()
     const fetch = async () => {
         // dashboard api==========================================
         try {
@@ -65,12 +67,13 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
 
     };
 
+
     useEffect(() => {
         fetch();
     }, []);
 
     return (
-        <ApiContext.Provider value={{ dashboard, profile, fetch }}>
+        <ApiContext.Provider value={{ dashboard, profile, fetch , enroll ,setenroll  }}>
             {children}
            {/* Display error message if any */}
         </ApiContext.Provider>

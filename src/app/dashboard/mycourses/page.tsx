@@ -13,7 +13,6 @@ const mycourse = () => {
         <div className='w-[85%]'>
         <DashboardHeader />
         <div className='w-full min-h-[88vh] bg-white rounded-sm px-8 py-5 '>
-
         <MyCourses />
         </div>
         </div>
