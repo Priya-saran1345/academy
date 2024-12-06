@@ -6,18 +6,24 @@ import React from 'react'
 
 const support = () => {
   return (
-    <div className='flex px-4 pt-7 bg-[#F7F7F7]'>
-        <div className='w-[15%]'>
-         <DashboardSidebar />
-        </div>
-            <div className='w-[85%]'>
-            <DashboardHeader />
-            <div className='w-full min-h-[88vh] bg-white rounded-sm px-8 py-5 '>
+    <div className="flex w-full min-h-screen bg-[#F7F7F7]">
+    {/* Sidebar */}
+    <div className="w-fit">
+      <DashboardSidebar />
+    </div>
 
-            <Support />
-            </div>
-            </div>
+    {/* Main Content */}
+    <div className="flex-1 flex flex-col">
+      {/* Header */}
+      {/* <DashboardHeader /> */}
+
+      {/* Profile Section */}
+      <div className="flex-1 min-h-[88vh] bg-white rounded-sm px-4 py-5">
+           <Support />
       </div>
+    </div>
+  </div>
+  
   )
 }
 

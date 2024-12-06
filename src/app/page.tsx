@@ -47,7 +47,6 @@ export default function Home() {
         !Apidata && <div className="min-h-[90vh] w-full flex justify-center items-center">
           <div className="loader"></div>
         </div>
-
       }
       {
         Apidata &&

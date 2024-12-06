@@ -49,7 +49,6 @@ useEffect(() => {
       setFinalData([]);
     }
   }, [allvalue, filterValue, apiData]);
-console.log('purchased--------- data',apiData)
   return (
     <div>
     <div className='flex items-end  gap-3'>

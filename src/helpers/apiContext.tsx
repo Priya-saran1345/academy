@@ -13,8 +13,8 @@ interface ApiContextType {
     dashboard: any;
     profile: any// Change to your actual data type
     fetch: any
-    enroll:any
-    setenroll: React.Dispatch<React.SetStateAction<any>>;
+    discount:any
+    setdiscount: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
@@ -22,7 +22,7 @@ const ApiContext = createContext<ApiContextType | undefined>(undefined);
 export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     const [dashboard, setDashboard] = useState<any>(null);
     const [profile, setprofile] = useState<any>()
-    const [enroll, setenroll] = useState<any>()
+    const [discount, setdiscount] = useState<any>(0)
     const fetch = async () => {
         // dashboard api==========================================
         try {
@@ -73,7 +73,7 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     return (
-        <ApiContext.Provider value={{ dashboard, profile, fetch , enroll ,setenroll  }}>
+        <ApiContext.Provider value={{ dashboard, profile, fetch , discount , setdiscount  }}>
             {children}
            {/* Display error message if any */}
         </ApiContext.Provider>

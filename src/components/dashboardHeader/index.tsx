@@ -36,7 +36,7 @@ const DashboardHeader = ({ props }: any) => {
 
   console.log()
   return (
-    <div className='px-5 py-3  w-full bg-[#F7F7F7]'>
+    <div className='px-5 py-3 pt-4  w-full bg-[#F7F7F7]'>
       <div className='flex justify-between w-full items-center'>
         <div className='font-medium text-[17px] text-textGrey'>
           <p>Welcome back, <span className='text-orange capitalize underline mx-1'>{ApiData?.first_name}&nbsp;{ApiData?.last_name}</span>! Let's continue learning.</p>

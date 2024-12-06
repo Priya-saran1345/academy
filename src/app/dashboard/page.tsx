@@ -12,13 +12,13 @@ const Dashboardpage = () => {
  
   return (
     <>
-      <div className='flex px-4 pt-7 bg-[#F7F7F7]'>
-        <div className='w-[15%]'>
+      <div className='flex  bg-[#F7F7F7]'>
+        <div className='flex-1'>
          <DashboardSidebar />
          </div>
             <div className='w-[85%]'>
             <DashboardHeader />
-            <div className='w-full min-h-[88vh] bg-white rounded-sm px-8 py-5 '>
+            <div className='w-full flex-1 min-h-[88vh] bg-white rounded-sm px-8 py-5 '>
             <Dashboard/>  
             </div>        
               </div>

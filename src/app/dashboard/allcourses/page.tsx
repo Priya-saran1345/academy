@@ -6,7 +6,7 @@ import React from 'react'
 
 const allcourse = () => {
   return (
-    <div className='flex px-4 pt-7 bg-[#F7F7F7]'>
+    <div className='flex  bg-[#F7F7F7]'>
         <div className='w-[15%]'>
          <DashboardSidebar />
         </div>

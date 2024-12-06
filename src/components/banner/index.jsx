@@ -38,6 +38,7 @@ const people = [
         "/images/Group 1000004307.svg",
     },
   ];
+  
   const Banner = ({ props }) => {
     const [str, setStr] = useState('');
     const [lastFour, setLastFour] = useState('');
@@ -49,10 +50,10 @@ const people = [
         setRestOfString(heading?.slice(0, -4).trim());
     }, []); // Include props.heading in the dependency array
     return (
-      <div className='h-screen flex flex-col md:flex-row  bg-banner px-6 w-full  mx-auto xl:w-[77%]'>
-        <div className='flex-1 flex flex-col  md:mt-20 lg:mt-0  justify-center gap-8'>
+      <div className=' h-fit md:min-h-[850px] flex flex-col md:flex-row  bg-banner px-6 w-full  mx-auto xl:w-[77%]'>
+        <div className='flex-1 flex flex-col my-24 md:my-20 lg:my-0  justify-center gap-8'>
           <div className='flex flex-col gap-4'>
-            <h1 className='xl:text-[68px] md:text-[55px] text-[35px] text-black font-bold leading-tight'>
+            <h1 className='2xl:text-[68px] xl:text-[55px] text-[35px] text-black font-bold leading-tight'>
               <span>
               {restOfString} 
               </span>

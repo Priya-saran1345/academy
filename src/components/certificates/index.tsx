@@ -76,7 +76,7 @@ useEffect(() => {
       <div className='flex flex-wrap justify-start gap-5 mt-8'>
         {apidata.map((elem:any, index:number) => (
           <div key={index}>
-            <div className='border-[1px] h-[217px] w-[493px] gap-3 rounded-lg border-slate-200 shadow-xl p-3 flex'>
+            <div className='border-[1px] h-[217px] w-full md:min-w-[45%] xl:min-w-[30%]  gap-3 rounded-lg border-slate-200 shadow-xl p-3 flex'>
               <div>
                 <Image
                   src="/images/certificate.png"

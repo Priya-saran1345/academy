@@ -84,9 +84,9 @@ const Support = () => {
 
   return (
     <div>
-      <div className='flex justify-between
+      <div className='flex flex-col lg:flex-row justify-between
       '>
-        <div className='w-[55%]'>
+        <div className='lg:w-[55%]'>
           <p className='fonnt-bold text-[22px] text-black'>Common Issues & Fixes</p>
           <div className='rounded-lg shadow-lg mt-5 border-[1px] border-slate-200 p-8'>
             <ol className='list-decimal'>
@@ -106,7 +106,7 @@ const Support = () => {
 
           </div>
         </div>
-        <div className='w-[40%]'>
+        <div className='lg:w-[40%]'>
           <p className='fonnt-bold text-[22px] text-black'>Common Issues & Fixes</p>
           <div className='rounded-lg shadow-lg mt-5 border-[1px] border-slate-200 p-8'>
 
@@ -138,7 +138,7 @@ const Support = () => {
         </div>
 
       </div>
-      <div className='mt-10 w-1/2'>
+      <div className='mt-10 lg:w-1/2'>
       <p className='text-[22px] font-semibold text-black'>Contact Us</p>
       <div className='border-[1px] p-8 border-slate-200 flex justify-between gap-7 shadow-lg rounded-lg'>
         <div className='flex flex-wrap gap-6'>

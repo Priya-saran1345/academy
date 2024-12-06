@@ -54,7 +54,7 @@ const DashboardSidebar = () => {
   };
 
   return (
-    <div className='relative min-w-[245px] bg-[#F7F7F7] px-2 min-h-[97vh]'>
+    <div className='relative min-w-[245px] pt-4 max-w-[245px] pr-5 bg-[#F7F7F7] px-2 min-h-[97vh]'>
       <div className='p-5'>
         <Link href="/">
           <Image src="/images/Browk Shop.svg" alt="logo" width={130} height={100} />

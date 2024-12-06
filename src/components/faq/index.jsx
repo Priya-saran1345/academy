@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import { GoPlus } from 'react-icons/go';
+import { motion } from "framer-motion";
 
 const Faq = ({faqs=[]}) => {
   const [openIndex, setOpenIndex] = useState(0); // Set the first question as open
@@ -33,10 +34,16 @@ const Faq = ({faqs=[]}) => {
         )}
       </div>
       {openIndex === index && (
-        <div className="mt-4 text-gray-600 ml-12 md:ml-36">
-          <p>{question.description}</p>
-        </div>
-      )}
+    <motion.div
+      initial={{ height: 0, opacity: 0 }}
+      animate={{ height: "auto", opacity: 1 }}
+      exit={{ height: 0, opacity: 0 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="mt-4 text-gray-600 ml-12 md:ml-36 overflow-hidden"
+    >
+      <p>{question.description}</p>
+    </motion.div>
+)}
     </div>
   ))}
 </div>

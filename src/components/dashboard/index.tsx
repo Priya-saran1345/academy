@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [purchased_courses, setpurchased_courses] = useState<any>()
   let purchasedCoursesLength = purchased_courses?.length ?? 0;
   let completedCourses = Apidata?.user_stats?.completed ?? 0;
-  let gainercertificate=Apidata?.certificates?.length??0;
+  let gainercertificate=Apidata?.user_stats?.completed ?? 0;
   useEffect(() => {
     setApidata(dashboard)
     setpurchased_courses(dashboard?.purchased_courses)  
@@ -122,7 +122,7 @@ const data2 = [
             <p className='text-[22px] font-medium text-black'>Progress Overview</p>
           </div>
 
-          <div className='flex gap-2'>
+          <div className='flex  gap-2'>
             <div className='shadow-lg border-slate-200 py-3 border-[1px] rounded-lg flex flex-col gap-6  h-[331px] w-[271px]'>
               <p className='font-semibold text-center text-black'>Course Completed</p>
               <Doughnut data={finalData} options={options} className='rotate-[224deg] w-[70%] mx-auto' />
@@ -140,7 +140,7 @@ const data2 = [
             <div className='shadow-lg border-slate-200 py-3 border-[1px] rounded-lg flex flex-col gap-6  h-[331px] w-[271px]'>
               <p className='font-semibold text-center text-black'>Certificate Gained</p>
               <Doughnut data={finalData2} options={options} className='rotate-[224deg] w-[70%] mx-auto' />
-              <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.certificates?.length??0}/{purchased_courses?.length ?? 0}</p>
+              <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats.completed}/{purchased_courses?.length ?? 0}</p>
               <p className='text-center  font-semibold'>Goal: {purchased_courses?.length ?? 0} </p>
               <p className='text-textGrey text-center'>Almost there! Keep going!</p>
             </div>
@@ -193,7 +193,7 @@ const data2 = [
         </div>
       </div>
       {/* last cards */}
-      <div className='flex mt-8 justify-between pl-7'>
+      <div className='flex flex-wrap  mt-8 justify-between pl-7'>
         <div className='bg-white min-h-[91px] gap-3 min-w-[311px] flex justify-center items-center rounded-3xl shadow-lg border-[1px] border-slate-200'>
           <p className='text-orange text-[48px] font-medium'>{Apidata?.user_stats.enroll_project}</p>
           <p className='text-[20px] font-medium'>Enrolled Courses</p>

@@ -6,17 +6,24 @@ import React from 'react'
 
 const certificate = () => {
   return (
-    <div className='flex px-4 pt-7 bg-[#F7F7F7]'>
-    <div className='w-[15%]'>
-     <DashboardSidebar />
+    <div className="flex w-full min-h-screen bg-[#F7F7F7]">
+    {/* Sidebar */}
+    <div className="w-fit">
+      <DashboardSidebar />
     </div>
-        <div className='w-[85%]'>
-        <DashboardHeader />
-        <div className='w-full min-h-[88vh] bg-white rounded-sm px-8 py-5 '>
-        <Certificates/>
-        </div>
-        </div>
+
+    {/* Main Content */}
+    <div className="flex-1 flex flex-col">
+      {/* Header */}
+      <DashboardHeader />
+
+      {/* Profile Section */}
+      <div className="flex-1 min-h-[88vh] bg-white rounded-sm px-8 py-5">
+      <Certificates/>
+      </div>
+    </div>
   </div>
+  
   )
 }
 

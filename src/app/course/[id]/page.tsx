@@ -67,7 +67,7 @@ const page = () => {
                             <p className='text-[38px] font-bold text-black leading-tight'>{ApiData?.name}</p>
                             <p className='text-textGrey text-[14px] mb-7'>{ApiData?.short_description}</p>
                             <div className='flex  pb-5 gap-2 border-b-2 border-slate-300'>
-                            <Link href={`/enroll`}>
+                            <Link href={`/enroll/${id}`}>
                                 <button className='rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]'>Enroll now</button>
                                 </Link>
                                 <div>
