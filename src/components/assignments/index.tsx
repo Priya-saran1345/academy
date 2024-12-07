@@ -84,10 +84,10 @@ const Support = () => {
 
   return (
     <div>
-      <div className='flex flex-col lg:flex-row justify-between
+      <div className='flex flex-col gap-5 lg:gap-0 lg:flex-row justify-between
       '>
         <div className='lg:w-[55%]'>
-          <p className='fonnt-bold text-[22px] text-black'>Common Issues & Fixes</p>
+          <p className='font-semibold text-[22px]  text-black'>Common Issues & Fixes</p>
           <div className='rounded-lg shadow-lg mt-5 border-[1px] border-slate-200 p-8'>
             <ol className='list-decimal'>
               <li className=' py-3  border-b-[1px] border-slate-200'>
@@ -107,7 +107,7 @@ const Support = () => {
           </div>
         </div>
         <div className='lg:w-[40%]'>
-          <p className='fonnt-bold text-[22px] text-black'>Common Issues & Fixes</p>
+          <p className='font-semibold text-[22px] text-black'>Common Issues & Fixes</p>
           <div className='rounded-lg shadow-lg mt-5 border-[1px] border-slate-200 p-8'>
 
             <div className='flex gap-3 text-medium items-center'>

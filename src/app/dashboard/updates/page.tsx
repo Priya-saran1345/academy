@@ -6,18 +6,32 @@ import React from 'react'
 
 const updates = () => {
   return (
-    <div className='flex px-4 pt-7 bg-[#F7F7F7]'>
-        <div className='w-[15%]'>
-         <DashboardSidebar />
-        </div>
-            <div className='w-[85%]'>
-            <DashboardHeader />
-            <div className='w-full min-h-[88vh] bg-white rounded-sm px-8 py-5 '>
+    <div className=' min-h-screen bg-[#F7F7F7]'>
+    <DashboardHeader />
+    <div className='w-full flex '>
 
-            <Updates />  
-            </div>
-           </div>
+      <div className='w-fit'>
+        <DashboardSidebar />
       </div>
+      <div className='flex-1 '>
+        <div className='w-full min-h-[88vh] bg-white  rounded-sm px-8 py-5 '>
+        <Updates />
+        </div>
+      </div>
+    </div>
+  </div>
+
+    // <div className='flex min-h-screen bg-[#F7F7F7]'>
+    //     <div className='w-fit'>
+    //      <DashboardSidebar />
+    //     </div>
+    //         <div className='flex-1'>
+    //         <DashboardHeader />
+    //         <div className='w-full min-h-[88vh] bg-white rounded-sm px-8 py-5 '>
+    //         <Updates />  
+    //         </div>
+    //        </div>
+    //   </div>
   )
 }
 

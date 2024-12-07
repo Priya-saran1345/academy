@@ -34,7 +34,6 @@ const fetch = async () => {
 useEffect(() => {
   fetch();
 }, []);
-
   useEffect(() => {
     if (apiData?.length> 0) {
       if (allvalue) {
@@ -51,7 +50,7 @@ useEffect(() => {
   }, [allvalue, filterValue, apiData]);
   return (
     <div>
-    <div className='flex items-end  gap-3'>
+    <div className='flex flex-wrap items-end  gap-3'>
   <div className='h-12 flex justify-center items-center'>
     <p className='text-[22px] font-semibold '>My Courses:</p>
   </div>

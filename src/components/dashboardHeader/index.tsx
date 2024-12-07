@@ -10,7 +10,8 @@ import { MdSupportAgent } from "react-icons/md";
 import { BsBoxArrowRight } from "react-icons/bs";
 import { useDashboard } from '@/helpers/dashboardContext';
 import { useapi } from '@/helpers/apiContext';
-
+import Link from 'next/link'
+import Image  from 'next/image';
 const DashboardHeader = ({ props }: any) => {
   const { profile } = useapi();
   const { setProfileState } = useDashboard();
@@ -38,8 +39,17 @@ const DashboardHeader = ({ props }: any) => {
   return (
     <div className='px-5 py-3 pt-4  w-full bg-[#F7F7F7]'>
       <div className='flex justify-between w-full items-center'>
-        <div className='font-medium text-[17px] text-textGrey'>
+        <div className='flex gap-3 items-center lg:gap-10 xl:gap-20'>
+
+    
+      <div className='px-3'>
+        <Link href="/">
+          <Image src="/images/Browk Shop.svg" alt="logo" width={130} height={100} />
+        </Link>
+      </div>
+        <div className='hidden md:flex font-medium text-[17px] text-textGrey'>
           <p>Welcome back, <span className='text-orange capitalize underline mx-1'>{ApiData?.first_name}&nbsp;{ApiData?.last_name}</span>! Let's continue learning.</p>
+        </div>
         </div>
         <div className='flex gap-6 items-center'>
           <IoIosNotifications className='text-orange text-[35px]' />

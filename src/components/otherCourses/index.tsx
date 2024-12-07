@@ -172,7 +172,7 @@ const OtherCourses = () => {
                     name={course.name}
                     text={"View"}
                     text1={"Enroll"}
-                    link={`enroll/${course.slug}`}
+                    link={`enroll`}
                     description={course.short_description}
                     level={course.course_level}
                     category={course.category || ""}

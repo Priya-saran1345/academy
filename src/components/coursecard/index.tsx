@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaCode, FaRegCircleCheck } from 'react-icons/fa6'
 import { MdOutlineBookmarkAdd } from 'react-icons/md'
 import Image from 'next/image'
@@ -14,7 +14,16 @@ const truncateText = (text: any, charLimit: number) => {
 }
 const Card = ({slug, name, description, level, category, id, text ,text1 ,link}: any) => {
     const [showform, setshowform] = useState<any>(false)
+    const { setcourseid}=useapi()
+   
     const Router = useRouter();
+
+
+const setnavigate=()=>{
+    setcourseid(slug)
+    Router.push(`/${link}`)
+}
+
     return (
         // <div className=' bg-black'>
         <div 
@@ -47,11 +56,12 @@ const Card = ({slug, name, description, level, category, id, text ,text1 ,link}:
             </Link>
             {
              text1&&
-                <button className='hover:bg-orange bg-[#F24A2533] hover:text-white border text-orange center px-4 py-2 rounded-lg w-32 mt-5 smooth1'           
+                <button className='hover:bg-orange bg-[#F24A2533] hover:text-white border text-orange center px-4 py-2 rounded-lg w-32 mt-5 smooth1'  
+                onClick={setnavigate}         
                 >
-             <Link href={`/${link}`}>
+             {/* <Link href={`/${link}`}> */}
                     {text1}
-             </Link>
+             {/* </Link> */}
                 </button>
             }
             </div>
