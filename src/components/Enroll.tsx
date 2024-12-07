@@ -165,7 +165,12 @@ const Profile = () => {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_signature: response.razorpay_signature,
               course_id: updateddata.course_id,
-            });
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+          });
 
             alert("Payment successful! You are enrolled in the course.");
           } catch (err) {

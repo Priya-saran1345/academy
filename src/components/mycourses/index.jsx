@@ -50,13 +50,13 @@ useEffect(() => {
   }, [allvalue, filterValue, apiData]);
   return (
     <div>
-    <div className='flex flex-wrap items-end  gap-3'>
+    <div className='flex flex-wrap bg-blue-600 justify-center lg:justify-start items-end  gap-3'>
   <div className='h-12 flex justify-center items-center'>
     <p className='text-[22px] font-semibold '>My Courses:</p>
   </div>
 
   <button
-    className={`h-11   px-7 text-[18px] font-medium rounded-full
+    className={`h-11  px-4 lg:px-7 text-[15px] lg:text-[18px] font-medium rounded-full
       ${allvalue ? 'bg-orange text-white' : 'bg-[#F24A2533] text-orange hover:bg-orange hover:text-white'}`}
     onClick={() => {
       setAllValue(true);
@@ -67,7 +67,7 @@ useEffect(() => {
   </button>
 
   <button
-    className={`h-11  px-7 text-[18px] font-medium rounded-full
+    className={`h-11 px-4 lg:px-7 text-[15px] lg:text-[18px] font-medium rounded-full
       ${!allvalue && filterValue === 'completed' ? 'bg-orange text-white' : 'bg-[#F24A2533] text-orange hover:bg-orange hover:text-white'}`}
     onClick={() => {
       setAllValue(false);
@@ -78,7 +78,7 @@ useEffect(() => {
   </button>
 
   <button
-    className={`h-11  px-7 text-[18px] font-medium rounded-full
+    className={`h-11 px-4 lg:px-7 text-[15px] lg:text-[18px] font-medium rounded-full
       ${!allvalue && filterValue === 'In Progress' ? 'bg-orange text-white' : 'bg-[#F24A2533] text-orange hover:bg-orange hover:text-white'}`}
     onClick={() => {
       setAllValue(false);
@@ -89,7 +89,7 @@ useEffect(() => {
   </button>
 
   <button
-    className={`h-11  px-7 text-[18px] font-medium rounded-full
+    className={`h-11 px-4 lg:px-7 text-[15px] lg:text-[18px] font-medium rounded-full
       ${!allvalue && filterValue === 'Not Started' ? 'bg-orange text-white' : 'bg-[#F24A2533] text-orange hover:bg-orange hover:text-white'}`}
     onClick={() => {
       setAllValue(false);
