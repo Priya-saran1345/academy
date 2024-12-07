@@ -50,7 +50,7 @@ useEffect(() => {
   }, [allvalue, filterValue, apiData]);
   return (
     <div>
-    <div className='flex flex-wrap bg-blue-600 justify-center lg:justify-start items-end  gap-3'>
+    <div className='flex flex-wrap  justify-center lg:justify-start items-end  gap-3'>
   <div className='h-12 flex justify-center items-center'>
     <p className='text-[22px] font-semibold '>My Courses:</p>
   </div>
