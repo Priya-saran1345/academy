@@ -140,7 +140,7 @@ const Support = () => {
       </div>
       <div className='mt-10 lg:w-1/2'>
       <p className='text-[22px] font-semibold text-black'>Contact Us</p>
-      <div className='border-[1px] p-8 border-slate-200 flex justify-between gap-7 shadow-lg rounded-lg'>
+      <div className='border-[1px] px-4 lg:px-8 py-8 border-slate-200 flex justify-between gap-7 shadow-lg rounded-lg'>
         <div className='flex flex-wrap gap-6'>
           <div>
             <label className='text-[17px] font-medium text-black'>Full Name</label>

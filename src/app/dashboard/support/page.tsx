@@ -16,7 +16,7 @@ const support = () => {
     <DashboardSidebar />
   </div>
   <div className='flex-1 '>
-    <div className='w-full min-h-[88vh] bg-white  rounded-sm px-8 py-5 '>
+    <div className='w-full min-h-[88vh] bg-white  rounded-sm px-5 lg:px-8 py-5 '>
     <Support />
     </div>
   </div>

@@ -83,7 +83,7 @@ const submitData=async()=>{
   console.log(apidata)
   return (
     <div className='w-full relative px-2 lg:px-4 p-4'>
-      <div className='flex gap-3 items-center'>
+      <div className='flex gap-3 flex-col  justify-center items-center'>
         <p className='text-[22px]  font-semibold'>My Profile</p>
         <button className='bg-lightOrange text-[18px] flex items-center gap-2 text-orange rounded-lg px-3 py-2' onClick={()=>{
           setshowupdate(true)
@@ -91,7 +91,7 @@ const submitData=async()=>{
         </button>
       </div>
       <div className='flex justify-center flex-wrap gap-5'>
-        <div className='rounded-lg xl:w-[30%] md:w-[45%] my-10  shadow-lg border-[1px] items-center border-slate-200 flex flex-col justify-between p-12 '>
+        <div className='rounded-lg xl:w-[30%] sm:w-[47%] w-full my-10  shadow-lg border-[1px] items-center border-slate-200 flex flex-col justify-between px-5 xl:px-12 py-12 '>
           <div className='size-[122px] bg-[#F5F5F5] rounded-full flex justify-center items-center'>
             <FaUser className='text-[53px] text-textGrey' />
           </div>
@@ -134,7 +134,7 @@ const submitData=async()=>{
           </div>
         </div>
         {/* //second column */}
-        <div className='rounded-lg xl:w-[30%] md:w-[45%] my-10  shadow-lg border-[1px] items-center border-slate-200 flex flex-col justify-between p-12 '>
+        <div className='rounded-lg xl:w-[30%] sm:w-[47%] w-full my-10  shadow-lg border-[1px] items-center border-slate-200 flex flex-col justify-between px-5 xl:px-12 py-12 '>
 
           <div className='flex flex-col gap-5 w-full'>
            
@@ -184,7 +184,7 @@ const submitData=async()=>{
           </div>
         </div>
         {/* third column */}
-        <div className='rounded-lg xl:w-[30%] md:w-[45%] my-10  shadow-lg border-[1px] items-center border-slate-200 flex flex-col justify-between p-12 '>
+        <div className='rounded-lg xl:w-[30%] sm:w-[47%] w-full my-10  shadow-lg border-[1px] items-center border-slate-200 flex flex-col justify-between px-5 xl:px-12 py-12 '>
 
           <div className='flex flex-col gap-5 w-full'>
            
@@ -220,7 +220,7 @@ const submitData=async()=>{
       {
           showupdate&&
           <div className='w-full backdrop-blur-lg h-full flex justify-center items-center absolute top-0 left-0'>
-          <div className='w-[75%] p-8 gap-5 border-[1px] flex flex-wrap border-slate-200 relative shadow-xl rounded-lg bg-white'>
+          <div className='lg:w-[75%] p-8 gap-5 border-[1px] flex flex-wrap border-slate-200 relative shadow-xl rounded-lg bg-white'>
             <div className='absolute right-3 top-3' onClick={() => setshowupdate(false)}>
               <RxCross1 className='text-[22px]' />
             </div>

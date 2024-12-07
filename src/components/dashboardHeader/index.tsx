@@ -40,8 +40,6 @@ const DashboardHeader = ({ props }: any) => {
     <div className='px-5 py-3 pt-4  w-full bg-[#F7F7F7]'>
       <div className='flex justify-between w-full items-center'>
         <div className='flex gap-3 items-center lg:gap-10 xl:gap-20'>
-
-    
       <div className='px-3'>
         <Link href="/">
           <Image src="/images/Browk Shop.svg" alt="logo" width={130} height={100} />

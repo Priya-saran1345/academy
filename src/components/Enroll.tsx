@@ -14,15 +14,52 @@ import { MdOutlineBookmarkAdd } from 'react-icons/md';
 import { FaCode, FaRegCircleCheck } from 'react-icons/fa6';
 import { usePathname } from 'next/navigation'
 
+declare class Razorpay {
+  constructor(options: RazorpayOptions);
+  open(): void;
+}
+
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name?: string;
+  description?: string;
+  image?: string;
+  order_id?: string;
+  handler?: (response: RazorpayResponse) => void;
+  prefill?: {
+    name?: string;
+    email?: string;
+    contact?: string;
+  };
+  theme?: {
+    color?: string;
+  };
+  [key: string]: any; // Allow additional options
+}
+
+interface RazorpayResponse {
+  razorpay_payment_id: string;
+  razorpay_order_id?: string;
+  razorpay_signature?: string;
+}
+
+declare global {
+  interface Window {
+    Razorpay: typeof Razorpay;
+  }
+}
+
 const Profile = () => {
   const { profile, fetch, discount, setdiscount } = useapi();
-  const {courseid }=useapi()
-
+  const {courseid ,setcourseid }=useapi()
   const [apidata, setApiData] = useState<any>()
   const [data, setdata] = useState<any>();
   const [showremove, setshowremove] = useState<any>(false)
   // const pathname = usePathname()
   // const id = pathname.split('/').pop();
+
   const [updateddata, setupdateddata] = useState({
     course_id:'',
     username: '',
@@ -42,7 +79,7 @@ const Profile = () => {
   })
   const fetchData = async () => {
     try {
-      console.log('courseid----0',courseid)
+      console.log('courseid-----------------',courseid)
       const response = await axios.get(`${BASE_URL}courses/${courseid}/`);
       console.log(response.data)
       setdata(response.data)
@@ -99,12 +136,55 @@ const Profile = () => {
         return;
       }
       console.log('the order data',updateddata)
-      const response = await axios.post(`${BASE_URL}create-order/`, updateddata, {
+      const  { data: orderData } = await axios.post(`${BASE_URL}create-order/`,   { course_id: data?.id, discount_code: coupanData.discount_code },
+
+        {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-    
+      const { order_id, amount, currency, key, course_name } = orderData;
+
+      if (!window.Razorpay) {
+        toast.error('Razorpay SDK not loaded');
+        return;
+      }
+
+      const options = {
+        key, // Razorpay API key
+        amount: amount * 100, // Amount in paise
+        currency,
+        name: "Course Enrollment",
+        description: `Enroll in ${course_name}`,
+        order_id, // Order ID from Razorpay
+        handler: async (response:any) => {
+          try {
+            // Step 3: Call verify-payment API
+            const verifyResponse = await axios.post(`${BASE_URL}verify-payment/`, {
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+              course_id: updateddata.course_id,
+            });
+
+            alert("Payment successful! You are enrolled in the course.");
+          } catch (err) {
+            console.error("Payment verification failed:", err);
+            alert("Payment verification failed. Please try again.");
+          }
+        },
+        prefill: {
+          name: "Your Name", // Customize with actual user data
+          email: "your-email@example.com",
+          contact: "9999999999",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
       toast.success('Enrolled successfully')
     }
      catch (error: any) {
@@ -141,7 +221,7 @@ const Profile = () => {
   }
 
   return (
-    <div className='w-full flex  mt-[100px]    p-7'>
+    <div className='w-full flex  mt-[100px]  p-7'>
       <div className='w-full gap-3 lg:w-[95%] 2xl:w-[75%] mx-auto   flex flex-col lg:flex-row  justify-center  '>
         <div className=' p-4  flex-1 gap-5 border-[1px] flex flex-wrap border-slate-200 justify-center shadow-xl rounded-lg bg-white'>
           <div className=' w-full sm:w-[45%]'>
