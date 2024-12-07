@@ -13,6 +13,8 @@ import axios from 'axios';
 import { BASE_URL } from '@/utils/api'
 import FooterBanner from '@/components/footerBanner'
 import Link from "next/link";
+import Script from 'next/script';
+
 export default function Home() {
 
   const [website_banner, setwebsite_banner] = useState()
@@ -43,6 +45,11 @@ export default function Home() {
 
   return (
     <>
+     <Script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        strategy="beforeInteractive" // Ensures the script is loaded before the component renders
+        
+      />
       {
         !Apidata && <div className="min-h-[90vh] w-full flex justify-center items-center">
           <div className="loader"></div>

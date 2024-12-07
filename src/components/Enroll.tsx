@@ -144,7 +144,6 @@ const Profile = () => {
         }
       });
       const { order_id, amount, currency, key, course_name } = orderData;
-
       if (!window.Razorpay) {
         toast.error('Razorpay SDK not loaded');
         return;
@@ -230,165 +229,165 @@ const Profile = () => {
       <div className='w-full gap-3 lg:w-[95%] 2xl:w-[75%] mx-auto   flex flex-col lg:flex-row  justify-center  '>
         <div className=' p-4  flex-1 gap-5 border-[1px] flex flex-wrap border-slate-200 justify-center shadow-xl rounded-lg bg-white'>
           <div className=' w-full sm:w-[45%]'>
-            <label htmlFor="first_name" className='text[17px] mb-3 font-medium text-black uppercase'>First Name</label>
+            <label htmlFor="first_name" className='text[17px]  font-medium text-black capitalize'>First Name</label>
             <br />
             <input
               type="text"
               value={updateddata.first_name}
               name='first_name'
-              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
               placeholder='Enter Your Name'
               onChange={changeValue}
             />
           </div>
           <div className='w-full sm:w-[45%]'>
-            <label htmlFor="last_name" className='text[17px] mb-3 font-medium text-black uppercase'>Last Name</label>
+            <label htmlFor="last_name" className='text[17px]  font-medium text-black capitalize'>Last Name</label>
             <br />
             <input
               type="text"
               value={updateddata.last_name}
               name='last_name'
-              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
               placeholder='Enter Your Name'
               onChange={changeValue}
             />
           </div>
           <div className='w-full sm:w-[45%]'>
-                        <label htmlFor="phone" className='text[17px] mb-3 font-medium text-black uppercase'>Phone</label>
+                        <label htmlFor="phone" className='text[17px]  font-medium text-black capitalize'>Phone</label>
             <br />
             <input
               type="number"
               value={updateddata.phone}
               name='phone'
-              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
               placeholder='Enter Your phone no'
               onChange={changeValue}
             />
           </div>
           <div className='w-full sm:w-[45%]'>
-                        <label htmlFor="alternate_phone" className='text[17px] mb-3 font-medium text-black uppercase'>Alternate Phone</label>
+                        <label htmlFor="alternate_phone" className='text[17px]  font-medium text-black capitalize'>Alternate Phone</label>
             <br />
             <input
               type="number"
               value={updateddata.alternate_phone}
               name='alternate_phone'
-              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
               placeholder='Enter alternate phone no'
               onChange={changeValue}
             />
           </div>
 
           <div className='w-full sm:w-[45%]'>      
-                  <label htmlFor="qualification" className='text[17px] mb-3 font-medium text-black uppercase'>Qualification</label>
+                  <label htmlFor="qualification" className='text[17px]  font-medium text-black capitalize'>Qualification</label>
             <br />
             <input
               type="text"
               value={updateddata.qualification}
               name='qualification'
-              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
               placeholder='Enter Qualification'
               onChange={changeValue}
             />
           </div>
           <div className='w-full sm:w-[45%]'>
-            <label htmlFor="profession" className='text[17px] mb-3 font-medium text-black uppercase'>Profession</label>
+            <label htmlFor="profession" className='text[17px]  font-medium text-black capitalize'>Profession</label>
             <br />
             <input
               type="text"
               value={updateddata.profession}
               name='profession'
-              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
               placeholder='Enter Your Profession'
               onChange={changeValue}
             />
           </div>
           <div className='w-full sm:w-[45%]'>
-            <label htmlFor="gender" className='text[17px] mb-3 font-medium text-black uppercase'>Gender</label>
+            <label htmlFor="gender" className='text[17px]  font-medium text-black capitalize'>Gender</label>
             <br />
             <input
               type="text"
               value={updateddata.gender}
               name='gender'
-              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
               placeholder='Enter Gender'
               onChange={changeValue}
             />
           </div>
 
           <div className='w-full sm:w-[45%]'>
-            <label htmlFor="course_interested" className='text[17px] mb-3 font-medium text-black uppercase'>Course Interested</label>
+            <label htmlFor="course_interested" className='text[17px]  font-medium text-black capitalize'>Course Interested</label>
             <br />
             <input
               type="text"
               value={updateddata.course_interested}
               name='course_interested'
-              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
               placeholder='Enter Interested Course'
               onChange={changeValue}
             />
           </div>
 
           <div className='w-full sm:w-[45%]'>
-            <label htmlFor="date_of_birth" className='text[17px] mb-3 font-medium text-black uppercase'>Date of Birth</label>
+            <label htmlFor="date_of_birth" className='text[17px]  font-medium text-black capitalize'>Date of Birth</label>
             <br />
             <input
               type="text"
               value={updateddata.date_of_birth}
               name='date_of_birth'
-              className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              className=' text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
               placeholder='yyyy-mm-dd'
               onChange={changeValue}
             />
           </div>
 
           <div className='w-full sm:w-[45%]'>
-            <label htmlFor="goals" className='text[17px] mb-3 font-medium text-black uppercase'>Goals</label>
+            <label htmlFor="goals" className='text[17px]  font-medium text-black capitalize'>Goals</label>
             <br />
             <input
               type="text"
               value={updateddata.goals}
               name='goals'
-              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
               placeholder='Enter Goals'
               onChange={changeValue}
             />
           </div>
 
           <div className='w-full sm:w-[45%]'>
-            <label htmlFor="extracurriculars" className='text[17px] mb-3 font-medium text-black uppercase'>Extracurriculars</label>
+            <label htmlFor="extracurriculars" className='text[17px]  font-medium text-black capitalize'>Extracurriculars</label>
             <br />
             <input
               type="text"
               value={updateddata.extracurriculars}
               name='extracurriculars'
-              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
               placeholder='Enter Extracurriculars'
               onChange={changeValue}
             />
           </div>
 
           <div className='w-full sm:w-[45%]'>
-            <label htmlFor="address" className='text[17px] mb-3 font-medium text-black uppercase'>Address</label>
+            <label htmlFor="address" className='text[17px]  font-medium text-black capitalize'>Address</label>
             <br />
             <input
               type="text"
               value={updateddata.address}
               name='address'
-              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+              className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
               placeholder='Enter Address'
               onChange={changeValue}
             />
           </div>
           <div className='flex flex-col sm:flex-row  justify-between gap-3 sm:items-end w-full'>
             <div>
-              <label htmlFor="address" className='text[17px] mb-3 font-medium text-black uppercase'>Apply Coupon Code</label>
+              <label htmlFor="address" className='text[17px]  font-medium text-black capitalize'>Apply Coupon Code</label>
               <br />
               <div className='flex gap-3 items-center'>
                 <input
                   type="text"
                   value={coupanData.discount_code}
                   name='discount_code'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
                   placeholder='Coupon code'
                   onChange={codeset}
                 />
@@ -422,7 +421,7 @@ const Profile = () => {
         </div>
         <div className='sm:w-[429px]  border-[1px] border-slate-200 mx-auto lg:mx-0 shadow-xl rounded-lg p-4'>
           <div className='border-b-[1px] w-full'>
-            <p className='text-[22px]  w-full mb-2 uppercase  font-semibold'>Course Summary</p>
+            <p className='text-[22px]  w-full mb-2 capitalize  font-semibold'>Course Summary</p>
           </div>
           <div
             className=' justify-between 
@@ -449,7 +448,7 @@ const Profile = () => {
             </div>
           </div>
           <div className='border-b-[1px] mt-8 w-full'>
-            <p className='text-[22px]  w-full mb-2 uppercase  font-semibold'>Your Order Details</p>
+            <p className='text-[22px]  w-full mb-2 capitalize  font-semibold'>Your Order Details</p>
           </div>
           <div className='border-b-[1px]'>
             <div className="flex justify-between my-3 px-2">
@@ -470,7 +469,7 @@ const Profile = () => {
             </div>
           </div>
           <div className='flex justify-between px-3 mt-3'>
-            <p className='text-[19px]   w-full mb-2 uppercase  font-semibold'>Payable Amount</p>
+            <p className='text-[19px]   w-full mb-2 capitalize  font-semibold'>Payable Amount</p>
             <p className='text-orange text-[26px] font-bold'>${data?.price - discount}</p>
           </div>
           <div className='w-full px-3 mt-4'>

@@ -18,7 +18,9 @@ const PopularCourse = ({ course = [] }) => {
               level={elem.course_level}
               category={elem.category || ''}
               id={elem.id}
-              text="Enroll"
+              text="View"
+              link="enroll"
+              text1={'Enroll'}
             />
           );
         }

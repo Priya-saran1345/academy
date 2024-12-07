@@ -116,13 +116,13 @@ const data2 = [
     {
       Apidata&&
       <div className=''>
-      <div className=' flex flex-wrap gap-8 rounded-sm px-6 py-5 '>
+      <div className=' flex flex-wrap gap-8 rounded-sm px-0 md:px-6 py-5 '>
         <div className='flex flex-col gap-3'>
           <div>
-            <p className='text-[22px] font-medium text-black'>Progress Overview</p>
+            <p className='text-[22px] font-medium text-center sm:text-left text-black'>Progress Overview</p>
           </div>
 
-          <div className='flex flex-wrap  gap-2'>
+          <div className='flex justify-center sm:justify-start flex-wrap  gap-2'>
             <div className='shadow-lg border-slate-200 py-3 border-[1px] rounded-lg flex flex-col gap-6  h-[331px] w-[271px]'>
               <p className='font-semibold text-center text-black'>Course Completed</p>
               <Doughnut data={finalData} options={options} className='rotate-[224deg] w-[70%] mx-auto' />
@@ -150,7 +150,7 @@ const data2 = [
           <div>
             <p className='text-[22px] font-medium text-black'>Learning Progress</p>
           </div>
-          <div className='w-[650px]  border-[1px] border-slate-200 h-[331px] mt-3 '>
+          <div className='w-[350px] sm:w-[550px] md:w-[650px] rounded-lg  border-[1px] border-slate-200 h-[331px] mt-3 '>
             <BarChart />
           </div>
         </div>
@@ -189,9 +189,9 @@ const data2 = [
 </div> */}
 
       {/* last cards */}
-      <div className='flex flex-wrap gap-4 mt-8 justify-between pl-7'>
+      <div className='flex flex-wrap gap-4 mt-8 justify-center md:justify-start lg:justify-between pl-7'>
         <div className='bg-white min-h-[91px] gap-3 min-w-[311px] flex justify-center items-center rounded-3xl shadow-lg border-[1px] border-slate-200'>
-          <p className='text-orange text-[48px] font-medium'>{Apidata?.user_stats.enroll_project}</p>
+          <p className='text-orange text-[48px]  font-medium'>{Apidata?.user_stats.enroll_project}</p>
           <p className='text-[20px] font-medium'>Enrolled Courses</p>
         </div>
         <div className='bg-white min-h-[91px] gap-3 min-w-[311px] flex justify-center items-center rounded-3xl shadow-lg border-[1px] border-slate-200'>

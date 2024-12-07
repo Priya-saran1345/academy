@@ -1,23 +1,46 @@
 "use client"
+import { BASE_URL } from '@/utils/api';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 const Header = () => {
 
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-
+const [data, setdata] = useState()
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+
+
+
+
+  const fetchData = async () => {
+    try {
+      // API call to fetch dashboard data
+      const response = await axios.get(`${BASE_URL}basic-settings/`);
+      console.log(response.data, 'this is the response');
+      setdata(response.data);  // Update state with fetched data
+    } catch (err) {
+      console.log("Dashboard error", err);  // Log the full error for debugging
+     // Update error state with error message
+    }
+  };
+
+  useEffect(() => {
+    fetchData();  // Call fetch function when the component mounts
+  }, []);
+
+console.log('the basic details data',data)
+
   return (
 <>
 <header className="absolute top-0 left-0 right-0 flex justify-between items-center p-4 bg-transparent text-black z-50 px-6 w-full  mx-auto xl:w-[77%] mt-2">
   <div className="text-lg font-bold">
     <a href="/">
-    <Image src="/images/Browk Shop.svg" alt="logo" width={130} height={100} className=''  />
+    <Image src={data?.logo_image} alt="logo" width={230} height={100} className=''  />
     </a>
   </div>
   <nav className={`flex flex-col md:flex-row items-center md:space-x-8 transition-all duration-300 ${isOpen ? 'hidden' : 'hidden md:block'}`}>

@@ -20,7 +20,7 @@ const Dashboardpage = () => {
             <DashboardSidebar />
           </div>
           <div className='flex-1 '>
-            <div className='w-full min-h-[88vh] bg-white  rounded-sm px-8 py-5 '>
+            <div className='w-full min-h-[88vh] bg-white  rounded-sm px-4 py-5 '>
               <Dashboard />
             </div>
           </div>

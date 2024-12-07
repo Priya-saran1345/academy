@@ -57,7 +57,7 @@ const DashboardHeader = ({ props }: any) => {
             </div>
             <div onClick={() => router.push('/dashboard/profile')} className='cursor-pointer'>
               <p className='text-[16px] font-semibold'>{ApiData?.username}</p>
-              <p className='text-[14px] hidden md: font-medium text-[#616161]'>{ApiData?.email}</p>
+              <p className='text-[14px] hidden md:block font-medium text-[#616161]'>{ApiData?.email}</p>
             </div>
             <div className='cursor-pointer'>
               <RiArrowDropDownLine

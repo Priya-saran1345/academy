@@ -16,6 +16,9 @@ import { LiaNewspaper } from "react-icons/lia";
 import { MdOutlineAddchart } from "react-icons/md";
 import { TbCertificate } from "react-icons/tb";
 import { useapi } from '@/helpers/apiContext';
+import { motion } from 'framer-motion'; // Import motion from framer-motion
+
+
 const page = () => {
     const router = useRouter()
     const [ApiData, setApiData] = useState<any>();
@@ -26,6 +29,7 @@ const page = () => {
     const [openIndex, setOpenIndex] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen1, setisOpen1] = useState(false)
+    const [openIndex1, setopenIndex1] = useState<any>()
     const fetchData = async () => {
         try {
             const response = await axios.get(`${BASE_URL}courses/${id}/`);
@@ -45,27 +49,36 @@ const page = () => {
             fetchData(); // Call fetchData when the component mounts
         }
     }, [id, router]);
-
-
     const toggleAccordion = () => {
         setIsOpen(!isOpen);
     };
     const toggleAccordion1 = () => {
         setisOpen1(!isOpen1);
     };
-
     const toggleModule = (index: any) => {
         setOpenIndex(openIndex === index ? null : index);
     };
-
-    console.log(`${BASE_URL_IMAGE}${ApiData?.instructor_name?.profile_image}`);
-
-    return (
+    const toggleobjective = (index: any) => {
+        setopenIndex1(openIndex === index ? null : index);
+    };
+    const scrollToSection = (targetClass:any) => {
+        // Find the element with the given class
+        const targetElement = document.getElementsByClassName(targetClass)[0];
+       console.log('rthe scroll behaviuor',targetElement)
+        if (targetElement) {
+          // Scroll to the element
+          targetElement.scrollIntoView({
+            behavior: 'smooth', // Smooth scroll
+            block: 'start', // Align to the top of the page
+          });
+        }
+      };
+        return (
         ApiData && <div>
             <Header />
             <div className="p-4 bg-transparent pt-32  text-black px-6 w-full  mx-auto xl:w-[77%] mt-2">
                 <div className=' gap-3 flex'>
-                    <div className='w-[429px] pb-20 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
+                    <div className='w-[429px] h-fit pb-20 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
                         <div className='border-b-2 border-slate-300 pb-3'>
                             <p className='text-textGrey font-[16px]'>Course Starts - {ApiData?.start_date}</p>
                         </div>
@@ -92,10 +105,21 @@ const page = () => {
                             <p className='text-[24px] font-semibold text-black'>Jump to Section</p>
                             <ul className='flex flex-col gap-3'>
 
-                                <li className='hover:text-orange text-textGrey py-2 bg-lightGrey rounded-lg px-5 font-medium'>Overview of Course</li>
-                                <li className='hover:text-orange text-textGrey py-2 bg-lightGrey rounded-lg px-5 font-medium'>What you'll learn</li>
-                                <li className='hover:text-orange text-textGrey py-2 bg-lightGrey rounded-lg px-5 font-medium'>What you'll learn</li>
-                                <li className='hover:text-orange text-textGrey py-2 bg-lightGrey rounded-lg px-5 font-medium'>Course Curriculum</li>
+                                <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
+                                        onClick={() => scrollToSection('overview')}
+
+                                >Overview of Course</li>
+                                <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
+                                        onClick={() => scrollToSection('learn')}
+
+                                >What you'll learn</li>
+                                <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
+                                  onClick={() => scrollToSection('know')}
+                                >Details to know</li>
+                                <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
+                                        onClick={() => scrollToSection('module')}
+
+                                >Course Curriculum</li>
                             </ul>
                             <p className='text-[24px] font-semibold text-black my-4'>Why Choose This Course?</p>
                             <ul className='text-textGrey list-disc mx-7 '>
@@ -105,12 +129,11 @@ const page = () => {
                             </ul>
                         </div>
                     </div>
-
                     {/* //right side bar */}
                     <div className='ml-5 w-full'>
                         {/* first section */}
                         <div>
-                            <div className='flex gap-2  items-center'>
+                            <div className='flex gap-2  items-center overview'>
                                 <div className='size-[13px] rounded-full bg-orange'></div>
                                 <p className='text-[24px]'>Overview of Course</p>
                             </div>
@@ -184,8 +207,13 @@ const page = () => {
                                         )}
                                     </div>
                                     {isOpen && (
-                                        <div className='p-5 bg-gray-100 rounded-lg mt-2'>
-                                            <p className='text-[16px] text-black'>
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0 }} // Initial state (closed)
+                                            animate={{ opacity: 1, height: 'auto' }} // Final state (opened)
+                                            exit={{ opacity: 0, height: 0 }} // Exit state (closed)
+                                            transition={{ duration: 0.2 }} // Smooth transition
+                                            className='p-5 bg-gray-100 rounded-lg mt-2'
+                                        >                                            <p className='text-[16px] text-black'>
                                                 <span className='font-medium'>Expertise &nbsp;:</span> {ApiData?.instructor_name?.expertise}
                                                 <p className='text-[17px] font-medium'>course Teaches:</p>
                                                 <ul className='list-disc ml-7'>
@@ -196,7 +224,7 @@ const page = () => {
                                                     }
                                                 </ul>
                                             </p>
-                                        </div>
+                                        </motion.div>
                                     )}
                                     <div className='bg-white flex gap-3 py-3 px-10 mt-3 rounded-lg justify-between' onClick={toggleAccordion1}>
                                         <p className='text-[18px] font-medium text-black'>Instructor Achievements</p>
@@ -209,17 +237,23 @@ const page = () => {
                                         {/* <GoPlus className='text-orange text-[20px]' /> */}
                                     </div>
                                     {isOpen1 && (
-                                        <div className='p-5 bg-gray-100 rounded-lg mt-2'>
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0 }} // Initial state (closed)
+                                            animate={{ opacity: 1, height: 'auto' }} // Final state (opened)
+                                            exit={{ opacity: 0, height: 0 }} // Exit state (closed)
+                                            transition={{ duration: 0.2 }} // Smooth transition
+                                            className='p-5 bg-gray-100 rounded-lg mt-2'
+                                        >
                                             <p className='text-[16px] text-black'>
                                                 <span className='font-medium capitalize'>achievements &nbsp;:</span> {ApiData?.instructor_name?.achievements}
                                             </p>
                                             <span className='font-medium capitalize'>experience &nbsp;:</span> {ApiData?.instructor_name?.experience}
 
-                                        </div>)}
+                                        </motion.div>)}
                                 </div>
                             </div>
                             <div>
-                                <div className='flex gap-2 mt-6  items-center'>
+                                <div className='flex gap-2 mt-6  items-center know'>
                                     <div className='size-[13px] rounded-full bg-orange'></div>
                                     <p className='text-[24px]'>Details to know</p>
                                 </div>
@@ -257,7 +291,7 @@ const page = () => {
                                 </div>
                             </div>
                             <div>
-                                <p className='text-[18px] mt-4 font-semibold'>Course Modules:</p>
+                                <p className='text-[18px] mt-4 font-semibold module' >Course Modules:</p>
                                 <div className='w-full mt-3 p-4 bg-lightGrey rounded-lg'>
 
                                     <div className='flex flex-col gap-3'>
@@ -278,21 +312,26 @@ const page = () => {
 
                                                 {/* Accordion Content */}
                                                 {openIndex === index && (
-                                                    <div className='p-5 bg-gray-100 rounded-lg mt-2'>
+                                                    <motion.div
+                                                        initial={{ opacity: 0, height: 0 }} // Initial state (closed)
+                                                        animate={{ opacity: 1, height: 'auto' }} // Final state (opened)
+                                                        exit={{ opacity: 0, height: 0 }} // Exit state (closed)
+                                                        transition={{ duration: 0.2 }} // Smooth transition
+                                                        className='p-5 bg-gray-100 rounded-lg mt-2'
+                                                    >
                                                         <div
                                                             className='text-[16px] text-textGrey'
                                                             dangerouslySetInnerHTML={{ __html: module.module_description }} // Render HTML content
                                                         />
-                                                    </div>
+                                                    </motion.div>
                                                 )}
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                             </div>
-
                             <div>
-                                <p className='text-[18px] mt-4 font-semibold'>What You will Learn:</p>
+                                <p className='text-[18px] mt-4 font-semibold learn'>What You will Learn:</p>
                                 <div className='w-full mt-3 p-4 bg-lightGrey rounded-lg'>
 
                                     <div className='flex flex-col gap-3'>
@@ -301,10 +340,10 @@ const page = () => {
                                                 {/* Accordion Header */}
                                                 <div
                                                     className='bg-white flex gap-3 py-3 px-10  rounded-lg justify-between cursor-pointer'
-                                                    onClick={() => toggleModule(index)} // Toggle accordion on click
+                                                    onClick={() => toggleobjective(index)} // Toggle accordion on click
                                                 >
                                                     <p className='text-[18px] font-medium text-black'>{module.title}</p>
-                                                    {openIndex === index ? (
+                                                    {openIndex1 === index ? (
                                                         <FaMinus className='text-orange text-[20px]' /> // Minus icon when open
                                                     ) : (
                                                         <GoPlus className='text-orange text-[20px]' /> // Plus icon when closed
@@ -312,13 +351,18 @@ const page = () => {
                                                 </div>
 
                                                 {/* Accordion Content */}
-                                                {openIndex === index && (
-                                                    <div className='p-5 bg-gray-100 rounded-lg mt-2'>
-                                                        <div
+                                                {openIndex1 === index && (
+                                                    <motion.div
+                                                        initial={{ opacity: 0, height: 0 }} // Initial state (closed)
+                                                        animate={{ opacity: 1, height: 'auto' }} // Final state (opened)
+                                                        exit={{ opacity: 0, height: 0 }} // Exit state (closed)
+                                                        transition={{ duration: 0.2 }} // Smooth transition
+                                                        className='p-5 bg-gray-100 rounded-lg mt-2'
+                                                    >                                                        <div
                                                             className='text-[16px] text-textGrey'
                                                             dangerouslySetInnerHTML={{ __html: module.description }} // Render HTML content
                                                         />
-                                                    </div>
+                                                    </motion.div>
                                                 )}
                                             </div>
                                         ))}
@@ -327,13 +371,6 @@ const page = () => {
                             </div>
                         </div>
                         {/* first section */}
-
-
-
-
-
-
-
 
                     </div>
                 </div>
