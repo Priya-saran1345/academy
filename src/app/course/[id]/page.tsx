@@ -20,9 +20,10 @@ const page = () => {
     const router = useRouter()
     const [ApiData, setApiData] = useState<any>();
     const [error, setError] = useState();
-    const { setcourseid} = useapi()
+    const { setcourseid } = useapi()
     const pathname = usePathname()
     const id = pathname.split('/').pop();
+    const [openIndex, setOpenIndex] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen1, setisOpen1] = useState(false)
     const fetchData = async () => {
@@ -45,13 +46,18 @@ const page = () => {
         }
     }, [id, router]);
 
-  
+
     const toggleAccordion = () => {
         setIsOpen(!isOpen);
     };
     const toggleAccordion1 = () => {
         setisOpen1(!isOpen1);
     };
+
+    const toggleModule = (index: any) => {
+        setOpenIndex(openIndex === index ? null : index);
+    };
+
     console.log(`${BASE_URL_IMAGE}${ApiData?.instructor_name?.profile_image}`);
 
     return (
@@ -68,11 +74,11 @@ const page = () => {
                             <p className='text-[38px] font-bold text-black leading-tight'>{ApiData?.name}</p>
                             <p className='text-textGrey text-[14px] mb-7'>{ApiData?.short_description}</p>
                             <div className='flex  pb-5 gap-2 border-b-2 border-slate-300'>
-                               {/* <Link href={`/enroll`}> */}
-                                <button className='rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]' onClick={()=>{
-                                     setcourseid(id)
-                                     router.push(`/enroll`)
-    
+                                {/* <Link href={`/enroll`}> */}
+                                <button className='rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]' onClick={() => {
+                                    setcourseid(id)
+                                    router.push(`/enroll`)
+
                                 }}>Enroll now</button>
                                 {/* </Link> */}
                                 <div>
@@ -180,19 +186,19 @@ const page = () => {
                                     {isOpen && (
                                         <div className='p-5 bg-gray-100 rounded-lg mt-2'>
                                             <p className='text-[16px] text-black'>
-                                            <span className='font-medium'>Expertise &nbsp;:</span> {ApiData?.instructor_name?.expertise}
+                                                <span className='font-medium'>Expertise &nbsp;:</span> {ApiData?.instructor_name?.expertise}
                                                 <p className='text-[17px] font-medium'>course Teaches:</p>
                                                 <ul className='list-disc ml-7'>
                                                     {
-                                                        ApiData?.instructor_name?.courses_taught.map((elem:any)=>(
-                                                             <li className='text-[15px]'>{elem}</li>
+                                                        ApiData?.instructor_name?.courses_taught.map((elem: any) => (
+                                                            <li className='text-[15px]'>{elem}</li>
                                                         ))
                                                     }
                                                 </ul>
                                             </p>
                                         </div>
                                     )}
-                                    <div className='bg-white flex gap-3 py-3 px-10 mt-3 rounded-lg justify-between'  onClick={toggleAccordion1}>
+                                    <div className='bg-white flex gap-3 py-3 px-10 mt-3 rounded-lg justify-between' onClick={toggleAccordion1}>
                                         <p className='text-[18px] font-medium text-black'>Instructor Achievements</p>
                                         {isOpen1 ? (
                                             <FaMinus
@@ -203,9 +209,9 @@ const page = () => {
                                         {/* <GoPlus className='text-orange text-[20px]' /> */}
                                     </div>
                                     {isOpen1 && (
-                                    <div className='p-5 bg-gray-100 rounded-lg mt-2'>
+                                        <div className='p-5 bg-gray-100 rounded-lg mt-2'>
                                             <p className='text-[16px] text-black'>
-                                            <span className='font-medium capitalize'>achievements &nbsp;:</span> {ApiData?.instructor_name?.achievements}
+                                                <span className='font-medium capitalize'>achievements &nbsp;:</span> {ApiData?.instructor_name?.achievements}
                                             </p>
                                             <span className='font-medium capitalize'>experience &nbsp;:</span> {ApiData?.instructor_name?.experience}
 
@@ -250,9 +256,75 @@ const page = () => {
 
                                 </div>
                             </div>
+                            <div>
+                                <p className='text-[18px] mt-4 font-semibold'>Course Modules:</p>
+                                <div className='w-full mt-3 p-4 bg-lightGrey rounded-lg'>
 
+                                    <div className='flex flex-col gap-3'>
+                                        {ApiData?.course_modules?.map((module: any, index: any) => (
+                                            <div key={index} className=''>
+                                                {/* Accordion Header */}
+                                                <div
+                                                    className='bg-white flex gap-3 py-3 px-10  rounded-lg justify-between cursor-pointer'
+                                                    onClick={() => toggleModule(index)} // Toggle accordion on click
+                                                >
+                                                    <p className='text-[18px] font-medium text-black'>{module.module_title}</p>
+                                                    {openIndex === index ? (
+                                                        <FaMinus className='text-orange text-[20px]' /> // Minus icon when open
+                                                    ) : (
+                                                        <GoPlus className='text-orange text-[20px]' /> // Plus icon when closed
+                                                    )}
+                                                </div>
 
+                                                {/* Accordion Content */}
+                                                {openIndex === index && (
+                                                    <div className='p-5 bg-gray-100 rounded-lg mt-2'>
+                                                        <div
+                                                            className='text-[16px] text-textGrey'
+                                                            dangerouslySetInnerHTML={{ __html: module.module_description }} // Render HTML content
+                                                        />
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div>
+                                <p className='text-[18px] mt-4 font-semibold'>What You will Learn:</p>
+                                <div className='w-full mt-3 p-4 bg-lightGrey rounded-lg'>
+
+                                    <div className='flex flex-col gap-3'>
+                                        {ApiData?.objectives?.map((module: any, index: any) => (
+                                            <div key={index} className=''>
+                                                {/* Accordion Header */}
+                                                <div
+                                                    className='bg-white flex gap-3 py-3 px-10  rounded-lg justify-between cursor-pointer'
+                                                    onClick={() => toggleModule(index)} // Toggle accordion on click
+                                                >
+                                                    <p className='text-[18px] font-medium text-black'>{module.title}</p>
+                                                    {openIndex === index ? (
+                                                        <FaMinus className='text-orange text-[20px]' /> // Minus icon when open
+                                                    ) : (
+                                                        <GoPlus className='text-orange text-[20px]' /> // Plus icon when closed
+                                                    )}
+                                                </div>
+
+                                                {/* Accordion Content */}
+                                                {openIndex === index && (
+                                                    <div className='p-5 bg-gray-100 rounded-lg mt-2'>
+                                                        <div
+                                                            className='text-[16px] text-textGrey'
+                                                            dangerouslySetInnerHTML={{ __html: module.description }} // Render HTML content
+                                                        />
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         {/* first section */}
 

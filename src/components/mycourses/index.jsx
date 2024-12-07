@@ -99,7 +99,7 @@ useEffect(() => {
     Not Started
   </button>
 </div>
-      <div className='flex gap-8 mt-8 flex-wrap'>
+      <div className='flex justify-center lg:justify-start gap-8 mt-8 flex-wrap'>
         {finalData.length > 0 ? (
           finalData.map((course) => (
             <>

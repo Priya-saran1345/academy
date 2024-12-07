@@ -133,7 +133,7 @@ const data2 = [
             <div className='shadow-lg border-slate-200 py-3 border-[1px] rounded-lg flex flex-col gap-6  h-[331px] w-[271px]'>
               <p className='font-semibold text-center text-black'>Course Completed</p>
               <Doughnut data={finalData} options={options} className='rotate-[224deg] w-[70%] mx-auto' />
-              <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>5/7</p>
+              <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats.completed}/{purchased_courses?.length ?? 0}</p>
               <p className='text-center  font-semibold'>Goal: 7</p>
               <p className='text-textGrey text-center'>Almost there! Keep going!</p>
             </div>

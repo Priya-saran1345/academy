@@ -49,15 +49,15 @@ const DashboardHeader = ({ props }: any) => {
           <p>Welcome back, <span className='text-orange capitalize underline mx-1'>{ApiData?.first_name}&nbsp;{ApiData?.last_name}</span>! Let's continue learning.</p>
         </div>
         </div>
-        <div className='flex gap-6 items-center'>
+        <div className='flex gap-2 md:gap-6 items-center'>
           <IoIosNotifications className='text-orange text-[35px]' />
           <div className='flex gap-2 items-center'>
-            <div className='size-[50px] rounded-full bg-orange border-4 border-red-200 text-[27px] center text-white capitalize'>
+            <div className='size-[35px] md:size-[50px] rounded-full bg-orange border-4 border-red-200 text-[20px] md:text-[27px] center text-white capitalize'>
               {ApiData?.username[0]}
             </div>
             <div onClick={() => router.push('/dashboard/profile')} className='cursor-pointer'>
               <p className='text-[16px] font-semibold'>{ApiData?.username}</p>
-              <p className='text-[14px] font-medium text-[#616161]'>{ApiData?.email}</p>
+              <p className='text-[14px] hidden md: font-medium text-[#616161]'>{ApiData?.email}</p>
             </div>
             <div className='cursor-pointer'>
               <RiArrowDropDownLine
