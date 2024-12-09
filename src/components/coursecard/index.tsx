@@ -15,15 +15,12 @@ const truncateText = (text: any, charLimit: number) => {
 const Card = ({slug, name, description, level, category, id, text ,text1 ,link}: any) => {
     const [showform, setshowform] = useState<any>(false)
     const { setcourseid}=useapi()
-   
     const Router = useRouter();
-
-
 const setnavigate=()=>{
+    localStorage.setItem("courseid",slug);
     setcourseid(slug)
     Router.push(`/${link}`)
 }
-
     return (
         // <div className=' bg-black'>
         <div 

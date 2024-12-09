@@ -60,7 +60,6 @@ export default function Home() {
         <div>
           <Header />
           <Banner props={website_banner} />
-
           {/* Master the Most In-Demand */}
           <div className="center bg-lightGrey">
             <div className="flex flex-col px-4 py-14 gap-10">
@@ -110,7 +109,6 @@ export default function Home() {
                   </div>
                   <h3 className="text-center text-base font-medium">Business & Entrepreneurship</h3>
                 </div>
-
               </div>
             </div>
           </div>

@@ -46,8 +46,8 @@ const people = [
     useEffect(() => {
         const heading = localStorage.getItem('banner-heading');
         setStr(heading);
-        setLastFour(heading?.slice(-4).trim());
-        setRestOfString(heading?.slice(0, -4).trim());
+        setLastFour(heading?.slice(-5).trim());
+        setRestOfString(heading?.slice(0, -5).trim());
     }, []); // Include props.heading in the dependency array
     return (
       <div className=' h-fit md:min-h-[850px] flex flex-col md:flex-row  bg-banner px-6 w-full  mx-auto xl:w-[77%]'>
