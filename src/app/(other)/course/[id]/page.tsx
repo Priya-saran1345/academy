@@ -86,9 +86,9 @@ const page = () => {
     return (
         ApiData && <div>
             <Header />
-            <div className="p-4 bg-transparent pt-32  text-black px-6 w-full  mx-auto xl:w-[77%] mt-2">
+            <div className="py-4 bg-transparent pt-32  text-black px-3 md:px-6 w-full   mx-auto lg:w-[95%] 2xl:w-[77%] mt-2">
                 <div className=' gap-3 flex'>
-                    <div className='w-[429px] h-fit pb-20 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
+                    <div className='w-[429px] hidden lg:block h-fit pb-20 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
                         <div className='border-b-2 border-slate-300 pb-3'>
                             <p className='text-textGrey font-[16px]'>Course Starts - {ApiData?.start_date}</p>
                         </div>
@@ -140,35 +140,81 @@ const page = () => {
                             </ul>
                         </div>
                     </div>
-                    {/* //right side bar */}
-                    <div className='ml-5 w-full'>
+                    {/* //top bar under lg */}
+                    <div className='lg:ml-5  w-full'>
+                    <div className=' flex h-fit flex-wrap md:flex-nowrap  lg:hidden pb-20 mb-8 gap-5 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
+                        
+                        <div className='py-4 md:w-2/3'>
+                            {/* <p>Popular</p> */}
+                            <p className='text-textGrey font-[16px]'>Course Starts - {ApiData?.start_date}</p>
+                            <p className='text-[38px] font-bold text-black leading-tight'>{ApiData?.name}</p>
+                            <p className='text-textGrey text-[14px] mb-7'>{ApiData?.short_description}</p>
+                            <div className='flex  pb-5 gap-2 '>
+                                {/* <Link href={`/enroll`}> */}
+                                <button className='rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]' onClick={() => {
+                                    localStorage.setItem("courseid",id ||'');
+                                    setcourseid(id)
+                                    router.push(`/enroll`)
+
+                                }}>Enroll now</button>
+                                {/* </Link> */}
+                                <div>
+                                    <p className='text-[32px] font-bold'> {ApiData?.price}<span className='text-[24px] text-orange'>Rs.</span></p>
+                                </div>
+                            </div>
+                            {/* <p className='text-textGrey'><span className='text-orange'>{ApiData?.
+                                review_count}</span> &nbsp;already  enrolled</p> */}
+                        </div>
+                        <div className='py-3'>
+                            <p className='text-[24px] font-semibold text-black'>Jump to Section</p>
+                            <ul className='flex flex-wrap md:flex-col gap-3'>
+
+                                <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
+                                    onClick={() => scrollToSection('overview')}
+
+                                >Overview of Course</li>
+                                <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
+                                    onClick={() => scrollToSection('learn')}
+
+                                >What you'll learn</li>
+                                <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
+                                    onClick={() => scrollToSection('know')}
+                                >Details to know</li>
+                                <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
+                                    onClick={() => scrollToSection('module')}
+
+                                >Course Curriculum</li>
+                            </ul>
+                         
+                        </div>
+                    </div>
                         {/* first section */}
                         <div>
                             <div className='flex gap-2  items-center overview'>
                                 <div className='size-[13px] rounded-full bg-orange'></div>
                                 <p className='text-[24px]'>Overview of Course</p>
                             </div>
-                            <div className='flex w-full justify-between mt-6'>
-                                <div className='w-[216px] flex-col h-[98px] hover:shadow-xl duration-200 
+                            <div className='flex w-full justify-center gap-4 2xl:justify-between flex-wrap mt-6'>
+                                <div className='lg:max-w-[216px]  w-[45%] sm:w-[30%] md:w-[22%] text-center flex-col h-[98px] hover:shadow-xl duration-200 
                                 rounded-lg flex border-[1px] justify-center items-center border-slate-300 '>
                                     <p className='text-[18px] font-bold flex justify-center'>{ApiData?.rating}<GoStarFill className='text-orange text-[18px]' />
                                     </p>
                                     <p className='text-textGrey text-[14px]'>(3,915 reviews)</p>
                                 </div>
-                                <div className='w-[216px] flex-col h-[98px] hover:shadow-xl duration-200  rounded-lg flex border-[1px] justify-center items-center border-slate-300 '>
+                                <div className='lg:max-w-[216px]  w-[45%] sm:w-[30%] md:w-[22%] text-center flex-col h-[98px] hover:shadow-xl duration-200  rounded-lg flex border-[1px] justify-center items-center border-slate-300 '>
                                     <p className='text-[18px] font-bold'>{ApiData?.course_level}</p>
                                     <p className='text-textGrey text-[14px]'>No prior experience required</p>
                                 </div>
-                                <div className='w-[216px] flex-col h-[98px] hover:shadow-xl duration-200  rounded-lg flex border-[1px] justify-center items-center border-slate-300 '>
+                                <div className='lg:max-w-[216px]  w-[45%] sm:w-[30%] md:w-[22%] text-center flex-col h-[98px] hover:shadow-xl duration-200  rounded-lg flex border-[1px] justify-center items-center border-slate-300 '>
                                     <p className='text-[18px] font-bold'>10 hours to complete</p>
                                     <p className='text-textGrey text-[14px]'>3 weeks at 3 hours a week</p>
                                 </div>
-                                <div className='w-[216px] flex-col h-[98px] hover:shadow-xl duration-200  rounded-lg flex border-[1px] justify-center items-center border-slate-300 '>
+                                <div className='lg:max-w-[216px]  w-[45%] sm:w-[30%] md:w-[22%] text-center flex-col h-[98px] hover:shadow-xl duration-200  rounded-lg flex border-[1px] justify-center items-center border-slate-300 '>
                                     <p className='text-[18px] font-bold'>Flexible schedule</p>
                                     <p className='text-textGrey text-[14px]'>Learn at your own pace</p>
                                 </div>
                             </div>
-                            <div className='mt-5 flex gap-6'>
+                            <div className='mt-5 flex flex-wrap sm:flex-nowrap gap-6'>
                                 <div>
                                     <p className='text-black text-[18px] font-bold mb-4'>Course Details</p>
                                     <ul className='list-disc text-textGrey mx-7 text-[18px]'>
@@ -187,7 +233,7 @@ const page = () => {
                             </div>
                             <div>
                                 <p className='text-[18px] mt-4 font-semibold'>Meet Your Instructor</p>
-                                <div className='w-full mt-3 p-7 bg-lightGrey rounded-lg'>
+                                <div className='w-full mt-3 p-3 md:p-7 bg-lightGrey rounded-lg'>
                                     <div className='bg-white flex gap-3 text-textGrey p-4 rounded-lg'>
                                         <div className='size-[88px] bg-white  rounded-full'>
                                             <Image
@@ -266,7 +312,7 @@ const page = () => {
                                     <div className='size-[13px] rounded-full bg-orange'></div>
                                     <p className='text-[24px]'>Details to know</p>
                                 </div>
-                                <div className='flex mt-6 justify-between'>
+                                <div className='flex flex-wrap gap-4 sm:flex-nowrap mt-6 justify-between'>
                                     <div className='flex  gap-4'>
                                         <TbCertificate
                                             className='text-[40px] text-orange' />

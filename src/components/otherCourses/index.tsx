@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import CourseCard from "@/components/coursecard";
 import axios from "axios";
-import { BASE_URL } from "@/utils/api";
+import { BASE_URL, BASE_URL_IMAGE } from "@/utils/api";
 import { IoMdSearch } from "react-icons/io";
 
 const OtherCourses = () => {
@@ -160,7 +160,7 @@ const OtherCourses = () => {
             <Slider
               {...settings}
               ref={sliderRefs.current[category]}
-              className="slick-slider overflow-x-hidden"
+              className="slick-slider overflow-x-hidden "
             >
               {allcourse[category]?.map((course: any) => (
                 <div
@@ -170,6 +170,9 @@ const OtherCourses = () => {
                   <CourseCard
                     slug={course.slug}
                     name={course.name}
+                    image={`${BASE_URL_IMAGE}${course.card_image}`}
+
+                    
                     text={"View"}
                     text1={"Enroll"}
                     link={`enroll`}

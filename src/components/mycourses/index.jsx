@@ -103,7 +103,7 @@ useEffect(() => {
         {finalData.length > 0 ? (
           finalData.map((course) => (
             <>
-            <CourseCard slug={course.slug||''} name={course.course_name} description={course.short_description} level={course.completion_status} 
+            <CourseCard slug={course.slug||''} image={course.card_image} name={course.course_name} description={course.short_description} level={course.completion_status} 
              category={course.instructor_name|| ''} id={course.id} text={"Start"} />
 
           

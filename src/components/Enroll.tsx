@@ -1,5 +1,5 @@
 "use client"
-import { BASE_URL } from '@/utils/api';
+import { BASE_URL, BASE_URL_IMAGE } from '@/utils/api';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { BiEdit } from "react-icons/bi";
@@ -13,6 +13,7 @@ import Image from 'next/image'
 import { MdOutlineBookmarkAdd } from 'react-icons/md';
 import { FaCode, FaRegCircleCheck } from 'react-icons/fa6';
 import { usePathname } from 'next/navigation'
+import {useRouter} from 'next/navigation';
 
 declare class Razorpay {
   constructor(options: RazorpayOptions);
@@ -49,6 +50,8 @@ declare global {
   }
 }
 const Profile = () => {
+  const router = useRouter()
+
   const { profile, fetch, discount, setdiscount } = useapi();
   // const {courseid  }=useapi()
   const [apidata, setApiData] = useState<any>()
@@ -137,7 +140,9 @@ const Profile = () => {
         return;
       }
       console.log('the order data', updateddata)
-      const { data: orderData } = await axios.post(`${BASE_URL}create-order/`, { course_id: data?.id, discount_code: coupanData.discount_code },
+      const { data: orderData } = await axios.post(`${BASE_URL}create-order/`,
+         { course_id: data?.id,
+          discount_code: coupanData.discount_code },
 
         {
           headers: {
@@ -150,6 +155,7 @@ const Profile = () => {
         return;
       }
 
+      console.log('order data ------------------------',orderData)
       const options = {
         key, // Razorpay API key
         amount: amount * 100, // Amount in paise
@@ -190,7 +196,10 @@ const Profile = () => {
 
       const rzp = new Razorpay(options);
       rzp.open();
+    
       toast.success('Enrolled successfully')
+      router.push('/thank-you') // Clear the form
+
     }
 
     catch (error: any) {
@@ -412,7 +421,7 @@ const Profile = () => {
             className=' justify-between 
              border-slate-200  my-2   group flex flex-col gap-2  smooth1 flex-1'
           >
-            <Image src="/images/Frame 1116607704.svg" height={350} width={410} alt='te' className='mx-auto' />
+            <Image src={`${BASE_URL_IMAGE}${data?.card_image}`} height={350} width={410} alt='te' className='mx-auto' />
             <h3 className='font-semibold text-black text-xl'>{data?.name}</h3>
             <h3 className='text-sm text-gray-500 font-medium'>
               {data?.short_description}
@@ -469,9 +478,6 @@ const Profile = () => {
               }
             </div>
           </div>
-
-
-
           <div className='border-b-[1px] mt-8 w-full'>
             <p className='text-[20px]  w-full mb-2 capitalize  font-semibold'>Your Order Details</p>
           </div>

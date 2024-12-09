@@ -112,8 +112,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-          {/* ends */}
-
           {/* popular course */}
           <div className="px-4 w-full  mx-auto xl:w-[77%] flex flex-col mt-10 gap-10">
             <h3 className="text-4xl font-bold text-center md:text-left">Popular <span className="text-orange">Courses</span> </h3>
@@ -201,7 +199,9 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold">Didn't find the perfect course? </h3>
               <h3 className="text-base">No problem! Click here to explore more options <br /> tailored to your interests!</h3>
+              <Link href={'/courses'}>
               <button className=" border border-white px-4 w-40 rounded-full py-2 hover:scale-110 smooth3">Explore More </button>
+              </Link>
             </div>
             <div className=" md:flex flex-1 flex-col gap-4 overflow-x-auto scrollbarHidden hidden">
               <ScrollingCards course={courses} />

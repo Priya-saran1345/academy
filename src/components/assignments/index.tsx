@@ -9,8 +9,9 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { json } from 'stream/consumers';
-
+import {useRouter} from 'next/navigation';
 const Support = () => {
+ const router = useRouter()
   const [data, setData] = useState({ name: '', email: '', subject: '', message: '', phone_number: '' });
   const [errors, setErrors] = useState({ name: '', email: '', subject: '', message: '', phone_number: '' });
 
@@ -70,18 +71,17 @@ const Support = () => {
         },
       });
       toast.success('Message sent successfully');
-      setData({ name: '', email: '', subject: '', message: '', phone_number: '' }); // Clear the form
+      setData({ name: '', email: '', subject: '', message: '', phone_number: '' });
+      router.push('/thank-you') // Clear the form
     } catch (error: any) {
       console.error('Error submitting data:', error);
       toast.error('Try again');
     }
   };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
   };
-
   return (
     <div>
       <div className='flex flex-col gap-5 lg:gap-0 lg:flex-row justify-between

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import CourseCard from '@/components/coursecard';
+import { BASE_URL_IMAGE } from '@/utils/api';
 
 const PopularCourse = ({ course = [] }) => {
   const Router = useRouter();
@@ -18,6 +19,7 @@ const PopularCourse = ({ course = [] }) => {
               level={elem.course_level}
               category={elem.category || ''}
               id={elem.id}
+              image={`${BASE_URL_IMAGE}${elem.card_image}`}
               text="View"
               link="enroll"
               text1={'Enroll'}

@@ -5,6 +5,7 @@ import { MdOutlineBookmarkAdd } from 'react-icons/md'
 import Image from 'next/image'
 import { useRouter } from "next/navigation"
 import { useapi } from '@/helpers/apiContext';
+import { BASE_URL_IMAGE } from '@/utils/api'
 // Updated truncateText function to limit characters instead of words
 const truncateText = (text: any, charLimit: number) => {
     if (text?.length > charLimit) {
@@ -12,7 +13,7 @@ const truncateText = (text: any, charLimit: number) => {
     }
     return text;
 }
-const Card = ({slug, name, description, level, category, id, text ,text1 ,link}: any) => {
+const Card = ({slug, name, description, level, category, id, text ,text1 ,link ,image}: any) => {
     const [showform, setshowform] = useState<any>(false)
     const { setcourseid}=useapi()
     const Router = useRouter();
@@ -28,7 +29,7 @@ const setnavigate=()=>{
              border-slate-200  my-4 min-w-[300px] max-w-[300px] sm:max-w-[320px] hover:shadow-lg group flex flex-col gap-2 p-4 smooth1 flex-1' 
             key={id}   
         >
-            <Image src="/images/Frame 1116607704.svg" height={350} width={350} alt='te' />
+            <Image src={`${image}`} height={350} width={350} alt='te' />
             <h3 className='font-semibold text-black text-xl'>{name}</h3>
             <h3 className='text-sm text-gray-500 font-medium'>{truncateText(description, 60)}</h3> {/* Updated to use character limit */}
             <div className='flex gap-2 flex-wrap'>
@@ -45,7 +46,8 @@ const setnavigate=()=>{
                     <span className='text-sm text-gray-500 font-medium capitalize'>Certificate</span>
                 </span>
             </div>
-            <div className='flex gap-3'>
+
+            <div className='flex mb-3 gap-3'>
             <Link href={`/course/${slug}`}>
                 <button className='hover:bg-orange bg-[#F24A2533] hover:text-white border text-orange center px-4 py-2 rounded-lg w-32 mt-5 smooth1'>
                     {text}

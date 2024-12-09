@@ -258,3 +258,14 @@ outline: none;
 .socialcontainer:hover .social-icon-4 {
   transform: translateY(-70px);
 }
+
+
+
+/* .no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;     
+} */
