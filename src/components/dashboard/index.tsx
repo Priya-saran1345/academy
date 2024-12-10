@@ -121,7 +121,6 @@ const data2 = [
           <div>
             <p className='text-[22px] font-medium text-center sm:text-left text-black'>Progress Overview</p>
           </div>
-
           <div className='flex justify-center sm:justify-start flex-wrap  gap-2'>
             <div className='shadow-lg border-slate-200 py-3 border-[1px] rounded-lg flex flex-col gap-6  h-[331px] w-[271px]'>
               <p className='font-semibold text-center text-black'>Course Completed</p>

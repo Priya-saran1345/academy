@@ -22,7 +22,6 @@ const Footer = () => {
           </ul>
         </div>
         <div className="flex justify-center  sm:justify-start gap-3 text-[20px] md:text-[25px] mt-6 md:mt-0">
-
           <div className="social-login-icons">
             <Link href='https://x.com/' target='_blank'>
               <div className="socialcontainer">
