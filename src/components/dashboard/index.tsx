@@ -5,49 +5,76 @@ import BarChart from "@/components/barChart/BarChart"
 import Image from 'next/image';
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { useapi } from '@/helpers/apiContext';
-
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 const Dashboard = () => {
   const { dashboard } = useapi();
-  
-  ChartJS.register(ArcElement, Tooltip, Legend  );
+
+  ChartJS.register(ArcElement, Tooltip, Legend);
   const [Apidata, setApidata] = useState<any>()
   const [purchased_courses, setpurchased_courses] = useState<any>()
   let purchasedCoursesLength = purchased_courses?.length ?? 0;
   let completedCourses = Apidata?.user_stats?.completed ?? 0;
-  let gainercertificate=Apidata?.user_stats?.completed ?? 0;
+  let gainercertificate = Apidata?.user_stats?.completed ?? 0;
   useEffect(() => {
     setApidata(dashboard)
-    setpurchased_courses(dashboard?.purchased_courses)  
+    setpurchased_courses(dashboard?.purchased_courses)
   }, [dashboard]);
 
+    // const settings = {
+    //   dots: true,               // Show navigation dots
+    //   infinite: true,           // Infinite looping
+    //   speed: 500,               // Transition speed in milliseconds
+    //   slidesToShow: 3,          // Number of slides visible at once
+    //   slidesToScroll: 1,        // Number of slides to scroll
+    //   autoplay: true,           // Automatic slide transition
+    //   autoplaySpeed: 2000,      // Delay between transitions in milliseconds
+    //   responsive: [             // Responsive settings
+    //     {
+    //       breakpoint: 1024,
+    //       settings: {
+    //         slidesToShow: 2,
+    //       },
+    //     },
+    //     {
+    //       breakpoint: 768,
+    //       settings: {
+    //         slidesToShow: 1,
+    //       },
+    //     },
+    //   ],
+    // };
+
+
   //data for pi chart
-console.log(Apidata)
-let data = [
-  {
-    label: "Label 2",
-    value: completedCourses,  // Total purchased courses
-    color: "#F24A25",
-    // cutout: "50%",
-  },
-  {
-    label: "Label 1",
-    value: purchasedCoursesLength - completedCourses,  // Remaining courses
-    color: "#F24A2540",
-    // cutout: "50%",
-  },
-];
-const data2 = [
-  {
-    // label: "Label 2", // Completed certificates
-    value: gainercertificate,
-    color: "#F24A25",
-  },
-  {
-    // label: "Label 1", // Remaining certificates
-    value: purchasedCoursesLength - gainercertificate,
-    color: "#F24A2540",
-  },
-];
+  console.log(Apidata)
+  let data = [
+    {
+      label: "Label 2",
+      value: completedCourses,  // Total purchased courses
+      color: "#F24A25",
+      // cutout: "50%",
+    },
+    {
+      label: "Label 1",
+      value: purchasedCoursesLength - completedCourses,  // Remaining courses
+      color: "#F24A2540",
+      // cutout: "50%",
+    },
+  ];
+  const data2 = [
+    {
+      // label: "Label 2", // Completed certificates
+      value: gainercertificate,
+      color: "#F24A25",
+    },
+    {
+      // label: "Label 1", // Remaining certificates
+      value: purchasedCoursesLength - gainercertificate,
+      color: "#F24A2540",
+    },
+  ];
 
 
   const options: any = {
@@ -105,110 +132,115 @@ const data2 = [
   return (
 
 
-<>
+    <>
 
-    {
-      !Apidata && <div className="min-h-[90vh]  w-full flex justify-center items-center">
-        <div className="loader"></div>
-      </div>
+      {
+        !Apidata && <div className="min-h-[90vh]  w-full flex justify-center items-center">
+          <div className="loader"></div>
+        </div>
+      }
+      {
+        Apidata &&
+        <div className=''>
+          <div className=' flex flex-wrap  rounded-sm px-0 md:px-4 py-5 '>
+            <div className='flex flex-col w-full md:w-[70%] xl:w-[60%]  gap-3'>
+              <div>
+                <p className='text-[22px] font-medium text-center sm:text-left text-black'>Progress Overview</p>
+              </div>
+              <div className='flex justify-center sm:justify-start flex-wrap  gap-2'>
+                <div className='shadow-lg border-slate-200 py-4 border-[1px] rounded-lg flex flex-col gap-6 max-h-[355px] w-[80%]   min-h-[331px]  sm:w-[32%]'>
+                  <p className='font-semibold text-center text-black'>Course Completed</p>
+                  <Doughnut data={finalData} options={options} className='rotate-[224deg] w-[50%] mx-auto' />
+                  <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats.completed}/ {purchased_courses?.length ?? 0}</p>
+                  <p className='text-center font-semibold'>Goal: {purchased_courses?.length ?? 0}</p>
+                  <p className='text-textGrey text-center'>Almost there! Keep going!</p>
+                </div>
+                <div className='shadow-lg border-slate-200 py-4 border-[1px] rounded-lg flex flex-col gap-6 max-h-[355px] w-[80%]   min-h-[331px]  sm:w-[32%]'>
+                  <p className='font-semibold text-center text-black'>Course Completed</p>
+                  <Doughnut data={finalData} options={options} className='rotate-[224deg] w-[50%] mx-auto' />
+                  <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats.completed}/{purchased_courses?.length ?? 0}</p>
+                  <p className='text-center  font-semibold'>Goal: {purchased_courses?.length ?? 0}</p>
+                  <p className='text-textGrey text-center'>Almost there! Keep going!</p>
+                </div>
+                <div className='shadow-lg border-slate-200 py-4 border-[1px] rounded-lg flex flex-col gap-6 max-h-[355px] w-[80%]   min-h-[331px]  sm:w-[32%]'>
+                  <p className='font-semibold text-center text-black'>Certificate Gained</p>
+                  <Doughnut data={finalData2} options={options} className='rotate-[224deg] w-[50%] mx-auto' />
+                  <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats.completed}/{purchased_courses?.length ?? 0}</p>
+                  <p className='text-center  font-semibold'>Goal: {purchased_courses?.length ?? 0} </p>
+                  <p className='text-textGrey text-center'>Almost there! Keep going!</p>
+                </div>
+              </div>
+            </div>
+            <div className=' w-[90%] mx-auto md:mx-0 md:w-[30%] xl:w-[36%] '>
+              <div>
+                <p className='text-[22px] mt-8 md:mt-0 text-center md:text-start font-medium text-black'>Learning Progress</p>
+              </div>
+              <div className='w-full rounded-lg  border-[1px] border-slate-200 h-[331px] mt-3 '>
+                <BarChart />
+              </div>
+            </div>
+          </div>
+          {/* make the slider here */}
+          <div className="px-6 w-full max-w-[1750px] min-w-[370px]">
+  <p className="text-[22px] my text-black font-semibold">Enrolled Courses</p>
+  {/* <Slider {...settings}> */}
+  <div className='flex w-full flex-wrap gap-4 justify-center   xl:justify-between'>
 
-    }
-    {
-      Apidata&&
-      <div className=''>
-      <div className=' flex flex-wrap gap-8 rounded-sm px-0 md:px-6 py-5 '>
-        <div className='flex flex-col gap-3'>
-          <div>
-            <p className='text-[22px] font-medium text-center sm:text-left text-black'>Progress Overview</p>
-          </div>
-          <div className='flex justify-center sm:justify-start flex-wrap  gap-2'>
-            <div className='shadow-lg border-slate-200 py-3 border-[1px] rounded-lg flex flex-col gap-6  h-[331px] w-[271px]'>
-              <p className='font-semibold text-center text-black'>Course Completed</p>
-              <Doughnut data={finalData} options={options} className='rotate-[224deg] w-[70%] mx-auto' />
-              <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats.completed}/ {purchased_courses?.length ?? 0}</p>
-              <p className='text-center font-semibold'>Goal: {purchased_courses?.length ?? 0}</p>
-              <p className='text-textGrey text-center'>Almost there! Keep going!</p>
-            </div>
-            <div className='shadow-lg border-slate-200 py-3 border-[1px] rounded-lg flex flex-col gap-6  h-[331px] w-[271px]'>
-              <p className='font-semibold text-center text-black'>Course Completed</p>
-              <Doughnut data={finalData} options={options} className='rotate-[224deg] w-[70%] mx-auto' />
-              <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats.completed}/{purchased_courses?.length ?? 0}</p>
-              <p className='text-center  font-semibold'>Goal: 7</p>
-              <p className='text-textGrey text-center'>Almost there! Keep going!</p>
-            </div>
-            <div className='shadow-lg border-slate-200 py-3 border-[1px] rounded-lg flex flex-col gap-6  h-[331px] w-[271px]'>
-              <p className='font-semibold text-center text-black'>Certificate Gained</p>
-              <Doughnut data={finalData2} options={options} className='rotate-[224deg] w-[70%] mx-auto' />
-              <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats.completed}/{purchased_courses?.length ?? 0}</p>
-              <p className='text-center  font-semibold'>Goal: {purchased_courses?.length ?? 0} </p>
-              <p className='text-textGrey text-center'>Almost there! Keep going!</p>
+ {purchased_courses?.map((course: any) => (
+          <div key={course.id} className="px-2 w-full sm:w-[45%] lg:w-[30%] xl:w-[24%]">
+            <div className="w-full h-[134px] hover:text-white flex gap-5 text-black rounded-xl p-2 bg-lightOrange duration-200 hover:bg-orange">
+              <div className="w-[102px]">
+                <Image
+                  src="/images/laptop.png"
+                  alt="Business & Entrepreneurship"
+                  width={100}
+                  height={100}
+                  className="transition group-hover:brightness-0 group-hover:invert"
+                />
+              </div>
+              <div className="w-full pr-2">
+                <div className="flex w-full justify-between">
+                  <p className="text-[17px] font-semibold">{course?.course_name}</p>
+                  <FaArrowUpRightFromSquare className="text-[22px]" />
+                </div>
+                <p className="text-[14px]">Status:&nbsp;{course?.completion_status}</p>
+                <p className="text-[14px]">Discount Amount:&nbsp;{course?.discount_amount}</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div>
-            <p className='text-[22px] font-medium text-black'>Learning Progress</p>
-          </div>
-          <div className='w-[350px] sm:w-[550px] md:w-[650px] rounded-lg  border-[1px] border-slate-200 h-[331px] mt-3 '>
-            <BarChart />
-          </div>
-        </div>
-      </div>
-      {/* make the slider here */}
-      {/* <div className="px-6  max-w-[1600px] min-w-[300px]">
-  <p className="text-[22px] text-black font-semibold">Enrolled Courses</p>
-  <div className="flex gap-4  overflow-auto  py-4 whitespace-nowrap">
-  {purchased_courses?.map((course: any) => {
-      return (
-        <div
-          key={course.id} // Adding a unique key for each item
-          className="w-[448px] flex-shrink-0 h-[134px] hover:text-white flex gap-5 text-black rounded-xl p-2 bg-lightOrange hover:bg-orange "
-        >
-          <div className="w-[102px]">
-            <Image
-              src="/images/laptop.png"
-              alt="Business & Entrepreneurship"
-              width={100}
-              height={100}
-              className="transition group-hover:brightness-0 group-hover:invert"
-            />
-          </div>
-          <div className="w-full pr-2">
-            <div className="flex w-full justify-between">
-              <p className="text-[17px] font-semibold">{course?.course_name}</p>
-              <FaArrowUpRightFromSquare className="text-[22px]" />
-            </div>
-            <p className="text-[14px]">Status:&nbsp;{course?.completion_status}</p>
-            <p className="text-[14px]">Discount Amount:&nbsp;{course?.discount_amount}</p>
-          </div>
-        </div>
-      );
-    })}
-  </div>
-</div> */}
 
-      {/* last cards */}
-      <div className='flex flex-wrap gap-4 mt-8 justify-center md:justify-start lg:justify-between pl-7'>
-        <div className='bg-white min-h-[91px] gap-3 min-w-[311px] flex justify-center items-center rounded-3xl shadow-lg border-[1px] border-slate-200'>
-          <p className='text-orange text-[48px]  font-medium'>{Apidata?.user_stats.enroll_project}</p>
-          <p className='text-[20px] font-medium'>Enrolled Courses</p>
+        ))}
         </div>
-        <div className='bg-white min-h-[91px] gap-3 min-w-[311px] flex justify-center items-center rounded-3xl shadow-lg border-[1px] border-slate-200'>
-          <p className='text-orange text-[48px] font-medium'>{Apidata?.user_stats.not_started}</p>
-          <p className='text-[20px] font-medium'>Not Started Course</p>
+      {/* </Slider> */}
+</div>
+
+
+          {/* last cards */}
+          <div className='flex flex-wrap   lg:flex-nowrap gap-6 mt-8 justify-center lg:justify-center '>
+            <div className='bg-white pb-4 xl:pb-0 xl:min-h-[91px] xl:gap-3 w-[90%] sm:w-[47%] lg:w-[23%] flex xl:flex-row  flex-col justify-center items-center
+         rounded-3xl shadow-lg border-[1px] border-slate-200'>
+              <p className='text-orange text-[48px]  font-medium'>{Apidata?.user_stats.enroll_project}</p>
+              <p className='text-[20px] font-medium'>Enrolled Courses</p>
+            </div>
+            <div className='bg-white pb-4 xl:pb-0 xl:min-h-[91px] xl:gap-3 w-[90%] sm:w-[47%] lg:w-[23%] flex xl:flex-row  flex-col justify-center items-center 
+        rounded-3xl shadow-lg border-[1px] border-slate-200'>
+              <p className='text-orange text-[48px] font-medium'>{Apidata?.user_stats.not_started}</p>
+              <p className='text-[20px] font-medium'>Not Started Course</p>
+            </div>
+            <div className='bg-white pb-4 xl:pb-0 xl:min-h-[91px] xl:gap-3 w-[90%] sm:w-[47%] lg:w-[23%] flex xl:flex-row  flex-col justify-center items-center
+         rounded-3xl shadow-lg border-[1px] border-slate-200'>
+              <p className='text-orange text-[48px] font-medium'>{Apidata?.user_stats.ongoing}</p>
+              <p className='text-[20px] font-medium'>Ongoing Courses</p>
+            </div>
+            <div className='bg-white pb-4 xl:pb-0 xl:min-h-[91px] xl:gap-3 w-[90%] sm:w-[47%] lg:w-[23%] flex xl:flex-row  flex-col justify-center items-center rounded-3xl 
+         shadow-lg border-[1px] border-slate-200'>
+              <p className='text-orange text-[48px] font-medium'>{Apidata?.user_stats.completed}</p>
+              <p className='text-[20px] font-medium'>Completed Course</p>
+            </div>
+          </div>
         </div>
-        <div className='bg-white min-h-[91px] gap-3 min-w-[311px] flex justify-center items-center rounded-3xl shadow-lg border-[1px] border-slate-200'>
-          <p className='text-orange text-[48px] font-medium'>{Apidata?.user_stats.ongoing}</p>
-          <p className='text-[20px] font-medium'>Ongoing Courses</p>
-        </div>
-        <div className='bg-white min-h-[91px] gap-3 min-w-[311px] flex justify-center items-center rounded-3xl shadow-lg border-[1px] border-slate-200'>
-          <p className='text-orange text-[48px] font-medium'>{Apidata?.user_stats.completed}</p>
-          <p className='text-[20px] font-medium'>Completed Course</p>
-        </div>
-      </div>
-    </div>
-    }
-   
+      }
+
     </>
 
   )

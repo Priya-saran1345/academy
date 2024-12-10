@@ -17,12 +17,22 @@ const OtherCourses = () => {
   const settings = {
     infinite: true,
     speed: 300,
+    
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: false,
     responsive: [
+      // {
+      //   breakpoint: 1660,
+      //   settings: {
+      //     slidesToShow: 3,
+      //     slidesToScroll: 1,
+      //     infinite: true,
+      //     dots: true,
+      //   },
+      // },
       {
-        breakpoint: 1660,
+        breakpoint: 1377,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 1,
@@ -31,25 +41,30 @@ const OtherCourses = () => {
         },
       },
       {
-        breakpoint: 1300,
+        breakpoint: 983,
         settings: {
-          slidesToShow: 2.2,
+          slidesToShow: 2.5,
           slidesToScroll: 1,
           infinite: true,
           dots: true,
         },
       },
       {
-        breakpoint: 1024,
+        breakpoint: 819,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          infinite: true,
-          dots: true,
         },
       },
       {
-        breakpoint: 800,
+        breakpoint: 673,
+        settings: {
+          slidesToShow: 1.4,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 495,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -98,7 +113,7 @@ const OtherCourses = () => {
   };
 
   return (
-    <div className="w-full relative p-4 md:p-3">
+    <div className="w-full relative p-4 lg:px-0 md:p-3">
       <div className="flex flex-col md:flex-row justify-between items-center mb-5 gap-4">
         <p className="text-[22px] text-black font-semibold mb-5 border-orange border-b-2 w-fit">
           Courses For You

@@ -18,11 +18,12 @@ const DashboardHeader = ({ props }: any) => {
   const router = useRouter();
   const [showLogout, setShowLogout] = useState(false);
   const [ApiData, setApiData] = useState<any>(); // Use a more standard naming convention
+  const basic_detail=useapi()
 
 
   useEffect(() => {
     setApiData(profile)
-    // Call fetchData when the component mounts
+   
   }, [profile]);
   console.log("dashboard data", profile)
 
@@ -42,7 +43,7 @@ const DashboardHeader = ({ props }: any) => {
         <div className='flex gap-3 items-center lg:gap-10 xl:gap-20'>
       <div className='px-3'>
         <Link href="/">
-          <Image src="/images/Browk Shop.svg" alt="logo" width={130} height={100} />
+          <Image src={basic_detail.basic_detail?.logo_image} alt="logo" width={180} height={120} />
         </Link>
       </div>
         <div className='hidden md:flex font-medium text-[17px] text-textGrey'>

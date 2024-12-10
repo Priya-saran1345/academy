@@ -177,7 +177,6 @@ const Profile = () => {
                   Authorization: `Bearer ${token}`
                 }
               });
-
             alert("Payment successful! You are enrolled in the course.");
           } catch (err) {
             console.error("Payment verification failed:", err);
@@ -185,9 +184,9 @@ const Profile = () => {
           }
         },
         prefill: {
-          name: "Your Name", // Customize with actual user data
-          email: "your-email@example.com",
-          contact: "9999999999",
+          name:updateddata.username , // Customize with actual user data
+          email: updateddata.email ,
+          contact:updateddata.phone  ,
         },
         theme: {
           color: "#3399cc",

@@ -50,8 +50,9 @@ const Banner = ({ props }) => {
     setRestOfString(heading?.slice(0, -5).trim());
   }, []); // Include props.heading in the dependency array
   return (
-    <div className=' h-fit md:min-h-[850px] flex flex-col md:flex-row  bg-banner px-6 w-full  mx-auto xl:w-[77%]'>
-      <div className='flex-1 flex flex-col my-24 md:my-20 lg:my-0  justify-center gap-8'>
+    <div className=' h-fit md:min-h-[850px] flex  flex-col md:flex-row  bg-banner px-6  mx-auto w-full lg:w-[95%] 2xl:w-[77%]
+'>
+      <div className='flex-1 flex flex-col mb-16 mt-32 md:my-20 lg:my-0  justify-center gap-8'>
         <div className='flex flex-col gap-4'>
           <h1 className='2xl:text-[68px] xl:text-[55px] text-[35px] text-black font-bold leading-tight'>
             <span>
@@ -68,7 +69,7 @@ const Banner = ({ props }) => {
         </div>
         <Link href={`/courses`}>
           <div className='flex items-center justify-start'>
-            <button className='bg-orange text-white text-center text-lg px-6 py-3 font-medium hover:bg-white border border-orange hover:border-orange hover:text-orange smooth1 rounded-full'>
+            <button className='bg-orange text-white text-center text-[15px] xl:text-lg px-6 py-2 xl:py-3 font-medium hover:bg-white border border-orange hover:border-orange hover:text-orange smooth1 rounded-full'>
               {props?.button_text}
             </button>
           </div>

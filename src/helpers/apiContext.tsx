@@ -17,6 +17,7 @@ interface ApiContextType {
     courseid:any
     setdiscount: React.Dispatch<React.SetStateAction<any>>;
     setcourseid: React.Dispatch<React.SetStateAction<any>>;
+    basic_detail:any
 
 }
 
@@ -27,11 +28,26 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     const [profile, setprofile] = useState<any>()
     const [discount, setdiscount] = useState<any>(0)
     const [courseid, setcourseid] = useState<any>()
+    const [basic_detail, setbasic_detail] = useState<any>()
     const fetch = async () => {
+
+
+
+        try {
+            // API call to fetch dashboard data
+            const response = await axios.get(`${BASE_URL}basic-settings/`);
+           
+            setbasic_detail(response.data);  // Update state with fetched data
+          } catch (err) {
+            console.log("Dashboard error", err);  // Log the full error for debugging
+            // Update error state with error message
+          }
+
+
+
         // dashboard api==========================================
         try {
             const token = Cookies.get('login_access_token');
-
             if (!token) {
                 // setError('No token found'); // Update error state
                 console.error('No token found');
@@ -77,7 +93,7 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     return (
-        <ApiContext.Provider value={{ dashboard, profile, fetch , discount , setdiscount ,setcourseid ,courseid }}>
+        <ApiContext.Provider value={{ dashboard, profile, fetch , discount , setdiscount ,setcourseid ,courseid ,basic_detail }}>
             {children}
            {/* Display error message if any */}
         </ApiContext.Provider>

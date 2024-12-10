@@ -7,7 +7,8 @@ const Instructors = ({instructor=[]}) => {
  return (
   <>
 
-  <div className='flex gap-4 w-[94%] justify-center mx-auto pb-8 xl:w-[77%]  mt-20 lg:mt-20 flex-wrap lg:flex-nowrap  2xl:flex-nowrap  '> 
+  <div className='flex gap-4  justify-center mx-auto pb-8 w-full lg:w-[95%] 2xl:w-[77%]
+  mt-20 lg:mt-20 flex-wrap lg:flex-nowrap  2xl:flex-nowrap  '> 
     {
 instructor.map((elem) => {
  return(

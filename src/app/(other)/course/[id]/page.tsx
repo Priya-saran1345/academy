@@ -82,13 +82,12 @@ const page = () => {
         console.log(isFullScreen)
         setIsFullScreen((prev) => !prev);
     };
-
     return (
         ApiData && <div>
             <Header />
             <div className="py-4 bg-transparent pt-32  text-black px-3 md:px-6 w-full   mx-auto lg:w-[95%] 2xl:w-[77%] mt-2">
                 <div className=' gap-3 flex'>
-                    <div className='w-[429px] hidden lg:block h-fit pb-20 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
+                    <div className='w-[429px] sticky top-5 hidden lg:block h-fit pb-20 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
                         <div className='border-b-2 border-slate-300 pb-3'>
                             <p className='text-textGrey font-[16px]'>Course Starts - {ApiData?.start_date}</p>
                         </div>

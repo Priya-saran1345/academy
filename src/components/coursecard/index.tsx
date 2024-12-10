@@ -26,11 +26,11 @@ const setnavigate=()=>{
         // <div className=' bg-black'>
         <div 
             className='rounded-lg   hover:scale-105 border-[1px] justify-between h-[500px]
-             border-slate-200  my-4 min-w-[300px] max-w-[300px] sm:max-w-[320px] hover:shadow-lg group flex flex-col gap-2 p-4 smooth1 flex-1' 
+             border-slate-200  my-4 min-w-[300px] max-w-[300px] sm:max-w-[320px] hover:shadow-lg group flex flex-col gap-1 p-4 smooth1 flex-1' 
             key={id}   
         >
             <Image src={`${image}`} height={350} width={350} alt='te' />
-            <h3 className='font-semibold text-black text-xl'>{name}</h3>
+            <h3 className='font-semibold text-black text-xl'>{truncateText(name, 30)}</h3>
             <h3 className='text-sm text-gray-500 font-medium'>{truncateText(description, 60)}</h3> {/* Updated to use character limit */}
             <div className='flex gap-2 flex-wrap'>
                 <span className='bg-[#F8F8F8] p-1 rounded-full flex items-center gap-2'>
@@ -58,9 +58,8 @@ const setnavigate=()=>{
                 <button className='hover:bg-orange bg-[#F24A2533] hover:text-white border text-orange center px-4 py-2 rounded-lg w-32 mt-5 smooth1'  
                 onClick={setnavigate}         
                 >
-             {/* <Link href={`/${link}`}> */}
                     {text1}
-             {/* </Link> */}
+           
                 </button>
             }
             </div>

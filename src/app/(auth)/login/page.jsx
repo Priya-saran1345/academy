@@ -112,15 +112,17 @@ const  handleForgetPassword= async()=>{
     return (
         <>
             <Header />
-            <div className='flex h-screen flex-col lg:flex-row   px-6 w-full  mx-auto xl:w-[77%]'>
+            <div className='flex h-screen flex-col lg:flex-row   px-6  mx-auto w-full lg:w-[95%] 2xl:w-[77%]
+'>
                 <div className='flex-1 center flex-col gap-4 mt-28  '>
-                    <Image src="/images/Browk Shop.svg" alt="logo" width={180} height={180} className='' />
+                    {/* <Image src="/images/Browk Shop.svg" alt="logo" width={180} height={180} className='' /> */}
                     <h3 className='text-base text-center text-gray-500 '>Sign in now and dive into a world of endless <br /> learning opportunities.</h3>
                     <Image src="/images/Group 1000004450.svg" alt="logo" width={480} height={480} className='hidden lg:flex' />
                 </div>
                 <div className='flex-1 relative center'>
                   {
-                    showform&&<div className='h-[440px] sm:h-[536px] border-t-[.5px] border-slate-100 rounded-lg w-[663px] bg-white shadow-xl lg:mt-28 px-7 sm:px-20 py-10 sm:py-20 flex-col gap-8'>
+                    showform&&<div className='h-[440px] sm:h-[536px] border-t-[.5px] border-slate-100 rounded-lg xl:w-[663px]
+                     bg-white shadow-xl lg:mt-28 px-7 sm:px-20 py-10 sm:py-20 flex-col gap-8'>
                     <h3 className='text-xl font-semibold text-start mb-6'>Log In</h3>
                     <div className='flex flex-col gap-8 items-start justify-start'>
                         <div className="wave-group">

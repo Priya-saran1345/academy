@@ -60,13 +60,12 @@ export default function Home() {
         <div>
           <Header />
           <Banner props={website_banner} />
-          {/* Master the Most In-Demand */}
           <div className="center bg-lightGrey">
             <div className="flex flex-col px-4 py-14 gap-10">
               <h3 className="text-black text-3xl md:text-4xl font-bold text-center">
                 Master the Most In-Demand <span className="text-orange">Skills</span> <br /> of Today&apos;s Job Market
               </h3>
-              <div className="flex flex-wrap  lg:flex-nowrap items-center justify-center gap-10 md:gap-36">
+              <div className="flex flex-wrap  lg:flex-nowrap items-center justify-center gap-10 xl:gap-36">
                 <div className="flex flex-col items-center gap-2 group">
                   <div className="rounded-full mx-auto w-[110px] h-[110px] flex justify-center items-center bg-white group-hover:bg-orange transition">
                     <Image
@@ -113,8 +112,9 @@ export default function Home() {
             </div>
           </div>
           {/* popular course */}
-          <div className="px-4 w-full  mx-auto xl:w-[77%] flex flex-col mt-10 gap-10">
-            <h3 className="text-4xl font-bold text-center md:text-left">Popular <span className="text-orange">Courses</span> </h3>
+          <div className="px-4   mx-auto w-full lg:w-[95%] 2xl:w-[77%]
+ flex flex-col mt-10 gap-10">
+            <h3 className="text-4xl font-bold text-center lg:text-left">Popular <span className="text-orange">Courses</span> </h3>
             <PopularCourse course={courses} />
             <div className="center ">
               <Link href="/courses">
@@ -127,7 +127,8 @@ export default function Home() {
           {/* ends */}
 
           {/* Transform Your Future */}
-          <div className="px-6  w-full  mx-auto xl:w-[77%] flex flex-col lg:flex-row mb-10 mt-28">
+          <div className="px-6   mx-auto w-full lg:w-[95%] 2xl:w-[77%]
+ flex flex-col lg:flex-row mb-10 mt-28">
             <div className="flex-1 items-center lg:items-start text-center lg:text-left mb-6  flex flex-col gap-4">
               <h3 className="text-3xl md:text-4xl font-bold">
                 Transform Your Future <br /> with <span className="text-orange">High-Skill</span> Courses at <br /> <span className="text-orange">Affordable Prices</span>

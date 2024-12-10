@@ -41,7 +41,6 @@ const DashboardSidebar = () => {
         : "bg-[#F9F9F9] text-[#545454] hover:bg-orange hover:text-white"
     }`;
   };
-
   const handleNavigation = (option:any, path:any) => {
     setActiveOption(option);
     router.push(path);
@@ -52,21 +51,20 @@ const DashboardSidebar = () => {
     document.cookie = "login_refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     router.push("/login");
   };
-
   const sidebarVariants = {
     expanded: { width: "245px" },
-    collapsed: { width: "80px" },
+    collapsed: { width: "55px" },
   };
   return (
     <motion.div
-      className="relative hidden lg:block group min-h-[97vh] overflow-hidden"
+      className=" hidden lg:block group bg-[#F7F7F7] min-h-[90vh] overflow-hidden"
       initial="collapsed"
       animate={isExpanded ? "expanded" : "collapsed"}
       variants={sidebarVariants}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
     >
-      <div className="bg-[#F7F7F7]  px-2 min-h-[97vh] overflow-hidden">
+      <div className="bg-[#F7F7F7]  px-2 h-full overflow-hidden">
         <ul className="pt-4">
           {[
             { option: "dashboard", icon: RxDashboard, label: "Dashboard", path: "/dashboard" },
@@ -93,7 +91,6 @@ const DashboardSidebar = () => {
           ))}
         </ul>
       </div>
-
       <motion.div
         className="text-orange text-[18px] cursor-pointer font-medium flex gap-3 items-center mx-4 absolute bottom-5"
         onClick={logout}
