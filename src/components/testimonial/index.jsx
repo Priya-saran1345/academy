@@ -23,21 +23,17 @@ const Testimonial = ({ testimonials = [] }) => {
     const stars = [];
     const fullStars = Math.floor(rating); // Integer part of the rating
     const hasHalfStar = rating % 1 !== 0; // Check if there's a fractional part
-  
     // Add full stars
     for (let i = 1; i <= fullStars; i++) {
-      stars.push(<FaStar key={i} className="text-orange" />);
+      stars.push(<FaStar key={i} className="text-orange group-hover:text-white" />);
     }
-  
     // Add half star if there's a fractional part
     if (hasHalfStar) {
-      stars.push(<FaStarHalfAlt key="half" className="text-orange" />);
+      stars.push(<FaStarHalfAlt key="half" className="text-orange group-hover:text-white" />);
     }
-  
     return <div className="flex gap-1">{stars}</div>;
   };
  
-
   return (
     <>
       <div className='w-full overflow-hidden'>
@@ -51,7 +47,7 @@ const Testimonial = ({ testimonials = [] }) => {
         >
           {visibleTestimonials.map((elem, index) => (
             <div key={index} className='text-slate-700 min-w-[350px] md:min-w-[470px] group min-h-[221px] 
-              bg-lightGrey hover:bg-orange p-5 hover:text-white rounded-lg
+              bg-lightGrey  hover:bg-orange p-5 hover:text-white rounded-lg
               flex flex-wrap justify-center sm:flex-nowrap items-start gap-4'>
               <div className='min-w-[60px] h-[60px] border-[5px] group-hover:border-red-300 flex justify-center testimonial-img items-center rounded-full'>
                 <Image
@@ -69,7 +65,7 @@ const Testimonial = ({ testimonials = [] }) => {
                 <p className='text-[16px]'>Course:&nbsp;&nbsp;
                   <span className='font-semibold'>{elem.author_position}</span>
                 </p>
-                <p className="flex items-center gap-1">
+                <p className="flex items-center  gap-1">
                   Rating: {renderStars(elem.rating)}
                 </p>
                 <p className='text-[14px] mt-4'>{elem.feedback}</p>
