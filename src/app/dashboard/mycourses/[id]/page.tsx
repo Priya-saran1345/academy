@@ -124,7 +124,7 @@ function CourseSidebar() {
     ];
   
     return (
-        <div className="w-[350px] flex-shrink-0 rounded-lg shadow p-4">
+        <div className="w-[350px] sticky top-10 h-[90vh] flex-shrink-0 rounded-lg shadow p-4">
         <Image
           src="/images/course.png"
           height={350}
@@ -257,7 +257,6 @@ function CourseSidebar() {
 function CourseContent() {
     const [openModule, setOpenModule] = useState<any>(null);
     const [expandedLessonIndex, setExpandedLessonIndex] = useState(null);
-
     const toggleLesson = (index: any) => {
         setExpandedLessonIndex(expandedLessonIndex === index ? null : index);
     };
@@ -306,10 +305,14 @@ function CourseContent() {
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex justify-between">
 
+                                                              <div className="flex items-start gap-2">
+                                                              <div className="w-[13px] h-[13px] border-2 mt-1  border-orange rounded-full"></div>
+
                                                             <div className=" items-center gap-2">
                                                                 <div className="font-medium text-[18px] text-textGrey">{lesson.title}</div>
                                                                 <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
                                                             </div>
+                                                              </div>
                                                             {expandedLessonIndex === lessonIndex ? (
                                                                     <BiChevronUp className="  text-[28px] text-orange" />
                                                               

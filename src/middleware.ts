@@ -42,10 +42,10 @@ export const config = {
         '/dashboard/support',
         '/dashboard/updates',
        '/enroll' ,
-       '/dashboard/mycourses/:path*',
+'/dashboard/mycourses/:id*',
        '/contact',
        '/courses',
-       '/course/:path*'
+       '/course/:id*'
 
     ]
 };
