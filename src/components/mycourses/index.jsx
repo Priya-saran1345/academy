@@ -25,6 +25,7 @@ const fetch = async () => {
               Authorization: `Bearer ${token}`
           }
       });
+      console.log('my courses are ',response.data)
     setApiData  (response.data); 
   } catch (error) {
       console.log("my courses error", error.message);

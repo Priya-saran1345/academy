@@ -22,7 +22,7 @@ export default function Home() {
   const [faq, setfaq] = useState()
   const [testimonial, settestimonial] = useState()
   const [courses, setcourses] = useState()
-  const [Apidata, setApidata] = useState()
+  const [Apidata, setApidata] = useState<any>()
   const fetchData = async () => {
     try {
       const response = await axios.get(`${BASE_URL}home/`);
@@ -45,11 +45,7 @@ export default function Home() {
 
   return (
     <>
-      <Script
-        src="https://checkout.razorpay.com/v1/checkout.js"
-        strategy="beforeInteractive" // Ensures the script is loaded before the component renders
-
-      />
+      
       {
         !Apidata && <div className="min-h-[90vh] w-full flex justify-center items-center">
           <div className="loader"></div>
@@ -66,48 +62,23 @@ export default function Home() {
                 Master the Most In-Demand <span className="text-orange">Skills</span> <br /> of Today&apos;s Job Market
               </h3>
               <div className="flex flex-wrap  lg:flex-nowrap items-center justify-center gap-10 xl:gap-36">
-                <div className="flex flex-col items-center gap-2 group">
+                  {
+                    Apidata?.categories?.slice(0,4).map((elem:any ,index:any)=>(
+                      <div className="flex flex-col items-center gap-2 group">
+
                   <div className="rounded-full mx-auto w-[110px] h-[110px] flex justify-center items-center bg-white group-hover:bg-orange transition">
                     <Image
-                      src="/images/animation1.svg"
+                      src={`/images/animation${index+1}.svg`}
                       alt="Business & Entrepreneurship"
                       width={50}
                       height={50}
                       className="transition group-hover:brightness-0 group-hover:invert"
                     />
-                  </div>
-                  <h3 className="text-center text-base font-medium">Technology & Coding</h3>
                 </div>
-                <div className="flex flex-col group items-center gap-2">
-                  <div className="rounded-full mx-auto w-[110px] h-[110px] flex justify-center items-center bg-white group-hover:bg-orange transition">
-                    <Image
-                      src="/images/animation2.svg"
-                      alt="Business & Entrepreneurship"
-                      width={50}
-                      height={50}
-                      className="transition group-hover:brightness-0 group-hover:invert"
-                    />
+                  <h3 className="text-center text-base font-medium">{elem}</h3>
                   </div>
-                  <h3 className="text-center text-base font-medium">Digital Marketing</h3>
-                </div>
-                <div className="flex flex-col items-center gap-2 group">
-                  <div className="rounded-full mx-auto w-[110px] h-[110px] flex justify-center items-center bg-white group-hover:bg-orange transition">
-                    <Image src={"/images/animation3.svg"} alt="img" width={55} height={55} className="transition group-hover:brightness-0 group-hover:invert" />
-                  </div>
-                  <h3 className="text-center text-base font-medium">Data Science & Analytics</h3>
-                </div>
-                <div className="flex flex-col items-center gap-2 group">
-                  <div className="rounded-full mx-auto w-[110px] h-[110px] flex justify-center items-center bg-white group-hover:bg-orange transition">
-                    <Image
-                      src="/images/animation4.svg"
-                      alt="Business & Entrepreneurship"
-                      width={50}
-                      height={50}
-                      className="transition group-hover:brightness-0 group-hover:invert"
-                    />
-                  </div>
-                  <h3 className="text-center text-base font-medium">Business & Entrepreneurship</h3>
-                </div>
+                    ))
+                  }
               </div>
             </div>
           </div>

@@ -76,6 +76,21 @@ const Profile = () => {
     qualification: '',
     profession: '',
   })
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => {
+      console.log('Razorpay SDK loaded successfully');
+    };
+    script.onerror = () => {
+      console.error('Razorpay SDK failed to load');
+    };
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
   const fetchData = async () => {
     try {
       // console.log('courseid-----------------',courseid ||localStorage.getItem('courseid'))
@@ -178,6 +193,7 @@ const Profile = () => {
                 }
               });
             alert("Payment successful! You are enrolled in the course.");
+            console.log('payment verification',verifyResponse)
           } catch (err) {
             console.error("Payment verification failed:", err);
             alert("Payment verification failed. Please try again.");
@@ -196,9 +212,6 @@ const Profile = () => {
       const rzp = new Razorpay(options);
       rzp.open();
     
-      toast.success('Enrolled successfully')
-      router.push('/thank-you') // Clear the form
-
     }
 
     catch (error: any) {
@@ -207,6 +220,8 @@ const Profile = () => {
     }
     finally {
       fetch();
+      // toast.success('Enrolled successfully')
+      // router.push('/thank-you')
     }
   }
 
