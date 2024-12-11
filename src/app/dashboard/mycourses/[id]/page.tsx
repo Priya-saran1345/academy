@@ -109,54 +109,147 @@ const courseModules = [
 ]
 
 function CourseSidebar() {
+    const [openSection, setOpenSection] = useState(null);
+  
+    const toggleSection = (section:any) => {
+      setOpenSection(openSection === section ? null : section);
+    };
+  
     const modules = [
-        "Module 1",
-        "Module 2",
-        "Module 3",
-        "Module 4",
-        "Module 5"
-    ]
-
+      "Module 1",
+      "Module 2",
+      "Module 3",
+      "Module 4",
+      "Module 5"
+    ];
+  
     return (
-        <div className="w-[350px] flex-shrink-0  rounded-lg shadow p-4">
-            <Image
-                src="/images/course.png"
-                height={350}
-                width={410}
-                alt="Python Course"
-                className="w-full rounded-lg mb-4"
-            />
-
-            <div className="border-b pb-4 mb-4">
-                <h3 className="font-semibold text-xl text-gray-900">Master Python Programming</h3>
-                <p className="text-sm text-gray-500 mt-1">
-                    Learn Python from scratch to advanced concepts
-                </p>
-            </div>
-
-            <div>
-                <div className="flex ">
-                    {/* {openModule === moduleIndex ? ( */}
-                    <BiChevronUp className="w-10 h-10  text-black" />
-                    {/* ) : (
-                  <BiChevronDown className="w-5 h-5 text-gray-500" />
-                )} */}
-                    <h4 className="text-lg font-semibold mb-4">  Course Material</h4>
-                </div>
-                <nav className="space-y-1">
-                    {modules.map((module, index) => (
-                        <button
-                            key={index}
-                            className="w-full text-left px-4 py-2 rounded-lg text-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                        >
-                            {module}
-                        </button>
-                    ))}
-                </nav>
-            </div>
+        <div className="w-[350px] flex-shrink-0 rounded-lg shadow p-4">
+        <Image
+          src="/images/course.png"
+          height={350}
+          width={410}
+          alt="Python Course"
+          className="w-full rounded-lg mb-4"
+        />
+  
+        {/* Course Info */}
+        <div className="border-b pb-4 mb-4">
+          <h3 className="font-semibold text-xl text-gray-900">Master Python Programming</h3>
+          <p className="text-sm text-gray-500 mt-1">
+            Learn Python from scratch to advanced concepts
+          </p>
         </div>
-    )
-}
+  
+        {/* Collapsible Sections */}
+        <div className="space-y-4">
+  
+          {/* Course Material */}
+          <div>
+            <button
+              onClick={() => toggleSection('courseMaterial')}
+              className="w-full flex items-center text-lg font-semibold mb-2 focus:outline-none"
+            >
+              {openSection === 'courseMaterial' ? (
+                <BiChevronUp className="text-[24px] text-black" />
+              ) : (
+                <BiChevronDown className="text-[24px] text-black" />
+              )}
+              <span className="ml-2">Course Material</span>
+            </button>
+            <AnimatePresence>
+              {openSection === 'courseMaterial' && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                  className="overflow-hidden pl-4"
+                >
+                  <nav className="space-y-1">
+                    {modules.map((module, index) => (
+                      <button
+                        key={index}
+                        className="w-full text-left px-4 py-3 rounded-lg text-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      >
+                        <div className="flex items-center text-textGrey font-medium text-[15px] gap-4">
+                          <div className="w-[13px] h-[13px] border-2  border-orange rounded-full"></div>
+                          {module}
+                        </div>
+                      </button>
+                    ))}
+                  </nav>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+  
+          {/* Progress */}
+          <div>
+            <button
+              onClick={() => toggleSection('progress')}
+              className="w-full flex items-center border-t border-slate-200 pt-4 text-lg font-semibold mb-2 focus:outline-none"
+            >
+              {openSection === 'progress' ? (
+                <BiChevronUp className="text-[24px] text-black" />
+              ) : (
+                <BiChevronDown className="text-[24px] text-black" />
+              )}
+              <span className="ml-2">Progress</span>
+            </button>
+            <AnimatePresence>
+              {openSection === 'progress' && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                  className="overflow-hidden pl-4 text-sm text-gray-700"
+                >
+                  <p>Your progress: 60%</p>
+                  <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                    <div className="bg-orange-500 h-2.5 rounded-full" style={{ width: '60%' }}></div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+  
+          {/* Course Info */}
+          <div>
+            <button
+              onClick={() => toggleSection('courseInfo')}
+              className="w-full flex items-center border-t border-slate-200 pt-4 text-lg font-semibold mb-2 focus:outline-none"
+            >
+              {openSection === 'courseInfo' ? (
+                <BiChevronUp className="text-[24px] text-black" />
+              ) : (
+                <BiChevronDown className="text-[24px] text-black" />
+              )}
+              <span className="ml-2">Course Info</span>
+            </button>
+            <AnimatePresence>
+              {openSection === 'courseInfo' && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                  className="overflow-hidden pl-4 text-sm text-gray-700 space-y-2"
+                >
+                  <p><strong>Duration:</strong> 12 weeks</p>
+                  <p><strong>Level:</strong> Beginner to Advanced</p>
+                  <p><strong>Language:</strong> English</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+  
+        </div>
+      </div>
+    );
+    
+  }
 
 
 
