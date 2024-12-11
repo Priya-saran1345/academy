@@ -50,8 +50,7 @@ const Banner = ({ props }) => {
     setRestOfString(heading?.slice(0, -5).trim());
   }, []); // Include props.heading in the dependency array
   return (
-    <div className=' h-fit md:min-h-[850px] flex  flex-col md:flex-row  bg-banner px-6  mx-auto w-full lg:w-[95%] 2xl:w-[77%]
-'>
+    <div className=' h-fit md:min-h-[850px] flex  flex-col md:flex-row  bg-banner px-6  mx-auto w-full lg:w-[95%] 2xl:w-[77%]'>
       <div className='flex-1 flex flex-col mb-16 mt-32 md:my-20 lg:my-0  justify-center gap-8'>
         <div className='flex flex-col gap-4'>
           <h1 className='2xl:text-[68px] xl:text-[55px] text-[35px] text-black font-bold leading-tight'>
@@ -61,7 +60,6 @@ const Banner = ({ props }) => {
             <span className=' px-0 mx-0 text-orange'>{lastFour}</span>
           </h1>
           <p className='text-lg md:text-xl'>
-            {/* You can read this text, but it doesn&apos;t matter. It&apos;s concept, not important for your life or life your friends. */}
             {
               props?.short_description
             }
@@ -74,7 +72,6 @@ const Banner = ({ props }) => {
             </button>
           </div>
         </Link>
-
         <div className='flex flex-col gap-1'>
           <div className="flex flex-row w-full">
             <AnimatedTooltip items={people} />
@@ -84,7 +81,6 @@ const Banner = ({ props }) => {
           </h3>
         </div>
       </div>
-
       <div className='md:flex flex-1 items-center justify-center hidden'>
         {!props?.image &&
           <div class="loader"></div>

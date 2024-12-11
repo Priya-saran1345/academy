@@ -87,7 +87,6 @@ useEffect(() => {
   >
     In Progress
   </button>
-
   <button
     className={`h-11 px-4 lg:px-7 text-[15px] lg:text-[18px] font-medium rounded-full
       ${!allvalue && filterValue === 'Not Started' ? 'bg-orange text-white' : 'bg-[#F24A2533] text-orange hover:bg-orange hover:text-white'}`}
@@ -103,10 +102,9 @@ useEffect(() => {
         {finalData.length > 0 ? (
           finalData.map((course) => (
             <>
-            <CourseCard slug={course.slug||''} image={course.card_image} name={course.course_name} description={course.short_description} level={course.completion_status} 
-             category={course.instructor_name|| ''} id={course.id} text={"Start"} />
-
-          
+            <CourseCard slug={course.slug||''} image={course.card_image} name={course.course_name}
+             description={course.short_description} level={course.completion_status} 
+             category={course.instructor_name|| ''} id={course.id} text={"Start"} link1={'dashboard/mycourses/788990'} />
             </>
           ))
         ) : (

@@ -13,7 +13,7 @@ const certificate = () => {
     <DashboardHeader />
     <div className="w-full flex  relative">
       {/* Sidebar with absolute positioning */}
-      <div className="w-fit z-50  absolute top-0 left-0 h-full">
+      <div className="w-fit z-50 hidden lg:block absolute top-0 left-0 h-full">
         <DashboardSidebar />
       </div>
   

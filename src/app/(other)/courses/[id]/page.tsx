@@ -61,9 +61,11 @@ const page = () => {
     const toggleModule = (index: any) => {
         setOpenIndex(openIndex === index ? null : index);
     };
+    
     const toggleobjective = (index: any) => {
         setopenIndex1(openIndex1 === index ? null : index);
     };
+
     const scrollToSection = (targetClass: any) => {
         // Find the element with the given class
         const targetElement = document.getElementsByClassName(targetClass)[0];
@@ -87,9 +89,9 @@ const page = () => {
             <Header />
             <div className="py-4 bg-transparent pt-32  text-black px-3 md:px-6 w-full   mx-auto lg:w-[95%] 2xl:w-[77%] mt-2">
                 <div className=' gap-3 flex'>
-                    <div className='w-[429px] sticky top-5 hidden lg:block h-fit pb-20 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
+                    <div  className='w-[429px] sticky top-5 hidden lg:block h-fit pb-20 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
                         <div className='border-b-2 border-slate-300 pb-3'>
-                            <p className='text-textGrey font-[16px]'>Course Starts - {ApiData?.start_date}</p>
+                            <p className='text-textGrey font-[16px]'>Course Starts -{ApiData?.start_date}</p>
                         </div>
                         <div className='py-4'>
                             {/* <p>Popular</p> */}

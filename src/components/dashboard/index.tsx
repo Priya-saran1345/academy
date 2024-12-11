@@ -8,9 +8,10 @@ import { useapi } from '@/helpers/apiContext';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useRouter } from 'next/navigation';
 const Dashboard = () => {
   const { dashboard } = useapi();
-
+const router = useRouter();
   ChartJS.register(ArcElement, Tooltip, Legend);
   const [Apidata, setApidata] = useState<any>()
   const [purchased_courses, setpurchased_courses] = useState<any>()
@@ -22,32 +23,9 @@ const Dashboard = () => {
     setpurchased_courses(dashboard?.purchased_courses)
   }, [dashboard]);
 
-    // const settings = {
-    //   dots: true,               // Show navigation dots
-    //   infinite: true,           // Infinite looping
-    //   speed: 500,               // Transition speed in milliseconds
-    //   slidesToShow: 3,          // Number of slides visible at once
-    //   slidesToScroll: 1,        // Number of slides to scroll
-    //   autoplay: true,           // Automatic slide transition
-    //   autoplaySpeed: 2000,      // Delay between transitions in milliseconds
-    //   responsive: [             // Responsive settings
-    //     {
-    //       breakpoint: 1024,
-    //       settings: {
-    //         slidesToShow: 2,
-    //       },
-    //     },
-    //     {
-    //       breakpoint: 768,
-    //       settings: {
-    //         slidesToShow: 1,
-    //       },
-    //     },
-    //   ],
-    // };
+ 
 
 
-  //data for pi chart
   console.log(Apidata)
   let data = [
     {
@@ -182,16 +160,18 @@ const Dashboard = () => {
           </div>
           {/* make the slider here */}
           <div className="px-6 w-full max-w-[1750px] min-w-[370px]">
-  <p className="text-[22px] my text-black font-semibold">Enrolled Courses</p>
+  <p className="text-[22px] mb-3 my text-black font-semibold">Enrolled Courses</p>
   {/* <Slider {...settings}> */}
   <div className='flex w-full flex-wrap gap-4 justify-center   xl:justify-between'>
 
  {purchased_courses?.map((course: any) => (
-          <div key={course.id} className="px-2 w-full sm:w-[45%] lg:w-[30%] xl:w-[24%]">
-            <div className="w-full h-[134px] hover:text-white flex gap-5 text-black rounded-xl p-2 bg-lightOrange duration-200 hover:bg-orange">
+          <div key={course.id} className="px-2 w-full cursor-pointer sm:w-[45%] lg:w-[30%] xl:w-[24%]" onClick={()=>{
+            router.push(`/dashboard/mycourses/${course?.course_slug}`)
+          }}>
+            <div className="w-full h-full hover:text-white flex gap-5 text-black rounded-xl p-2 bg-lightOrange duration-200 hover:bg-orange">
               <div className="w-[102px]">
                 <Image
-                  src="/images/laptop.png"
+                  src={course?.card_image}
                   alt="Business & Entrepreneurship"
                   width={100}
                   height={100}
@@ -203,8 +183,11 @@ const Dashboard = () => {
                   <p className="text-[17px] font-semibold">{course?.course_name}</p>
                   <FaArrowUpRightFromSquare className="text-[22px]" />
                 </div>
+                <p className="text-[14px]">Total Amount :&nbsp;{course?.payment + course?.discount_amount}</p>
+
                 <p className="text-[14px]">Status:&nbsp;{course?.completion_status}</p>
-                <p className="text-[14px]">Discount Amount:&nbsp;{course?.discount_amount}</p>
+                <p className="text-[14px]">Discount :&nbsp;{course?.discount_amount}</p>
+                <p className="text-[14px]">Payed Amount :&nbsp;{course?.payment}</p>
               </div>
             </div>
           </div>

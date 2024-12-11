@@ -13,7 +13,7 @@ const truncateText = (text: any, charLimit: number) => {
     }
     return text;
 }
-const Card = ({slug, name, description, level, category, id, text ,text1 ,link ,image}: any) => {
+const Card = ({slug, name, description, level, category, id, text ,text1 ,link,link1 ,image}: any) => {
     const [showform, setshowform] = useState<any>(false)
     const { setcourseid}=useapi()
     const Router = useRouter();
@@ -46,9 +46,8 @@ const setnavigate=()=>{
                     <span className='text-sm text-gray-500 font-medium capitalize'>Certificate</span>
                 </span>
             </div>
-
             <div className='flex mb-3 gap-3'>
-            <Link href={`/course/${slug}`}>
+            <Link href={`/${link1}`}>
                 <button className='hover:bg-orange bg-[#F24A2533] hover:text-white border text-orange center px-4 py-2 rounded-lg w-32 mt-5 smooth1'>
                     {text}
                 </button>

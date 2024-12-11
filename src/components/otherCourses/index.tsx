@@ -186,9 +186,8 @@ const OtherCourses = () => {
                     slug={course.slug}
                     name={course.name}
                     image={`${BASE_URL_IMAGE}${course.card_image}`}
-
-                    
                     text={"View"}
+                    link1={`courses/${course.slug}`}
                     text1={"Enroll"}
                     link={`enroll`}
                     description={course.short_description}

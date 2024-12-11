@@ -57,7 +57,7 @@ const DashboardSidebar = () => {
   };
   return (
     <motion.div
-      className=" hidden lg:block group bg-[#F7F7F7] min-h-[90vh] overflow-hidden"
+      className="  group bg-[#F7F7F7] min-h-[90vh] overflow-hidden"
       initial="collapsed"
       animate={isExpanded ? "expanded" : "collapsed"}
       variants={sidebarVariants}
@@ -65,6 +65,8 @@ const DashboardSidebar = () => {
       onMouseLeave={() => setIsExpanded(false)}
     >
       <div className="bg-[#F7F7F7]  px-2 h-full overflow-hidden">
+        {/* <div className="bg-blue-500 w-[50px] h-[50px] absolute right-0 -top-6">
+        </div> */}
         <ul className="pt-4">
           {[
             { option: "dashboard", icon: RxDashboard, label: "Dashboard", path: "/dashboard" },

@@ -19,6 +19,7 @@ const PopularCourse = ({ course = [] }) => {
               level={elem.course_level}
               category={elem.category || ''}
               id={elem.id}
+              link1={`courses/${elem.slug}`}
               image={`${BASE_URL_IMAGE}${elem.card_image}`}
               text="View"
               link="enroll"

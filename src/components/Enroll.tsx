@@ -470,7 +470,10 @@ const Profile = () => {
                 !showremove &&
                 <button
                   onClick={ApplyCouponcode}
-                  className="bg-orange w-fit mx-auto sm:mx-0 text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px] font-semibold hover:text-orange duration-150"
+                  disabled={!coupanData.discount_code.trim()}
+                  className="bg-orange w-fit mx-auto disabled:bg-gray-300 disabled:text-gray-600 sm:mx-0
+                   text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px]
+                   font-semibold hover:text-orange duration-150"
                 >
                   Apply
                 </button>
@@ -486,14 +489,11 @@ const Profile = () => {
               <p className='text-textGrey'>Rs.{data?.price}</p>
             </div>
             <div className="flex justify-between my-2 px-2">
-              <p className='text-black font-medium text-[18px]'>Discounted Price
+              <p className='text-black font-medium text-[18px]'>Discount
               </p>
               <p className='text-textGrey'>Rs.{discount || 0}</p>
             </div>
-            {/* <div className="flex justify-between my-3 px-2">
-              <p className='text-black font-medium text-[18px]'>Taxes</p>
-              <p className='text-textGrey'>+$0</p>
-            </div> */}
+          
             <div className="flex justify-between my-2 px-2">
               <p className='text-black font-medium text-[18px]'>Final Price</p>
               <p className='text-textGrey'> Rs.{data?.price - discount}</p>

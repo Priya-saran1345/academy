@@ -11,7 +11,9 @@ export function middleware(request: NextRequest) {
         '/dashboard/profile',
         '/dashboard/support',
         '/dashboard/updates',
-        '/enroll'   
+        '/enroll'   ,
+        '/dashboard/mycourses/:path*',
+
 
     ];
     const authPaths = ['/login', '/signup'];
@@ -38,9 +40,12 @@ export const config = {
         '/dashboard/certificate',
         '/dashboard/profile',
         '/dashboard/support',
-       '/dashboard/updates',
-       '/enroll'   
-
+        '/dashboard/updates',
+       '/enroll' ,
+       '/dashboard/mycourses/:path*',
+       '/contact',
+       '/courses',
+       '/course/:path*'
 
     ]
 };
