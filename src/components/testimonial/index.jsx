@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { BASE_URL_IMAGE } from '@/utils/api';
+import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 
 const Testimonial = ({ testimonials = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -16,7 +17,26 @@ const Testimonial = ({ testimonials = [] }) => {
     return () => clearInterval(interval);
   }, [totalSets]);
   // To create a smooth continuous scrolling effect
-  const visibleTestimonials = [...testimonials, ...testimonials]; // Duplicate testimonials
+  const visibleTestimonials = [...testimonials, ...testimonials];
+
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating); // Integer part of the rating
+    const hasHalfStar = rating % 1 !== 0; // Check if there's a fractional part
+  
+    // Add full stars
+    for (let i = 1; i <= fullStars; i++) {
+      stars.push(<FaStar key={i} className="text-orange" />);
+    }
+  
+    // Add half star if there's a fractional part
+    if (hasHalfStar) {
+      stars.push(<FaStarHalfAlt key="half" className="text-orange" />);
+    }
+  
+    return <div className="flex gap-1">{stars}</div>;
+  };
+ 
 
   return (
     <>
@@ -49,8 +69,8 @@ const Testimonial = ({ testimonials = [] }) => {
                 <p className='text-[16px]'>Course:&nbsp;&nbsp;
                   <span className='font-semibold'>{elem.author_position}</span>
                 </p>
-                <p className=''>Rating:
-                  {/* Add your star rating logic here */}
+                <p className="flex items-center gap-1">
+                  Rating: {renderStars(elem.rating)}
                 </p>
                 <p className='text-[14px] mt-4'>{elem.feedback}</p>
               </div>

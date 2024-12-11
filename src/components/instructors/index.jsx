@@ -7,13 +7,13 @@ const Instructors = ({instructor=[]}) => {
  return (
   <>
 
-  <div className='flex gap-4  justify-center mx-auto pb-8 w-full lg:w-[95%] 2xl:w-[77%]
-  mt-20 lg:mt-20 flex-wrap lg:flex-nowrap  2xl:flex-nowrap  '> 
+  <div className='flex gap-4  justify-center mx-auto w-full lg:w-[95%] 2xl:w-[77%]
+  my-10 lg:my-20 flex-wrap lg:flex-nowrap  2xl:flex-nowrap  '> 
     {
 instructor.map((elem) => {
  return(
-      <div key={elem.id} className='min-h-[437px] group w-[350px]  group'>
-        <div className='w-[170px] relative bg-black h-[170]px mx-auto flex justify-center items-center rounded-full'>
+      <div key={elem.id} className='min-h-[437px] group lg:w-[32%]  group'>
+        <div className='w-[140px] relative bg-black h-[140]px mx-auto flex justify-center items-center rounded-full'>
         <Image         
       src={`${BASE_URL_IMAGE}${elem.profile_image}`}  
       className='group-hover:shadow-lg  shadow-red-400 rounded-full '  

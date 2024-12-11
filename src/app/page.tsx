@@ -45,10 +45,10 @@ export default function Home() {
 
   return (
     <>
-     <Script
+      <Script
         src="https://checkout.razorpay.com/v1/checkout.js"
         strategy="beforeInteractive" // Ensures the script is loaded before the component renders
-        
+
       />
       {
         !Apidata && <div className="min-h-[90vh] w-full flex justify-center items-center">
@@ -111,7 +111,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          {/* popular course */}
+
           <div className="px-4   mx-auto w-full lg:w-[95%] 2xl:w-[77%]
  flex flex-col mt-10 gap-10">
             <h3 className="text-4xl font-bold text-center lg:text-left">Popular <span className="text-orange">Courses</span> </h3>
@@ -124,9 +124,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          {/* ends */}
 
-          {/* Transform Your Future */}
           <div className="px-6   mx-auto w-full lg:w-[95%] 2xl:w-[77%]
  flex flex-col lg:flex-row mb-10 mt-28">
             <div className="flex-1 items-center lg:items-start text-center lg:text-left mb-6  flex flex-col gap-4">
@@ -175,9 +173,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* ends */}
 
-          {/* Meet Our Expert Instructors */}
+
           <div className=" flex text-center flex-col gap-4 px-4 center bg-lightGrey pt-20">
             <h3 className="text-4xl font-bold">Meet Our <span className="text-orange">Expert Instructors</span>  </h3>
             <h3 className="text-sm text-gray-500 font-medium ">
@@ -185,9 +182,7 @@ export default function Home() {
             </h3>
             <Instructors instructor={instructor} />
           </div>
-          {/* ends */}
 
-          {/* Limited-Time Offer:  */}
           <div className=" xl:px-60 px-6 bg-orange flex py-[60px] h-fit flex-col md:flex-row ">
             <div className=" flex flex-1 flex-col gap-7 text-white">
               <h3 className="text-2xl font-bold">Limited-Time Offer: </h3>
@@ -201,16 +196,14 @@ export default function Home() {
               <h3 className="text-2xl font-bold">Didn't find the perfect course? </h3>
               <h3 className="text-base">No problem! Click here to explore more options <br /> tailored to your interests!</h3>
               <Link href={'/courses'}>
-              <button className=" border border-white px-4 w-40 rounded-full py-2 hover:scale-110 smooth3">Explore More </button>
+                <button className=" border border-white px-4 w-40 rounded-full py-2 hover:scale-110 smooth3">Explore More </button>
               </Link>
             </div>
             <div className=" md:flex flex-1 flex-col gap-4 overflow-x-auto scrollbarHidden hidden">
               <ScrollingCards course={courses} />
             </div>
           </div>
-          {/* ends */}
-              <Faq faqs={faq} />
-          {/* testimonial */}
+          <Faq faqs={faq} />
           <div className=" xl:px-60 bg-white text-center px-4  flex py-[80px]  center flex-col gap-4">
             <h3 className="text-4xl font-bold">What <span className="text-orange">Studilyft Learners </span> Are Saying</h3>
             <h3 className="text-sm text-gray-500 font-medium text-center ">
@@ -218,8 +211,6 @@ export default function Home() {
             </h3>
             <Testimonial testimonials={testimonial} />
           </div>
-          {/* ends */}
-          
           <FooterBanner />
           <Footer />
         </div>

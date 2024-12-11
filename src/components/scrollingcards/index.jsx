@@ -42,8 +42,8 @@ const ScrollingCards = ({course=[]}) => {
             <Image  width={500} height={500} alt='' src={"/images/Frame 1116607704.svg"} className='  smooth3' />
             <h3 className='text-2xl font-bold'>{elem.name}</h3>
             <h3 className="text-base">{elem.short_description}</h3>
-            <h3 className='text-lg font-semibold'>Originally ${elem.price+20}, now just ${elem.price}!</h3>
-            <Link href={`/course/${elem.slug}`}>
+            <h3 className='text-lg font-semibold'>Originally Rs. {elem.price} , Go and check for discount</h3>
+            <Link href={`/courses/${elem.slug}`}>
             <button className='px-4 py-2 rounded-lg w-40 bg-white text-orange hover:scale-105 smooth3'>Enroll Now</button>
             </Link>
 
