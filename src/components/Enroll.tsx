@@ -1,19 +1,21 @@
 "use client"
 import { BASE_URL, BASE_URL_IMAGE } from '@/utils/api';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import { BiEdit } from "react-icons/bi";
 import Cookies from 'js-cookie';
 import { RxCross1 } from "react-icons/rx";
 import { useapi } from '@/helpers/apiContext';
-import { FaUser } from "react-icons/fa";
+import { FaStarHalfAlt, FaUser } from "react-icons/fa";
 import toast from 'react-hot-toast';
 import CourseCard from '@/components/coursecard';
 import Image from 'next/image'
-import { MdOutlineBookmarkAdd } from 'react-icons/md';
-import { FaCode, FaRegCircleCheck } from 'react-icons/fa6';
+import { MdOutlineBookmarkAdd, MdOutlineContactSupport } from 'react-icons/md';
+import { FaArrowUpRightFromSquare, FaCode, FaRegCircleCheck, FaStar } from 'react-icons/fa6';
 import { usePathname } from 'next/navigation'
 import {useRouter} from 'next/navigation';
+import { LuBookOpen } from 'react-icons/lu';
+import { BsBoxArrowRight } from 'react-icons/bs';
 
 declare class Razorpay {
   constructor(options: RazorpayOptions);
@@ -51,14 +53,71 @@ declare global {
 }
 const Profile = () => {
   const router = useRouter()
-
   const { profile, fetch, discount, setdiscount } = useapi();
-  // const {courseid  }=useapi()
+  const [profileCompletion, setProfileCompletion] = useState(0) // Example value, replace with actual logic
+
   const [apidata, setApiData] = useState<any>()
   const [data, setdata] = useState<any>();
   const [showremove, setshowremove] = useState<any>(false)
-  // const pathname = usePathname()
-  // const id = pathname.split('/').pop();
+  const [copied, setCopied] = useState(false);
+   // Create a ref for the div
+  const codeRef = useRef(null);
+const [discountCode, setdiscountCode] = useState<any>('Welcome20')
+  const handleCopy = () => {
+    navigator.clipboard.writeText(discountCode).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
+  useEffect(() => {
+    // Extract the values of the profile object into an array
+    const profileFields = [
+      profile?.username,
+      profile?.email,
+      profile?.first_name,
+      profile?.last_name,
+      profile?.phone,
+      profile?.alternate_phone,
+      profile?.address,
+      profile?.qualification,
+      profile?.gender,
+      profile?.extracurriculars,
+      profile?.goals,
+      profile?.course_interested,
+      profile?.date_of_birth,
+      profile?.is_tutor,
+      profile?.profile_image
+    ];
+
+    console.log('data----------',data)
+    // Count the non-null fields
+    const nonNullFields = profileFields.filter(field => field !== null && field !== undefined && field !== "");
+
+    // Calculate the completion percentage
+    const completionPercentage = (nonNullFields.length / profileFields.length) * 100;
+
+    // Update the profile completion state
+    setProfileCompletion(completionPercentage);
+
+    // Assuming you're setting the API data for further use
+    setApiData(profile);
+
+  }, [profile]);
+  const renderStars = (rating:any) => {
+    const stars = [];
+    const fullStars = Math.floor(rating); // Integer part of the rating
+    const hasHalfStar = rating % 1 !== 0; // Check if there's a fractional part
+    // Add full stars
+    for (let i = 1; i <= fullStars; i++) {
+      stars.push(<FaStar key={i} className="text-orange " />);
+    }
+    // Add half star if there's a fractional part
+    if (hasHalfStar) {
+      stars.push(<FaStarHalfAlt key="half" className="text-orange " />);
+    }
+    return <div className="flex gap-1">{stars}</div>;
+  };
   const [updateddata, setupdateddata] = useState({
     course_id: '',
     username: '',
@@ -252,8 +311,97 @@ const Profile = () => {
 
   return (
     <div className='w-full flex  mt-[100px]  p-7'>
-      <div className='w-full gap-3 lg:w-[95%] 2xl:w-[75%] mx-auto   flex flex-col lg:flex-row  justify-center  '>
-        <div className='w-full flex-1'>
+      <div className='w-full gap-3 lg:w-[95%] 2xl:w-[50%] mx-auto      justify-center  '>
+      <div
+           className=' shadow border-1 rounded-lg right-4 flex p-4 justify-start gap-1  font-medium text-[17px] 
+                text-slate-600  py-3 top-24 logout-div' >
+                  {/* User Info and Profile Completion Section */}
+                  <Image src={'/images/discount.png'} height={243} width={447} alt=''></Image>
+                  <div>
+
+                  
+                  <div className='w-full flex px-7 py-4 justify-start gap-5 items-center '>
+                    <div className=''>
+                      <div className="relative rounded-full p-[5px] bg-white">
+                        <div className="w-16 h-16 bg-[#9C9C9C]   rounded-full flex items-center justify-center overflow-hidden z-50 ">
+                          <svg
+                            className="w-8 h-8 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                            />
+                          </svg>
+                        </div>
+                        <div className="absolute inset-0 -z-20 scale-110 rounded-full"
+                          style={{
+                            background: `conic-gradient(#FF6B6B ${profileCompletion}%, #F5F5F5 ${profileCompletion}%)`,
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className=''>
+                      <p className='font-bold text-black'>{profile?.first_name}&nbsp;{profile?.last_name}</p>
+                      <p className='text-sm text-textgrey'>{profile?.email}</p>
+                      <div className='text-orange flex gap-2  items-center cursor-pointer text-[14px]' onClick={() => router.push('/dashboard/profile')}>
+                        Complete Your Profile
+                         <span className='text-orange'><FaArrowUpRightFromSquare className='text-[10px]'></FaArrowUpRightFromSquare></span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className='w-full bg-orange-100  p-3 rounded-md text-center'>
+                    
+                    <p className=' text-black font-bold text-[18px] text-center mb-2 mt-4  mx-auto'>First Complete Your Profile to Avail this Offer</p>
+                    <p className=' text-start text-textGrey'>Use code:</p>
+                    <div className="flex items-center gap-2 mt-4">
+          <div
+            ref={codeRef}
+            className="border-dashed border-2 border-orange bg-orange/5 bg-orange-100 text-orange font-bold py-2 px-4 rounded-md"
+          >
+            {discountCode}
+          </div>
+          <button
+            onClick={handleCopy}
+            className="bg-orange/10 py-2 px-4 rounded-md text-orange font-medium flex items-center gap-1"
+          >
+            Copy
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8.25 4.5h9a2.25 2.25 0 012.25 2.25v11.25a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25V6.75A2.25 2.25 0 018.25 4.5z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4.5 8.25v9a2.25 2.25 0 002.25 2.25h11.25"
+              />
+            </svg>
+          </button>
+        </div>
+  
+        {copied && (
+          <div className="text-orange mt-2 text-sm">Code Copied!</div>
+        )}
+                  </div>
+                  </div>
+
+                </div>
+        {/* <div className='w-full flex-1'>
           <div className='pb-3'>
             <p className='text-black font-semibold text-[20px]'>Personal Details:</p>
           </div>
@@ -425,40 +573,72 @@ const Profile = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className='sm:w-[429px] mt-10 h-fit flex-1  border-[1px] border-slate-200 lg:max-w-[350px] xl:sm:max-w-[429px] mx-auto lg:mx-0 shadow-md rounded-lg p-4'>
-          <div className='border-b-[1px] w-full'>
-            <p className='text-[20px]  w-full mb-2 capitalize  font-semibold'>Course Summary</p>
-          </div>
+{/* full bottom div */}
+        <div className=' mt-5 h-fit flex gap-3 mx-auto lg:mx-0 shadow rounded-lg py-2 px-4'>
+         
           <div
-            className=' justify-between 
-             border-slate-200  my-2   group flex flex-col gap-2  smooth1 flex-1'
+            className=' 
+             border-slate-200 py-4 px-4 pr-5 border-r-1  w-1/2  group flex flex-col gap-2  smooth1 '
           >
-            <Image src={`${BASE_URL_IMAGE}${data?.card_image}`} height={350} width={410} alt='te' className='mx-auto' />
             <h3 className='font-semibold text-black text-xl'>{data?.name}</h3>
             <h3 className='text-sm text-gray-500 font-medium'>
               {data?.short_description}
-            </h3> {/* Updated to use character limit */}
-            <div className='flex gap-2 flex-wrap'>
-              <span className='bg-[#F8F8F8] p-1 rounded-full flex items-center gap-2'>
-                <MdOutlineBookmarkAdd className='text-orange text-xl' />
-                <span className='text-sm text-gray-500 font-medium capitalize'>{data?.course_level}</span>
-              </span>
-              <span className='bg-[#F8F8F8] p-1 rounded-full flex items-center gap-2'>
-                <FaCode className='text-orange' />
-                <span className='text-sm text-gray-500 font-medium capitalize'>{data?.category}</span>
-              </span>
-              <span className='bg-[#F8F8F8] p-1 rounded-full flex items-center gap-2'>
-                <FaRegCircleCheck className='text-orange' />
-                <span className='text-sm text-gray-500 font-medium capitalize'>Certificate</span>
-              </span>
+            </h3> 
+            <p className=' flex  items-center font-semibold text-black text-[16px]'>{data?.rating}<FaStar className='text-orange ml-3'></FaStar></p>
+            <p className='text-sm text-gray-500 -mt-2 font-medium'>
+          ( {data?.review_count}reviews)
+            </p> 
+            <p className='font-semibold text-black text-[16px]'>{data?.duration} Days to complete</p>
+            <p className='text-sm text-gray-500 -mt-2 font-medium'>
+            3 weeks at 3 hours a week
+            </p> 
+
+
+            <div  className='text-slate-700 mt-3  group py-5 px-3
+              bg-lightGrey  rounded-lg
+              items-start gap-4'>
+                <div className=' flex flex-wrap gap-2 justify-center sm:flex-nowrap'>
+
+              <div className='min-w-[60px] h-[60px] border-[5px]  flex justify-center testimonial-img items-center rounded-full'>
+                <Image
+                  src={`${BASE_URL_IMAGE}${data?.instructor_name.profile_image}`}  
+                  width={54}
+                  height={54}
+                  className='rounded-full'
+                  alt={''}
+                />
+              </div>
+              <div className=' text-center md:text-left'>
+                <p className='text-[16px]'>Name:&nbsp;&nbsp;
+                  <span className='font-semibold'>{data?.instructor_name.name}</span>
+                </p>
+                <p className='text-[16px]'>Expertise:&nbsp;&nbsp;
+                  <span className='font-semibold'>{data?.instructor_name.expertise
+                  }</span>
+                </p>
+                <p className="flex items-center  gap-1">
+                  Rating: {renderStars(data?.rating)}
+                </p>
+              </div>
+              </div>
+                <p className='text-[14px] mt-4'>{data?.short_description}</p>
             </div>
           </div>
+
+
+          {/* coupan code part from here */}
+          <div className='flex w-1/2 justify-center'>
+
+          <div className=' py-4'>
           <div>
-            <label className='text-[20px] font-semibold  text-black capitalize'>Apply Coupon Code</label>
+            <div className='w-full border-b-1 pb-2 border-slate-200'>
+
+            <label className='text-[20px]  font-semibold  text-black capitalize'>Apply Coupon Code</label>
+            </div>
             <br />
-            <div className='flex gap-3 mt-3  border-slate-200 rounded-lg border-[2px] justify-between w-full items-center'>
+            <div className='flex gap-3 border-slate-200 rounded-lg border-[2px] justify-between w-full items-center'>
               <input
                 type="text"
                 value={coupanData.discount_code}
@@ -472,9 +652,9 @@ const Profile = () => {
                   onClick={() => {
                     setshowremove(false);
                     const data = { ...coupanData, ['discount_code']: '' }
-                    setcoupanData(data)// Setting to false as it's already true
+                    setcoupanData(data)
                     setdiscount(0);
-                    // Resetting the discount
+                   
                   }}
                   className="bg-orange text-white p-2 px-5 rounded-md hover:bg-lightOrange hover:text-orange text-[18px] font-semibold duration-150"
                 >
@@ -508,7 +688,6 @@ const Profile = () => {
               </p>
               <p className='text-textGrey'>Rs.{discount || 0}</p>
             </div>
-          
             <div className="flex justify-between my-2 px-2">
               <p className='text-black font-medium text-[18px]'>Final Price</p>
               <p className='text-textGrey'> Rs.{data?.price - discount}</p>
@@ -526,6 +705,8 @@ const Profile = () => {
             >
               Submit
             </button>
+          </div>
+          </div>
           </div>
         </div>
       </div>
