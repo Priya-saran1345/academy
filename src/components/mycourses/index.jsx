@@ -105,7 +105,7 @@ useEffect(() => {
             <>
             <CourseCard slug={course.slug||''} image={course.card_image} name={course.course_name}
              description={course.short_description} level={course.completion_status} 
-             category={course.instructor_name|| ''} id={course.id} text={"Start"} link1={'dashboard/mycourses/788990'} />
+             category={course.instructor_name|| ''} id={course.id} text={"Start"} link1={`dashboard/mycourses/${course.course_slug}`} />
             </>
           ))
         ) : (
