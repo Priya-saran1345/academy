@@ -10,13 +10,25 @@ import Faq from '@/components/faq'
 import Testimonial from '@/components/testimonial'
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import { motion } from 'framer-motion';
+
 import { BASE_URL } from '@/utils/api'
 import FooterBanner from '@/components/footerBanner'
 import Link from "next/link";
 import Script from 'next/script';
-
+import Popup from '@/components/Popup'
 export default function Home() {
+  const [showPopup, setShowPopup] = useState(false);
 
+  useEffect(() => {
+    // Set a timer to show the popup after 5 seconds
+    const timer = setTimeout(() => {
+      setShowPopup(true);
+    }, 3000);
+
+    // Cleanup the timer if the component unmounts
+    return () => clearTimeout(timer);
+  }, []);
   const [website_banner, setwebsite_banner] = useState()
   const [instructor, setinstructor] = useState()
   const [faq, setfaq] = useState()
@@ -56,7 +68,27 @@ export default function Home() {
         <div>
           <Header />
           <Banner props={website_banner} />
-          <div className="center bg-lightGrey">
+          {
+          showPopup && (
+            <motion.div
+            className="fixed bottom-10  p-4  z-50 right-10  bg-orange-500 text-white  bg-white rounded-lg shadow-lg"
+            initial={{ scale: 0, opacity: 0 }} // Start from scale 0 and opacity 0
+            animate={{ scale: 1, opacity: 1 }} // Animate to scale 1 and opacity 1
+            exit={{ scale: 0, opacity: 0 }} // Exit animation for scale and opacity
+            transition={{ duration: 0.3, ease: 'easeInOut' }} 
+            >
+       <Popup/>
+       <div className="flex items-center gap-4 mt-6">
+        <button className="bg-orange text-white py-2 px-6 rounded-full font-medium">
+            <Link href='/signup'>
+          Register Now
+            </Link>
+        </button>
+        <button className="text-orange font-bold underline" onClick={()=>{setShowPopup(false)}}>Skip</button>
+      </div>
+      </motion.div>
+    )      
+  }    <div className="center bg-lightGrey">
             <div className="flex flex-col px-4 py-14 gap-10">
               <h3 className="text-black text-3xl md:text-4xl font-bold text-center">
                 Master the Most In-Demand <span className="text-orange">Skills</span> <br /> of Today&apos;s Job Market
@@ -95,7 +127,6 @@ export default function Home() {
               </Link>
             </div>
           </div>
-
           <div className="px-6   mx-auto w-full lg:w-[95%] 2xl:w-[77%]
  flex flex-col lg:flex-row mb-10 mt-28">
             <div className="flex-1 items-center lg:items-start text-center lg:text-left mb-6  flex flex-col gap-4">

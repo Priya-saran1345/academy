@@ -9,68 +9,100 @@ import Cookies from 'js-cookie';
 import { useapi } from '@/helpers/apiContext';
 
 const Header = () => {
-  const basic_detail=useapi()
-
+  const basic_detail = useapi()
+const {profile} = useapi()
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   // const [data, setdata] = useState()
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+  const [isSticky, setIsSticky] = useState(false);
 
- 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
 
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
     <>
-      <header className="absolute top-0 left-0 right-0 flex justify-between items-center p-4 bg-transparent text-black z-50 px-6   mx-auto w-full lg:w-[95%] 2xl:w-[77%] mt-2">
-        <div className="text-lg font-bold">
-         <Link href="/">
+ <header
+      className={`${
+        isSticky ? 'sticky top-0 bg-white  z-50 shadow-lg' : 'absolute top-0 bg-transparent'
+      } left-0 right-0 `}
+    >     
+    <div className='flex justify-between  transition-all duration-300 items-center p-4 text-black z-50 px-6 mx-auto w-full lg:w-[95%] 2xl:w-[77%] mt-2'>
+
+    
+      <div className="text-lg font-bold">
+          <Link href="/">
             <Image src={basic_detail.basic_detail
-?.logo_image} alt="logo" width={230} height={100} className='' />
+              ?.logo_image} alt="logo" width={230} height={100} className='' />
           </Link>
         </div>
         <nav className={`flex flex-col md:flex-row items-center md:space-x-8 transition-all duration-300 ${isOpen ? 'hidden' : 'hidden md:block'}`}>
           <ul className="flex flex-col md:flex-row md:space-x-8 items-center">
             <li className="relative group cursor-pointer underlineHover font-medium text-lg text-black hover:text-orange">
-             <Link href="/">Home</Link>
+              <Link href="/">Home</Link>
             </li>
             <Link href="/courses">
               <li className="relative group cursor-pointer underlineHover font-medium text-lg text-black hover:text-orange">
                 Courses
-          
+
               </li>
             </Link>
-            <Link href={'/contact'}>
-              <li className="cursor-pointer underlineHover font-medium text-lg text-black hover:text-orange">Contact Us</li>
-            </Link>
+            <li className="cursor-pointer underlineHover font-medium text-lg text-black hover:text-orange">
+              <Link href={'/contact'}>
+                Contact Us
+              </Link>
+            </li>
             {
               !Cookies.get('login_access_token') &&
-                <Link href="/signup">
               <li className="cursor-pointer underlineHover font-medium text-lg text-orange">
-                Sign Up
-                </li>
+                <Link href="/signup">
+                  Sign Up
                 </Link>
+              </li>
             }
             {
               !Cookies.get('login_access_token') &&
               <li className="cursor-pointer smooth1 hover:text-white font-medium text-lg border
-      border-orange px-4 py-2 rounded-lg text-orange hover:bg-orange"> 
-       <Link href="/login">Log In</Link>
+      border-orange px-4 py-2 rounded-lg text-orange hover:bg-orange">
+                <Link href="/login">Log In</Link>
               </li>
             }
             {
               Cookies.get('login_access_token') &&
+              <li className="cursor-pointer  font-medium text-lg text-orange">
                 <Link href="/dashboard">
-              <li className="cursor-pointer underlineHover font-medium text-lg text-orange">
-                Dashboard
-                </li>
+                <div className='flex gap-2 items-center'>
+            <div className='size-[35px] md:size-[50px] rounded-full bg-orange border-4 border-red-200 text-[20px] md:text-[27px] center text-white capitalize'>
+              {profile?.username[0]}
+            </div>
+            <div className='cursor-pointer'>
+              <p className='text-[16px] font-semibold'>{profile?.username}</p>
+              <p className='text-[14px] hidden md:block -mt-2 font-medium text-[#616161]'>{profile?.email}</p>
+            </div>
+            </div>
                 </Link>
+              </li>
             }
           </ul>
         </nav>
         <button className="md:hidden p-2 text-2xl text-orange" onClick={toggleSidebar}>
           ☰
         </button>
+        </div>
       </header>
       {/* Sidebar for mobile view */}
       {isOpen && (

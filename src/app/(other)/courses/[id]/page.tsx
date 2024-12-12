@@ -18,6 +18,7 @@ import { TbCertificate } from "react-icons/tb";
 import { useapi } from '@/helpers/apiContext';
 import { motion } from 'framer-motion'; // Import motion from framer-motion
 import ReactPlayer from 'react-player/youtube';
+import Cookies from 'js-cookie';
 
 
 const page = () => {
@@ -34,10 +35,23 @@ const page = () => {
     const [isFullScreen, setIsFullScreen] = useState(false);
 
     const fetchData = async () => {
+        const token = Cookies.get('login_access_token'); // Retrieve the token from cookies
+
         try {
-            const response = await axios.get(`${BASE_URL}courses/${id}/`);
-            console.log(response.data)
-            setApiData(response.data)// Update state with fetched data
+            const headers: any = {}; // Initialize headers as an empty object
+
+            // Add the Authorization header only if the token is available
+            if (token) {
+                headers.Authorization = `Bearer ${token}`;
+            }
+
+            // Fetch data with or without the Authorization header
+            const response = await axios.get(`${BASE_URL}courses/${id}/`, {
+                headers, // Dynamically pass the headers
+            });
+
+            console.log('API data:', response.data);
+            setApiData(response.data); // Update state with fetched data
         } catch (error: any) {
             console.log('Error fetching data:', error.message);
             setError(error.message); // Store the error message in state
@@ -48,7 +62,6 @@ const page = () => {
             router.push('/four/'); // Redirect to /four if id is undefined
         }
         else {
-
             fetchData(); // Call fetchData when the component mounts
         }
     }, [id, router]);
@@ -61,7 +74,7 @@ const page = () => {
     const toggleModule = (index: any) => {
         setOpenIndex(openIndex === index ? null : index);
     };
-    
+
     const toggleobjective = (index: any) => {
         setopenIndex1(openIndex1 === index ? null : index);
     };
@@ -89,7 +102,7 @@ const page = () => {
             <Header />
             <div className="py-4 bg-transparent pt-32  text-black px-3 md:px-6 w-full   mx-auto lg:w-[95%] 2xl:w-[77%] mt-2">
                 <div className=' gap-3 flex'>
-                    <div  className='w-[429px] sticky top-5 hidden lg:block h-fit pb-20 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
+                    <div className='w-[429px] sticky top-5 hidden lg:block h-fit pb-20 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
                         <div className='border-b-2 border-slate-300 pb-3'>
                             <p className='text-textGrey font-[16px]'>Course Starts -{ApiData?.start_date}</p>
                         </div>
@@ -97,14 +110,37 @@ const page = () => {
                             {/* <p>Popular</p> */}
                             <p className='text-[38px] font-bold text-black leading-tight'>{ApiData?.name}</p>
                             <p className='text-textGrey text-[14px] mb-7'>{ApiData?.short_description}</p>
-                            <div className='flex  pb-5 gap-2 border-b-2 border-slate-300'>
+                            <div className='flex  flex-wrap pb-5 gap-2 border-b-2 border-slate-300'>
                                 {/* <Link href={`/enroll`}> */}
-                                <button className='rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]' onClick={() => {
-                                    localStorage.setItem("courseid",id ||'');
-                                    setcourseid(id)
-                                    router.push(`/enroll`)
-
-                                }}>Enroll now</button>
+                                {ApiData?.is_purchased ? (
+                                    <button
+                                        className="rounded-lg py-1 px-2 text-white bg-orange font-medium text-[16px]"
+                                        onClick={() => {
+                                            if (ApiData?.slug) {
+                                                router.push(`/dashboard/mycourses/${ApiData.slug}`);
+                                            } else {
+                                                console.error('Slug is missing');
+                                            }
+                                        }}
+                                    >
+                                        Start Course
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]"
+                                        onClick={() => {
+                                            if (id) {
+                                                localStorage.setItem('courseid', id);
+                                                setcourseid(id);
+                                                router.push(`/enroll`);
+                                            } else {
+                                                console.error('ID is missing');
+                                            }
+                                        }}
+                                    >
+                                        Enroll Now
+                                    </button>
+                                )}
                                 {/* </Link> */}
                                 <div>
                                     <p className='text-[32px] font-bold'> {ApiData?.price}<span className='text-[24px] text-orange'>Rs.</span></p>
@@ -143,52 +179,67 @@ const page = () => {
                     </div>
                     {/* //top bar under lg */}
                     <div className='lg:ml-5  w-full'>
-                    <div className=' flex h-fit flex-wrap md:flex-nowrap  lg:hidden pb-20 mb-8 gap-5 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
-                        
-                        <div className='py-4 md:w-2/3'>
-                            {/* <p>Popular</p> */}
-                            <p className='text-textGrey font-[16px]'>Course Starts - {ApiData?.start_date}</p>
-                            <p className='text-[38px] font-bold text-black leading-tight'>{ApiData?.name}</p>
-                            <p className='text-textGrey text-[14px] mb-7'>{ApiData?.short_description}</p>
-                            <div className='flex  pb-5 gap-2 '>
-                                {/* <Link href={`/enroll`}> */}
-                                <button className='rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]' onClick={() => {
-                                    localStorage.setItem("courseid",id ||'');
-                                    setcourseid(id)
-                                    router.push(`/enroll`)
+                        <div className=' flex h-fit flex-wrap md:flex-nowrap  lg:hidden pb-20 mb-8 gap-5 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
 
-                                }}>Enroll now</button>
-                                {/* </Link> */}
-                                <div>
-                                    <p className='text-[32px] font-bold'> {ApiData?.price}<span className='text-[24px] text-orange'>Rs.</span></p>
+                            <div className='py-4 md:w-2/3'>
+                                {/* <p>Popular</p> */}
+                                <p className='text-textGrey font-[16px]'>Course Starts - {ApiData?.start_date}</p>
+                                <p className='text-[38px] font-bold text-black leading-tight'>{ApiData?.name}</p>
+                                <p className='text-textGrey text-[14px] mb-7'>{ApiData?.short_description}</p>
+                                <div className='flex flex-wrap pb-5 gap-2 '>
+                                    {/* <Link href={`/enroll`}> */}
+                                    {ApiData?.is_purchased ? (
+                                        <button
+                                            className="rounded-lg py-1 px-2 text-white bg-orange font-medium text-[16px]"
+                                            onClick={() => {
+                                                router.push(`/dashboard/mycourses/${ApiData?.slug}`);
+                                            }}
+                                        >
+                                            Start Course
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]"
+                                            onClick={() => {
+                                                localStorage.setItem("courseid", id || "");
+                                                setcourseid(id);
+                                                router.push(`/enroll`);
+                                            }}
+                                        >
+                                            Enroll Now
+                                        </button>
+                                    )}
+                                    {/* </Link> */}
+                                    <div>
+                                        <p className='text-[32px] font-bold'> {ApiData?.price}<span className='text-[24px] text-orange'>Rs.</span></p>
+                                    </div>
                                 </div>
-                            </div>
-                            {/* <p className='text-textGrey'><span className='text-orange'>{ApiData?.
+                                {/* <p className='text-textGrey'><span className='text-orange'>{ApiData?.
                                 review_count}</span> &nbsp;already  enrolled</p> */}
+                            </div>
+                            <div className='py-3'>
+                                <p className='text-[24px] font-semibold text-black'>Jump to Section</p>
+                                <ul className='flex flex-wrap md:flex-col gap-3'>
+
+                                    <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
+                                        onClick={() => scrollToSection('overview')}
+
+                                    >Overview of Course</li>
+                                    <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
+                                        onClick={() => scrollToSection('learn')}
+
+                                    >What you'll learn</li>
+                                    <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
+                                        onClick={() => scrollToSection('know')}
+                                    >Details to know</li>
+                                    <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
+                                        onClick={() => scrollToSection('module')}
+
+                                    >Course Curriculum</li>
+                                </ul>
+
+                            </div>
                         </div>
-                        <div className='py-3'>
-                            <p className='text-[24px] font-semibold text-black'>Jump to Section</p>
-                            <ul className='flex flex-wrap md:flex-col gap-3'>
-
-                                <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
-                                    onClick={() => scrollToSection('overview')}
-
-                                >Overview of Course</li>
-                                <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
-                                    onClick={() => scrollToSection('learn')}
-
-                                >What you'll learn</li>
-                                <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
-                                    onClick={() => scrollToSection('know')}
-                                >Details to know</li>
-                                <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
-                                    onClick={() => scrollToSection('module')}
-
-                                >Course Curriculum</li>
-                            </ul>
-                         
-                        </div>
-                    </div>
                         {/* first section */}
                         <div>
                             <div className='flex gap-2  items-center overview'>
@@ -386,7 +437,6 @@ const page = () => {
 
                                                             <div
                                                                 className={` ${isFullScreen ? 'fixed top-0 left-0 w-screen h-screen z-50 bg-black' : 'relative w-full h-[300px]'} rounded-lg cursor-pointer`}
-
                                                             >
                                                                 <ReactPlayer
                                                                     url={`https://www.youtube.com/watch?v=${module.video_url}`}
@@ -432,7 +482,6 @@ const page = () => {
                                                             <GoPlus className='text-orange text-[20px]' /> // Plus icon when closed
                                                         )}
                                                     </div>
-
                                                     {/* Accordion Content */}
                                                     {openIndex1 === index && (
                                                         <motion.div
@@ -459,10 +508,8 @@ const page = () => {
                             }
                         </div>
                         {/* first section */}
-
                     </div>
                 </div>
-
             </div>
             <FooterBanner
             />

@@ -179,10 +179,11 @@ const DashboardHeader = ({ props }: any) => {
                       </div>
                     </div>
                     <div className=''>
-                      <p className='font-bold text-black'>User Name</p>
-                      <p className='text-sm text-textgrey'>abc@gmail.com</p>
+                      <p className='font-bold text-black'>{ApiData?.first_name}&nbsp;{ApiData?.last_name}</p>
+                      <p className='text-sm text-textgrey'>{ApiData?.email}</p>
                       <div className='text-orange flex gap-2  items-center cursor-pointer text-[14px]' onClick={() => router.push('/dashboard/profile')}>
-                        Complete Your Profile <span className='text-orange'><FaArrowUpRightFromSquare className='text-[10px]'></FaArrowUpRightFromSquare></span>
+                        Complete Your Profile
+                         <span className='text-orange'><FaArrowUpRightFromSquare className='text-[10px]'></FaArrowUpRightFromSquare></span>
                       </div>
                     </div>
                   </div>
