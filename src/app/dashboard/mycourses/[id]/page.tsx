@@ -7,21 +7,32 @@ import { BiChevronDown, BiChevronUp, BiDownload } from "react-icons/bi"
 import { PiLayout } from "react-icons/pi"
 import DashboardHeader from "@/components/dashboardHeader"
 import { FiMinus, FiPlus } from "react-icons/fi"
+import DashboardSidebar from "@/components/dashboardSidebar"
+import ReactPlayer from 'react-player';
 
 
 export default function Page() {
     return (
-        <div>
 
-
-            <DashboardHeader />
-            <div className="min-h-screen w-full lg:w-[95%] 2xl:w-[77%] mx-auto  p-8">
-                <div className="mx-auto flex gap-2">
+      <div className="min-h-screen bg-[#F7F7F7]">
+      <DashboardHeader />
+      <div className="w-full flex  relative">
+        {/* Sidebar with absolute positioning */}
+        <div className="w-fit z-50 hidden lg:block absolute top-0 left-0 h-full">
+          <DashboardSidebar />
+        </div>
+        {/* Main content area with appropriate padding to avoid overlap */}
+        <div className="flex-1 lg:pl-[85px]"> {/* Adjust `pl` based on the sidebar width */}
+          <div className="w-full min-h-[88vh] bg-white rounded-sm  py-5">
+          <div className="mx-auto flex gap-2">
                     <CourseSidebar />
                     <CourseContent />
                 </div>
-            </div>
+          </div>
         </div>
+      </div>
+    </div>
+       
     )
 }
 
@@ -32,25 +43,25 @@ const courseModules = [
             {
                 title: "Introduction to Python Programming",
                 duration: "9 min",
-                videoUrl: "#",
+                videoUrl: "https://youtu.be/cPJjRtRk1gw?si=I93gEfLnQFHaBiQ4",
                 completed: true
             },
             {
                 title: "Setting up the Python Environment",
                 duration: "8 min",
-                videoUrl: "#",
+                videoUrl: "https://youtu.be/cPJjRtRk1gw?si=I93gEfLnQFHaBiQ4",
                 completed: false
             },
             {
                 title: "Writing Your First Python Program",
                 duration: "8 min",
-                videoUrl: "#",
+                videoUrl: "https://youtu.be/cPJjRtRk1gw?si=I93gEfLnQFHaBiQ4",
                 completed: false
             },
             {
                 title: "Overview of Python and its Features",
                 duration: "10 min",
-                videoUrl: "#",
+                videoUrl: "https://youtu.be/cPJjRtRk1gw?si=I93gEfLnQFHaBiQ4",
                 completed: false,
                 resources: ["PDF-1", "PDF-2"]
             }
@@ -122,7 +133,7 @@ function CourseSidebar() {
       "Module 4",
       "Module 5"
     ];
-  
+
     return (
         <div className="w-[350px] sticky top-10 h-[90vh] flex-shrink-0 rounded-lg shadow p-4">
         <Image
@@ -253,7 +264,6 @@ function CourseSidebar() {
 
 
 
-
 function CourseContent() {
     const [openModule, setOpenModule] = useState<any>(null);
     const [expandedLessonIndex, setExpandedLessonIndex] = useState(null);
@@ -304,7 +314,6 @@ function CourseContent() {
                                                     {/* <PiLayout className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" /> */}
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex justify-between">
-
                                                               <div className="flex items-start gap-2">
                                                               <div className="w-[13px] h-[13px] border-2 mt-1  border-orange rounded-full"></div>
 
@@ -316,8 +325,6 @@ function CourseContent() {
                                                             {expandedLessonIndex === lessonIndex ? (
                                                                     <BiChevronUp className="  text-[28px] text-orange" />
                                                               
-
-
                                                             ) : (
                                                                 <BiChevronDown
                                                                     className="text-[28px] text-orange" />
@@ -336,11 +343,13 @@ function CourseContent() {
                                                             transition={{ duration: 0.3, ease: 'easeInOut' }}
                                                             className="overflow-hidden"
                                                         >
-                                                            <div className="  rounded-md">
-                                                                <video controls className="w-full rounded-md">
-                                                                    <source src={lesson.videoUrl} type="video/mp4" />
-                                                                    Your browser does not support the video tag.
-                                                                </video>
+                                                  <div className="h-[500px]  rounded-md">
+                                                    <ReactPlayer
+                                                      url={lesson.videoUrl}
+                                                      controls
+                                                      width="100%"
+                                                      height="100%"
+                                                    />
                                                             </div>
                                                         </motion.div>
                                                     )}

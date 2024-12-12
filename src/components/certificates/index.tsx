@@ -15,8 +15,6 @@ const Certificates: React.FC = () => {
   const [showCertificate, setShowCertificate] = useState(false);
   const [selectedCertificate, setSelectedCertificate] = useState<string | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-
-
   const fetch = async () => {
     try {
         const token = Cookies.get('login_access_token');
@@ -75,6 +73,7 @@ useEffect(() => {
       <p className='text-[22px] font-semibold'>Certificates</p>
       <div className='flex flex-wrap justify-start gap-5 mt-8'>
         {apidata.map((elem:any, index:number) => (
+         
           <div key={index}>
             <div className='border-[1px] h-[217px] w-full md:min-w-[45%] xl:min-w-[30%]  gap-3 rounded-lg border-slate-200 shadow-xl p-3 flex'>
               <div>
@@ -110,7 +109,7 @@ useEffect(() => {
                     onClick={() =>
                       downloadCertificate(
                         `${elem.certificate_image}`,
-                        `${elem.course_name}-certificate.jpg` 
+                        `${elem.student_name}-${elem.course_name}-certificate.jpg` 
                       )
                     }
                   >
