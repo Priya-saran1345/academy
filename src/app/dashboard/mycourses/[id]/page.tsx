@@ -179,15 +179,14 @@ function CourseSidebar() {
                 >
                   <nav className="space-y-1">
                     {modules.map((module, index) => (
-                      <button
+                      <div 
                         key={index}
-                        className="w-full text-left px-4 py-3 rounded-lg text-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                      >
-                        <div className="flex items-center text-textGrey font-medium text-[15px] gap-4">
+                        className="w-full text-left px-4 border-none py-3 rounded-lg text-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-500 ">
+                        <div className="flex items-center cursor-pointer text-textGrey font-medium text-[15px] gap-4">
                           <div className="w-[13px] h-[13px] border-2  border-orange rounded-full"></div>
                           {module}
                         </div>
-                      </button>
+                      </div>
                     ))}
                   </nav>
                 </motion.div>
@@ -308,7 +307,10 @@ function CourseContent() {
                                         {module.lessons.map((lesson, lessonIndex) => (
                                             <div key={lessonIndex} className="flex flex-col gap-2 mt-2">
                                                 <div
-                                                    className="flex border-1 border-slate-200 p-3 rounded-lg items-start gap-3 text-sm cursor-pointer"
+                                                    className={`flex border-1 
+                                                      ${
+                                                        expandedLessonIndex === lessonIndex ? 'border-orange' : 'border-slate-200'
+                                                      }                                                       p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
                                                     onClick={() => toggleLesson(lessonIndex)}
                                                 >
                                                     {/* <PiLayout className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" /> */}
@@ -316,15 +318,15 @@ function CourseContent() {
                                                         <div className="flex justify-between">
                                                               <div className="flex items-start gap-2">
                                                               <div className="w-[13px] h-[13px] border-2 mt-1  border-orange rounded-full"></div>
-
                                                             <div className=" items-center gap-2">
-                                                                <div className="font-medium text-[18px] text-textGrey">{lesson.title}</div>
+                                                                <div className={`font-medium text-[18px]  ${
+                                                        expandedLessonIndex === lessonIndex ? 'text-orange' : 'text-textGrey'
+                                                      }  `}>{lesson.title}</div>
                                                                 <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
                                                             </div>
                                                               </div>
                                                             {expandedLessonIndex === lessonIndex ? (
                                                                     <BiChevronUp className="  text-[28px] text-orange" />
-                                                              
                                                             ) : (
                                                                 <BiChevronDown
                                                                     className="text-[28px] text-orange" />
