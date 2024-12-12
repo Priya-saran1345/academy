@@ -28,10 +28,10 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
           Register now and Avail this Amazing Offer.
         </p>
      
-        <div className="flex items-center gap-2 mt-4">
+        <div className="flex items-center gap-3 mt-4">
           <div
             ref={codeRef}
-            className="border-dashed border-2 border-orange bg-orange/5 bg-orange-100 text-orange font-bold py-2 px-4 rounded-md"
+            className="border-dashed border-2 w-2/3 border-orange bg-orange/5 bg-orange-100 text-orange font-bold py-[6px] text-center px-4 rounded-md"
           >
             {discountCode}
           </div>
