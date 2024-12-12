@@ -88,27 +88,20 @@ const BarChart = () => {
 
     const ctx = document.getElementById("bar-chart").getContext("2d");
     const myBar = new Chart(ctx, config);
-
     // Cleanup function to destroy the chart when component unmounts
     return () => {
       myBar.destroy();
     };
   }, []);
-
+  
   return (
-    <div className="relative flex flex-col min-w-0 break-words h-full bg-white w-full mb-6 shadow-lg rounded">
-      <div className="rounded-t mb-0 px-4 h-full py-8 bg-transparent">
-        <div className="flex flex-wrap items-center">
-          <div className="relative w-full max-w-full flex-grow flex-1"></div>
-        </div>
-      </div>
-      <div className="p-4 flex-auto">
-        {/* Chart */}
-        <div className="relative h-full">
-          <canvas id="bar-chart"></canvas>
-        </div>
+    <div className="relative flex flex-col min-w-0 h-full w-full shadow-lg rounded">
+    <div className="flex-auto p-0">
+      <div className="relative h-full">
+        <canvas id="bar-chart" className="h-full w-full"></canvas>
       </div>
     </div>
+  </div>
   );
 };
 

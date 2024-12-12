@@ -135,7 +135,7 @@ function CourseSidebar() {
     ];
 
     return (
-        <div className="w-[350px] sticky top-10 h-[90vh] flex-shrink-0 rounded-lg shadow p-4">
+        <div className="w-[350px] sticky top-24 h-[90vh] flex-shrink-0 rounded-lg shadow p-4">
         <Image
           src="/images/course.png"
           height={350}

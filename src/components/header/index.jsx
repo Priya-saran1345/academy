@@ -37,11 +37,7 @@ const Header = () => {
             <Link href="/courses">
               <li className="relative group cursor-pointer underlineHover font-medium text-lg text-black hover:text-orange">
                 Courses
-                {/* <ul className="absolute left-0 mt-1 w-[200px] rounded-lg text-[16px] bg-white text-black fomt-medium shadow-lg hidden group-hover:block">
-          <li className="px-4 py-2 hover:bg-gray-200"><p>Web Development</p></li>
-          <li className="px-4 py-2 hover:bg-gray-200"><p>App Development</p></li>
-          <li className="px-4 py-2 hover:bg-gray-200"><p>SEO Services</p></li>
-          </ul> */}
+          
               </li>
             </Link>
             <Link href={'/contact'}>

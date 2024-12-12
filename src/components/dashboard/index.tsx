@@ -199,33 +199,29 @@ const Dashboard = () => {
                     <div className="w-7/12 group-hover:bg-lightOrange bg-orange rounded-md h-full"></div>
                   </div>
                 </div>
-
-
               ))}
             </div>
-            {/* </Slider> */}
+            
           </div>
-
-
           {/* last cards */}
           <div className='flex flex-wrap   lg:flex-nowrap gap-6 mt-8 justify-center lg:justify-center '>
             <div className='bg-white pb-4 xl:pb-0 xl:min-h-[91px] xl:gap-3 w-[90%] sm:w-[47%] lg:w-[23%] flex xl:flex-row  flex-col justify-center items-center
-         rounded-3xl shadow-lg border-[1px] border-slate-200'>
+         rounded-3xl shadow border-[1px] border-slate-200'>
               <p className='text-orange text-[48px]  font-medium'>{Apidata?.user_stats.enroll_project}</p>
               <p className='text-[20px] font-medium'>Enrolled Courses</p>
             </div>
             <div className='bg-white pb-4 xl:pb-0 xl:min-h-[91px] xl:gap-3 w-[90%] sm:w-[47%] lg:w-[23%] flex xl:flex-row  flex-col justify-center items-center 
-        rounded-3xl shadow-lg border-[1px] border-slate-200'>
+        rounded-3xl shadow border-[1px] border-slate-200'>
               <p className='text-orange text-[48px] font-medium'>{Apidata?.user_stats.not_started}</p>
               <p className='text-[20px] font-medium'>Not Started Course</p>
             </div>
             <div className='bg-white pb-4 xl:pb-0 xl:min-h-[91px] xl:gap-3 w-[90%] sm:w-[47%] lg:w-[23%] flex xl:flex-row  flex-col justify-center items-center
-         rounded-3xl shadow-lg border-[1px] border-slate-200'>
+         rounded-3xl shadow border-[1px] border-slate-200'>
               <p className='text-orange text-[48px] font-medium'>{Apidata?.user_stats.ongoing}</p>
               <p className='text-[20px] font-medium'>Ongoing Courses</p>
             </div>
             <div className='bg-white pb-4 xl:pb-0 xl:min-h-[91px] xl:gap-3 w-[90%] sm:w-[47%] lg:w-[23%] flex xl:flex-row  flex-col justify-center items-center rounded-3xl 
-         shadow-lg border-[1px] border-slate-200'>
+         shadow border-[1px] border-slate-200'>
               <p className='text-orange text-[48px] font-medium'>{Apidata?.user_stats.completed}</p>
               <p className='text-[20px] font-medium'>Completed Course</p>
             </div>

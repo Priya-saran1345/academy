@@ -64,7 +64,7 @@
   onMouseEnter={() => setIsExpanded(true)}
   onMouseLeave={() => setIsExpanded(false)}
 >
-  <div className="bg-[#F7F7F7] relative h-[100%] px-2 flex flex-col justify-between overflow-hidden">
+<div className="bg-[#F7F7F7] sticky top-24  h-[100%] px-2 flex flex-col justify-between overflow-hidden">
     <ul className="pt-4">
       {[
         { option: "dashboard", icon: RxDashboard, label: "Dashboard", path: "/dashboard" },

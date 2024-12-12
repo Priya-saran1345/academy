@@ -88,7 +88,7 @@ const DashboardHeader = ({ props }: any) => {
 
   console.log()
   return (
-    <div className='px-5 py-3 pt-4 relative  w-full bg-[#F7F7F7]'>
+    <div className='px-5 py-3 pt-4  sticky z-50 top-0 w-full bg-[#F7F7F7]'>
       <div className='absolute w-fit top-[60px] sm:top-20 left-0 z-50'>
 
         {/* Animate the sidebar with framer-motion */}
