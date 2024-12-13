@@ -8,12 +8,26 @@ import { FaStar } from 'react-icons/fa6';
 import Image from 'next/image';
 import { BsArrowRight } from 'react-icons/bs';
 import Link from 'next/link';
+import { FaStarHalfAlt } from 'react-icons/fa';
 const MyCourses = () => {
   const [allvalue, setAllValue] = useState(true);
   const [filterValue, setFilterValue] = useState('');
   const [apiData, setApiData] = useState();
   const [finalData, setFinalData] = useState([]);
-
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating); // Integer part of the rating
+    const hasHalfStar = rating % 1 !== 0; // Check if there's a fractional part
+    // Add full stars
+    for (let i = 1; i <= fullStars; i++) {
+      stars.push(<FaStar key={i} className="text-orange " />);
+    }
+    // Add half star if there's a fractional part
+    if (hasHalfStar) {
+      stars.push(<FaStarHalfAlt key="half" className="text-orange " />);
+    }
+    return <div className="flex gap-1">{stars}</div>;
+  };
   const fetch = async () => {
     try {
       const token = Cookies.get('login_access_token');
@@ -32,7 +46,6 @@ const MyCourses = () => {
       console.log("my courses error", error.message);
     }
   };
-
   useEffect(() => {
     fetch();
   }, []);
@@ -102,7 +115,7 @@ const MyCourses = () => {
       </div>
       <div className='flex justify-center  gap-8 mt-8 flex-wrap'>
         {finalData.length > 0 ? (
-          finalData.map((course) => (
+          finalData?.map((course) => (
             <>
               {/* <CourseCard slug={course.slug||''} image={course.card_image} name={course.course_name}
              description={course.short_description} level={course.completion_status} 
@@ -140,22 +153,19 @@ const MyCourses = () => {
                 {/* Course Info */}
                 <div className="border-l  w-1/4 h-full 
                  pl-6">
-                  <div className="flex items-center mt-2 mb-2">
-                    <span className="text-lg font-bold mr-1">{course?.rating}</span>
-                    <FaStar className="text-orange" />
+                  <div className=" mt-2 mb-2">
+                    <div className="text-lg flex items-center font-bold mr-1"> Rating: {renderStars(course?.rating)}</div>
+                    {/* <FaStar className="text-orange" /> */}
                     <br />
-                    <span className="text-textGrey text-sm ml-2">({course?.review_count} reviews)</span>
+                    <div className="text-textGrey text-sm  -mt-6 ">({course?.review_count} reviews)</div>
                   </div>
                   <p className="text-black font-semibold">{course.course_level}</p>
                   <p className="text-textGrey mb-2">No prior experience required</p>
-
                   <p className="text-black font-semibold">{course?.duration} to complete</p>
                   <p>
                     <span className="font-semibold">Complition Status - </span>
                     <span className=" ">{course?.completion_status}</span>
                   </p>
-
-                  {/* <p className="text-textGrey mb-4">3 weeks at 3 hours a week</p> */}
                 </div>
                 <div className="border-l   w-1/4 mt-2  h-full  pl-6">
                 <div className="text-textGrey gap-2 flex flex-col justify-between">

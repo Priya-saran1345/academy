@@ -35,10 +35,10 @@ const page = () => {
     const [allTopics, setallTopics] = useState<any>()
     const [isFullScreen, setIsFullScreen] = useState(false);
     useEffect(() => {
-        setallTopics(ApiData?.modules.flatMap((module:any) => module.topics));
-    },[ApiData])
-    console.log('ApiData----',ApiData)
-    console.log('all topics-----',allTopics);
+        setallTopics(ApiData?.modules.flatMap((module: any) => module.topics));
+    }, [ApiData])
+    console.log('ApiData----', ApiData)
+    console.log('all topics-----', allTopics);
     const fetchData = async () => {
         const token = Cookies.get('login_access_token'); // Retrieve the token from cookies
 
@@ -114,22 +114,28 @@ const page = () => {
                         <div className='py-4'>
                             {/* <p>Popular</p> */}
                             <p className='text-[38px] font-bold text-black leading-tight'>{ApiData?.name}</p>
-                            <p className='text-textGrey text-[14px] mb-7'>{ApiData?.short_description}</p>
+                            <p className='text-textGrey text-[14px] mb-4'>{ApiData?.short_description}</p>
                             <div className='flex  flex-wrap pb-5 gap-2 border-b-2 border-slate-300'>
                                 {/* <Link href={`/enroll`}> */}
                                 {ApiData?.is_purchased ? (
-                                    <button
-                                        className="rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]"
-                                        onClick={() => {
-                                            if (ApiData?.slug) {
-                                                router.push(`/dashboard/mycourses/${ApiData.slug}`);
-                                            } else {
-                                                console.error('Slug is missing');
-                                            }
-                                        }}
-                                    >
-                                        Start Course
-                                    </button>
+                                    <>
+
+                                        <p className='text-textGrey'><span className='text-orange'>Awesome! You&apos;ve already enrolled in this course. Let&apos;s get started on your learning journey today!
+                                        </span> </p>
+
+                                        <button
+                                            className="rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]"
+                                            onClick={() => {
+                                                if (ApiData?.slug) {
+                                                    router.push(`/dashboard/mycourses/${ApiData.slug}`);
+                                                } else {
+                                                    console.error('Slug is missing');
+                                                }
+                                            }}
+                                        >
+                                            Let's Dive In!
+                                        </button>
+                                    </>
                                 ) : (
                                     <button
                                         className="rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]"
@@ -148,21 +154,21 @@ const page = () => {
                                 )}
                                 {/* </Link> */}
                                 {
-                                   !ApiData?.is_purchased &&
-                                <div>
-                                    <p className='text-[32px] font-bold'> {ApiData?.price}<span className='text-[24px] text-orange'>Rs.</span></p>
-                                </div>
+                                    !ApiData?.is_purchased &&
+                                    <div>
+                                        <p className='text-[32px] font-bold'> {ApiData?.price}<span className='text-[24px] text-orange'>Rs.</span></p>
+                                    </div>
                                 }
                             </div>
                             {
                                 !ApiData?.is_purchased &&
-                            <p className='text-textGrey'><span className='text-orange'>{ApiData?.
-                                review_count}</span> &nbsp;already  enrolled</p>
+                                <p className='text-textGrey'><span className='text-orange'>{ApiData?.
+                                    review_count}</span> &nbsp;already  enrolled</p>
                             }
-                            {
+                            {/* {
                                 ApiData?.is_purchased &&
                                 <p className='text-textGrey'><span className='text-orange'>Start Your Journey</span> </p>
-                            }
+                            } */}
                         </div>
                         <div className='py-3'>
                             <p className='text-[24px] font-semibold text-black'>Jump to Section</p>
@@ -200,19 +206,26 @@ const page = () => {
                                 {/* <p>Popular</p> */}
                                 <p className='text-textGrey font-[16px]'>Course Starts - {ApiData?.start_date}</p>
                                 <p className='text-[38px] font-bold text-black leading-tight'>{ApiData?.name}</p>
-                                <p className='text-textGrey text-[14px] mb-7'>{ApiData?.short_description}</p>
+                                <p className='text-textGrey text-[14px] mb-4'>{ApiData?.short_description}</p>
                                 <div className='flex flex-wrap pb-5 gap-2 '>
                                     {/* <Link href={`/enroll`}> */}
                                     {ApiData?.is_purchased ? (
-                                        <button
-                                            className="rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]"
-                                            onClick={() => {
-                                                router.push(`/dashboard/mycourses/${ApiData?.slug}`);
-                                            }}
-                                        >
-                                            Start Course
-                                        </button>
+                                        <>
+
+                                            <p className='text-textGrey'><span className='text-orange'>Great You have already enrolled</span> </p>
+
+                                            <button
+                                                className="rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]"
+                                                onClick={() => {
+                                                    router.push(`/dashboard/mycourses/${ApiData?.slug}`);
+                                                }}
+                                            >
+                                                Let's Dive In!
+                                            </button>
+                                        </>
                                     ) : (
+
+
                                         <button
                                             className="rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]"
                                             onClick={() => {
@@ -226,18 +239,18 @@ const page = () => {
                                     )}
                                     {/* </Link> */}
                                     {
-!ApiData?.is_purchased &&
+                                        !ApiData?.is_purchased &&
                                         <div>
-                                          {
-                                !ApiData?.is_purchased &&
-                            <p className='text-textGrey'><span className='text-orange'>{ApiData?.
-                                review_count}</span> &nbsp;already  enrolled</p>
-                            }
-                            {
-                                ApiData?.is_purchased &&
-                                <p className='text-textGrey'><span className='text-orange'>Start Your Journey</span> </p>
-                            }
-                                    </div>
+                                            {
+                                                !ApiData?.is_purchased &&
+                                                <p className='text-textGrey'><span className='text-orange'>{ApiData?.
+                                                    review_count}</span> &nbsp;already  enrolled</p>
+                                            }
+                                            {
+                                                ApiData?.is_purchased &&
+                                                <p className='text-textGrey'><span className='text-orange'>Start Your Journey</span> </p>
+                                            }
+                                        </div>
                                     }
                                 </div>
                                 {/* <p className='text-textGrey'><span className='text-orange'>{ApiData?.
@@ -423,67 +436,66 @@ const page = () => {
 
                                 </div>
                             </div>
-                            { 
-                                allTopics?.length>0&&
+                            {
+                                allTopics?.length > 0 &&
                                 <div>
                                     <p className='text-[18px] mt-4 font-semibold module' >Course Modules:</p>
                                     <div className='w-full mt-3 p-4 bg-lightGrey rounded-lg'>
 
-                                    <div className='flex flex-col gap-3'>
-  {allTopics?.map((module: any) => (
-    module.content?.map((elem: any, contentIndex: any) => (
-      <div key={contentIndex} className=''>
-        {/* Accordion Header */}
-        <div
-          className='bg-white flex gap-3 py-3 px-10 rounded-lg justify-between cursor-pointer'
-          onClick={() => toggleModule(contentIndex)} // Toggle accordion on click
-        >
-          <p className='text-[18px] font-medium text-black'>{elem.title}</p>
-          {openIndex === contentIndex ? (
-            <FaMinus className='text-orange text-[20px]' /> // Minus icon when open
-          ) : (
-            <GoPlus className='text-orange text-[20px]' /> // Plus icon when closed
-          )}
-        </div>
+                                        <div className='flex flex-col gap-3'>
+                                            {allTopics?.map((module: any) => (
+                                                module.content?.map((elem: any, contentIndex: any) => (
+                                                    <div key={contentIndex} className=''>
+                                                        {/* Accordion Header */}
+                                                        <div
+                                                            className='bg-white flex gap-3 py-3 px-10 rounded-lg justify-between cursor-pointer'
+                                                            onClick={() => toggleModule(contentIndex)} // Toggle accordion on click
+                                                        >
+                                                            <p className='text-[18px] font-medium text-black'>{elem.title}</p>
+                                                            {openIndex === contentIndex ? (
+                                                                <FaMinus className='text-orange text-[20px]' /> // Minus icon when open
+                                                            ) : (
+                                                                <GoPlus className='text-orange text-[20px]' /> // Plus icon when closed
+                                                            )}
+                                                        </div>
 
-        {/* Accordion Content */}
-        {openIndex === contentIndex && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }} // Initial state (closed)
-            animate={{ opacity: 1, height: 'auto' }} // Final state (opened)
-            exit={{ opacity: 0, height: 0 }} // Exit state (closed)
-            transition={{ duration: 0.2 }} // Smooth transition
-            className='p-5 bg-gray-100 rounded-lg mt-2'
-          >
-            {/* Render video player if unlocked */}
-            {module.locked === false ? (
-              <div
-                className={`${
-                  isFullScreen
-                    ? 'fixed top-0 left-0 w-screen h-screen z-50 bg-black'
-                    : 'relative w-full h-[300px]'
-                } rounded-lg cursor-pointer`}
-              >
-                <ReactPlayer
-                  url={elem.video_url}
-                  width='100%'
-                  height='100%'
-                  controls
-                  onClick={toggleFullScreen}
-                />
-              </div>
-            ) : (
-              // If locked, show message to purchase the course
-              <div className="text-center">
-                <p>Please buy the course</p>
-              </div>
-            )}
-          </motion.div>
-        )}
-      </div>
-    ))
-  ))}
-</div>
+                                                        {/* Accordion Content */}
+                                                        {openIndex === contentIndex && (
+                                                            <motion.div
+                                                                initial={{ opacity: 0, height: 0 }} // Initial state (closed)
+                                                                animate={{ opacity: 1, height: 'auto' }} // Final state (opened)
+                                                                exit={{ opacity: 0, height: 0 }} // Exit state (closed)
+                                                                transition={{ duration: 0.2 }} // Smooth transition
+                                                                className='p-5 bg-gray-100 rounded-lg mt-2'
+                                                            >
+                                                                {/* Render video player if unlocked */}
+                                                                {module.locked === false ? (
+                                                                    <div
+                                                                        className={`${isFullScreen
+                                                                                ? 'fixed top-0 left-0 w-screen h-screen z-50 bg-black'
+                                                                                : 'relative w-full h-[300px]'
+                                                                            } rounded-lg cursor-pointer`}
+                                                                    >
+                                                                        <ReactPlayer
+                                                                            url={elem.video_url}
+                                                                            width='100%'
+                                                                            height='100%'
+                                                                            controls
+                                                                            onClick={toggleFullScreen}
+                                                                        />
+                                                                    </div>
+                                                                ) : (
+                                                                    // If locked, show message to purchase the course
+                                                                    <div className="text-center">
+                                                                        <p>Please buy the course</p>
+                                                                    </div>
+                                                                )}
+                                                            </motion.div>
+                                                        )}
+                                                    </div>
+                                                ))
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             }

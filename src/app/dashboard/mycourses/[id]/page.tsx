@@ -122,15 +122,15 @@ const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
                     dangerouslySetInnerHTML={{
                       __html: `${ApiData?.course_description
                         ?.split(' ')
-                        .slice(0, 8)
+                        .slice(0, 14)
                         .join(' ')}...`,
                     }}
                   />
                   <p className="flex items-center mt-3  gap-1">
                     Rating: {renderStars(ApiData?.rating)}
                   </p>
-                  <p className="flex items-center mt-1  gap-1">
-                    Reviews: {ApiData?.review_count}
+                  <p className="flex text-textGrey text-[14px] items-center mt-1  gap-1">
+                   (  {ApiData?.review_count} reviews)
                   </p>
                 </div>
 
@@ -227,7 +227,7 @@ const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
                         transition={{ duration: 0.4, ease: 'easeInOut' }}
                         className="overflow-hidden pl-4 text-sm text-gray-700 space-y-2"
                       >
-                        <p><strong>Duration:</strong> {ApiData?.duration} Weeks</p>
+                        <p><strong>Duration:</strong> {ApiData?.duration} </p>
                         <p><strong>Level:</strong> {ApiData?.level}</p>
                         <p><strong>Language:</strong> English</p>
                       </motion.div>

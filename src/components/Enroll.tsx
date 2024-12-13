@@ -526,7 +526,7 @@ const Profile = () => {
                   onClick={createorder}
                   className="bg-orange w-full text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px] font-semibold hover:text-orange duration-150"
                 >
-                  Submit
+Confirm & Pay
                 </button>
               </div>
             </div>
