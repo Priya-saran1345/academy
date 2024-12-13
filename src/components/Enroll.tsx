@@ -1,7 +1,7 @@
 "use client"
 import { BASE_URL, BASE_URL_IMAGE } from '@/utils/api';
 import axios from 'axios';
-import React, { useEffect, useState,useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { BiEdit } from "react-icons/bi";
 import Cookies from 'js-cookie';
 import { RxCross1 } from "react-icons/rx";
@@ -13,7 +13,7 @@ import Image from 'next/image'
 import { MdOutlineBookmarkAdd, MdOutlineContactSupport } from 'react-icons/md';
 import { FaArrowUpRightFromSquare, FaCode, FaRegCircleCheck, FaStar } from 'react-icons/fa6';
 import { usePathname } from 'next/navigation'
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { LuBookOpen } from 'react-icons/lu';
 import { BsBoxArrowRight } from 'react-icons/bs';
 
@@ -59,9 +59,9 @@ const Profile = () => {
   const [data, setdata] = useState<any>();
   const [showremove, setshowremove] = useState<any>(false)
   const [copied, setCopied] = useState(false);
-   // Create a ref for the div
+  // Create a ref for the div
   const codeRef = useRef(null);
-const [discountCode, setdiscountCode] = useState<any>('Welcome20')
+  const [discountCode, setdiscountCode] = useState<any>('Welcome20')
   const handleCopy = () => {
     navigator.clipboard.writeText(discountCode).then(() => {
       setCopied(true);
@@ -102,7 +102,7 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
     setApiData(profile);
 
   }, [profile]);
-  const renderStars = (rating:any) => {
+  const renderStars = (rating: any) => {
     const stars = [];
     const fullStars = Math.floor(rating); // Integer part of the rating
     const hasHalfStar = rating % 1 !== 0; // Check if there's a fractional part
@@ -143,7 +143,7 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
       console.error('Razorpay SDK failed to load');
     };
     document.body.appendChild(script);
-  
+
     return () => {
       document.body.removeChild(script);
     };
@@ -214,8 +214,10 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
       }
       // console.log('the order data', updateddata)
       const { data: orderData } = await axios.post(`${BASE_URL}create-order/`,
-         { course_id: data?.id,
-          discount_code: coupanData.discount_code },
+        {
+          course_id: data?.id,
+          discount_code: coupanData.discount_code
+        },
 
         {
           headers: {
@@ -236,7 +238,7 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
         order_id, // Order ID from Razorpay
         handler: async (response: any) => {
           try {
-          
+            // Step 3: Call verify-payment API
             const verifyResponse = await axios.post(`${BASE_URL}verify-payment/`, {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_order_id: response.razorpay_order_id,
@@ -249,16 +251,16 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
                 }
               });
             alert("Payment successful! You are enrolled in the course.");
-            console.log('payment verification',verifyResponse)
+            console.log('payment verification', verifyResponse)
           } catch (err) {
             console.error("Payment verification failed:", err);
             alert("Payment verification failed. Please try again.");
           }
         },
         prefill: {
-          name:updateddata.username , // Customize with actual user data
-          email: updateddata.email ,
-          contact:updateddata.phone  ,
+          name: updateddata.username, // Customize with actual user data
+          email: updateddata.email,
+          contact: updateddata.phone,
         },
         theme: {
           color: "#3399cc",
@@ -267,7 +269,7 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
 
       const rzp = new Razorpay(options);
       rzp.open();
-    
+
     }
     catch (error: any) {
       console.log('Error fetching data :', error);
@@ -304,55 +306,62 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
       toast.error(error.response.data.error)
     }
   }
+
+
   return (
-    <div className='w-full flex p-7'>
+    <div className='w-full flex   p-7'>
+      {/* uppr div  */}
       <div className='w-full gap-3 lg:w-[90%] xl:w-[75%] 2xl:w-[50%] mx-auto      justify-center  '>
-      <div
-           className='shadow border-1 rounded-lg right-4 flex flex-col sm:flex-row p-4 justify-start gap-1  font-medium text-[17px] 
+        <div
+          className='shadow border-1 rounded-lg right-4 flex flex-col sm:flex-row p-4 justify-start gap-6  font-medium text-[17px] 
                 text-slate-600  py-3 top-24 logout-div' >
-                  {/* User Info and Profile Completion Section */}
-                  <Image src={'/images/checkout.svg'} height={243} width={447} alt=''></Image>
-                  <div>
-                  <div className='w-full flex px-7 py-4 justify-start gap-5 items-center '>
-                    <div className=''>
-                      <div className="relative rounded-full p-[5px] bg-white">
-                        <div className="w-16 h-16 bg-[#9C9C9C]   rounded-full flex items-center justify-center overflow-hidden z-50 ">
-                          <svg
-                            className="w-8 h-8 text-white"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                            />
-                          </svg>
-                        </div>
-                        <div className="absolute inset-0 -z-20 scale-110 rounded-full"
-                          style={{
-                            background: `conic-gradient(#FF6B6B ${profileCompletion}%, #F5F5F5 ${profileCompletion}%)`,
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <div className=''>
-                      <p className='font-bold text-black'>{profile?.first_name}&nbsp;{profile?.last_name}</p>
-                      <p className='text-sm text-textgrey'>{profile?.email}</p>
-                      <div className='text-orange flex gap-2  items-center cursor-pointer text-[14px]' onClick={() => router.push('/dashboard/profile')}>
-                        Complete Your Profile
-                         <span className='text-orange'><FaArrowUpRightFromSquare className='text-[10px]'></FaArrowUpRightFromSquare></span>
-                      </div>
-                    </div>
+          {/* User Info and Profile Completion Section */}
+          <Image src={'/images/checkout.svg'} height={243} width={400} alt=''></Image>
+          <div>
+
+            <div className='w-full flex  py-4  justify-start gap-5 items-center '>
+              <div className=''>
+                <div className='w-23 p-1 flex justify-center items-center h-23 rounded-full ' style={{
+                      background: `conic-gradient(#FF6B6B ${profileCompletion}%, #F5F5F5 ${profileCompletion}%)`,
+                    }}>
+
+               
+                <div className="relative rounded-full p-[4px] bg-white">
+                  <div className="w-16 h-16 bg-[#9C9C9C] rounded-full flex items-center justify-center overflow-hidden">
+                    <svg
+                      className="w-8 h-8 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
                   </div>
-                  
-                  <div className='w-full bg-orange-100  p-3 rounded-md text-center'>
-                    
-                    <p className=' text-black font-bold text-[18px] text-center mb-2 mt-4  mx-auto'>First Complete Your Profile to Avail this Offer</p>
-                    <p className=' text-start text-textGrey'>Use code:</p>
+                  </div>
+                
+                </div>
+                <p className='text-orange font-bold mx-5  mt-1'>{profileCompletion}%</p>
+              </div>
+              <div className=''>
+                <p className='font-bold text-black'>{profile?.first_name}&nbsp;{profile?.last_name}</p>
+                <p className='text-sm text-textgrey'>{profile?.email}</p>
+                <div className='text-orange flex gap-2  items-center cursor-pointer text-[14px]' onClick={() => router.push('/dashboard/profile')}>
+                  Complete Your Profile
+                  <span className='text-orange'><FaArrowUpRightFromSquare className='text-[10px]'></FaArrowUpRightFromSquare></span>
+                </div>
+              </div>
+            </div>
+
+            <div className='w-full bg-orange-100  p-3 rounded-md '>
+
+              <p className=' text-black font-bold text-[18px]  mb-2   mx-auto'>First Complete Your Profile to Avail this Offer</p>
+              <p className=' text-start text-textGrey'>Use code:</p>
               <div className="flex items-center gap-3 mt-4">
                 <div
                   ref={codeRef}
@@ -387,16 +396,16 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
                 </button>
               </div>
 
-        {copied && (
-          <div className="text-orange mt-2 text-sm">Code Copied!</div>
-        )}
-                  </div>
-                  </div>
+              {copied && (
+                <div className="text-orange mt-2 text-sm">Code Copied!</div>
+              )}
+            </div>
+          </div>
 
-                </div>
-{/* full bottom div */}
+        </div>
+        {/* full bottom div */}
         <div className=' mt-5 h-fit flex flex-col sm:flex-row gap-3 mx-auto lg:mx-0 shadow rounded-lg py-2 px-4'>
-         
+
           <div
             className=' 
              border-slate-200 py-4 px-4 pr-5 border-r-1  sm:w-1/2  group flex flex-col gap-2  smooth1 '
@@ -404,123 +413,123 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
             <h3 className='font-semibold text-black text-xl'>{data?.name}</h3>
             <h3 className='text-sm text-gray-500 font-medium'>
               {data?.short_description}
-            </h3> 
-            <p className=' flex  items-center font-semibold text-black text-[16px]'>{data?.rating}<FaStar className='text-orange ml-3'></FaStar></p>
+            </h3>
+            <div className=' flex  items-center font-semibold text-black text-[16px]'>Rating:{renderStars(data?.rating)}</div>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
-          ( {data?.review_count}reviews)
-            </p> 
+              ( {data?.review_count}reviews)
+            </p>
             <p className='font-semibold text-black text-[16px]'>{data?.duration} Days to complete</p>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
-            3 weeks at 3 hours a week
-            </p> 
-            <div  className='text-slate-700 mt-3  group py-5 px-3
+              3 weeks at 3 hours a week
+            </p>
+            <div className='text-slate-700 mt-3  group py-5 px-3
               bg-lightGrey  rounded-lg
               items-start gap-4'>
-                <div className=' flex flex-wrap gap-2 justify-center sm:flex-nowrap'>
-              <div className='min-w-[60px] h-[60px] border-[5px]  flex justify-center testimonial-img items-center rounded-full'>
-                <Image
-                  src={`${BASE_URL_IMAGE}${data?.instructor_name.profile_image}`}  
-                  width={54}
-                  height={54}
-                  className='rounded-full'
-                  alt={''}
-                />
+              <div className=' flex flex-wrap gap-2 justify-center sm:flex-nowrap'>
+                <div className='min-w-[60px] h-[60px] border-[5px]  flex justify-center testimonial-img items-center rounded-full'>
+                  <Image
+                    src={`${BASE_URL_IMAGE}${data?.instructor_name.profile_image}`}
+                    width={54}
+                    height={54}
+                    className='rounded-full'
+                    alt={''}
+                  />
+                </div>
+                <div className='  '>
+                  <p className='text-[16px]'>Name:&nbsp;&nbsp;
+                    <span className='font-semibold'>{data?.instructor_name.name}</span>
+                  </p>
+                  <p className='text-[16px]'>Expertise:&nbsp;&nbsp;
+                    <span className='font-semibold'>{data?.instructor_name.expertise
+                    }</span>
+                  </p>
+                  <div className="flex items-center  gap-1">
+                    Rating: {renderStars(data?.rating)}
+                  </div>
+                </div>
               </div>
-              <div className='  '>
-                <p className='text-[16px]'>Name:&nbsp;&nbsp;
-                  <span className='font-semibold'>{data?.instructor_name.name}</span>
-                </p>
-                <p className='text-[16px]'>Expertise:&nbsp;&nbsp;
-                  <span className='font-semibold'>{data?.instructor_name.expertise
-                  }</span>
-                </p>
-                <p className="flex items-center  gap-1">
-                  Rating: {renderStars(data?.rating)}
-                </p>
-              </div>
-              </div>
-                <p className='text-[14px] mt-4'>{data?.short_description}</p>
+              <p className='text-[14px] mt-4'>{data?.short_description}</p>
             </div>
           </div>
           {/* coupan code part from here */}
           <div className='flex sm:w-1/2 justify-center'>
 
-          <div className=' py-4'>
-          <div>
-            <div className='w-full border-b-1 pb-2 border-slate-200'>
+            <div className=' py-4'>
+              <div>
+                <div className='w-full border-b-1 pb-2 border-slate-200'>
 
-            <label className='text-[20px]  font-semibold  text-black capitalize'>Apply Coupon Code</label>
-            </div>
-            <br />
-            <div className='flex gap-3 border-slate-200 rounded-lg border-[2px] justify-between w-full items-center'>
-              <input
-                type="text"
-                value={coupanData.discount_code}
-                name='discount_code'
-                className='capitalize text-textGrey  border-none outline-none w-full  px-2 py-2 '
-                placeholder='Coupon code'
-                onChange={codeset}
-              />
-              {showremove && (
-                <button
-                  onClick={() => {
-                    setshowremove(false);
-                    const data = { ...coupanData, ['discount_code']: '' }
-                    setcoupanData(data)
-                    setdiscount(0);
-                   
-                  }}
-                  className="bg-orange text-white p-2 px-5 rounded-md hover:bg-lightOrange hover:text-orange text-[18px] font-semibold duration-150"
-                >
-                  Remove
-                </button>
-              )}
-              {
-                !showremove &&
-                <button
-                  onClick={ApplyCouponcode}
-                  disabled={!coupanData.discount_code.trim()}
-                  className="bg-orange w-fit mx-auto disabled:bg-gray-300 disabled:text-gray-600 sm:mx-0
+                  <label className='text-[20px]  font-semibold  text-black capitalize'>Apply Coupon Code</label>
+                </div>
+                <br />
+                <div className='flex gap-3 border-slate-200 rounded-lg border-[2px] justify-between w-full items-center'>
+                  <input
+                    type="text"
+                    value={coupanData.discount_code}
+                    name='discount_code'
+                    className='capitalize text-textGrey  border-none outline-none w-full  px-2 py-2 '
+                    placeholder='Coupon code'
+                    onChange={codeset}
+                  />
+                  {showremove && (
+                    <button
+                      onClick={() => {
+                        setshowremove(false);
+                        const data = { ...coupanData, ['discount_code']: '' }
+                        setcoupanData(data)
+                        setdiscount(0);
+
+                      }}
+                      className="bg-orange text-white p-2 px-5 rounded-md hover:bg-lightOrange hover:text-orange text-[18px] font-semibold duration-150"
+                    >
+                      Remove
+                    </button>
+                  )}
+                  {
+                    !showremove &&
+                    <button
+                      onClick={ApplyCouponcode}
+                      disabled={!coupanData.discount_code.trim()}
+                      className="bg-orange w-fit mx-auto disabled:bg-gray-300 disabled:text-gray-600 sm:mx-0
                    text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px]
                    font-semibold hover:text-orange duration-150"
+                    >
+                      Apply
+                    </button>
+                  }
+                </div>
+              </div>
+              <div className='border-b-[1px] mt-8 w-full'>
+                <p className='text-[20px]  w-full mb-2 capitalize  font-semibold'>Your Order Details</p>
+              </div>
+              <div className='border-b-[1px]'>
+                <div className="flex justify-between my-2 px-2">
+                  <p className='text-black font-medium text-[18px]'>Total Amount</p>
+                  <p className='text-textGrey'>Rs.{data?.price}</p>
+                </div>
+                <div className="flex justify-between my-2 px-2">
+                  <p className='text-black font-medium text-[18px]'>Discount
+                  </p>
+                  <p className='text-textGrey'>Rs.{discount || 0}</p>
+                </div>
+                <div className="flex justify-between my-2 px-2">
+                  <p className='text-black font-medium text-[18px]'>Final Price</p>
+                  <p className='text-textGrey'> Rs.{data?.price - discount}</p>
+                </div>
+              </div>
+              <div className='flex justify-between px-3 mt-3'>
+                <p className='text-[19px]   w-full mb-2 capitalize  font-semibold'>Final Amount
+                </p>
+                <p className='text-orange text-[26px] font-bold'>Rs.{data?.price - discount}</p>
+              </div>
+              <div className='w-full px-3 mt-4'>
+                <button
+                  onClick={createorder}
+                  className="bg-orange w-full text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px] font-semibold hover:text-orange duration-150"
                 >
-                  Apply
+                  Submit
                 </button>
-              }
+              </div>
             </div>
-          </div>
-          <div className='border-b-[1px] mt-8 w-full'>
-            <p className='text-[20px]  w-full mb-2 capitalize  font-semibold'>Your Order Details</p>
-          </div>
-          <div className='border-b-[1px]'>
-            <div className="flex justify-between my-2 px-2">
-              <p className='text-black font-medium text-[18px]'>Total Amount</p>
-              <p className='text-textGrey'>Rs.{data?.price}</p>
-            </div>
-            <div className="flex justify-between my-2 px-2">
-              <p className='text-black font-medium text-[18px]'>Discount
-              </p>
-              <p className='text-textGrey'>Rs.{discount || 0}</p>
-            </div>
-            <div className="flex justify-between my-2 px-2">
-              <p className='text-black font-medium text-[18px]'>Final Price</p>
-              <p className='text-textGrey'> Rs.{data?.price - discount}</p>
-            </div>
-          </div>
-          <div className='flex justify-between px-3 mt-3'>
-            <p className='text-[19px]   w-full mb-2 capitalize  font-semibold'>Final Amount
-            </p>
-            <p className='text-orange text-[26px] font-bold'>Rs.{data?.price - discount}</p>
-          </div>
-          <div className='w-full px-3 mt-4'>
-            <button
-              onClick={createorder}
-              className="bg-orange w-full text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px] font-semibold hover:text-orange duration-150"
-            >
-              Submit
-            </button>
-          </div>
-          </div>
           </div>
         </div>
       </div>
@@ -530,7 +539,7 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
 export default Profile
 
 
- {/* <div className='w-full flex-1'>
+{/* <div className='w-full flex-1'>
           <div className='pb-3'>
             <p className='text-black font-semibold text-[20px]'>Personal Details:</p>
           </div>
