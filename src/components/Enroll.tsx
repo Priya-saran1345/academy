@@ -236,7 +236,7 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
         order_id, // Order ID from Razorpay
         handler: async (response: any) => {
           try {
-            // Step 3: Call verify-payment API
+          
             const verifyResponse = await axios.post(`${BASE_URL}verify-payment/`, {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_order_id: response.razorpay_order_id,
@@ -304,18 +304,15 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
       toast.error(error.response.data.error)
     }
   }
-
   return (
-    <div className='w-full flex  mt-[100px]  p-7'>
-      {/* uppr div  */}
+    <div className='w-full flex p-7'>
       <div className='w-full gap-3 lg:w-[90%] xl:w-[75%] 2xl:w-[50%] mx-auto      justify-center  '>
       <div
            className='shadow border-1 rounded-lg right-4 flex flex-col sm:flex-row p-4 justify-start gap-1  font-medium text-[17px] 
                 text-slate-600  py-3 top-24 logout-div' >
                   {/* User Info and Profile Completion Section */}
-                  <Image src={'/images/discount.png'} height={243} width={447} alt=''></Image>
+                  <Image src={'/images/checkout.svg'} height={243} width={447} alt=''></Image>
                   <div>
-
                   <div className='w-full flex px-7 py-4 justify-start gap-5 items-center '>
                     <div className=''>
                       <div className="relative rounded-full p-[5px] bg-white">

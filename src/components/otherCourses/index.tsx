@@ -22,15 +22,7 @@ const OtherCourses = () => {
     slidesToScroll: 1,
     autoplay: false,
     responsive: [
-      // {
-      //   breakpoint: 1660,
-      //   settings: {
-      //     slidesToShow: 3,
-      //     slidesToScroll: 1,
-      //     infinite: true,
-      //     dots: true,
-      //   },
-      // },
+     
       {
         breakpoint: 1377,
         settings: {
@@ -189,7 +181,7 @@ const OtherCourses = () => {
                     text={"View"}
                     link1={`courses/${course.slug}`}
                     text1={"Enroll"}
-                    link={`enroll`}
+                    link={`dashboard/enroll`}
                     description={course.short_description}
                     level={course.course_level}
                     category={course.category || ""}

@@ -35,7 +35,6 @@ const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
     setexpandednotesIndex(expandednotesIndex === index ? null : index);
   };
   const [openSection, setOpenSection] = useState<string | null>(null);
-
   const toggleSection = (section: string) => {
     setOpenSection(openSection === section ? null : section);
   };
@@ -332,14 +331,13 @@ const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
                                             className="overflow-hidden"
                                           >
                                             <div className="rounded-md mx-8 pb-3">
-                                              <button className="px-4 py-3 rounded-md bg-orange  text-white  hover:bg-orange/30 hover:text-orange transition duration-200">
+                                              <button className="px-4 py-[9px] rounded-md bg-orange  text-white  hover:bg-orange/30 hover:text-orange transition duration-200">
                                               <Link
                                                 href={`${BASE_URL_IMAGE}${lesson.notes}`}
                                                className="flex gap-2 items-center"
                                                 download
                                                 >
-                                                Download PDF-1  <GoDownload className="text-[22px]" />
-
+                                                Download PDF-1  <GoDownload className="text-[20px]" />
                                               </Link>
                                                 </button>
                                                 

@@ -5,7 +5,6 @@ import { BASE_URL_IMAGE } from '@/utils/api';
 
 const PopularCourse = ({ course = [] }) => {
   const Router = useRouter();
-
   return (
     <div className='flex gap-5 flex-wrap center'>
       {course.map((elem) => {
@@ -22,7 +21,7 @@ const PopularCourse = ({ course = [] }) => {
               link1={`courses/${elem.slug}`}
               image={`${BASE_URL_IMAGE}${elem.card_image}`}
               text="View"
-              link="enroll"
+              link="dashboard/enroll"
               text1={'Enroll'}
             />
           );
@@ -32,5 +31,4 @@ const PopularCourse = ({ course = [] }) => {
     </div>
   );
 };
-
 export default PopularCourse;

@@ -18,8 +18,8 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
         <Image
           src="/images/discount.png" // Replace with your image path
           alt="Discount Offer"
-          width={400}
-          height={200}
+          width={457}
+          height={190}
           className="rounded-lg"
         />
       </div>

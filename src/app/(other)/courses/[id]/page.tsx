@@ -32,8 +32,13 @@ const page = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen1, setisOpen1] = useState(false)
     const [openIndex1, setopenIndex1] = useState<any>()
+    const [allTopics, setallTopics] = useState<any>()
     const [isFullScreen, setIsFullScreen] = useState(false);
-
+    useEffect(() => {
+        setallTopics(ApiData?.modules.flatMap((module:any) => module.topics));
+    },[ApiData])
+    console.log('ApiData----',ApiData)
+    console.log('all topics-----',allTopics);
     const fetchData = async () => {
         const token = Cookies.get('login_access_token'); // Retrieve the token from cookies
 
@@ -397,68 +402,67 @@ const page = () => {
 
                                 </div>
                             </div>
-                            {
-                                ApiData?.course_modules.length > 0 &&
-
+                            { 
+                                allTopics?.length>0&&
                                 <div>
                                     <p className='text-[18px] mt-4 font-semibold module' >Course Modules:</p>
                                     <div className='w-full mt-3 p-4 bg-lightGrey rounded-lg'>
 
-                                        <div className='flex flex-col gap-3'>
-                                            {ApiData?.course_modules?.map((module: any, index: any) => (
-                                                <div key={index} className=''>
-                                                    {/* Accordion Header */}
-                                                    <div
-                                                        className='bg-white flex gap-3 py-3 px-10  rounded-lg justify-between cursor-pointer'
-                                                        onClick={() => toggleModule(index)} // Toggle accordion on click
-                                                    >
-                                                        <p className='text-[18px] font-medium text-black'>{module.module_title}</p>
-                                                        {openIndex === index ? (
-                                                            <FaMinus className='text-orange text-[20px]' /> // Minus icon when open
-                                                        ) : (
-                                                            <GoPlus className='text-orange text-[20px]' /> // Plus icon when closed
-                                                        )}
-                                                    </div>
+                                    <div className='flex flex-col gap-3'>
+  {allTopics?.map((module: any) => (
+    module.content?.map((elem: any, contentIndex: any) => (
+      <div key={contentIndex} className=''>
+        {/* Accordion Header */}
+        <div
+          className='bg-white flex gap-3 py-3 px-10 rounded-lg justify-between cursor-pointer'
+          onClick={() => toggleModule(contentIndex)} // Toggle accordion on click
+        >
+          <p className='text-[18px] font-medium text-black'>{elem.title}</p>
+          {openIndex === contentIndex ? (
+            <FaMinus className='text-orange text-[20px]' /> // Minus icon when open
+          ) : (
+            <GoPlus className='text-orange text-[20px]' /> // Plus icon when closed
+          )}
+        </div>
 
-                                                    {/* Accordion Content */}
-                                                    {openIndex === index && (
-                                                        <motion.div
-                                                            initial={{ opacity: 0, height: 0 }} // Initial state (closed)
-                                                            animate={{ opacity: 1, height: 'auto' }} // Final state (opened)
-                                                            exit={{ opacity: 0, height: 0 }} // Exit state (closed)
-                                                            transition={{ duration: 0.2 }} // Smooth transition
-                                                            className='p-5 bg-gray-100 rounded-lg mt-2'
-                                                        >
-                                                            <div
-                                                                className='text-[16px] text-textGrey '
-                                                                dangerouslySetInnerHTML={{ __html: module.module_description }} // Render HTML content
-                                                            />
-
-
-                                                            <div
-                                                                className={` ${isFullScreen ? 'fixed top-0 left-0 w-screen h-screen z-50 bg-black' : 'relative w-full h-[300px]'} rounded-lg cursor-pointer`}
-                                                            >
-                                                                <ReactPlayer
-                                                                    url={`https://www.youtube.com/watch?v=${module.video_url}`}
-                                                                    width='100%'
-                                                                    height='100%'
-                                                                    controls
-                                                                    onClick={toggleFullScreen}
-                                                                />
-                                                                {isFullScreen && (
-                                                                    <button
-                                                                        className='absolute top-2 right-2 bg-white px-4 py-2 rounded text-black z-50'
-                                                                        onClick={toggleFullScreen}
-                                                                    >
-                                                                        Close
-                                                                    </button>
-                                                                )}
-                                                            </div>
-                                                        </motion.div>
-                                                    )}
-                                                </div>
-                                            ))}
-                                        </div>
+        {/* Accordion Content */}
+        {openIndex === contentIndex && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }} // Initial state (closed)
+            animate={{ opacity: 1, height: 'auto' }} // Final state (opened)
+            exit={{ opacity: 0, height: 0 }} // Exit state (closed)
+            transition={{ duration: 0.2 }} // Smooth transition
+            className='p-5 bg-gray-100 rounded-lg mt-2'
+          >
+            {/* Render video player if unlocked */}
+            {module.locked === false ? (
+              <div
+                className={`${
+                  isFullScreen
+                    ? 'fixed top-0 left-0 w-screen h-screen z-50 bg-black'
+                    : 'relative w-full h-[300px]'
+                } rounded-lg cursor-pointer`}
+              >
+                <ReactPlayer
+                  url={elem.video_url}
+                  width='100%'
+                  height='100%'
+                  controls
+                  onClick={toggleFullScreen}
+                />
+              </div>
+            ) : (
+              // If locked, show message to purchase the course
+              <div className="text-center">
+                <p>Please buy the course</p>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </div>
+    ))
+  ))}
+</div>
                                     </div>
                                 </div>
                             }

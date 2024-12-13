@@ -11,7 +11,7 @@ export function middleware(request: NextRequest) {
         '/dashboard/profile',
         '/dashboard/support',
         '/dashboard/updates',
-        '/enroll'   ,
+        '/dashboard/enroll'   ,
         '/dashboard/mycourses/:path*',
 
 
@@ -41,7 +41,8 @@ export const config = {
         '/dashboard/profile',
         '/dashboard/support',
         '/dashboard/updates',
-       '/enroll' ,
+        '/dashboard/enroll'   ,
+        
 '/dashboard/mycourses/:id*',
        '/contact',
        '/courses',

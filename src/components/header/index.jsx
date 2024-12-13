@@ -70,10 +70,10 @@ const Header = () => {
               }
               {
                 !Cookies.get('login_access_token') &&
-                <li className="cursor-pointer smooth1 hover:text-white font-medium text-lg border
+                <p className="cursor-pointer smooth1 hover:text-white font-medium text-lg border
       border-orange px-4 py-2 rounded-lg text-orange hover:bg-orange">
                   <Link href="/login">Log In</Link>
-                </li>
+                </p>
               }
               {
                 Cookies.get('login_access_token') &&
@@ -82,13 +82,22 @@ const Header = () => {
                   <div className='flex gap-2 items-center' onClick={() => {
                     router.push('/dashboard');
                   }}>
-                    <div className='size-[35px] md:size-[50px] rounded-full bg-orange border-4 border-red-200 text-[20px] md:text-[27px] center text-white capitalize'>
+                    {/* <div className='size-[35px] md:size-[50px] rounded-full bg-orange border-4 border-red-200 text-[20px] md:text-[27px] center text-white capitalize'>
                       {profile?.username[0]}
                     </div>
                     <div className='cursor-pointer'>
                       <p className='text-[16px] font-semibold'>{profile?.username}</p>
                       <p className='text-[14px] hidden md:block -mt-2 font-medium text-[#616161]'>{profile?.email}</p>
-                    </div>
+                    </div> */}
+                     <div className="rounded-md ">
+                                              <button className="px-3 py-[5px] rounded-md bg-orange  text-white  hover:bg-orange/30 hover:text-orange transition duration-200">
+                                             
+                                              Dashboard  
+
+                       </button>
+                                                
+                                              {/* <a href="#" className="px-4 py-2 bg-orange-600  rounded-lg hover:bg-orange-500 transition duration-200">Download PDF-2</a> */}
+                     </div>
                   </div>
                   {/* </Link> */}
                 </div>
@@ -131,7 +140,7 @@ const Header = () => {
             {
               !Cookies.get('login_access_token') &&
               <Link href={'/login'}>
-                <li className="cursor-pointer smooth1 hover:text-white border border-orange px-4 py-2 rounded-lg text-orange hover:bg-orange">Log In</li>
+                <p className="cursor-pointer smooth1 hover:text-white border border-orange px-4 py-2 rounded-lg text-orange hover:bg-orange">Log In</p>
               </Link>
             }
             {
@@ -148,6 +157,14 @@ const Header = () => {
                     <p className='text-[16px] font-semibold'>{profile?.username}</p>
                     <p className='text-[14px] hidden md:block -mt-2 font-medium text-[#616161]'>{profile?.email}</p>
                   </div> */}
+                   <div className="rounded-md ">
+                                              <button className="px-3 py-[5px] rounded-md bg-orange  text-white  hover:bg-orange/30 hover:text-orange transition duration-200">
+                                             
+                                              Dashboard  
+
+                       </button>
+                       </div>
+                  
                 </div>
                 {/* </Link> */}
               </div>
