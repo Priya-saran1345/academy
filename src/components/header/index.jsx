@@ -27,9 +27,7 @@ const Header = () => {
         setIsSticky(false);
       }
     };
-
     window.addEventListener('scroll', handleScroll);
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -41,8 +39,6 @@ const Header = () => {
           } left-0 right-0 `}
       >
         <div className='flex justify-between  transition-all duration-300 items-center p-4 text-black z-50 px-6 mx-auto w-full lg:w-[95%] 2xl:w-[77%] mt-2'>
-
-
           <div className="text-lg font-bold">
             <Link href="/">
               <Image src={basic_detail.basic_detail
@@ -57,7 +53,6 @@ const Header = () => {
               <Link href="/courses">
                 <li className="relative group cursor-pointer underlineHover font-medium text-lg text-black hover:text-orange">
                   Courses
-
                 </li>
               </Link>
               <li className="cursor-pointer underlineHover font-medium text-lg text-black hover:text-orange">
@@ -146,13 +141,13 @@ const Header = () => {
                 <div className='flex gap-2 items-center' onClick={() => {
                   router.push('/dashboard');
                 }}>
-                  <div className='size-[35px] md:size-[50px] rounded-full bg-orange border-4 border-red-200 text-[20px] md:text-[27px] center text-white capitalize'>
+                  {/* <div className='size-[35px] md:size-[50px] rounded-full bg-orange border-4 border-red-200 text-[20px] md:text-[27px] center text-white capitalize'>
                     {profile?.username[0]}
                   </div>
                   <div className='cursor-pointer'>
                     <p className='text-[16px] font-semibold'>{profile?.username}</p>
                     <p className='text-[14px] hidden md:block -mt-2 font-medium text-[#616161]'>{profile?.email}</p>
-                  </div>
+                  </div> */}
                 </div>
                 {/* </Link> */}
               </div>
