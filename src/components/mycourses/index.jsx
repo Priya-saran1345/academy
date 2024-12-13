@@ -132,7 +132,7 @@ const MyCourses = () => {
                     </div>
                   </div>
                   {/* Continue Learning Link */}
-                  <Link href={`dashboard/mycourses/${course.course_slug}`} className="text-orange text-[18px] flex  items-center gap-2  font-semibold ">
+                  <Link href={`/dashboard/mycourses/${course.course_slug}`} className="text-orange text-[18px] flex  items-center gap-2  font-semibold ">
                     Continue Learning <BsArrowRight />
                   </Link>
                 </div>
