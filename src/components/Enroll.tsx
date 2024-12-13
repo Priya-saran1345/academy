@@ -351,7 +351,7 @@ const Profile = () => {
               <div className="flex items-center gap-3 ">
                 <div
                   ref={codeRef}
-                  className="border-dashed border-2 w-2/3  border-orange bg-orange/5 bg-orange-100 text-orange font-bold py-1 px-4 rounded-md"
+                  className="border-dashed border-2 w-2/3  text-center border-orange bg-orange/5 bg-orange-100 text-orange font-bold py-1 px-4 rounded-md"
                 >
                   {discountCode}
                 </div>
@@ -498,12 +498,12 @@ const Profile = () => {
                   <p className='text-textGrey'> Rs.{data?.price - discount}</p>
                 </div>
               </div>
-              <div className='flex justify-between px-3 mt-3'>
+              <div className='flex justify-between px-2 mt-3'>
                 <p className='text-[19px]   w-full mb-2 capitalize  font-semibold'>Final Amount
                 </p>
                 <p className='text-orange text-[26px] font-bold'>Rs.{data?.price - discount}</p>
               </div>
-              <div className='w-full px-3 mt-4'>
+              <div className='w-full px-2 mt-4'>
                 <button
                   onClick={createorder}
                   className="bg-orange w-full text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px] font-semibold hover:text-orange duration-150"
