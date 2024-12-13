@@ -67,14 +67,11 @@ const Profile = () => {
       setCopied(true);
       toast.success('Code Copied!')
       setTimeout(() => setCopied(false), 2000);
-  
       // Update coupanData with the copied discount code and course_id
       const newdata = { ...coupanData, discount_code: discountCode };
       const data1 = { ...newdata, course_id: data?.id };
       setcoupanData(data1);
       // setshowremove(true)
-
-
     });
   };
 
@@ -237,7 +234,6 @@ const Profile = () => {
         order_id, // Order ID from Razorpay
         handler: async (response: any) => {
           try {
-            // Step 3: Call verify-payment API
             const verifyResponse = await axios.post(`${BASE_URL}verify-payment/`, {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_order_id: response.razorpay_order_id,

@@ -132,12 +132,13 @@ const page = () => {
             <div className="py-4 bg-transparent pt-32  text-black px-3 md:px-6 w-full   mx-auto lg:w-[95%] 2xl:w-[77%] mt-2">
                 <div className=' gap-3 flex'>
                     <div className='w-[429px] sticky top-5 hidden lg:block h-fit pb-20 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
-                        <div className='border-b-2 border-slate-300 pb-3'>
+                        {/* <div className='border-b-2 border-slate-300 pb-3'>
                             <p className='text-textGrey font-[16px]'>Course Starts -{ApiData?.start_date}</p>
-                        </div>
+                        </div> */}
+                        <Image src={`${BASE_URL_IMAGE}${ApiData?.card_image}`} width={320} height={120} alt='' className='rounded-md'></Image>
                         <div className='py-4'>
                             {/* <p>Popular</p> */}
-                            <p className='text-[38px] font-bold text-black leading-tight'>{ApiData?.name}</p>
+                            <p className='text-[24px] font-bold text-black leading-tight'>{ApiData?.name}</p>
                             <p className='text-textGrey text-[14px] mb-4'>{ApiData?.short_description}</p>
                             <div className='flex  flex-wrap pb-5 gap-2 border-b-2 border-slate-300'>
                                 {/* <Link href={`/enroll`}> */}
@@ -179,7 +180,7 @@ const page = () => {
                                 {
                                     !ApiData?.is_purchased &&
                                     <div>
-                                        <p className='text-[32px] font-bold'> {ApiData?.price}<span className='text-[24px] text-orange'>Rs.</span></p>
+                                        <p className='text-[24px] font-bold'> {ApiData?.price}<span className='text-[24px] text-orange'>Rs.</span></p>
                                     </div>
                                 }
                             </div>
@@ -214,7 +215,7 @@ const page = () => {
                                 >Course Curriculum</li>
                             </ul>
                             {/* side course modules */}
-                            <p className='text-[24px] font-semibold text-black my-4'>Why Choose This Course?</p>
+                            <p className='text-[24px] font-semibold text-black my-4'>Course Modules:</p>
                             <nav className="space-y-1">
                                 {moduleTitles?.map((module: string, index: number) => (
                                     <div
@@ -313,7 +314,7 @@ const page = () => {
                         <div>
                             <div className='flex gap-2  items-center overview'>
                                 <div className='size-[13px] rounded-full bg-orange'></div>
-                                <p className='text-[24px]'>Overview of Course</p>
+                                <p className='text-[22px] font-medium'>Overview of Course</p>
                             </div>
                             <div className='flex w-full justify-center gap-4 2xl:justify-between flex-wrap mt-6'>
                                 <div className='lg:max-w-[216px]  w-[45%] sm:w-[30%] md:w-[22%] text-center flex-col h-[98px] hover:shadow-xl duration-200 
@@ -431,7 +432,7 @@ const page = () => {
                             <div>
                                 <div className='flex gap-2 mt-6  items-center know'>
                                     <div className='size-[13px] rounded-full bg-orange'></div>
-                                    <p className='text-[24px]'>Details to know</p>
+                                    <p className='text-[22px] font-medium'>Details to know</p>
                                 </div>
                                 <div className='flex flex-wrap gap-4 sm:flex-nowrap mt-6 justify-between'>
                                     <div className='flex  gap-4'>
