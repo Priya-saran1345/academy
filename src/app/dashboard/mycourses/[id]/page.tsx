@@ -95,8 +95,7 @@ const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
       stars.push(<FaStarHalfAlt key="half" className="text-orange " />);
     }
     return <div className="flex gap-1">{stars}</div>;
-  };
-
+  };  
   return (
     <div className="min-h-screen bg-[#F7F7F7]">
       <DashboardHeader />
@@ -109,7 +108,7 @@ const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
             <div className="mx-auto flex gap-2">
               <div className="w-[350px] sticky top-24 h-[90vh] flex-shrink-0 rounded-lg shadow p-4">
                 <Image
-                  src="/images/course.png"
+                  src={ApiData?.card_image}
                   height={350}
                   width={410}
                   alt="Python Course"
@@ -133,7 +132,6 @@ const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
                    (  {ApiData?.review_count} reviews)
                   </p>
                 </div>
-
                 <div className="space-y-4">
                   <div>
                     <button
