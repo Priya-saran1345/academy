@@ -65,13 +65,14 @@ const Profile = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(discountCode).then(() => {
       setCopied(true);
+      toast.success('Code Copied!')
       setTimeout(() => setCopied(false), 2000);
   
       // Update coupanData with the copied discount code and course_id
       const newdata = { ...coupanData, discount_code: discountCode };
       const data1 = { ...newdata, course_id: data?.id };
       setcoupanData(data1);
-      setshowremove(true)
+      // setshowremove(true)
 
 
     });
@@ -384,9 +385,9 @@ const Profile = () => {
                   </svg>
                 </button>
               </div>
-              {copied && (
+              {/* {copied && (
                 <div className="text-orange mt-2 text-sm">Code Copied!</div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
