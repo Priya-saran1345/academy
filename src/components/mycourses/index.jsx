@@ -132,7 +132,7 @@ const MyCourses = () => {
                     </div>
                   </div>
                   {/* Continue Learning Link */}
-                  <Link href={`/dashboard/mycourses/${course.course_slug}`} className="text-orange text-[18px] flex  items-center gap-2  font-semibold ">
+                  <Link href={`/dashboard/mycourses/${course?.course_slug}`} className="text-orange text-[18px] flex  items-center gap-2  font-semibold ">
                     Continue Learning <BsArrowRight />
                   </Link>
                 </div>
@@ -141,16 +141,21 @@ const MyCourses = () => {
                 <div className="border-l  w-1/4 h-full 
                  pl-6">
                   <div className="flex items-center mt-2 mb-2">
-                    <span className="text-lg font-bold mr-1">4.7</span>
+                    <span className="text-lg font-bold mr-1">{course?.rating}</span>
                     <FaStar className="text-orange" />
                     <br />
-                    <span className="text-textGrey text-sm ml-2">(3,915 reviews)</span>
+                    <span className="text-textGrey text-sm ml-2">({course?.review_count} reviews)</span>
                   </div>
-                  <p className="text-black font-semibold">Beginner level</p>
+                  <p className="text-black font-semibold">{course.course_level}</p>
                   <p className="text-textGrey mb-2">No prior experience required</p>
 
-                  <p className="text-black font-semibold">10 hours to complete</p>
-                  <p className="text-textGrey mb-4">3 weeks at 3 hours a week</p>
+                  <p className="text-black font-semibold">{course?.duration} to complete</p>
+                  <p>
+                    <span className="font-semibold">Complition Status - </span>
+                    <span className=" ">{course?.completion_status}</span>
+                  </p>
+
+                  {/* <p className="text-textGrey mb-4">3 weeks at 3 hours a week</p> */}
                 </div>
                 <div className="border-l   w-1/4 mt-2  h-full  pl-6">
                 <div className="text-textGrey gap-2 flex flex-col justify-between">
@@ -169,11 +174,11 @@ const MyCourses = () => {
                   </p>
                   <p>
                     <span className="font-semibold">Discount - </span>
-                    <span className=" ">{course.discount_amount}</span>
+                    <span className=" ">{course?.discount_amount}</span>
                   </p>
                   <p>
                     <span className="font-semibold">Coupan Code- </span>
-                    <span className=" ">{course.discount_code}</span>
+                    <span className=" ">{course?.discount_code ||'No coupan used'} </span>
                   </p>
                 </div>
                 </div>
