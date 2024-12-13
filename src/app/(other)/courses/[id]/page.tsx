@@ -137,7 +137,7 @@ const page = () => {
                                             if (id) {
                                                 localStorage.setItem('courseid', id);
                                                 setcourseid(id);
-                                                router.push(`/enroll`);
+                                                router.push(`/dashboard/enroll`);
                                             } else {
                                                 console.error('ID is missing');
                                             }
