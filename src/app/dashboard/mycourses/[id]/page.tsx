@@ -338,7 +338,6 @@ const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
                                                 Download PDF-1  <GoDownload className="text-[20px]" />
                                               </Link>
                                                 </button>
-                                                
                                               {/* <a href="#" className="px-4 py-2 bg-orange-600  rounded-lg hover:bg-orange-500 transition duration-200">Download PDF-2</a> */}
                                             </div>
                                           </motion.div>

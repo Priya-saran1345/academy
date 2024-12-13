@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Header from '@/components/header'
-import { GoStarFill } from "react-icons/go";
+import { GoDownload, GoStarFill } from "react-icons/go";
 import { GoPlus } from "react-icons/go";
 import Image from 'next/image';
 import { BASE_URL, BASE_URL_IMAGE } from '@/utils/api'
@@ -16,9 +16,12 @@ import { LiaNewspaper } from "react-icons/lia";
 import { MdOutlineAddchart } from "react-icons/md";
 import { TbCertificate } from "react-icons/tb";
 import { useapi } from '@/helpers/apiContext';
-import { motion } from 'framer-motion'; // Import motion from framer-motion
+import { AnimatePresence, motion } from 'framer-motion'; // Import motion from framer-motion
 import ReactPlayer from 'react-player/youtube';
 import Cookies from 'js-cookie';
+import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
+import { FiMinus, FiPlus } from 'react-icons/fi';
+import { IoLockClosed } from 'react-icons/io5';
 
 
 const page = () => {
@@ -34,11 +37,37 @@ const page = () => {
     const [openIndex1, setopenIndex1] = useState<any>()
     const [allTopics, setallTopics] = useState<any>()
     const [isFullScreen, setIsFullScreen] = useState(false);
+    const [moduleTitles, setModuleTitles] = useState<string[]>([]);
+    const [sidecontentindex, setsidecontentindex] = useState<number>(0);
+    const [topics, setTopics] = useState<any[]>([]);
+    const [openModule, setOpenModule] = useState<number | null>(0);
+    const [expandedLessonIndex, setExpandedLessonIndex] = useState<number | null>(0);
+    const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
+    const toggleLesson = (index: number) => {
+        setExpandedLessonIndex(expandedLessonIndex === index ? null : index);
+    };
+    const toggleNotes = (index: number) => {
+        setexpandednotesIndex(expandednotesIndex === index ? null : index);
+    };
+    const getAllTopics = (apiData: any, index: number) => {
+        return apiData?.modules?.[index]?.topics || [];
+    };
     useEffect(() => {
-        setallTopics(ApiData?.modules.flatMap((module: any) => module.topics));
-    }, [ApiData])
-    console.log('ApiData----', ApiData)
-    console.log('all topics-----', allTopics);
+        if (ApiData) {
+            setTopics(getAllTopics(ApiData, sidecontentindex));
+        }
+    }, [ApiData, sidecontentindex]);
+
+    const getModuleTitles = (apiData: any) => {
+        return apiData?.modules?.map((module: any) => module?.module_title) || [];
+    };
+
+    useEffect(() => {
+        if (ApiData) {
+            setModuleTitles(getModuleTitles(ApiData));
+        }
+    }, [ApiData]);
+
     const fetchData = async () => {
         const token = Cookies.get('login_access_token'); // Retrieve the token from cookies
 
@@ -49,7 +78,6 @@ const page = () => {
             if (token) {
                 headers.Authorization = `Bearer ${token}`;
             }
-
             // Fetch data with or without the Authorization header
             const response = await axios.get(`${BASE_URL}courses/${id}/`, {
                 headers, // Dynamically pass the headers
@@ -62,6 +90,7 @@ const page = () => {
             setError(error.message); // Store the error message in state
         }
     };
+
     useEffect(() => {
         if (id == 'undefined') {
             router.push('/four/'); // Redirect to /four if id is undefined
@@ -70,14 +99,12 @@ const page = () => {
             fetchData(); // Call fetchData when the component mounts
         }
     }, [id, router]);
+
     const toggleAccordion = () => {
         setIsOpen(!isOpen);
     };
     const toggleAccordion1 = () => {
         setisOpen1(!isOpen1);
-    };
-    const toggleModule = (index: any) => {
-        setOpenIndex(openIndex === index ? null : index);
     };
 
     const toggleobjective = (index: any) => {
@@ -97,11 +124,8 @@ const page = () => {
         }
     };
 
-    // Function to open the video in full-screen
-    const toggleFullScreen = () => {
-        console.log(isFullScreen)
-        setIsFullScreen((prev) => !prev);
-    };
+    
+
     return (
         ApiData && <div>
             <Header />
@@ -119,7 +143,6 @@ const page = () => {
                                 {/* <Link href={`/enroll`}> */}
                                 {ApiData?.is_purchased ? (
                                     <>
-
                                         <p className='text-textGrey'><span className='text-orange'>Awesome! You&apos;ve already enrolled in this course. Let&apos;s get started on your learning journey today!
                                         </span> </p>
 
@@ -190,12 +213,22 @@ const page = () => {
 
                                 >Course Curriculum</li>
                             </ul>
+                            {/* side course modules */}
                             <p className='text-[24px] font-semibold text-black my-4'>Why Choose This Course?</p>
-                            <ul className='text-textGrey list-disc mx-7 '>
-                                <li>Learn Python from scratch to advanced level</li>
-                                <li>Build web apps and data analysis projects</li>
-                                <li>Earn a recognized certificate to enhance your resume</li>
-                            </ul>
+                            <nav className="space-y-1">
+                                {moduleTitles?.map((module: string, index: number) => (
+                                    <div
+                                        key={index}
+                                        onClick={() => setsidecontentindex(index)}
+                                        className="w-full items-center text-left px-4 border-none py-3 rounded-lg text-sm hover:bg-gray-100 focus:outline-none"
+                                    >
+                                        <div className="flex cursor-pointer text-textGrey font-medium text-[15px] gap-4">
+                                            <div className="min-w-[13px] h-[13px] border-2 border-orange rounded-full"></div>
+                                            {module}
+                                        </div>
+                                    </div>
+                                ))}
+                            </nav>
                         </div>
                     </div>
                     {/* //top bar under lg */}
@@ -253,8 +286,6 @@ const page = () => {
                                         </div>
                                     }
                                 </div>
-                                {/* <p className='text-textGrey'><span className='text-orange'>{ApiData?.
-                                review_count}</span> &nbsp;already  enrolled</p> */}
                             </div>
                             <div className='py-3'>
                                 <p className='text-[24px] font-semibold text-black'>Jump to Section</p>
@@ -276,7 +307,6 @@ const page = () => {
 
                                     >Course Curriculum</li>
                                 </ul>
-
                             </div>
                         </div>
                         {/* first section */}
@@ -411,7 +441,6 @@ const page = () => {
                                             <p className='text-[18px] font-medium'>Shareable certificate</p>
                                             <p className='text-textGrey mt-2'>Add to your LinkedIn profile</p>
                                         </div>
-
                                     </div>
                                     <div className='flex  gap-4'>
                                         <MdOutlineAddchart
@@ -420,81 +449,165 @@ const page = () => {
                                             <p className='text-[18px] font-medium'>Recently updated!</p>
                                             <p className='text-textGrey mt-2'>Add to your LinkedIn profile</p>
                                         </div>
-
                                     </div>
                                     <div className='flex  gap-4'>
                                         <LiaNewspaper
-
-
                                             className='text-[40px] text-orange' />
                                         <div>
                                             <p className='text-[18px] font-medium'>Assessments</p>
                                             <p className='text-textGrey mt-2'>Add to your LinkedIn profile</p>
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
-                            {
-                                allTopics?.length > 0 &&
+                            {ApiData?.modules.length > 0 &&
                                 <div>
                                     <p className='text-[18px] mt-4 font-semibold module' >Course Modules:</p>
                                     <div className='w-full mt-3 p-4 bg-lightGrey rounded-lg'>
-
                                         <div className='flex flex-col gap-3'>
-                                            {allTopics?.map((module: any) => (
-                                                module.content?.map((elem: any, contentIndex: any) => (
-                                                    <div key={contentIndex} className=''>
-                                                        {/* Accordion Header */}
-                                                        <div
-                                                            className='bg-white flex gap-3 py-3 px-10 rounded-lg justify-between cursor-pointer'
-                                                            onClick={() => toggleModule(contentIndex)} // Toggle accordion on click
-                                                        >
-                                                            <p className='text-[18px] font-medium text-black'>{elem.title}</p>
-                                                            {openIndex === contentIndex ? (
-                                                                <FaMinus className='text-orange text-[20px]' /> // Minus icon when open
-                                                            ) : (
-                                                                <GoPlus className='text-orange text-[20px]' /> // Plus icon when closed
-                                                            )}
-                                                        </div>
-
-                                                        {/* Accordion Content */}
-                                                        {openIndex === contentIndex && (
-                                                            <motion.div
-                                                                initial={{ opacity: 0, height: 0 }} // Initial state (closed)
-                                                                animate={{ opacity: 1, height: 'auto' }} // Final state (opened)
-                                                                exit={{ opacity: 0, height: 0 }} // Exit state (closed)
-                                                                transition={{ duration: 0.2 }} // Smooth transition
-                                                                className='p-5 bg-gray-100 rounded-lg mt-2'
+                                            {
+                                                topics.length > 0 &&
+                                                <div className="p-4">
+                                                    {topics?.map((module: any, moduleIndex: number) => (
+                                                        <div key={moduleIndex} className="mb-4">
+                                                            <button
+                                                                onClick={() => setOpenModule(openModule === moduleIndex ? null : moduleIndex)}
+                                                                className="w-full flex items-center justify-between p-4 border-slate-200 border-1 hover:shadow-lg mb-3 duration-250 rounded-lg"
                                                             >
-                                                                {/* Render video player if unlocked */}
-                                                                {module.locked === false ? (
-                                                                    <div
-                                                                        className={`${isFullScreen
-                                                                                ? 'fixed top-0 left-0 w-screen h-screen z-50 bg-black'
-                                                                                : 'relative w-full h-[300px]'
-                                                                            } rounded-lg cursor-pointer`}
+                                                                <span className="font-medium">{moduleIndex + 1}. {module?.title || 'Untitled Module'}</span>
+                                                                {openModule === moduleIndex ? <FiMinus className="text-[24px] text-orange" /> : <FiPlus className="text-[24px] text-orange" />}
+                                                            </button>
+                                                            <AnimatePresence>
+                                                                {openModule === moduleIndex && (
+                                                                    <motion.div
+                                                                        initial={{ height: 0, opacity: 0 }}
+                                                                        animate={{ height: "auto", opacity: 1 }}
+                                                                        exit={{ height: 0, opacity: 0 }}
+                                                                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                                                                        className="overflow-hidden"
                                                                     >
-                                                                        <ReactPlayer
-                                                                            url={elem.video_url}
-                                                                            width='100%'
-                                                                            height='100%'
-                                                                            controls
-                                                                            onClick={toggleFullScreen}
-                                                                        />
+                                                                        {module?.content?.length>0?
+                                                                        module?.content?.map((lesson: any, lessonIndex: number) => (
+                                                                            <>
+                                                                                <div key={lessonIndex} className="flex flex-col gap-2 mt-2">
+                                                                                    <div
+                                                                                        className={`flex border-1 ${expandedLessonIndex === lessonIndex ? 
+                                                                                            "border-orange" : "border-slate-200"} p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
+                                                                                        onClick={() => toggleLesson(lessonIndex)}
+                                                                                    >
+                                                                                        <div className="flex-1 min-w-0">
+                                                                                            <div className="flex justify-between">
+                                                                                                <div className="flex items-start gap-2">
+                                                                                                    <div className="w-[13px] h-[13px] border-2 mt-1 border-orange rounded-full"></div>
+                                                                                                    <div className="items-center gap-2">
+                                                                                                        <div className={`font-medium text-[18px] 
+                                                                                                            ${expandedLessonIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title}</div>
+                                                                                                        <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                {expandedLessonIndex === lessonIndex ? <BiChevronUp className="text-[28px] text-orange" />
+                                                                                                    : <BiChevronDown className="text-[28px] text-orange" />}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <AnimatePresence>
+                                                                                        {expandedLessonIndex === lessonIndex && (
+                                                                                            <motion.div
+                                                                                                initial={{ height: 0, opacity: 0 }}
+                                                                                                animate={{ height: "auto", opacity: 1 }}
+                                                                                                exit={{ height: 0, opacity: 0 }}
+                                                                                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                                                                                className="overflow-hidden"
+                                                                                            >
+                                                                                                <div className="h-[500px] rounded-md">
+                                                                                                    <ReactPlayer url={lesson?.video_url} controls width="100%" height="100%" />
+                                                                                                </div>
+                                                                                            </motion.div>
+                                                                                        )}
+                                                                                    </AnimatePresence>
+                                                                                </div>
+                                                                                {/* pdf content here */}
+                                                                                <div key={lessonIndex} className={`flex  ${expandednotesIndex === lessonIndex ? "border-orange" : "border-slate-200"} rounded-lg border-1 flex-col gap-2 mt-2`}>
+                                                                                    <div
+                                                                                        className={`flex p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
+                                                                                        onClick={() => toggleNotes(lessonIndex)}
+                                                                                    >
+                                                                                        <div className="flex-1 min-w-0">
+                                                                                            <div className="flex justify-between">
+                                                                                                <div className="flex items-start gap-2">
+                                                                                                    <div className="w-[13px] h-[13px]  mt-1 border-2 border-orange  rounded-full"></div>
+                                                                                                    <div className="items-center gap-2">
+                                                                                                        <div className={`font-medium text-[18px] ${expandednotesIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>
+                                                                                                        <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                {expandednotesIndex === lessonIndex ? <BiChevronUp className="text-[28px] text-orange" />
+                                                                                                    : <BiChevronDown className="text-[28px] text-orange" />}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <AnimatePresence>
+                                                                                        {expandednotesIndex === lessonIndex && (
+                                                                                            <motion.div
+                                                                                                initial={{ height: 0, opacity: 0 }}
+                                                                                                animate={{ height: "auto", opacity: 1 }}
+                                                                                                exit={{ height: 0, opacity: 0 }}
+                                                                                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                                                                                className="overflow-hidden"
+                                                                                            >
+                                                                                                <div className="rounded-md mx-8 pb-3">
+                                                                                                    <button className="px-4 py-[9px] rounded-md bg-orange  text-white  hover:bg-orange/30 hover:text-orange transition duration-200">
+                                                                                                        <Link
+                                                                                                            href={`${BASE_URL_IMAGE}${lesson.notes}`}
+                                                                                                            className="flex gap-2 items-center"
+                                                                                                            download
+                                                                                                        >
+                                                                                                            Download PDF-1  <GoDownload className="text-[20px]" />
+                                                                                                        </Link>
+                                                                                                    </button>
+                                                                                                    {/* <a href="#" className="px-4 py-2 bg-orange-600  rounded-lg hover:bg-orange-500 transition duration-200">Download PDF-2</a> */}
+                                                                                                </div>
+                                                                                            </motion.div>
+                                                                                        )}
+                                                                                    </AnimatePresence>
+                                                                                </div>
+                                                                            </>
+                                                                        )):
+                                                                        <div
+                                                                        className={`flex border-1 
+                                                                            "border-orange" : "border-slate-200"} p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
+                                                                        // onClick={() => toggleLesson(lessonIndex)}
+                                                                    >
+                                                                        <div className="flex-1 min-w-0">
+                                                                            <div className="flex justify-between">
+                                                                                <div className="flex items-start gap-2">
+                                                                                    <div className="w-[13px] h-[13px] border-2 mt-1 border-orange rounded-full"></div>
+                                                                                    <div className="items-center gap-2">
+                                                                                        <div className={`font-medium text-[18px] 
+                                                                                            text-orange`}>
+                                                                                                Enroll to View </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <IoLockClosed className='text-orange text-[24px]'/>
+                                                                               
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                ) : (
-                                                                    // If locked, show message to purchase the course
-                                                                    <div className="text-center">
-                                                                        <p>Please buy the course</p>
-                                                                    </div>
+                                                                        
+                                                                    
+                                                                    }
+
+                                                                    </motion.div>
                                                                 )}
-                                                            </motion.div>
-                                                        )}
-                                                    </div>
-                                                ))
-                                            ))}
+                                                            </AnimatePresence>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            }
+                                            {
+                                                topics.length === 0 &&
+                                                <div className="p-4 text-center">No topics found</div>
+                                            }
                                         </div>
                                     </div>
                                 </div>
