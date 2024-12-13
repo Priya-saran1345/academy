@@ -13,13 +13,12 @@ const Page = () => {
           <div className='flex flex-col justify-center px-1 text-center items-center gap-2 py-12'>
             <p className=' text-[18px] md:text-[20px] text-textGrey'>Your Submittion  has been received </p>
             <p className=' text-[18px] md:text-[20px] text-textGrey'>We  will be in touch with you shortly</p>
-           
-              <button className='hover:bg-orange bg-[#F24A2533] hover:text-white border text-orange center px-4 py-2 rounded-lg w-32 mt-5 smooth1'>
+              <button className='hover:bg-orange bg-[#F24A2533] text-[22px] hover:text-white border text-orange center px-4 py-2 rounded-lg w-32 mt-5 smooth1'>
                 <Link href='/'>
                   Home
                 </Link>
               </button>
-              <p className='text-[28px] font-bold text-center text-orange italic mt-5'>Follow US</p>
+              <p className='text-[20px] font-bold text-center text-orange italic mt-5'>Follow US</p>
               <div className="flex justify-center gap-3 text-[20px] md:text-[25px] mt-3 md:mt-0">
                 <div className="social-login-icons">
                   <Link href='https://x.com/' target='_blank'>

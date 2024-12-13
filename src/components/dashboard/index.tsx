@@ -162,7 +162,7 @@ const Dashboard = () => {
           <div className="px-6 w-full max-w-[1750px] min-w-[370px]">
             <p className="text-[22px] mb-3 my text-black font-semibold">Enrolled Courses</p>
             {/* <Slider {...settings}> */}
-            <div className='flex w-full flex-wrap gap-4 justify-center   xl:justify-between'>
+            <div className='flex w-full flex-wrap gap-4 justify-center lg:justify-start '>
 
               {purchased_courses?.map((course: any) => (
                 <div

@@ -128,7 +128,7 @@ const OtherCourses = () => {
             slug={course.slug}
             name={course.name}
             text={"View"}
-            text1={"Enroll"}
+            // text1={"Enroll"}
             description={course.short_description}
             level={course.course_level}
             category={course.category || ""}
@@ -180,8 +180,8 @@ const OtherCourses = () => {
                     image={`${BASE_URL_IMAGE}${course.card_image}`}
                     text={"View"}
                     link1={`courses/${course.slug}`}
-                    text1={"Enroll"}
-                    link={`dashboard/enroll`}
+                    // text1={"Enroll"}
+                    // link={`dashboard/enroll`}
                     description={course.short_description}
                     level={course.course_level}
                     category={course.category || ""}

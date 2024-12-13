@@ -9,12 +9,9 @@ import DashboardSidebar from '@/components/dashboardSidebar'
 
 const Page = () => {
   return (
-    
-     
      <div className="min-h-screen bg-[#F7F7F7]">
 <DashboardHeader />
 <div className="w-full flex  relative">
-  {/* Sidebar with absolute positioning */}
   <div className="w-fit hidden lg:block  absolute top-0 left-0 h-full">
     <DashboardSidebar />
   </div>

@@ -66,6 +66,14 @@ const Profile = () => {
     navigator.clipboard.writeText(discountCode).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+  
+      // Update coupanData with the copied discount code and course_id
+      const newdata = { ...coupanData, discount_code: discountCode };
+      const data1 = { ...newdata, course_id: data?.id };
+      setcoupanData(data1);
+      setshowremove(true)
+
+
     });
   };
 
@@ -89,18 +97,10 @@ const Profile = () => {
       profile?.profile_image
     ];
 
-    // Count the non-null fields
     const nonNullFields = profileFields.filter(field => field !== null && field !== undefined && field !== "");
-
-    // Calculate the completion percentage
     const completionPercentage = (nonNullFields.length / profileFields.length) * 100;
-
-    // Update the profile completion state
     setProfileCompletion(completionPercentage);
-
-    // Assuming you're setting the API data for further use
     setApiData(profile);
-
   }, [profile]);
   const renderStars = (rating: any) => {
     const stars = [];
@@ -150,7 +150,6 @@ const Profile = () => {
   }, []);
   const fetchData = async () => {
     try {
-      // console.log('courseid-----------------',courseid ||localStorage.getItem('courseid'))
       const courseId = localStorage.getItem('courseid');
       if (!courseId) {
         console.error('No course ID found in localStorage');
@@ -204,7 +203,6 @@ const Profile = () => {
     const data1 = { ...newdata, ['course_id']: data?.id }
     setcoupanData(data1)
   }
-
   const createorder = async () => {
     try {
       const token = Cookies.get('login_access_token');
@@ -306,26 +304,20 @@ const Profile = () => {
       toast.error(error.response.data.error)
     }
   }
-
-
   return (
     <div className='w-full flex   p-7'>
       {/* uppr div  */}
-      <div className='w-full gap-3 lg:w-[90%] xl:w-[75%] 2xl:w-[50%] mx-auto justify-center  '>
-        <div
-          className='shadow border-1 rounded-lg right-4 flex flex-col sm:flex-row p-4 justify-start gap-6  font-medium text-[17px] 
+      <div className='w-full gap-3 lg:w-[90%] xl:w-[75%] 2xl:w-[55%] mx-auto justify-center  '>
+        <div className='shadow border-1 rounded-lg right-4 flex flex-col sm:flex-row p-4 justify-between gap-6  font-medium text-[17px] 
                 text-slate-600  py-3 top-24 logout-div' >
           {/* User Info and Profile Completion Section */}
-          <Image src={'/images/checkout.svg'} height={243} width={400} alt=''></Image>
+          <Image src={'/images/checkout.svg'} height={243} width={430} alt=''></Image>
           <div>
-
-            <div className='w-full flex  py-4  justify-start gap-5 items-center '>
+            <div className='w-full flex justify-start gap-5 items-center '>
               <div className=''>
                 <div className='w-23 p-1 flex justify-center items-center h-23 rounded-full ' style={{
                       background: `conic-gradient(#FF6B6B ${profileCompletion}%, #F5F5F5 ${profileCompletion}%)`,
                     }}>
-
-               
                 <div className="relative rounded-full p-[4px] bg-white">
                   <div className="w-16 h-16 bg-[#9C9C9C] rounded-full flex items-center justify-center overflow-hidden">
                     <svg
@@ -344,7 +336,6 @@ const Profile = () => {
                     </svg>
                   </div>
                   </div>
-                
                 </div>
                 <p className='text-orange font-bold mx-5  mt-1'>{profileCompletion}%</p>
               </div>
@@ -357,12 +348,10 @@ const Profile = () => {
                 </div>
               </div>
             </div>
-
             <div className='w-full bg-orange-100  p-3 rounded-md '>
-
               <p className=' text-black font-bold text-[18px]  mb-2   mx-auto'>First Complete Your Profile to Avail this Offer</p>
               <p className=' text-start text-textGrey'>Use code:</p>
-              <div className="flex items-center gap-3 mt-4">
+              <div className="flex items-center gap-3 ">
                 <div
                   ref={codeRef}
                   className="border-dashed border-2 w-2/3  border-orange bg-orange/5 bg-orange-100 text-orange font-bold py-1 px-4 rounded-md"
@@ -395,17 +384,13 @@ const Profile = () => {
                   </svg>
                 </button>
               </div>
-
               {copied && (
                 <div className="text-orange mt-2 text-sm">Code Copied!</div>
               )}
             </div>
           </div>
-
         </div>
-        {/* full bottom div */}
         <div className=' mt-5 h-fit flex flex-col sm:flex-row gap-3 mx-auto lg:mx-0 shadow rounded-lg py-2 px-4'>
-
           <div
             className=' 
              border-slate-200 py-4 px-4 pr-5 border-r-1  sm:w-1/2  group flex flex-col gap-2  smooth1 '
@@ -526,7 +511,7 @@ const Profile = () => {
                   onClick={createorder}
                   className="bg-orange w-full text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px] font-semibold hover:text-orange duration-150"
                 >
-Confirm & Pay
+               Confirm & Pay
                 </button>
               </div>
             </div>
@@ -537,6 +522,8 @@ Confirm & Pay
   )
 }
 export default Profile
+
+
 
 
 {/* <div className='w-full flex-1'>
