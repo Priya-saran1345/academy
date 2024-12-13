@@ -169,11 +169,11 @@ const MyCourses = () => {
                   </p>
                   <p>
                     <span className="font-semibold">Discount - </span>
-                    <span className=" ">{course.discount_code}</span>
+                    <span className=" ">{course.discount_amount}</span>
                   </p>
                   <p>
                     <span className="font-semibold">Coupan Code- </span>
-                    <span className=" ">{course.payment_status}</span>
+                    <span className=" ">{course.discount_code}</span>
                   </p>
                 </div>
                 </div>

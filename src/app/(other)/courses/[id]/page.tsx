@@ -119,7 +119,7 @@ const page = () => {
                                 {/* <Link href={`/enroll`}> */}
                                 {ApiData?.is_purchased ? (
                                     <button
-                                        className="rounded-lg py-1 px-2 text-white bg-orange font-medium text-[16px]"
+                                        className="rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]"
                                         onClick={() => {
                                             if (ApiData?.slug) {
                                                 router.push(`/dashboard/mycourses/${ApiData.slug}`);
@@ -147,12 +147,22 @@ const page = () => {
                                     </button>
                                 )}
                                 {/* </Link> */}
+                                {
+                                   !ApiData?.is_purchased &&
                                 <div>
                                     <p className='text-[32px] font-bold'> {ApiData?.price}<span className='text-[24px] text-orange'>Rs.</span></p>
                                 </div>
+                                }
                             </div>
+                            {
+                                !ApiData?.is_purchased &&
                             <p className='text-textGrey'><span className='text-orange'>{ApiData?.
                                 review_count}</span> &nbsp;already  enrolled</p>
+                            }
+                            {
+                                ApiData?.is_purchased &&
+                                <p className='text-textGrey'><span className='text-orange'>Start Your Journey</span> </p>
+                            }
                         </div>
                         <div className='py-3'>
                             <p className='text-[24px] font-semibold text-black'>Jump to Section</p>
@@ -195,7 +205,7 @@ const page = () => {
                                     {/* <Link href={`/enroll`}> */}
                                     {ApiData?.is_purchased ? (
                                         <button
-                                            className="rounded-lg py-1 px-2 text-white bg-orange font-medium text-[16px]"
+                                            className="rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]"
                                             onClick={() => {
                                                 router.push(`/dashboard/mycourses/${ApiData?.slug}`);
                                             }}
@@ -215,9 +225,20 @@ const page = () => {
                                         </button>
                                     )}
                                     {/* </Link> */}
-                                    <div>
-                                        <p className='text-[32px] font-bold'> {ApiData?.price}<span className='text-[24px] text-orange'>Rs.</span></p>
+                                    {
+!ApiData?.is_purchased &&
+                                        <div>
+                                          {
+                                !ApiData?.is_purchased &&
+                            <p className='text-textGrey'><span className='text-orange'>{ApiData?.
+                                review_count}</span> &nbsp;already  enrolled</p>
+                            }
+                            {
+                                ApiData?.is_purchased &&
+                                <p className='text-textGrey'><span className='text-orange'>Start Your Journey</span> </p>
+                            }
                                     </div>
+                                    }
                                 </div>
                                 {/* <p className='text-textGrey'><span className='text-orange'>{ApiData?.
                                 review_count}</span> &nbsp;already  enrolled</p> */}

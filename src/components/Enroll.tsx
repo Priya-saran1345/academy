@@ -311,7 +311,7 @@ const Profile = () => {
   return (
     <div className='w-full flex   p-7'>
       {/* uppr div  */}
-      <div className='w-full gap-3 lg:w-[90%] xl:w-[75%] 2xl:w-[50%] mx-auto      justify-center  '>
+      <div className='w-full gap-3 lg:w-[90%] xl:w-[75%] 2xl:w-[50%] mx-auto justify-center  '>
         <div
           className='shadow border-1 rounded-lg right-4 flex flex-col sm:flex-row p-4 justify-start gap-6  font-medium text-[17px] 
                 text-slate-600  py-3 top-24 logout-div' >
@@ -428,7 +428,7 @@ const Profile = () => {
               <div className=' flex flex-wrap gap-2 justify-center sm:flex-nowrap'>
                 <div className='min-w-[60px] h-[60px] border-[5px]  flex justify-center testimonial-img items-center rounded-full'>
                   <Image
-                    src={`${BASE_URL_IMAGE}${data?.instructor_name.profile_image}`}
+                    src={`${BASE_URL_IMAGE}${data?.instructor_name?.profile_image}`}
                     width={54}
                     height={54}
                     className='rounded-full'
@@ -437,10 +437,10 @@ const Profile = () => {
                 </div>
                 <div className='  '>
                   <p className='text-[16px]'>Name:&nbsp;&nbsp;
-                    <span className='font-semibold'>{data?.instructor_name.name}</span>
+                    <span className='font-semibold'>{data?.instructor_name?.name}</span>
                   </p>
                   <p className='text-[16px]'>Expertise:&nbsp;&nbsp;
-                    <span className='font-semibold'>{data?.instructor_name.expertise
+                    <span className='font-semibold'>{data?.instructor_name?.expertise
                     }</span>
                   </p>
                   <div className="flex items-center  gap-1">
