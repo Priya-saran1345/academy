@@ -112,10 +112,10 @@ const  handleForgetPassword= async()=>{
     return (
         <>
             <Header />
-            <div className='flex h-screen flex-col lg:flex-row   px-6  mx-auto w-full lg:w-[95%] 2xl:w-[77%]'>
+            <div className='flex mt-10 md:mt-32 flex-col lg:flex-row   px-6  mx-auto w-full lg:w-[95%] 2xl:w-[77%]'>
                 <div className='flex-1 center flex-col gap-4 mt-28  '>
                     {/* <Image src="/images/Browk Shop.svg" alt="logo" width={180} height={180} className='' /> */}
-                    <h3 className='text-base text-center text-gray-500 '>Sign in now and dive into a world of endless <br /> learning opportunities.</h3>
+                    <h3 className='text-base text-center mb-3 text-gray-500 '>Sign in now and dive into a world of endless <br /> learning opportunities.</h3>
                     <Image src="/images/Group 1000004450.svg" alt="logo" width={480} height={480} className='hidden lg:flex' />
                 </div>
                 <div className='flex-1 relative center'>
