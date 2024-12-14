@@ -8,11 +8,11 @@ const allcourse = () => {
   return (
 
 
-<div className="min-h-screen bg-[#F7F7F7]">
+<div className="min-h-screen ">
 <DashboardHeader />
 <div className="w-full flex  relative">
   {/* Sidebar with absolute positioning */}
-  <div className="w-fit z-50 hidden lg:block absolute top-0 left-0 h-fit">
+  <div className="w-fit  z-50 hidden absolute lg:block  top-0 left-0 h-fit">
     <DashboardSidebar />
   </div>
   {/* Main content area with appropriate padding to avoid overlap */}

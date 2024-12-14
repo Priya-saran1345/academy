@@ -25,7 +25,8 @@ const Profile = () => {
     goals:  '',
     last_name:  '',
     phone: '',
-    qualification: ''
+    qualification: '',
+    profile_image:'',
   })
 const [showupdate, setshowupdate] = useState(false)
  
@@ -48,12 +49,21 @@ const [showupdate, setshowupdate] = useState(false)
         goals: apidata.goals || '',
         last_name: apidata.last_name || '',
         phone: apidata.phone || '',
-        qualification: apidata.qualification || ''
+        qualification: apidata.qualification || '',
+        profile_image:apidata.profile_image,
       });
     }
   }, [apidata]);
 const changeValue=(event:any)=>{
-const newdata={...updateddata ,[event.target.name]:event.target.value}
+  let newdata;
+  if(event.target.name=='profile_image')
+  {
+   newdata = { ...updateddata, [event.target.name]: event.target.files[0] }; // Use files[0] for the selected file
+
+  }
+  else{
+     newdata={...updateddata ,[event.target.name]:event.target.value}
+  }
 setupdateddata(newdata)
 }
 const submitData=async()=>{
@@ -70,6 +80,8 @@ const submitData=async()=>{
     });
     setApiData(response.data)
      toast.success('updated successfully')
+     console.log('new data is',updateddata)
+
      setshowupdate(false)
 
   } catch (error: any) {
@@ -81,7 +93,7 @@ const submitData=async()=>{
   }
 }
 
-  console.log(apidata)
+  // console.log(apidata)
   return (
     <div className='w-full relative px-2 lg:px-4 p-4'>
       <div className='flex gap-3 flex-col  justify-center items-center'>
@@ -230,7 +242,28 @@ const submitData=async()=>{
             </div>
     
             {/** Form Fields **/}
+            <div className='w-full flex justify-center flex-col items-center'>
+  <label htmlFor="first_name" className='text-[17px] mb-3 font-medium text-black uppercase'>First Name</label>
+
+  <div className='size-[122px] bg-[#F5F5F5] rounded-full flex justify-center items-center relative'>
+    {apidata?.profile_image ? (
+      <Image src={apidata?.profile_image} width={122} alt='' height={122} className='rounded-full' />
+    ) : (
+      <FaUser className='text-[53px] text-textGrey' />
+    )}
+
+    {/* Hidden file input for uploading the profile image */}
+    <input
+      type="file"
+      name="profile_image"
+      accept="image/*"
+      onChange={changeValue}
+      className='absolute inset-0 opacity-0 cursor-pointer'
+    />
+  </div>
+</div>
             <div>
+            
               <label htmlFor="first_name" className='text[17px] mb-3 font-medium text-black uppercase'>First Name</label>
               <br />
               <input
