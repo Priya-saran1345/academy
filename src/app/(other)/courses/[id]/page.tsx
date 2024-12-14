@@ -22,6 +22,8 @@ import Cookies from 'js-cookie';
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { IoLockClosed } from 'react-icons/io5';
+import { CiLock } from 'react-icons/ci';
+import { BsArrowRight } from 'react-icons/bs';
 
 
 const page = () => {
@@ -461,6 +463,29 @@ const page = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div>
+                                <div className='flex gap-2 mt-6  items-center know'>
+                                    <div className='size-[13px] rounded-full bg-orange'></div>
+                                    <p className='text-[22px] font-medium'>Course Curriculum</p>
+                                </div>
+                                {
+                                ApiData?.is_purchased ? (
+                                <div className=' shadow  mt-4 p-6 border-l-4 border-orange rounded-lg '>
+                                 <p className=' text-[20px] font-medium'>Unlock Full Access to All Course Modules!</p>
+                                 <p className=' text-[16px] text-textGrey'>To access all the modules and start learning in-depth, click the button below to enroll in 
+                                    &apos;{ApiData?.name} &apos; today! The first module is available for preview.</p>
+                                </div>
+
+                                    ):
+                                    <div className=' shadow  mt-4 p-6 border-l-4 border-orange rounded-lg '>
+                                    <p className=' text-[20px] font-medium'>Welcome Back! Continue Your Learning Journey</p>
+                                    <p className=' text-[16px] text-textGrey'>
+                                    You &apos;re enrolled in the 
+                                    &apos;{ApiData?.name} &apos; course. You can access all the modules and start learning right away.             
+                                         </p>
+                                 </div>
+                                }
+                            </div>
                             {ApiData?.modules.length > 0 &&
                                 <div>
                                     <p className='text-[18px] mt-4 font-semibold module' >Course Modules:</p>
@@ -471,14 +496,35 @@ const page = () => {
                                                 <div className="p-4">
                                                     {topics?.map((module: any, moduleIndex: number) => (
                                                         <div key={moduleIndex} className="mb-4">
-                                                            <button
+                                                          { 
+                                                          module?.locked==false?
+                                                           <button
                                                                 onClick={() => setOpenModule(openModule === moduleIndex ? null : moduleIndex)}
                                                                 className="w-full flex items-center justify-between p-4 border-slate-200 border-1 hover:shadow-lg mb-3 duration-250 rounded-lg"
                                                             >
                                                                 <span className="font-medium">{moduleIndex + 1}. {module?.title || 'Untitled Module'}</span>
                                                                 {openModule === moduleIndex ? <FiMinus className="text-[24px] text-orange" /> : <FiPlus className="text-[24px] text-orange" />}
+                                                            </button>:
+                                                            <div>
+
+                                                            <button
+                                                                onClick={() => setOpenModule(openModule === moduleIndex ? null : moduleIndex)}
+                                                                className="w-full flex items-center justify-between p-4 border-slate-200 border-1 hover:shadow-lg mb-3 duration-250 rounded-lg"
+                                                                > 
+                                                                <span  className="font-medium">{moduleIndex + 1}. {module?.title || 'Untitled Module'}</span>
+                                                                <CiLock className='text-[24px] text-textGrey' />
+
+                                                                {/* {openModule === moduleIndex ? <FiMinus className="text-[24px] text-orange" /> : <FiPlus className="text-[24px] text-orange" />} */}
                                                             </button>
-                                                            <AnimatePresence>
+                                                            <div className='w-full  flex justify-end items-center cursor-pointer  gap-2 px-3 py-1 text-orange' onClick={()=>{
+                                                                                                            router.push(`/dashboard/enroll`);
+
+                                                            }}>
+                                                            Unlock This Module by Enrolling Now <BsArrowRight />
+                                                            </div>
+                                                                </div>
+                                                            }
+                                                            <AnimatePresence>                
                                                                 {openModule === moduleIndex && (
                                                                     <motion.div
                                                                         initial={{ height: 0, opacity: 0 }}
@@ -487,7 +533,8 @@ const page = () => {
                                                                         transition={{ duration: 0.4, ease: "easeInOut" }}
                                                                         className="overflow-hidden"
                                                                     >
-                                                                        {module?.content?.length>0?
+                                                                        {module?.content?.length>0 &&
+
                                                                         module?.content?.map((lesson: any, lessonIndex: number) => (
                                                                             <>
                                                                                 <div key={lessonIndex} className="flex flex-col gap-2 mt-2">
@@ -573,28 +620,7 @@ const page = () => {
                                                                                     </AnimatePresence>
                                                                                 </div>
                                                                             </>
-                                                                        )):
-                                                                        <div
-                                                                        className={`flex border-1 
-                                                                            "border-orange" : "border-slate-200"} p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
-                                                                        // onClick={() => toggleLesson(lessonIndex)}
-                                                                    >
-                                                                        <div className="flex-1 min-w-0">
-                                                                            <div className="flex justify-between">
-                                                                                <div className="flex items-start gap-2">
-                                                                                    <div className="w-[13px] h-[13px] border-2 mt-1 border-orange rounded-full"></div>
-                                                                                    <div className="items-center gap-2">
-                                                                                        <div className={`font-medium text-[18px] 
-                                                                                            text-orange`}>
-                                                                                                Enroll to View </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <IoLockClosed className='text-orange text-[24px]'/>
-                                                                               
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                        
+                                                                        ))
                                                                     
                                                                     }
 
@@ -646,9 +672,7 @@ const page = () => {
                                                                 className='text-[16px] text-textGrey mb-4'
                                                                 dangerouslySetInnerHTML={{ __html: module.description }} // Render HTML content
                                                             />
-
                                                             {/* YouTube Video Embed */}
-
                                                         </motion.div>
                                                     )}
                                                 </div>

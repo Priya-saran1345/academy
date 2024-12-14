@@ -61,10 +61,11 @@
   initial="collapsed"
   animate={isExpanded ? "expanded" : "collapsed"}
   variants={sidebarVariants}
-  onMouseEnter={() => setIsExpanded(true)}
+  onMouseOver={() => setIsExpanded(true)}
+  onClick={()=>setIsExpanded(true)}
   onMouseLeave={() => setIsExpanded(false)}
 >
-<div className="bg-[#F7F7F7]   h-[100%] px-2 flex flex-col justify-between overflow-hidden">
+<div className="bg-[#F7F7F7]  h-[100%] px-2 flex flex-col justify-between overflow-hidden">
     <ul className="pt-4">
       {[
         { option: "dashboard", icon: RxDashboard, label: "Dashboard", path: "/dashboard" },

@@ -113,47 +113,43 @@ const MyCourses = () => {
           Not Started
         </button>
       </div>
-      <div className='flex justify-center  gap-8 mt-8 flex-wrap'>
+      <div className='flex justify-center gap-8 mt-8 flex-wrap '>
         {finalData.length > 0 ? (
           finalData?.map((course) => (
             <>
-              {/* <CourseCard slug={course.slug||''} image={course.card_image} name={course.course_name}
-             description={course.short_description} level={course.completion_status} 
-             category={course.instructor_name|| ''} id={course.id} text={"Start"} link1={`dashboard/mycourses/${course.course_slug}`} /> */}
-              <div className="bg-white shadow rounded-lg p-3 flex gap-6 items-start w-full mx-auto ">
+             
+              <div className="bg-white  sm:w-full  shadow h-fit rounded-lg p-3 flex lg:flex-nowrap flex-wrap gap-2 sm:gap-6 items-start  mx-auto ">
                 {/* Course Image */}
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-1">
                   <Image
                     src={course?.card_image}// Replace with the correct path
                     alt="Python Course"
                     width={325}
                     height={193}
-                    className="rounded-lg"
+                    className="rounded-lg w-full  mx-auto sm:mx-0 sm:w-[250px] min-h-[193px] xl:w-[325]"
                   />
                 </div>
-
-                <div className="flex-grow min-h-full">
-                  <h2 className="text-[20px] font-bold mb-1">{course.course_name}</h2>
-                  <p className="text-gray-600 mb-4">
+                <div className="flex-grow  sm:w-1/2 lg:w-1/4 min-h-full">
+                  <h2 className=" text-[17px] xl:text-[20px] font-bold mb-1">{course.course_name}</h2>
+                  <p className="text-gray-600 mb-1  xl:mb-4">
                   {course.short_description}
                   </p>
                   {/* Learning Progress */}
-                  <div className="mb-4">
+                  <div className=" mb-1 xl:mb-4">
                     <span className="font-semibold text-[18px] text-black">Learning Progress</span>
-                    <div className="w-[90%] h-2 mt-2  bg-gray-200 rounded-full ">
+                    <div className="w-[85%] h-2 mt-2  bg-gray-200 rounded-full ">
                       <div className="h-2 bg-orange rounded-full w-2/3"></div> {/* 25% progress */}
                     </div>
                   </div>
                   {/* Continue Learning Link */}
-                  <Link href={`/dashboard/mycourses/${course?.course_slug}`} className="text-orange text-[18px] flex  items-center gap-2  font-semibold ">
+                  <Link href={`/dashboard/mycourses/${course?.course_slug}`} className="text-orange text-[15px] xl:text-[18px] flex  items-center gap-2  font-semibold ">
                     Continue Learning <BsArrowRight />
                   </Link>
                 </div>
-
                 {/* Course Info */}
-                <div className="border-l  w-1/4 h-full 
-                 pl-6">
-                  <div className=" mt-2 mb-2">
+                <div className="border-t sm:border-t-0 lg:border-l w-full  sm:w-[45%]  lg:w-1/4 h-full 
+                 pl-2 lg:pl-6">
+                  <div className=" mt-2 sm:mt-0 lg:mt-2 mb-2">
                     <div className="text-lg flex items-center font-bold mr-1"> Rating: {renderStars(course?.rating)}</div>
                     {/* <FaStar className="text-orange" /> */}
                     <br />
@@ -167,8 +163,8 @@ const MyCourses = () => {
                     <span className=" ">{course?.completion_status}</span>
                   </p>
                 </div>
-                <div className="border-l   w-1/4 mt-2  h-full  pl-6">
-                <div className="text-textGrey gap-2 flex flex-col justify-between">
+                <div className=" border-t sm:border-t-0 w-full sm:border-l sm:w-1/2  lg:w-1/4 mt-2  h-full  pl-2 lg:pl-6">
+                <div className="text-textGrey text-[14px] xl:text-[16px] xl:gap-2 pt-2 sm:pt-0 flex flex-col justify-between">
                   <p>
                     <span className="font-semibold">Amount - </span>₹{course.payment}
                   </p>

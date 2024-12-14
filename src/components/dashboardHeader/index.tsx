@@ -86,9 +86,13 @@ const DashboardHeader = ({ props }: any) => {
     setIsSidebarVisible(!isSidebarVisible);
   };
 
+  const handleToggle = () => {
+    setShowLogout((prev) => !prev); // Toggle the state
+  };
+
   console.log()
   return (
-    <div className='px-5 py-3 pt-4  sticky z-50 top-0 w-full bg-[#F7F7F7]'>
+    <div className=' px-2 md:px-5 py-3 pt-4  sticky z-50 top-0 w-full bg-[#F7F7F7]'>
       <div className='absolute w-fit top-[60px] sm:top-20 left-0 z-50'>
 
         {/* Animate the sidebar with framer-motion */}
@@ -110,121 +114,122 @@ const DashboardHeader = ({ props }: any) => {
         <div className='flex gap-3 items-center lg:gap-10 xl:gap-20'>
           <div className='flex  items-center justify-end  lg:hidden'>
             {isSidebarVisible ? (
-              <HiOutlineX className='text-[28px] cursor-pointer' onClick={toggleSidebar} />
+              <HiOutlineX className=' text-[20px] md:text-[28px] cursor-pointer' onClick={toggleSidebar} />
             ) : (
-              <HiOutlineMenu className='text-[28px] cursor-pointer' onClick={toggleSidebar} />
+              <HiOutlineMenu className=' text-[20px] md:text-[28px] cursor-pointer' onClick={toggleSidebar} />
             )}
           </div>
-          <div className='px-3'>
+          <div className='md:px-3'>
             <Link href="/">
-              <Image src={basic_detail.basic_detail?.logo_image} alt="logo" width={180} height={120} />
+              <Image src={basic_detail.basic_detail?.logo_image} alt="logo" width={180} height={120} className='' />
             </Link>
           </div>
 
-          <div className='hidden md:flex font-medium text-[17px] text-textGrey'>
+          <div className='hidden md:flex font-medium text-[12px] md:text-[17px] text-textGrey'>
             <p>Welcome back, <span className='text-orange capitalize underline mx-1'>{ApiData?.first_name}&nbsp;{ApiData?.last_name}</span>! Let's continue learning.</p>
           </div>
         </div>
         <div className='flex gap-2 md:gap-6 items-center'>
-          <IoIosNotifications className='text-orange text-[35px]' />
-          <div className='flex gap-2 items-center'>
-            <div className='size-[35px] md:size-[50px] rounded-full bg-orange border-4 border-red-200 text-[20px] md:text-[27px] center text-white capitalize'>
+          <IoIosNotifications className='text-orange text-[20px] md:text-[35px]' />
+          <div className='flex gap-1 md:gap-2 items-center'>
+            <div className=' hidden size-[30px] md:size-[50px] rounded-full bg-orange border-4 border-red-200 text-[18px] md:text-[27px] center text-white capitalize'>
               {ApiData?.username[0]}
             </div>
             <div onClick={() => router.push('/dashboard/profile')} className='cursor-pointer'>
-              <p className='text-[16px] font-semibold'>{ApiData?.username}</p>
+              <p className='text-[14px] font-semibold'>{ApiData?.username}</p>
               <p className='text-[14px] hidden md:block font-medium text-[#616161]'>{ApiData?.email}</p>
             </div>
             <div className='cursor-pointer'>
               <RiArrowDropDownLine
                 className='text-orange text-[35px]'
                 onMouseOver={() => setShowLogout(true)}
+                onClick={handleToggle} // Toggle on click
               />
               {showLogout &&
-                      <AnimatePresence>
+                <AnimatePresence>
 
-              <motion.div
-             initial={{ height: 0, opacity: 0 }}
-             animate={{ height: 'auto', opacity: 1 }}
-             exit={{ height: 0, opacity: 0 }}
-             transition={{ duration: 0.2, ease: 'easeInOut' }}
-            
-                   className='bg-white z-50  max-w-[340px] shadow-lg border-1 rounded-lg right-4 flex flex-col justify-start gap-1 items-start font-medium text-[17px] absolute
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2, ease: 'easeInOut' }}
+
+                    className='bg-white z-50  max-w-[340px] shadow-lg border-1 rounded-lg right-4 flex flex-col justify-start gap-1 items-start font-medium text-[17px] absolute
                 text-slate-600  py-3 top-24 logout-div' onMouseLeave={() => setShowLogout(false)}>
-                  {/* User Info and Profile Completion Section */}
-                  <div className='w-full flex px-7 py-4 border-b-1 border-slate-200 justify-start gap-5 items-center '>
-                    <div className=''>
-                      <div className="relative rounded-full p-[5px] bg-white">
-                        <div className="w-16 h-16 bg-[#9C9C9C]   rounded-full flex items-center justify-center overflow-hidden z-50 ">
-                          <svg
-                            className="w-8 h-8 text-white"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                            />
-                          </svg>
+                    {/* User Info and Profile Completion Section */}
+                    <div className='w-full flex px-7 py-4 border-b-1 border-slate-200 justify-start gap-5 items-center '>
+                      <div className=''>
+                        <div className="relative rounded-full p-[5px] bg-white">
+                          <div className="w-16 h-16 bg-[#9C9C9C]   rounded-full flex items-center justify-center overflow-hidden z-50 ">
+                            <svg
+                              className="w-8 h-8 text-white"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                              />
+                            </svg>
+                          </div>
+                          <div className="absolute inset-0 -z-20 scale-110 rounded-full"
+                            style={{
+                              background: `conic-gradient(#FF6B6B ${profileCompletion}%, #F5F5F5 ${profileCompletion}%)`,
+                            }}
+                          />
                         </div>
-                        <div className="absolute inset-0 -z-20 scale-110 rounded-full"
-                          style={{
-                            background: `conic-gradient(#FF6B6B ${profileCompletion}%, #F5F5F5 ${profileCompletion}%)`,
-                          }}
-                        />
+                      </div>
+                      <div className=''>
+                        <p className='font-bold text-black'>{ApiData?.first_name}&nbsp;{ApiData?.last_name}</p>
+                        <p className='text-sm text-textgrey'>{ApiData?.email}</p>
+                        <div className='text-orange flex gap-2  items-center cursor-pointer text-[14px]' onClick={() => router.push('/dashboard/profile')}>
+                          Complete Your Profile
+                          <span className='text-orange'><FaArrowUpRightFromSquare className='text-[10px]'></FaArrowUpRightFromSquare></span>
+                        </div>
                       </div>
                     </div>
-                    <div className=''>
-                      <p className='font-bold text-black'>{ApiData?.first_name}&nbsp;{ApiData?.last_name}</p>
-                      <p className='text-sm text-textgrey'>{ApiData?.email}</p>
-                      <div className='text-orange flex gap-2  items-center cursor-pointer text-[14px]' onClick={() => router.push('/dashboard/profile')}>
-                        Complete Your Profile
-                         <span className='text-orange'><FaArrowUpRightFromSquare className='text-[10px]'></FaArrowUpRightFromSquare></span>
-                      </div>
-                    </div>
-                  </div>
 
-                  {/* Navigation Options */}
-                  <div className=' w-full font-semibold border-b-1 border-slate-200 pb-5 text-black mt-4 px-8'>
-                    <div className='flex hover:text-orange cursor-pointer  items-center gap-3' onClick={() => router.push('/dashboard/mycourses')}>
-                      <LuBookOpen className='text-[20px]' />
-                      My Purchases
-                    </div>
-                    <div className='flex hover:text-orange cursor-pointer  items-center gap-3' onClick={() => router.push('/dashboard/support')}>
-                      <MdOutlineContactSupport
-                        className='text-[20px]' />
-                      Support
-                    </div>
-                    <div onClick={logout} className='flex mx-[5px] cursor-pointer hover:text-orange  items-center gap-3'>
-                      <BsBoxArrowRight className='text-[20px]' />
-                      Log out
-                    </div>
-                  </div>
-                  <div className='w-full bg-orange-100  p-3 rounded-md text-center'>
-                    <Image src={'/images/discount.png'} height={124} width={297} alt=''></Image>
-                    <p className=' text-black font-bold text-[18px] text-center mb-2 mt-4 w-[80%] mx-auto'>First Complete Your Profile to Avail this Offer</p>
-                    <p className=' text-gray-800'>Use code:</p>
-                    <div className='relative'>
-                      <div
-                        ref={divRef} // Attach the ref to the div
-                        className='border-dashed border-orange bg-orange/5 mt-3 text-orange border-2 border-orange-400 text-orange-600 font-bold py-1 rounded-md cursor-pointer'
-                        onClick={handleCopy}
-                      >
-                        Welcome10 {/* This text can now be dynamic */}
+                    {/* Navigation Options */}
+                    <div className=' w-full font-semibold border-b-1 border-slate-200 pb-5 text-black mt-4 px-8'>
+                      <div className='flex hover:text-orange cursor-pointer  items-center gap-3' onClick={() => router.push('/dashboard/mycourses')}>
+                        <LuBookOpen className='text-[20px]' />
+                        My Purchases
                       </div>
-                      {copied && (
-                        <div className='absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-black text-white text-xs rounded px-2 py-1 mt-1'>
-                          Copied!
-                        </div>
-                      )}
+                      <div className='flex hover:text-orange cursor-pointer  items-center gap-3' onClick={() => router.push('/dashboard/support')}>
+                        <MdOutlineContactSupport
+                          className='text-[20px]' />
+                        Support
+                      </div>
+                      <div onClick={logout} className='flex mx-[5px] cursor-pointer hover:text-orange  items-center gap-3'>
+                        <BsBoxArrowRight className='text-[20px]' />
+                        Log out
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-</AnimatePresence>
+                    <div className='w-full bg-orange-100  p-3 rounded-md text-center'>
+                      <Image src={'/images/discount.png'} height={124} width={297} alt=''></Image>
+                      <p className=' text-black font-bold text-[18px] text-center mb-2 mt-4 w-[80%] mx-auto'>First Complete Your Profile to Avail this Offer</p>
+                      <p className=' text-gray-800'>Use code:</p>
+                      <div className='relative'>
+                        <div
+                          ref={divRef} // Attach the ref to the div
+                          className='border-dashed border-orange bg-orange/5 mt-3 text-orange border-2 border-orange-400 text-orange-600 font-bold py-1 rounded-md cursor-pointer'
+                          onClick={handleCopy}
+                        >
+                          Welcome10 {/* This text can now be dynamic */}
+                        </div>
+                        {copied && (
+                          <div className='absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-black text-white text-xs rounded px-2 py-1 mt-1'>
+                            Copied!
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               }
             </div>
           </div>

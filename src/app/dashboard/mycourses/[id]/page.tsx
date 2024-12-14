@@ -24,10 +24,10 @@ export default function Page() {
   const [moduleTitles, setModuleTitles] = useState<string[]>([]);
   const [topics, setTopics] = useState<any[]>([]);
   const [sidecontentindex, setsidecontentindex] = useState<number>(0);
-
+  
   const [openModule, setOpenModule] = useState<number | null>(0);
   const [expandedLessonIndex, setExpandedLessonIndex] = useState<number | null>(0);
-const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
+  const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
   const toggleLesson = (index: number) => {
     setExpandedLessonIndex(expandedLessonIndex === index ? null : index);
   };
@@ -105,8 +105,8 @@ const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
         </div>
         <div className="flex-1 lg:pl-[85px]">
           <div className="w-full min-h-[88vh] bg-white rounded-sm py-5">
-            <div className="mx-auto flex gap-2">
-              <div className="w-[350px] sticky top-24 h-[90vh] flex-shrink-0 rounded-lg shadow p-4">
+            <div className="mx-auto p-3 flex flex-col md:flex-row gap-2">
+              <div className=" md:w-[275px] lg:w-[350px] md:sticky  md:top-24 md:h-[90vh] flex-shrink-0 rounded-lg shadow p-4">
                 <Image
                   src={ApiData?.card_image}
                   height={350}
@@ -125,9 +125,9 @@ const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
                         .join(' ')}...`,
                     }}
                   />
-                  <p className="flex items-center mt-3  gap-1">
+                  <div className="flex items-center mt-3  gap-1">
                     Rating: {renderStars(ApiData?.rating)}
-                  </p>
+                  </div>
                   <p className="flex text-textGrey text-[14px] items-center mt-1  gap-1">
                    (  {ApiData?.review_count} reviews)
                   </p>
@@ -159,7 +159,7 @@ const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
                               <div
                                 key={index}
                                 onClick={() => setsidecontentindex(index)}
-                                className="w-full items-center text-left px-4 border-none py-3 rounded-lg text-sm hover:bg-gray-100 focus:outline-none"
+                                className={`w-full items-center ${sidecontentindex==index?'bg-gray-100':'bg-white'} text-left px-4 border-none py-3 rounded-lg text-sm hover:bg-gray-100 focus:outline-none`}
                               >
                                 <div className="flex cursor-pointer text-textGrey font-medium text-[15px] gap-4">
                                   <div className="min-w-[13px] h-[13px] border-2 border-orange rounded-full"></div>
@@ -173,7 +173,6 @@ const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
                     </AnimatePresence>
                   </div>
                 </div>
-
                 <div>
                   <button
                     onClick={() => toggleSection('progress')}
@@ -207,7 +206,7 @@ const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
                 <div>
                   <button
                     onClick={() => toggleSection('courseInfo')}
-                    className="w-full flex items-center border-t border-slate-200 pt-4 text-lg font-semibold mb-2 focus:outline-none"
+                    className="w-full flex items-center border-t  border-slate-200 pt-4 text-lg font-semibold mb-2 focus:outline-none"
                   >
                     {openSection === 'courseInfo' ? (
                       <BiChevronUp className="text-[24px] text-black" />
