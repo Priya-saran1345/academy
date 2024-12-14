@@ -8,7 +8,7 @@ import { RxCross1 } from "react-icons/rx";
 import { useapi } from '@/helpers/apiContext';
 import { FaUser } from "react-icons/fa";
 import toast from 'react-hot-toast';
-
+import Image from 'next/image'
 const Profile = () => {
   const { profile, fetch } = useapi();
   const [apidata, setApiData] = useState<any>()
@@ -80,6 +80,7 @@ const submitData=async()=>{
     fetch();
   }
 }
+
   console.log(apidata)
   return (
     <div className='w-full relative px-2 lg:px-4 p-4'>
@@ -93,7 +94,12 @@ const submitData=async()=>{
       <div className='flex justify-center flex-wrap gap-5'>
         <div className='rounded-lg xl:w-[30%] sm:w-[47%] w-full my-10  shadow-lg border-[1px] items-center border-slate-200 flex flex-col justify-between px-5 xl:px-12 py-12 '>
           <div className='size-[122px] bg-[#F5F5F5] rounded-full flex justify-center items-center'>
+            {
+              apidata?.profile_image ?
+            <Image src={apidata?.profile_image} width={122} alt='' height={45} className='rounded-full'>
+            </Image>:
             <FaUser className='text-[53px] text-textGrey' />
+            }
           </div>
           <div className='flex flex-col gap-5 w-full'>
             <div className='w-full'>
@@ -129,8 +135,6 @@ const submitData=async()=>{
               <input type="number" className='capitalize text-textGrey outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg '
                 readOnly placeholder=' your phone' value={apidata?.phone} />
             </div>
-
-
           </div>
         </div>
         {/* //second column */}

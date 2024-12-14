@@ -54,7 +54,6 @@ declare global {
 const Profile = () => {
   const router = useRouter()
   const { profile, fetch, discount, setdiscount } = useapi();
-  const [profileCompletion, setProfileCompletion] = useState(0) // Example value, replace with actual logic
   const [apidata, setApiData] = useState<any>()
   const [data, setdata] = useState<any>();
   const [showremove, setshowremove] = useState<any>(false)
@@ -75,31 +74,7 @@ const Profile = () => {
     });
   };
 
-  useEffect(() => {
-    // Extract the values of the profile object into an array
-    const profileFields = [
-      profile?.username,
-      profile?.email,
-      profile?.first_name,
-      profile?.last_name,
-      profile?.phone,
-      profile?.alternate_phone,
-      profile?.address,
-      profile?.qualification,
-      profile?.gender,
-      profile?.extracurriculars,
-      profile?.goals,
-      profile?.course_interested,
-      profile?.date_of_birth,
-      profile?.is_tutor,
-      profile?.profile_image
-    ];
 
-    const nonNullFields = profileFields.filter(field => field !== null && field !== undefined && field !== "");
-    const completionPercentage = (nonNullFields.length / profileFields.length) * 100;
-    setProfileCompletion(completionPercentage);
-    setApiData(profile);
-  }, [profile]);
   const renderStars = (rating: any) => {
     const stars = [];
     const fullStars = Math.floor(rating); // Integer part of the rating
@@ -313,7 +288,7 @@ const Profile = () => {
             <div className='w-full flex justify-start gap-5 items-center '>
               <div className=''>
                 <div className='w-23 p-1 flex justify-center items-center h-23 rounded-full ' style={{
-                      background: `conic-gradient(#FF6B6B ${profileCompletion}%, #F5F5F5 ${profileCompletion}%)`,
+                      background: `conic-gradient(#FF6B6B ${profile?.profile_completion_percentage}%, #F5F5F5 ${profile?.profile_completion_percentage}%)`,
                     }}>
                 <div className="relative rounded-full p-[4px] bg-white">
                   <div className="w-16 h-16 bg-[#9C9C9C] rounded-full flex items-center justify-center overflow-hidden">
@@ -334,7 +309,7 @@ const Profile = () => {
                   </div>
                   </div>
                 </div>
-                <p className='text-orange font-bold mx-5  mt-1'>{profileCompletion}%</p>
+                <p className='text-orange font-bold mx-5  mt-1'>{profile?.profile_completion_percentage}%</p>
               </div>
               <div className=''>
                 <p className='font-bold text-black'>{profile?.first_name}&nbsp;{profile?.last_name}</p>

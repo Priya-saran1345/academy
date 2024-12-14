@@ -22,7 +22,7 @@ const DashboardHeader = ({ props }: any) => {
   const { profile } = useapi();
   const { setProfileState } = useDashboard();
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-  const [profileCompletion, setProfileCompletion] = useState(0) // Example value, replace with actual logic
+  // const [profileCompletion, setProfileCompletion] = useState(0) // Example value, replace with actual logic
 
   const router = useRouter();
   const [showLogout, setShowLogout] = useState(false);
@@ -41,35 +41,7 @@ const DashboardHeader = ({ props }: any) => {
   };
 
   useEffect(() => {
-    // Extract the values of the profile object into an array
-    const profileFields = [
-      profile?.username,
-      profile?.email,
-      profile?.first_name,
-      profile?.last_name,
-      profile?.phone,
-      profile?.alternate_phone,
-      profile?.address,
-      profile?.qualification,
-      profile?.gender,
-      profile?.extracurriculars,
-      profile?.goals,
-      profile?.course_interested,
-      profile?.date_of_birth,
-      profile?.is_tutor,
-      profile?.profile_image
-    ];
-
-    // Count the non-null fields
-    const nonNullFields = profileFields.filter(field => field !== null && field !== undefined && field !== "");
-
-    // Calculate the completion percentage
-    const completionPercentage = (nonNullFields.length / profileFields.length) * 100;
-
-    // Update the profile completion state
-    setProfileCompletion(completionPercentage);
-
-    // Assuming you're setting the API data for further use
+    
     setApiData(profile);
 
   }, [profile]);
@@ -90,7 +62,7 @@ const DashboardHeader = ({ props }: any) => {
     setShowLogout((prev) => !prev); // Toggle the state
   };
 
-  console.log()
+  console.log('profile is ',profile)
   return (
     <div className=' px-2 md:px-5 py-3 pt-4  sticky z-50 top-0 w-full bg-[#F7F7F7]'>
       <div className='absolute w-fit top-[60px] sm:top-20 left-0 z-50'>
@@ -178,7 +150,7 @@ const DashboardHeader = ({ props }: any) => {
                           </div>
                           <div className="absolute inset-0 -z-20 scale-110 rounded-full"
                             style={{
-                              background: `conic-gradient(#FF6B6B ${profileCompletion}%, #F5F5F5 ${profileCompletion}%)`,
+                              background: `conic-gradient(#FF6B6B ${profile?.profile_completion_percentage}%, #F5F5F5 ${profile?.profile_completion_percentage}%)`,
                             }}
                           />
                         </div>

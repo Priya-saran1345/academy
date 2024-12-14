@@ -520,7 +520,8 @@ const page = () => {
                                                                                                             router.push(`/dashboard/enroll`);
 
                                                             }}>
-                                                            Unlock This Module by Enrolling Now <BsArrowRight />
+                                                            Unlock This Module and Begin Your Learning Journey!
+                                                            <BsArrowRight />
                                                             </div>
                                                                 </div>
                                                             }
