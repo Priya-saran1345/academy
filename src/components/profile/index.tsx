@@ -139,11 +139,14 @@ const Profile = () => {
                 <div className={`bg-orange h-3 rounded-full w-[${apidata?.profile_completion_percentage}]`} ></div>
               </div>
             </div>
+            {
+              apidata?.profile_completion_percentage!=100 &&
             <p className="text-textGrey text-[12px] mt-4">
               <strong>NOTE:</strong> Complete Your Profile to Avail Amazing Offers.
             </p>
+            }
 
-            <div className="mt-6 text-left">
+            {/* <div className="mt-6 text-left">
               <h3 className="text-lg w-full border-b-1 border-slate-200  font-semibold mb-2">Courses Status:</h3>
               <p>Enrolled Courses</p>
               <p className="font-semibold">
@@ -153,7 +156,7 @@ const Profile = () => {
               <p className="font-semibold">
                 Certificates: <span className="text-orange">2</span>
               </p>
-            </div>
+            </div> */}
          
           </div>
           </div>
@@ -239,6 +242,15 @@ const Profile = () => {
               className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               value={apidata?.address} readOnly placeholder=' your Address' />
           </div>
+          <div className='w-[48%]'>
+            <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Country/Region
+            </label>
+            <br />
+            <input type="text"
+              className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+              value={apidata?.address} readOnly placeholder=' your Address' />
+          </div>
+          
         </div>
         <div className='w-full  rounded-lg'>
 
@@ -287,6 +299,38 @@ const Profile = () => {
             </div>
             <div className='w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Extracurriculars
+              </label>
+              <br />
+              <input type="text"
+                className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+                readOnly placeholder=' your extracurriculars' value={apidata?.extracurriculars} />
+            </div>
+            <div className='w-[48%]'>
+              <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Current Job Title
+              </label>
+              <br />
+              <input type="text"
+                className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+                readOnly placeholder=' your extracurriculars' value={apidata?.extracurriculars} />
+            </div>
+            <div className='w-[48%]'>
+              <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Industry
+              </label>
+              <br />
+              <input type="text"
+                className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+                readOnly placeholder=' your extracurriculars' value={apidata?.extracurriculars} />
+            </div>
+            <div className='w-[48%]'>
+              <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Company/Organization Name
+              </label>
+              <br />
+              <input type="text"
+                className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+                readOnly placeholder=' your extracurriculars' value={apidata?.extracurriculars} />
+            </div>
+            <div className='w-[48%]'>
+              <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>LinkedIn Profile URL
               </label>
               <br />
               <input type="text"
