@@ -251,7 +251,6 @@ const renderStars = (rating: any) => {
                     {/* //top bar under lg */}
                     <div className='lg:ml-5  w-full'>
                         <div className=' flex h-fit flex-wrap md:flex-nowrap  lg:hidden pb-20 mb-8 gap-5 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
-
                             <div className='py-4 md:w-2/3'>
                                 {/* <p>Popular</p> */}
                                 <p className='text-textGrey font-[16px]'>Course Starts - {ApiData?.start_date}</p>
@@ -261,9 +260,7 @@ const renderStars = (rating: any) => {
                                     {/* <Link href={`/enroll`}> */}
                                     {ApiData?.is_purchased ? (
                                         <>
-
                                             <p className='text-textGrey'><span className='text-orange'>Great You have already enrolled</span> </p>
-
                                             <button
                                                 className="rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]"
                                                 onClick={() => {
@@ -274,8 +271,6 @@ const renderStars = (rating: any) => {
                                             </button>
                                         </>
                                     ) : (
-
-
                                         <button
                                             className="rounded-lg py-2 px-6 text-white bg-orange font-medium text-[16px]"
                                             onClick={() => {
@@ -307,21 +302,17 @@ const renderStars = (rating: any) => {
                             <div className='py-3'>
                                 <p className='text-[24px] font-semibold text-black'>Jump to Section</p>
                                 <ul className='flex flex-wrap md:flex-col gap-3'>
-
                                     <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
                                         onClick={() => scrollToSection('overview')}
-
                                     >Overview of Course</li>
                                     <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
                                         onClick={() => scrollToSection('learn')}
-
                                     >What you'll learn</li>
                                     <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
                                         onClick={() => scrollToSection('know')}
                                     >Details to know</li>
                                     <li className='hover:text-orange text-textGrey cursor-pointer py-2 bg-lightGrey rounded-lg px-5 font-medium'
                                         onClick={() => scrollToSection('module')}
-
                                     >Course Curriculum</li>
                                 </ul>
                             </div>
@@ -336,7 +327,7 @@ const renderStars = (rating: any) => {
                                 <div className='lg:max-w-[216px]  w-[45%] sm:w-[30%] md:w-[22%] text-center flex-col h-[98px] hover:shadow-xl duration-200 
                                 rounded-lg flex border-[1px] justify-center items-center border-slate-300 '>
                                     <div className='text-[18px] font-bold flex justify-center'>{ renderStars(ApiData?.rating)}
-                                    </div>
+                                    </div>  
                                     <p className='text-textGrey text-[14px]'>(3,915 reviews)</p>
                                 </div>
                                 <div className='lg:max-w-[216px]  w-[45%] sm:w-[30%] md:w-[22%] text-center flex-col h-[98px] hover:shadow-xl duration-200  rounded-lg flex border-[1px] justify-center items-center border-slate-300 '>
@@ -489,7 +480,6 @@ const renderStars = (rating: any) => {
                                  <p className=' text-[16px] text-textGrey'>To access all the modules and start learning in-depth, click the button below to enroll in 
                                     &apos;{ApiData?.name} &apos; today! The first module is available for preview.</p>
                                 </div>
-
                                     ):
                                     <div className=' shadow  mt-4 p-6 border-l-4 border-orange rounded-lg '>
                                     <p className=' text-[20px] font-medium'>Welcome Back! Continue Your Learning Journey</p>
@@ -528,12 +518,11 @@ const renderStars = (rating: any) => {
                                                                 > 
                                                                 <span  className="font-medium">{moduleIndex + 1}. {module?.title || 'Untitled Module'}</span>
                                                                 <CiLock className='text-[24px] text-textGrey' />
-
-                                                                {/* {openModule === moduleIndex ? <FiMinus className="text-[24px] text-orange" /> : <FiPlus className="text-[24px] text-orange" />} */}
+                                                                {/* {openModule === moduleIndex ? <FiMinus className="text-[24px] text-orange" /> : 
+                                                                <FiPlus className="text-[24px] text-orange" />} */}
                                                             </button>
                                                             <div className='w-full  flex justify-end items-center cursor-pointer  gap-2 px-3 py-1 text-orange' onClick={()=>{
                                                                                                             router.push(`/dashboard/enroll`);
-
                                                             }}>
                                                             Unlock This Module and Begin Your Learning Journey!
                                                             <BsArrowRight />
@@ -550,7 +539,6 @@ const renderStars = (rating: any) => {
                                                                         className="overflow-hidden"
                                                                     >
                                                                         {module?.content?.length>0 &&
-
                                                                         module?.content?.map((lesson: any, lessonIndex: number) => (
                                                                             <>
                                                                                 <div key={lessonIndex} className="flex flex-col gap-2 mt-2">
@@ -562,7 +550,7 @@ const renderStars = (rating: any) => {
                                                                                         <div className="flex-1 min-w-0">
                                                                                             <div className="flex justify-between">
                                                                                                 <div className="flex items-start gap-2">
-                                                                                                    <div className="w-[13px] h-[13px] border-2 mt-1 border-orange rounded-full"></div>
+                                                                                                    <div className="min-w-[13px] h-[13px] border-2 mt-1 border-orange rounded-full"></div>
                                                                                                     <div className="items-center gap-2">
                                                                                                         <div className={`font-medium text-[16px] md:text-[18px] 
                                                                                                             ${expandedLessonIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title}</div>
@@ -591,16 +579,17 @@ const renderStars = (rating: any) => {
                                                                                     </AnimatePresence>
                                                                                 </div>
                                                                                 {/* pdf content here */}
-                                                                                <div key={lessonIndex} className={`flex  ${expandednotesIndex === lessonIndex ? "border-orange" : "border-slate-200"} rounded-lg border-1 flex-col gap-2 mt-2`}>
+                                                                                <div key={lessonIndex} className={`flex  ${expandednotesIndex === lessonIndex ? 
+                                                                                    "border-orange" : "border-slate-200"} rounded-lg border-1 flex-col gap-2 mt-2`}>
                                                                                     <div
                                                                                         className={`flex p-3
-                                                                                             rounded-lg items-start gap-3 text-sm cursor-pointer`}
+                                                                                        rounded-lg items-start gap-3 text-sm cursor-pointer`}
                                                                                         onClick={() => toggleNotes(lessonIndex)}
                                                                                     >
                                                                                         <div className="flex-1 min-w-0">
                                                                                             <div className="flex justify-between">
                                                                                                 <div className="flex items-start gap-2">
-                                                                                                    <div className="w-[13px] h-[13px]  mt-1 border-2 border-orange  rounded-full"></div>
+                                                                                                    <div className="min-w-[13px] h-[13px]  mt-1 border-2 border-orange  rounded-full"></div>
                                                                                                     <div className="items-center gap-2">
                                                                                                         <div className={`font-medium text-[16px] md:text-[18px] ${expandednotesIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>
                                                                                                         <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
