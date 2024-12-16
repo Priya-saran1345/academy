@@ -8,16 +8,31 @@ const allcourse = () => {
   return (
 
 
-<div className="min-h-screen ">
+// <div className="min-h-screen ">
+// <DashboardHeader />
+// <div className="w-full flex  relative">
+//   {/* Sidebar with absolute positioning */}
+//   <div className="w-fit  z-50 hidden absolute lg:block  top-0 left-0 h-fit">
+//     <DashboardSidebar />
+//   </div>
+//   {/* Main content area with appropriate padding to avoid overlap */}
+//   <div className=" w-[100%] lg:pl-[80px]"> {/* Adjust `pl` based on the sidebar width */}
+//     <div className=" min-h-[88vh] bg-white rounded-sm px-4 py-5">
+//     <OtherCourses />
+//     </div>
+//   </div>
+// </div>
+// </div>
+<div className="min-h-screen bg-[#F7F7F7]">
 <DashboardHeader />
 <div className="w-full flex  relative">
   {/* Sidebar with absolute positioning */}
-  <div className="w-fit  z-50 hidden absolute lg:block  top-0 left-0 h-fit">
+  <div className="w-fit hidden lg:block  absolute top-0 left-0 h-full">
     <DashboardSidebar />
   </div>
   {/* Main content area with appropriate padding to avoid overlap */}
-  <div className=" w-[100%] lg:pl-[80px]"> {/* Adjust `pl` based on the sidebar width */}
-    <div className=" min-h-[88vh] bg-white rounded-sm px-4 py-5">
+  <div className="w-[100%] lg:pl-[85px]"> {/* Adjust `pl` based on the sidebar width */}
+    <div className="w-full min-h-[88vh] bg-white rounded-sm px-2 sm:px-4 py-5">
     <OtherCourses />
     </div>
   </div>

@@ -12,6 +12,7 @@ import Image from 'next/image'
 const Profile = () => {
   const { profile, fetch } = useapi();
   const [apidata, setApiData] = useState<any>()
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [updateddata, setupdateddata] = useState({
     username: '',
     email: '',
@@ -29,11 +30,9 @@ const Profile = () => {
     profile_image:'',
   })
 const [showupdate, setshowupdate] = useState(false)
- 
   useEffect(() => { 
     setApiData(profile)
   }, [profile]);
-
   useEffect(() => {
     if (apidata) {
       setupdateddata({
@@ -54,16 +53,24 @@ const [showupdate, setshowupdate] = useState(false)
       });
     }
   }, [apidata]);
+
 const changeValue=(event:any)=>{
   let newdata;
   if(event.target.name=='profile_image')
   {
-   newdata = { ...updateddata, [event.target.name]: event.target.files[0] }; // Use files[0] for the selected file
+    const file = event.target.files[0];
+    newdata = { ...updateddata, [event.target.name]: file };
+
+    // Generate a preview URL for the selected image
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+    }// Use files[0] for the selected file
 
   }
   else{
      newdata={...updateddata ,[event.target.name]:event.target.value}
   }
+  console.log('new data is',newdata)
 setupdateddata(newdata)
 }
 const submitData=async()=>{
@@ -75,15 +82,13 @@ const submitData=async()=>{
     }
     const response = await axios.put(`${BASE_URL}profile/`, updateddata, {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
+         'Content-Type': 'multipart/form-data'
       }
     });
     setApiData(response.data)
      toast.success('updated successfully')
-     console.log('new data is',updateddata)
-
      setshowupdate(false)
-
   } catch (error: any) {
     console.log('Error fetching data :', error);
     toast.error('Try again')
@@ -92,6 +97,13 @@ const submitData=async()=>{
     fetch();
   }
 }
+useEffect(() => {
+  return () => {
+    if (imagePreview) {
+      URL.revokeObjectURL(imagePreview);
+    }
+  };
+}, [imagePreview]);
 
   // console.log(apidata)
   return (
@@ -231,7 +243,6 @@ const submitData=async()=>{
         </div>
 
       </div>
-
       {/* //editable form is here */}
       {
           showupdate&&
@@ -245,22 +256,36 @@ const submitData=async()=>{
             <div className='w-full flex justify-center flex-col items-center'>
   <label htmlFor="first_name" className='text-[17px] mb-3 font-medium text-black uppercase'>First Name</label>
 
-  <div className='size-[122px] bg-[#F5F5F5] rounded-full flex justify-center items-center relative'>
-    {apidata?.profile_image ? (
-      <Image src={apidata?.profile_image} width={122} alt='' height={122} className='rounded-full' />
-    ) : (
-      <FaUser className='text-[53px] text-textGrey' />
-    )}
-
-    {/* Hidden file input for uploading the profile image */}
-    <input
-      type="file"
-      name="profile_image"
-      accept="image/*"
-      onChange={changeValue}
-      className='absolute inset-0 opacity-0 cursor-pointer'
+  <div className="size-[122px] bg-[#F5F5F5] rounded-full flex justify-center items-center relative">
+  {imagePreview ? (
+    <Image
+      src={imagePreview}
+      width={122}
+      height={122}
+      alt="Selected Profile Image"
+      className="rounded-full"
     />
-  </div>
+  ) : apidata?.profile_image ? (
+    <Image
+      src={apidata.profile_image}
+      width={122}
+      height={122}
+      alt="Profile Image"
+      className="rounded-full"
+    />
+  ) : (
+    <FaUser className="text-[53px] text-textGrey" />
+  )}
+
+  {/* Hidden file input for uploading the profile image */}
+  <input
+    type="file"
+    name="profile_image"
+    accept="image/*"
+    onChange={changeValue}
+    className="absolute inset-0 opacity-0 cursor-pointer"
+  />
+</div>
 </div>
             <div>
             

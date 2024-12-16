@@ -25,9 +25,7 @@ const Dashboardpage = () => {
           </div>
         </div>
       </div>
-
     </>
   )
 }
-
 export default Dashboardpage
