@@ -88,7 +88,7 @@ useEffect(() => {
               <div className='w-full flex flex-col justify-between'>
                 <div className='flex justify-between'>
                   <p className='text-[17px] font-semibold w-[60%]'>{elem.course_name}</p>
-                  <p>Studilyft</p>
+                  <p>Academy.w3era</p>
                 </div>
                 <div className='text-textGrey text-[14px]'>
                   <p>Completion Date: {elem.issue_date}</p>

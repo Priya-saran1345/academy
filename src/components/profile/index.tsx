@@ -28,17 +28,19 @@ const Profile = () => {
     last_name: '',
     phone: '',
     qualification: '',
-    profile_image: '',
+    // profile_image: '',
     city:'',
     current_job_title:'',
     company_name:'',
     industry:'',
     linkedin_profile_url:'',
   })
+
   const [showupdate, setshowupdate] = useState(false)
   useEffect(() => {
     setApiData(profile)
   }, [profile]);
+  
   useEffect(() => {
     if (apidata) {
       setupdateddata({
@@ -55,7 +57,7 @@ const Profile = () => {
         last_name: apidata.last_name || '',
         phone: apidata.phone || '',
         qualification: apidata.qualification || '',
-        profile_image: apidata.profile_image,
+        // profile_image: apidata.profile_image ||'',
         city:apidata.city || '',
         current_job_title:apidata.current_job_title || '',
         company_name:apidata.company_name || '',
@@ -146,7 +148,7 @@ const Profile = () => {
                 <span>{apidata?.profile_completion_percentage}%</span>
               </div>
               <div className="w-full bg-gray-200 h-3 rounded-full">
-                <div className={`bg-orange h-3 rounded-full w-[${apidata?.profile_completion_percentage}]`} ></div>
+                <div className={`bg-orange h-3 rounded-full w-[${apidata?.profile_completion_percentage}%]`} ></div>
               </div>
             </div>
             {
@@ -297,7 +299,6 @@ const Profile = () => {
                 value={apidata?.course_interested
                 } readOnly placeholder='your Password' />
             </div>
-
             <div className='w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Goals
               </label>
@@ -354,52 +355,6 @@ const Profile = () => {
 
 
 
-
-      {/* //second column */}
-      {/* <div className='rounded-lg xl:w-[30%] sm:w-[47%] w-full my-10  shadow-lg border-[1px] items-center border-slate-200 flex flex-col justify-between px-5 xl:px-12 py-12 '>
-
-
-          <div className='flex flex-col gap-5 w-full'>
-           
-          
-           
-            
-          </div>
-        </div> */}
-      {/* third column */}
-      {/* <div className='rounded-lg xl:w-[30%] sm:w-[47%] w-full my-10  shadow-lg border-[1px] items-center border-slate-200 flex flex-col justify-between px-5 xl:px-12 py-12 '>
-
-          <div className='flex flex-col gap-5 w-full'>
-           
-            
-           
-            
-            <div className='w-full'>
-              <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Extracurriculars
-              </label>
-              <br />
-              <input type="text" className='capitalize text-textGrey outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg '
-                readOnly placeholder=' your extracurriculars' value={apidata?.extracurriculars} />
-            </div>
-
-          </div>
-        </div> */}
-
-      {/* </div> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       {/* //editable form is here */}
       {
         showupdate &&
@@ -418,7 +373,7 @@ const Profile = () => {
                   <Image
                     src={imagePreview}
                     width={122}
-                    height={122}
+                    height={122}  
                     alt="Selected Profile Image"
                     className="rounded-full"
                   />
