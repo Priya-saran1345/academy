@@ -119,8 +119,8 @@ const Profile = () => {
 
   // console.log(apidata)
   return (
-    <div className='w-full flex  gap-5 justify-between relative px-2 lg:px-4 p-4'>
-      <div className=" md:w-[275px] flex flex-col justify-between  lg:w-[457px] md:sticky  md:top-24 md:h-[87vh] flex-shrink rounded-lg shadow ">
+    <div className='w-full flex flex-wrap md:flex-nowrap  gap-5 justify-between relative px-2 lg:px-4 p-4'>
+      <div className=" w-full md:w-[275px] flex flex-col justify-between  lg:w-[457px] md:sticky  md:top-24 md:h-[87vh] flex-shrink rounded-lg shadow ">
         <div>
           <div className="bg-orange rounded-t-lg h-28 relative">
           {
@@ -187,16 +187,16 @@ const Profile = () => {
             </div>
     
       </div>
-      <div className='w-full shadow p-6 rounded-lg'>
+      <div className='w-full shadow p-2  lg:p-6 rounded-lg'>
         <div className='flex gap-3 border-b-1 border-slate-200  justify-between items-center'>
-          <p className='text-[20px]  font-medium'>1. Personal Information</p>
+          <p className='text-[20px] px-6  font-medium'>1. Personal Information</p>
           <button className=' text-[18px] flex items-center gap-2 text-orange rounded-lg px-3 py-2' onClick={() => {
             setshowupdate(true)
           }}>Edit <BiEdit className='text-[22px]' />
           </button>
         </div>
-        <div className='flex w-full p-6 justify-between flex-wrap gap-5'>
-          <div className='w-[48%]'>
+        <div className='flex w-full p-2 lg:p-6 justify-between flex-wrap  gap-2 lg:gap-5'>
+          <div className='w-full sm:w-[48%]'>
             <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Name
             </label>
             <br />
@@ -208,7 +208,7 @@ const Profile = () => {
               value={`${apidata?.first_name ?? ''} ${apidata?.last_name ?? ''}`}
             />
           </div>
-          <div className='w-[48%]'>
+          <div className='w-full sm:w-[48%]'>
             <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>E-mail
             </label>
             <br />
@@ -216,7 +216,7 @@ const Profile = () => {
               className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               readOnly value={apidata?.email} placeholder='Enter your Email' />
           </div>
-          <div className='w-[48%]'>
+          <div className='w-full sm:w-[48%]'>
             <label htmlFor="email"
               className='text[16px] font-medium text-textGrey mb-3 Capitalize'
             >Username
@@ -226,7 +226,7 @@ const Profile = () => {
               className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               readOnly placeholder=' Username' value={apidata?.username} />
           </div>
-          <div className='w-[48%]'>
+          <div className='w-full sm:w-[48%]'>
             <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Phone
             </label>
             <br />
@@ -234,7 +234,7 @@ const Profile = () => {
               className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               readOnly placeholder=' your phone' value={apidata?.phone} />
           </div>
-          <div className='w-[48%]'>
+          <div className='w-full sm:w-[48%]'>
             <label htmlFor="text" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Gender
             </label>
             <br />
@@ -242,7 +242,7 @@ const Profile = () => {
               className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               readOnly placeholder=' your Gender' value={apidata?.gender} />
           </div>
-          <div className='w-[48%]'>
+          <div className='w-full sm:w-[48%]'>
             <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Date Of Birth
             </label>
             <br />
@@ -250,7 +250,7 @@ const Profile = () => {
               className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               readOnly placeholder=' your DOB' value={apidata?.date_of_birth} />
           </div>
-          <div className='w-[48%]'>
+          <div className='w-full sm:w-[48%]'>
             <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Address
             </label>
             <br />
@@ -258,7 +258,7 @@ const Profile = () => {
               className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               value={apidata?.address} readOnly placeholder=' your Address' />
           </div>
-          <div className='w-[48%]'>
+          <div className='w-full sm:w-[48%]'>
             <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>City
             </label>
             <br />
@@ -271,14 +271,14 @@ const Profile = () => {
         <div className='w-full  rounded-lg'>
 
           <div className='flex gap-3 border-b-1 border-slate-200  justify-between items-center'>
-            <p className='text-[20px]  font-medium pb-2'>2. Professional Information</p>
+            <p className='text-[20px] px-6  font-medium pb-2'>2. Professional Information</p>
             {/* <button className=' text-[18px] flex items-center gap-2 text-orange rounded-lg px-3 py-2' onClick={() => {
     setshowupdate(true)
   }}>Edit <BiEdit className='text-[22px]' />
   </button> */}
           </div>
-          <div className='flex w-full p-6 justify-between flex-wrap gap-5'>
-            <div className='w-[48%]'>
+          <div className='flex w-full p-2 lg:p-6 justify-between flex-wrap gap-2 lg:gap-5'>
+            <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Alternate phone
               </label>
               <br />
@@ -286,7 +286,7 @@ const Profile = () => {
                 className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your Email' value={apidata?.alternate_phone} />
             </div>
-            <div className='w-[48%]'>
+            <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Qualification
               </label>
               <br />
@@ -295,7 +295,7 @@ const Profile = () => {
                 readOnly placeholder=' your Qualification' value={apidata?.qualification} />
             </div>
 
-            <div className='w-[48%]'>
+            <div className='w-full sm:w-[48%]'>
               <label htmlFor="text" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Course Interested
               </label>
               <br />
@@ -304,7 +304,7 @@ const Profile = () => {
                 value={apidata?.course_interested
                 } readOnly placeholder='your Password' />
             </div>
-            <div className='w-[48%]'>
+            <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Goals
               </label>
               <br />
@@ -312,7 +312,7 @@ const Profile = () => {
                 className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your Goals' value={apidata?.goals} />
             </div>
-            <div className='w-[48%]'>
+            <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Extracurriculars
               </label>
               <br />
@@ -320,7 +320,7 @@ const Profile = () => {
                 className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your extracurriculars' value={apidata?.extracurriculars} />
             </div>
-            <div className='w-[48%]'>
+            <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Current Job Title
               </label>
               <br />
@@ -328,7 +328,7 @@ const Profile = () => {
                 className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your Current Job Title' value={apidata?.current_job_title} />
             </div>
-            <div className='w-[48%]'>
+            <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Industry
               </label>
               <br />
@@ -336,7 +336,7 @@ const Profile = () => {
                 className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your Industry' value={apidata?.industry} />
             </div>
-            <div className='w-[48%]'>
+            <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Company/Organization Name
               </label>
               <br />
@@ -344,7 +344,7 @@ const Profile = () => {
                 className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your Company Name' value={apidata?.company_name} />
             </div>
-            <div className='w-[48%]'>
+            <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>LinkedIn Profile URL
               </label>
               <br />
