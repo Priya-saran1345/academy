@@ -425,44 +425,57 @@ const Profile = () => {
         </div>
         <div className='shadow border-1 rounded-lg right-4 w-[440px] p-4 justify-between gap-6  font-medium text-[17px] 
                 text-slate-600  py-3 top-24 logout-div' >
-          {/* User Info and Profile Completion Section */}
           <Image src={'/images/checkout.svg'} height={243} width={430} alt='' className='mb-4'></Image>
           <div>
-            <div className='w-full flex justify-start gap-5 items-center '>
-              <div className=''>
-                <div className='w-23 p-1 flex justify-center items-center h-23 rounded-full ' style={{
-                      background: `conic-gradient(#FF6B6B ${profile?.profile_completion_percentage}%, #F5F5F5 ${profile?.profile_completion_percentage}%)`,
-                    }}>
-                <div className="relative rounded-full p-[4px] bg-white">
-                  <div className="w-16 h-16 bg-[#9C9C9C] rounded-full flex items-center justify-center overflow-hidden">
-                    <svg
-                      className="w-8 h-8 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                      />
-                    </svg>
-                  </div>
-                  </div>
-                </div>
-                <p className='text-orange font-bold mx-5  mt-1'>{profile?.profile_completion_percentage}%</p>
-              </div>
-              <div className=''>
-                <p className='font-bold text-black'>{profile?.first_name}&nbsp;{profile?.last_name}</p>
-                <p className='text-sm text-textgrey'>{profile?.email}</p>
-                <div className='text-orange flex gap-2  items-center cursor-pointer text-[14px]' onClick={() => router.push('/dashboard/profile')}>
-                  Complete Your Profile
-                  <span className='text-orange'><FaArrowUpRightFromSquare className='text-[10px]'></FaArrowUpRightFromSquare></span>
-                </div>
-              </div>
-            </div>
+          <div className="w-full flex justify-start gap-5 items-center">
+  <div className="relative">
+    <div
+      className="w-24 h-24 flex justify-center items-center rounded-full"
+      style={{
+        background: `conic-gradient(#FF6B6B ${profile?.profile_completion_percentage || 0}%, #F5F5F5 0)`
+      }}
+    >
+      <div className="relative rounded-full p-[4px] bg-white">
+        <div className="w-20 h-20 bg-[#9C9C9C] rounded-full flex items-center justify-center overflow-hidden">
+          <svg
+            className="w-8 h-8 text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <p className="text-orange font-bold text-center mt-1">
+      {profile?.profile_completion_percentage || 0}%
+    </p>
+  </div>
+
+  <div>
+    <p className="font-bold text-black">
+      {profile?.first_name}&nbsp;{profile?.last_name}
+    </p>
+    <p className="text-sm text-textgrey">{profile?.email}</p>
+    <div
+      className="text-orange flex gap-2 items-center cursor-pointer text-[14px]"
+      onClick={() => router.push('/dashboard/profile')}
+    >
+      Complete Your Profile
+      <span className="text-orange">
+        <FaArrowUpRightFromSquare className="text-[10px]" />
+      </span>
+    </div>
+  </div>
+</div>
+
             <div className='w-full bg-orange-100  p-3 rounded-md '>
               <p className=' text-black font-bold text-[18px]  mb-2   mx-auto'>
                 {

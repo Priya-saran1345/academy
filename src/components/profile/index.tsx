@@ -148,7 +148,12 @@ const Profile = () => {
                 <span>{apidata?.profile_completion_percentage}%</span>
               </div>
               <div className="w-full bg-gray-200 h-3 rounded-full">
-                <div className={`bg-orange h-3 rounded-full w-[${apidata?.profile_completion_percentage}%]`} ></div>
+              <div
+  className="bg-orange h-3 rounded-full"
+  style={{ width: `${apidata?.profile_completion_percentage}%` }}
+></div>
+                  
+               
               </div>
             </div>
             {
