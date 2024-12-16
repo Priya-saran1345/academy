@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { BASE_URL, BASE_URL_IMAGE } from '@/utils/api'
 import axios from 'axios';
 import { useRouter } from "next/navigation"
-import { FaMinus } from "react-icons/fa6";
+import { FaMinus, FaStar } from "react-icons/fa6";
 import Link from 'next/link'
 import Footer from '@/components/footer';
 import FooterBanner from '@/components/footerBanner'
@@ -24,6 +24,7 @@ import { FiMinus, FiPlus } from 'react-icons/fi';
 import { IoLockClosed } from 'react-icons/io5';
 import { CiLock } from 'react-icons/ci';
 import { BsArrowRight } from 'react-icons/bs';
+import { FaStarHalfAlt } from 'react-icons/fa';
 
 
 const page = () => {
@@ -92,7 +93,20 @@ const page = () => {
             setError(error.message); // Store the error message in state
         }
     };
-
+const renderStars = (rating: any) => {
+    const stars = [];
+    const fullStars = Math.floor(rating); // Integer part of the rating
+    const hasHalfStar = rating % 1 !== 0; // Check if there's a fractional part
+    // Add full stars
+    for (let i = 1; i <= fullStars; i++) {
+      stars.push(<FaStar key={i} className="text-orange " />);
+    }
+    // Add half star if there's a fractional part
+    if (hasHalfStar) {
+      stars.push(<FaStarHalfAlt key="half" className="text-orange " />);
+    }
+    return <div className="flex gap-1">{stars}</div>;
+  };
     useEffect(() => {
         if (id == 'undefined') {
             router.push('/four/'); // Redirect to /four if id is undefined
@@ -321,8 +335,8 @@ const page = () => {
                             <div className='flex w-full justify-center gap-4 2xl:justify-between flex-wrap mt-6'>
                                 <div className='lg:max-w-[216px]  w-[45%] sm:w-[30%] md:w-[22%] text-center flex-col h-[98px] hover:shadow-xl duration-200 
                                 rounded-lg flex border-[1px] justify-center items-center border-slate-300 '>
-                                    <p className='text-[18px] font-bold flex justify-center'>{ApiData?.rating}<GoStarFill className='text-orange text-[18px]' />
-                                    </p>
+                                    <div className='text-[18px] font-bold flex justify-center'>{ renderStars(ApiData?.rating)}
+                                    </div>
                                     <p className='text-textGrey text-[14px]'>(3,915 reviews)</p>
                                 </div>
                                 <div className='lg:max-w-[216px]  w-[45%] sm:w-[30%] md:w-[22%] text-center flex-col h-[98px] hover:shadow-xl duration-200  rounded-lg flex border-[1px] justify-center items-center border-slate-300 '>
@@ -489,11 +503,11 @@ const page = () => {
                             {ApiData?.modules.length > 0 &&
                                 <div>
                                     <p className='text-[18px] mt-4 font-semibold module' >Course Modules:</p>
-                                    <div className='w-full mt-3 p-4 bg-lightGrey rounded-lg'>
+                                    <div className='w-full mt-3 p-2 lg:p-4 bg-lightGrey rounded-lg'>
                                         <div className='flex flex-col gap-3'>
                                             {
                                                 topics.length > 0 &&
-                                                <div className="p-4">
+                                                <div className="p-2 lg:p-4">
                                                     {topics?.map((module: any, moduleIndex: number) => (
                                                         <div key={moduleIndex} className="mb-4">
                                                           { 
@@ -509,7 +523,8 @@ const page = () => {
 
                                                             <button
                                                                 onClick={() => setOpenModule(openModule === moduleIndex ? null : moduleIndex)}
-                                                                className="w-full flex items-center justify-between p-4 border-slate-200 border-1 hover:shadow-lg mb-3 duration-250 rounded-lg"
+                                                                className="w-full flex items-center justify-between p-4
+                                                                 border-slate-200 border-1 hover:shadow-lg mb-3 duration-250 rounded-lg"
                                                                 > 
                                                                 <span  className="font-medium">{moduleIndex + 1}. {module?.title || 'Untitled Module'}</span>
                                                                 <CiLock className='text-[24px] text-textGrey' />
@@ -549,7 +564,7 @@ const page = () => {
                                                                                                 <div className="flex items-start gap-2">
                                                                                                     <div className="w-[13px] h-[13px] border-2 mt-1 border-orange rounded-full"></div>
                                                                                                     <div className="items-center gap-2">
-                                                                                                        <div className={`font-medium text-[18px] 
+                                                                                                        <div className={`font-medium text-[16px] md:text-[18px] 
                                                                                                             ${expandedLessonIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title}</div>
                                                                                                         <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
                                                                                                     </div>
@@ -578,7 +593,8 @@ const page = () => {
                                                                                 {/* pdf content here */}
                                                                                 <div key={lessonIndex} className={`flex  ${expandednotesIndex === lessonIndex ? "border-orange" : "border-slate-200"} rounded-lg border-1 flex-col gap-2 mt-2`}>
                                                                                     <div
-                                                                                        className={`flex p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
+                                                                                        className={`flex p-3
+                                                                                             rounded-lg items-start gap-3 text-sm cursor-pointer`}
                                                                                         onClick={() => toggleNotes(lessonIndex)}
                                                                                     >
                                                                                         <div className="flex-1 min-w-0">
@@ -586,7 +602,7 @@ const page = () => {
                                                                                                 <div className="flex items-start gap-2">
                                                                                                     <div className="w-[13px] h-[13px]  mt-1 border-2 border-orange  rounded-full"></div>
                                                                                                     <div className="items-center gap-2">
-                                                                                                        <div className={`font-medium text-[18px] ${expandednotesIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>
+                                                                                                        <div className={`font-medium text-[16px] md:text-[18px] ${expandednotesIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>
                                                                                                         <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
                                                                                                     </div>
                                                                                                 </div>
