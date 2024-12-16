@@ -15,6 +15,16 @@ const DashboardSidebar = () => {
   const pathname = usePathname();
   const [activeOption, setActiveOption] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // lg breakpoint in Tailwind is 1024px
+    };
+    
+    handleResize(); // Check initially
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (pathname.includes("/dashboard/mycourses")) {
@@ -60,13 +70,14 @@ const DashboardSidebar = () => {
 
   return (
     <motion.div
-      className="group w-fit z-50 hidden  sticky top-16 min-h-[93vh] h-[90vh] overflow-hidden lg:flex flex-col"
+      className="group w-fit z-50   sticky top-16 min-h-[93vh] h-[90vh] overflow-hidden flex flex-col"
       initial="collapsed"
       animate={isExpanded ? "expanded" : "collapsed"}
       variants={sidebarVariants}
-      onMouseOver={() => setIsExpanded(true)}
-      onClick={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
+      onMouseOver={() => isLargeScreen && setIsExpanded(true)}
+      onClick={() => !isLargeScreen && setIsExpanded(true)}
+      onMouseLeave={() => isLargeScreen && setIsExpanded(false)}
+    
     >
       <div className="bg-[#F7F7F7] h-full px-2 flex flex-col justify-between overflow-hidden">
         <ul className="pt-4">

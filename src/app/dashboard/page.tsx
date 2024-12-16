@@ -9,7 +9,6 @@ import { BASE_URL } from '@/utils/api'
 import Dashboard from '@/components/dashboard'
 
 const Dashboardpage = () => {
-
   return (
     <>
       <div className="min-h-screen bg-[#F7F7F7]">

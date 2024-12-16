@@ -65,9 +65,9 @@ const Testimonial = ({ testimonials = [] }) => {
                 <p className='text-[16px]'>Course:&nbsp;&nbsp;
                   <span className='font-semibold'>{elem.author_position}</span>
                 </p>
-                <p className="flex items-center  gap-1">
+                <div className="flex justify-center md:justify-start items-center  gap-1">
                   Rating: {renderStars(elem.rating)}
-                </p>
+                </div>
                 <p className='text-[14px] mt-4'>{elem.feedback}</p>
               </div>
             </div>
