@@ -70,7 +70,7 @@ const DashboardSidebar = () => {
 
   return (
     <motion.div
-      className="group w-fit z-50   sticky top-16 min-h-[93vh] h-[90vh] overflow-hidden flex flex-col"
+      className="group w-fit z-50 sticky top-16 min-h-[93vh] h-[90vh] overflow-hidden flex flex-col"
       initial="collapsed"
       animate={isExpanded ? "expanded" : "collapsed"}
       variants={sidebarVariants}

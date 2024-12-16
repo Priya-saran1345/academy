@@ -46,6 +46,7 @@ interface RazorpayResponse {
   razorpay_order_id?: string;
   razorpay_signature?: string;
 }
+
 declare global {
   interface Window {
     Razorpay: typeof Razorpay;
@@ -277,16 +278,16 @@ const Profile = () => {
     }
   }
   return (
-    <div className='w-full flex   p-7'>
+    <div className='w-full flex p-4'>
       {/* uppr div  */}
-      <div className='w-full  h-[85vh] gap-3 mx-auto flex  justify-between  '>
-       
-        <div className='  h-fit flex-1 flex flex-col sm:flex-row gap-3 mx-auto lg:mx-0 shadow rounded-lg py-2 px-4'>
+      <div className='w-full  h-[85vh] gap-3 mx-auto  flex  justify-between  '>
+
+        <div className='  h-fit  w-[62%] flex-1 flex flex-col  sm:flex-row gap-3 mx-auto lg:mx-0 shadow rounded-lg py-2 px-4'>
           <div
             className=' 
-             border-slate-200 w-[440px] py-4 px-4 pr-5 border-r-1   group flex flex-col gap-2  smooth1 '
+             border-slate-200  w-1/2 max-w-[400px] flex-1 py-4 px-4 pr-5 border-r-1   group flex flex-col gap-2  smooth1 '
           >
-            <Image src={`${BASE_URL_IMAGE}${data?.card_image}`} height={225 } width={414} alt='' className='rounded-md'></Image>
+            <Image src={`${BASE_URL_IMAGE}${data?.card_image}`} height={225} width={414} alt='' className='rounded-md'></Image>
             <h3 className='font-semibold text-black text-xl'>{data?.name}</h3>
             <h3 className='text-sm text-gray-500 font-medium'>
               {data?.short_description}
@@ -300,15 +301,15 @@ const Profile = () => {
             <div className=' flex  items-center font-semibold text-black text-[16px]'>{data?.course_level
             } level</div>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
-            No prior experience required            </p>
+              No prior experience required            </p>
             <div className=' flex  items-center font-semibold text-black text-[16px]'>Payment Date -</div>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
-            {data?.start_date
-           }              </p>
+              {data?.start_date
+              }              </p>
             <div className=' flex  items-center font-semibold text-black text-[16px]'>Access Expiry Date  -</div>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
-            {data?.start_date
-           }              </p>
+              {data?.start_date
+              }              </p>
             <p className='font-semibold text-black text-[16px]'>{data?.duration} Days to complete</p>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
               3 weeks at 3 hours a week
@@ -343,7 +344,7 @@ const Profile = () => {
             </div>
           </div>
           {/* coupan code part from here */}
-          <div className='flex  flex-1 justify-center'>
+          <div className='flex   flex-1 w-1/2 justify-center'>
 
             <div className='w-full py-4'>
               <div>
@@ -417,110 +418,110 @@ const Profile = () => {
                   onClick={createorder}
                   className="bg-orange  text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px] font-semibold hover:text-orange duration-150"
                 >
-               Confirm & Pay
+                  Confirm & Pay
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <div className='shadow border-1 rounded-lg right-4 w-[440px] p-4 justify-between gap-6  font-medium text-[17px] 
+        <div className='shadow border-1 rounded-lg right-4 max-w-[440px] w-[32%] flex-shrink p-4 justify-between gap-6  font-medium text-[17px] 
                 text-slate-600  py-3 top-24 logout-div' >
           <Image src={'/images/checkout.svg'} height={243} width={430} alt='' className='mb-4'></Image>
           <div>
-          <div className="w-full flex justify-start gap-5 items-center">
-  <div className="relative">
-    <div
-      className="w-24 h-24 flex justify-center items-center rounded-full"
-      style={{
-        background: `conic-gradient(#FF6B6B ${profile?.profile_completion_percentage || 0}%, #F5F5F5 0)`
-      }}
-    >
-      <div className="relative rounded-full p-[4px] bg-white">
-        <div className="w-20 h-20 bg-[#9C9C9C] rounded-full flex items-center justify-center overflow-hidden">
-          <svg
-            className="w-8 h-8 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-            />
-          </svg>
-        </div>
-      </div>
-    </div>
-    <p className="text-orange font-bold text-center mt-1">
-      {profile?.profile_completion_percentage || 0}%
-    </p>
-  </div>
+            <div className="w-full flex justify-start gap-5 items-center">
+              <div className="relative">
+                <div
+                  className="w-24 h-24 flex justify-center items-center rounded-full"
+                  style={{
+                    background: `conic-gradient(#FF6B6B ${profile?.profile_completion_percentage || 0}%, #F5F5F5 0)`
+                  }}
+                >
+                  <div className="relative rounded-full p-[4px] bg-white">
+                    <div className="w-20 h-20 bg-[#9C9C9C] rounded-full flex items-center justify-center overflow-hidden">
+                      <svg
+                        className="w-8 h-8 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-orange font-bold text-center mt-1">
+                  {profile?.profile_completion_percentage || 0}%
+                </p>
+              </div>
 
-  <div>
-    <p className="font-bold text-black">
-      {profile?.first_name}&nbsp;{profile?.last_name}
-    </p>
-    <p className="text-sm text-textgrey">{profile?.email}</p>
-    <div
-      className="text-orange flex gap-2 items-center cursor-pointer text-[14px]"
-      onClick={() => router.push('/dashboard/profile')}
-    >
-      Complete Your Profile
-      <span className="text-orange">
-        <FaArrowUpRightFromSquare className="text-[10px]" />
-      </span>
-    </div>
-  </div>
-</div>
+              <div>
+                <p className="font-bold text-black">
+                  {profile?.first_name}&nbsp;{profile?.last_name}
+                </p>
+                <p className="text-sm text-textgrey">{profile?.email}</p>
+                <div
+                  className="text-orange flex gap-2 items-center cursor-pointer text-[14px]"
+                  onClick={() => router.push('/dashboard/profile')}
+                >
+                  Complete Your Profile
+                  <span className="text-orange">
+                    <FaArrowUpRightFromSquare className="text-[10px]" />
+                  </span>
+                </div>
+              </div>
+            </div>
 
             <div className='w-full bg-orange-100  p-3 rounded-md '>
               <p className=' text-black font-bold text-[18px]  mb-2   mx-auto'>
                 {
-                  profile?.profile_completion_percentage==100? 'Congratulations You Got  this Offer':'First Complete Your Profile to Avail this Offer'
+                  profile?.profile_completion_percentage == 100 ? 'Congratulations You Got  this Offer' : 'First Complete Your Profile to Avail this Offer'
                 }
-                </p>
-                {
-              profile?.profile_completion_percentage==100 &&
-               <div>
-              <p className=' text-start text-textGrey'>Use code:</p>
-              <div className="flex items-center gap-3 ">
-                <div
-                  ref={codeRef}
-                  className="border-dashed border-2 w-2/3  text-center border-orange bg-orange/5 bg-orange-100 text-orange font-bold py-1 px-4 rounded-md"
-                >
-                  {discountCode}
+              </p>
+              {
+                profile?.profile_completion_percentage == 100 &&
+                <div>
+                  <p className=' text-start text-textGrey'>Use code:</p>
+                  <div className="flex items-center gap-3 ">
+                    <div
+                      ref={codeRef}
+                      className="border-dashed border-2 w-2/3  text-center border-orange bg-orange/5 bg-orange-100 text-orange font-bold py-1 px-4 rounded-md"
+                    >
+                      {discountCode}
+                    </div>
+                    <button
+                      onClick={handleCopy}
+                      className="bg-orange/10 py-2 px-6 rounded-md text-orange font-medium flex items-center gap-1"
+                    >
+                      Copy
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-5 h-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M8.25 4.5h9a2.25 2.25 0 012.25 2.25v11.25a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25V6.75A2.25 2.25 0 018.25 4.5z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4.5 8.25v9a2.25 2.25 0 002.25 2.25h11.25"
+                        />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
-                <button
-                  onClick={handleCopy}
-                  className="bg-orange/10 py-2 px-6 rounded-md text-orange font-medium flex items-center gap-1"
-                >
-                  Copy
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-5 h-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M8.25 4.5h9a2.25 2.25 0 012.25 2.25v11.25a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25V6.75A2.25 2.25 0 018.25 4.5z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 8.25v9a2.25 2.25 0 002.25 2.25h11.25"
-                    />
-                  </svg>
-                </button>
-              </div>
-              </div>
-               }
+              }
               {/* {copied && (
                 <div className="text-orange mt-2 text-sm">Code Copied!</div>
               )} */}
@@ -532,180 +533,3 @@ const Profile = () => {
   )
 }
 export default Profile
-
-
-
-
-{/* <div className='w-full flex-1'>
-          <div className='pb-3'>
-            <p className='text-black font-semibold text-[20px]'>Personal Details:</p>
-          </div>
-          <div className=' p-4  flex-1 gap-5 border-[1px] flex flex-wrap border-slate-200 justify-center shadow-md rounded-lg bg-white'>
-            <div className=' w-full sm:w-[48%]'>
-              <label htmlFor="first_name" className='text[17px]  font-medium text-black capitalize'>First Name</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.first_name}
-                name='first_name'
-                className='capitalize text-textGrey mt-2 mb-0 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
-                placeholder='Enter Your Name'
-                onChange={changeValue}
-              />
-            </div>
-            <div className='w-full sm:w-[48%]'>
-              <label htmlFor="last_name" className='text[17px]  font-medium text-black capitalize'>Last Name</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.last_name}
-                name='last_name'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
-                placeholder='Enter Your Name'
-                onChange={changeValue}
-              />
-            </div>
-            <div className='w-full sm:w-[48%]'>
-              <label htmlFor="phone" className='text[17px]  font-medium text-black capitalize'>Phone</label>
-              <br />
-              <input
-                type="number"
-                value={updateddata.phone}
-                name='phone'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
-                placeholder='Enter Your phone no'
-                onChange={changeValue}
-              />
-            </div>
-            <div className='w-full sm:w-[48%]'>
-              <label htmlFor="phone" className='text[17px]  font-medium text-black capitalize'>Email</label>
-              <br />
-              <input
-                type="email"
-                value={updateddata.email}
-                name='email'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
-                placeholder='Enter Your Email '
-                onChange={changeValue}
-              />
-            </div>
-          </div>
-          <div className='py-6'>
-            <p className='text-black font-semibold text-[20px]'>Professional Details:</p>
-            <div className=' p-4  mt-3 flex-1 gap-5 border-[1px] flex flex-wrap border-slate-200 justify-center shadow-md rounded-lg bg-white'>
-              <div className='w-full sm:w-[48%]'>
-                <label htmlFor="qualification" className='text[17px]  font-medium text-black capitalize'>Qualification</label>
-                <br />
-                <input
-                  type="text"
-                  value={updateddata.qualification}
-                  name='qualification'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
-                  placeholder='Enter Qualification'
-                  onChange={changeValue}
-                />
-              </div>
-              <div className='w-full sm:w-[48%]'>
-                <label htmlFor="profession" className='text[17px]  font-medium text-black capitalize'>Profession</label>
-                <br />
-                <input
-                  type="text"
-                  value={updateddata.profession}
-                  name='profession'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
-                  placeholder='Enter Your Profession'
-                  onChange={changeValue}
-                />
-              </div>
-              <div className='w-full sm:w-[48%]'>
-                <label htmlFor="course_interested" className='text[17px]  font-medium text-black capitalize'>Course Interested</label>
-                <br />
-                <input
-                  type="text"
-                  value={updateddata.course_interested}
-                  name='course_interested'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
-                  placeholder='Enter Interested Course'
-                  onChange={changeValue}
-                />
-              </div>
-              <div className='w-full sm:w-[48%]'>
-                <label htmlFor="goals" className='text[17px]  font-medium text-black capitalize'>Goals</label>
-                <br />
-                <input
-                  type="text"
-                  value={updateddata.goals}
-                  name='goals'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
-                  placeholder='Enter Goals'
-                  onChange={changeValue}
-                />
-              </div>
-            </div>
-          </div>
-          <div className=''>
-            <p className='text-black font-semibold text-[20px]'>Other Details:</p>
-            <div className=' p-4 mt-3  flex-1 gap-5 border-[1px] flex flex-wrap border-slate-200 justify-start shadow-md rounded-lg bg-white'>
-              <div className='w-full sm:w-[48%]'>
-                <label htmlFor="alternate_phone" className='text[17px]  font-medium text-black capitalize'>Alternate Phone</label>
-                <br />
-                <input
-                  type="number"
-                  value={updateddata.alternate_phone}
-                  name='alternate_phone'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
-                  placeholder='Enter alternate phone no'
-                  onChange={changeValue}
-                />
-              </div>
-              <div className='w-full sm:w-[48%]'>
-                <label htmlFor="gender" className='text[17px]  font-medium text-black capitalize'>Gender</label>
-                <br />
-                <input
-                  type="text"
-                  value={updateddata.gender}
-                  name='gender'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
-                  placeholder='Enter Gender'
-                  onChange={changeValue}
-                />
-              </div>
-              <div className='w-full sm:w-[48%]'>
-                <label htmlFor="date_of_birth" className='text[17px]  font-medium text-black capitalize'>Date of Birth</label>
-                <br />
-                <input
-                  type="text"
-                  value={updateddata.date_of_birth}
-                  name='date_of_birth'
-                  className=' text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
-                  placeholder='yyyy-mm-dd'
-                  onChange={changeValue}
-                />
-              </div>
-              <div className='w-full sm:w-[48%]'>
-                <label htmlFor="extracurriculars" className='text[17px]  font-medium text-black capitalize'>Extracurriculars</label>
-                <br />
-                <input
-                  type="text"
-                  value={updateddata.extracurriculars}
-                  name='extracurriculars'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
-                  placeholder='Enter Extracurriculars'
-                  onChange={changeValue}
-                />
-              </div>
-              <div className='w-full sm:w-[48%]'>
-                <label htmlFor="address" className='text[17px]  font-medium text-black capitalize'>Address</label>
-                <br />
-                <input
-                  type="text"
-                  value={updateddata.address}
-                  name='address'
-                  className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
-                  placeholder='Enter Address'
-                  onChange={changeValue}
-                />
-              </div>
-            </div>
-          </div>
-        </div> */}
