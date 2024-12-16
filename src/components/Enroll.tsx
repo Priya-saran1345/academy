@@ -279,102 +279,36 @@ const Profile = () => {
   return (
     <div className='w-full flex   p-7'>
       {/* uppr div  */}
-      <div className='w-full gap-3 lg:w-[90%] xl:w-[75%] 2xl:w-[55%] mx-auto justify-center  '>
-        <div className='shadow border-1 rounded-lg right-4 flex flex-col sm:flex-row p-4 justify-between gap-6  font-medium text-[17px] 
-                text-slate-600  py-3 top-24 logout-div' >
-          {/* User Info and Profile Completion Section */}
-          <Image src={'/images/checkout.svg'} height={243} width={430} alt=''></Image>
-          <div>
-            <div className='w-full flex justify-start gap-5 items-center '>
-              <div className=''>
-                <div className='w-23 p-1 flex justify-center items-center h-23 rounded-full ' style={{
-                      background: `conic-gradient(#FF6B6B ${profile?.profile_completion_percentage}%, #F5F5F5 ${profile?.profile_completion_percentage}%)`,
-                    }}>
-                <div className="relative rounded-full p-[4px] bg-white">
-                  <div className="w-16 h-16 bg-[#9C9C9C] rounded-full flex items-center justify-center overflow-hidden">
-                    <svg
-                      className="w-8 h-8 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                      />
-                    </svg>
-                  </div>
-                  </div>
-                </div>
-                <p className='text-orange font-bold mx-5  mt-1'>{profile?.profile_completion_percentage}%</p>
-              </div>
-              <div className=''>
-                <p className='font-bold text-black'>{profile?.first_name}&nbsp;{profile?.last_name}</p>
-                <p className='text-sm text-textgrey'>{profile?.email}</p>
-                <div className='text-orange flex gap-2  items-center cursor-pointer text-[14px]' onClick={() => router.push('/dashboard/profile')}>
-                  Complete Your Profile
-                  <span className='text-orange'><FaArrowUpRightFromSquare className='text-[10px]'></FaArrowUpRightFromSquare></span>
-                </div>
-              </div>
-            </div>
-            <div className='w-full bg-orange-100  p-3 rounded-md '>
-              <p className=' text-black font-bold text-[18px]  mb-2   mx-auto'>First Complete Your Profile to Avail this Offer</p>
-              <p className=' text-start text-textGrey'>Use code:</p>
-              <div className="flex items-center gap-3 ">
-                <div
-                  ref={codeRef}
-                  className="border-dashed border-2 w-2/3  text-center border-orange bg-orange/5 bg-orange-100 text-orange font-bold py-1 px-4 rounded-md"
-                >
-                  {discountCode}
-                </div>
-                <button
-                  onClick={handleCopy}
-                  className="bg-orange/10 py-2 px-6 rounded-md text-orange font-medium flex items-center gap-1"
-                >
-                  Copy
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-5 h-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M8.25 4.5h9a2.25 2.25 0 012.25 2.25v11.25a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25V6.75A2.25 2.25 0 018.25 4.5z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 8.25v9a2.25 2.25 0 002.25 2.25h11.25"
-                    />
-                  </svg>
-                </button>
-              </div>
-              {/* {copied && (
-                <div className="text-orange mt-2 text-sm">Code Copied!</div>
-              )} */}
-            </div>
-          </div>
-        </div>
-        <div className=' mt-5 h-fit flex flex-col sm:flex-row gap-3 mx-auto lg:mx-0 shadow rounded-lg py-2 px-4'>
+      <div className='w-full  h-[85vh] gap-3 mx-auto flex  justify-between  '>
+       
+        <div className='  h-fit flex-1 flex flex-col sm:flex-row gap-3 mx-auto lg:mx-0 shadow rounded-lg py-2 px-4'>
           <div
             className=' 
-             border-slate-200 py-4 px-4 pr-5 border-r-1  sm:w-1/2  group flex flex-col gap-2  smooth1 '
+             border-slate-200 w-[440px] py-4 px-4 pr-5 border-r-1   group flex flex-col gap-2  smooth1 '
           >
+            <Image src={`${BASE_URL_IMAGE}${data?.card_image}`} height={225 } width={414} alt='' className='rounded-md'></Image>
             <h3 className='font-semibold text-black text-xl'>{data?.name}</h3>
             <h3 className='text-sm text-gray-500 font-medium'>
               {data?.short_description}
             </h3>
+            <div className=' flex  items-center font-semibold text-black text-[16px]'>Price:<span className='text-orange'> Rs.{data?.price}</span></div>
+
             <div className=' flex  items-center font-semibold text-black text-[16px]'>Rating:{renderStars(data?.rating)}</div>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
               ( {data?.review_count}reviews)
             </p>
+            <div className=' flex  items-center font-semibold text-black text-[16px]'>{data?.course_level
+            } level</div>
+            <p className='text-sm text-gray-500 -mt-2 font-medium'>
+            No prior experience required            </p>
+            <div className=' flex  items-center font-semibold text-black text-[16px]'>Payment Date -</div>
+            <p className='text-sm text-gray-500 -mt-2 font-medium'>
+            {data?.start_date
+           }              </p>
+            <div className=' flex  items-center font-semibold text-black text-[16px]'>Access Expiry Date  -</div>
+            <p className='text-sm text-gray-500 -mt-2 font-medium'>
+            {data?.start_date
+           }              </p>
             <p className='font-semibold text-black text-[16px]'>{data?.duration} Days to complete</p>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
               3 weeks at 3 hours a week
@@ -409,11 +343,11 @@ const Profile = () => {
             </div>
           </div>
           {/* coupan code part from here */}
-          <div className='flex sm:w-1/2 justify-center'>
+          <div className='flex  flex-1 justify-center'>
 
-            <div className=' py-4'>
+            <div className='w-full py-4'>
               <div>
-                <div className='w-full border-b-1 pb-2 border-slate-200'>
+                <div className='w-full  border-b-1 pb-2 border-slate-200'>
 
                   <label className='text-[20px]  font-semibold  text-black capitalize'>Apply Coupon Code</label>
                 </div>
@@ -478,14 +412,105 @@ const Profile = () => {
                 </p>
                 <p className='text-orange text-[26px] font-bold'>Rs.{data?.price - discount}</p>
               </div>
-              <div className='w-full px-2 mt-4'>
+              <div className='w-full flex justify-end px-2 mt-4'>
                 <button
                   onClick={createorder}
-                  className="bg-orange w-full text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px] font-semibold hover:text-orange duration-150"
+                  className="bg-orange  text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px] font-semibold hover:text-orange duration-150"
                 >
                Confirm & Pay
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+        <div className='shadow border-1 rounded-lg right-4 w-[440px] p-4 justify-between gap-6  font-medium text-[17px] 
+                text-slate-600  py-3 top-24 logout-div' >
+          {/* User Info and Profile Completion Section */}
+          <Image src={'/images/checkout.svg'} height={243} width={430} alt='' className='mb-4'></Image>
+          <div>
+            <div className='w-full flex justify-start gap-5 items-center '>
+              <div className=''>
+                <div className='w-23 p-1 flex justify-center items-center h-23 rounded-full ' style={{
+                      background: `conic-gradient(#FF6B6B ${profile?.profile_completion_percentage}%, #F5F5F5 ${profile?.profile_completion_percentage}%)`,
+                    }}>
+                <div className="relative rounded-full p-[4px] bg-white">
+                  <div className="w-16 h-16 bg-[#9C9C9C] rounded-full flex items-center justify-center overflow-hidden">
+                    <svg
+                      className="w-8 h-8 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                  </div>
+                  </div>
+                </div>
+                <p className='text-orange font-bold mx-5  mt-1'>{profile?.profile_completion_percentage}%</p>
+              </div>
+              <div className=''>
+                <p className='font-bold text-black'>{profile?.first_name}&nbsp;{profile?.last_name}</p>
+                <p className='text-sm text-textgrey'>{profile?.email}</p>
+                <div className='text-orange flex gap-2  items-center cursor-pointer text-[14px]' onClick={() => router.push('/dashboard/profile')}>
+                  Complete Your Profile
+                  <span className='text-orange'><FaArrowUpRightFromSquare className='text-[10px]'></FaArrowUpRightFromSquare></span>
+                </div>
+              </div>
+            </div>
+            <div className='w-full bg-orange-100  p-3 rounded-md '>
+              <p className=' text-black font-bold text-[18px]  mb-2   mx-auto'>
+                {
+                  profile?.profile_completion_percentage==100? 'Congratulations You Got  this Offer':'First Complete Your Profile to Avail this Offer'
+                }
+                </p>
+                {
+              profile?.profile_completion_percentage==100 &&
+               <div>
+              <p className=' text-start text-textGrey'>Use code:</p>
+              <div className="flex items-center gap-3 ">
+                <div
+                  ref={codeRef}
+                  className="border-dashed border-2 w-2/3  text-center border-orange bg-orange/5 bg-orange-100 text-orange font-bold py-1 px-4 rounded-md"
+                >
+                  {discountCode}
+                </div>
+                <button
+                  onClick={handleCopy}
+                  className="bg-orange/10 py-2 px-6 rounded-md text-orange font-medium flex items-center gap-1"
+                >
+                  Copy
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8.25 4.5h9a2.25 2.25 0 012.25 2.25v11.25a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25V6.75A2.25 2.25 0 018.25 4.5z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4.5 8.25v9a2.25 2.25 0 002.25 2.25h11.25"
+                    />
+                  </svg>
+                </button>
+              </div>
+              </div>
+               }
+              {/* {copied && (
+                <div className="text-orange mt-2 text-sm">Code Copied!</div>
+              )} */}
             </div>
           </div>
         </div>

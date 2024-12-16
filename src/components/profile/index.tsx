@@ -161,7 +161,7 @@ const Profile = () => {
           </div>
           </div>
             {/* Links */}
-            <div className="my-6 px-6  ">
+            <div className="my-6 mx-6 pt-2 border-t-1  ">
               <Link href="/dashboard/mycourses" className="text-orange font-semibold block mb-2 hover:underline">
                 View Enrolled Courses &rarr;
               </Link>
