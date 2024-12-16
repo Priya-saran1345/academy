@@ -29,6 +29,11 @@ const Profile = () => {
     phone: '',
     qualification: '',
     profile_image: '',
+    city:'',
+    current_job_title:'',
+    company_name:'',
+    industry:'',
+    linkedin_profile_url:'',
   })
   const [showupdate, setshowupdate] = useState(false)
   useEffect(() => {
@@ -51,6 +56,11 @@ const Profile = () => {
         phone: apidata.phone || '',
         qualification: apidata.qualification || '',
         profile_image: apidata.profile_image,
+        city:apidata.city || '',
+        current_job_title:apidata.current_job_title || '',
+        company_name:apidata.company_name || '',
+        industry:apidata.industry || '',
+        linkedin_profile_url:apidata.linkedin_profile_url || '',
       });
     }
   }, [apidata]);
@@ -157,7 +167,6 @@ const Profile = () => {
                 Certificates: <span className="text-orange">2</span>
               </p>
             </div> */}
-         
           </div>
           </div>
             {/* Links */}
@@ -243,12 +252,12 @@ const Profile = () => {
               value={apidata?.address} readOnly placeholder=' your Address' />
           </div>
           <div className='w-[48%]'>
-            <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Country/Region
+            <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>City
             </label>
             <br />
             <input type="text"
               className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-              value={apidata?.address} readOnly placeholder=' your Address' />
+              value={apidata?.city} readOnly placeholder=' your City' />
           </div>
           
         </div>
@@ -311,7 +320,7 @@ const Profile = () => {
               <br />
               <input type="text"
                 className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-                readOnly placeholder=' your extracurriculars' value={apidata?.extracurriculars} />
+                readOnly placeholder=' your Current Job Title' value={apidata?.current_job_title} />
             </div>
             <div className='w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Industry
@@ -319,7 +328,7 @@ const Profile = () => {
               <br />
               <input type="text"
                 className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-                readOnly placeholder=' your extracurriculars' value={apidata?.extracurriculars} />
+                readOnly placeholder=' your Industry' value={apidata?.industry} />
             </div>
             <div className='w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Company/Organization Name
@@ -327,7 +336,7 @@ const Profile = () => {
               <br />
               <input type="text"
                 className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-                readOnly placeholder=' your extracurriculars' value={apidata?.extracurriculars} />
+                readOnly placeholder=' your Company Name' value={apidata?.company_name} />
             </div>
             <div className='w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>LinkedIn Profile URL
@@ -335,7 +344,7 @@ const Profile = () => {
               <br />
               <input type="text"
                 className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-                readOnly placeholder=' your extracurriculars' value={apidata?.extracurriculars} />
+                readOnly placeholder=' your LinkedIn Profile' value={apidata?.linkedin_profile_url} />
             </div>
 
           </div>
@@ -436,7 +445,6 @@ const Profile = () => {
               </div>
             </div>
             <div>
-
               <label htmlFor="first_name" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>First Name</label>
               <br />
               <input
@@ -578,7 +586,66 @@ const Profile = () => {
                 onChange={changeValue}
               />
             </div>
-
+            <div>
+              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Industry</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.industry}
+                name='industry'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter Industry'
+                onChange={changeValue}
+              />
+            </div>
+            <div>
+              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Company Name</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.company_name}
+                name='company_name'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter Company Name'
+                onChange={changeValue}
+              />
+            </div>
+            <div>
+              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>linkedin Profile Url</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.linkedin_profile_url}
+                name='linkedin_profile_url'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter LinkedIn Profile URL'
+                onChange={changeValue}
+              />
+            </div>
+            <div>
+              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Current Job Title</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.current_job_title}
+                name='current_job_title'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter Current Job Title'
+                onChange={changeValue}
+              />
+            </div>
+            <div>
+              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>city</label>
+              <br />
+              <input
+                type="text"
+                value={updateddata.city}
+                name='city'
+                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                placeholder='Enter City'
+                onChange={changeValue}
+              />
+            </div>
             <div className='w-full'>
               <button
                 onClick={submitData}
