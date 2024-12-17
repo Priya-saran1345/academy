@@ -117,7 +117,6 @@ const MyCourses = () => {
         {finalData.length > 0 ? (
           finalData?.map((course) => (
             <>
-             
               <div className="bg-white  sm:w-full  shadow h-fit rounded-lg p-3 flex lg:flex-nowrap flex-wrap gap-2 sm:gap-6 items-start  mx-auto ">
                 {/* Course Image */}
                 <div className="flex-shrink-0">
@@ -147,8 +146,7 @@ const MyCourses = () => {
                   </Link>
                 </div>
                 {/* Course Info */}
-                <div className="border-t sm:border-t-0 lg:border-l w-full  sm:w-[45%]  lg:w-1/4 h-full 
-                 pl-2 lg:pl-6">
+                <div className="border-t sm:border-t-0 lg:border-l w-full  sm:w-[45%]  lg:w-1/4 h-full pl-2 lg:pl-6">
                   <div className=" mt-2 sm:mt-0 lg:mt-2 mb-2">
                     <div className="text-lg flex items-center font-bold mr-1"> Rating: {renderStars(course?.rating)}</div>
                     {/* <FaStar className="text-orange" /> */}

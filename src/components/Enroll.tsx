@@ -283,12 +283,11 @@ const Profile = () => {
   return (
     <div className='w-full flex p-4'>
       {/* uppr div  */}
-      <div className='w-full  h-[85vh] gap-3 mx-auto  flex  justify-between  '>
-
-        <div className='  h-fit  w-[62%] flex-1 flex flex-col  sm:flex-row gap-3 mx-auto lg:mx-0 shadow rounded-lg py-2 px-4'>
+      <div className='w-full  h-[85vh] gap-3 mx-auto  flex  flex-col lg:flex-row  justify-between  '>
+        <div className='  h-fit w-full lg:w-[62%] flex-1 flex flex-col  md:flex-row   gap-3 mx-auto lg:mx-0 shadow rounded-lg py-2 px-4'>
           <div
             className=' 
-             border-slate-200  w-1/2 max-w-[400px] flex-1 py-4 px-4 pr-5 border-r-1   group flex flex-col gap-2  smooth1 '
+             border-slate-200 w-full  md:w-1/2 md:max-w-[400px] flex-1 py-4 px-4 pr-5 md:border-r-1 group flex flex-col gap-2  smooth1 '
           >
             <Image src={`${BASE_URL_IMAGE}${data?.card_image}`} height={225} width={414} alt='' className='rounded-md'></Image>
             <h3 className='font-semibold text-black text-xl'>{data?.name}</h3>
@@ -346,9 +345,7 @@ const Profile = () => {
               <p className='text-[14px] mt-4'>{data?.short_description}</p>
             </div>
           </div>
-          {/* coupan code part from here */}
-          <div className='flex   flex-1 w-1/2 justify-center'>
-
+          <div className='flex flex-1 w-[100%]   md:w-1/2 justify-center'>
             <div className='w-full py-4'>
               <div>
                 <div className='w-full  border-b-1 pb-2 border-slate-200'>
@@ -374,7 +371,7 @@ const Profile = () => {
                         setdiscount(0);
 
                       }}
-                      className="bg-orange text-white p-2 px-5 rounded-md hover:bg-lightOrange hover:text-orange text-[18px] font-semibold duration-150"
+                      className="bg-orange text-white p-2 px-5 rounded-r-md hover:bg-lightOrange hover:text-orange text-[18px] font-semibold duration-150"
                     >
                       Remove
                     </button>
@@ -385,7 +382,7 @@ const Profile = () => {
                       onClick={ApplyCouponcode}
                       disabled={!coupanData.discount_code.trim()}
                       className="bg-orange w-fit mx-auto disabled:bg-gray-300 disabled:text-gray-600 sm:mx-0
-                   text-white p-2 px-5 rounded-md hover:bg-lightOrange text-[18px]
+                   text-white p-2 px-5 rounded-r-md hover:bg-lightOrange text-[18px]
                    font-semibold hover:text-orange duration-150"
                     >
                       Apply
@@ -427,20 +424,21 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className='shadow border-1 rounded-lg right-4 max-w-[440px] w-[32%] flex-shrink p-4 justify-between gap-6  font-medium text-[17px] 
+        <div className='shadow border-1 rounded-lg right-4   lg:max-w-[440px] lg:w-[32%]  flex-col sm:flex-row flex lg:flex-col 
+        sm:items-center lg:justify-start flex-shrink p-4 sm:justify-between  gap-2 lg:gap-6  font-medium text-[17px] 
                 text-slate-600  py-3 top-24 logout-div' >
-          <Image src={'/images/checkout.svg'} height={243} width={430} alt='' className='mb-4'></Image>
+          <Image src={'/images/checkout.svg'} height={243} width={430} alt='' className='mb-4 lg:w-[430px] w-full sm:w-[280px] '></Image>
           <div>
             <div className="w-full flex justify-start gap-5 items-center">
               <div className="relative">
                 <div
-                  className="w-24 h-24 flex justify-center items-center rounded-full"
+                  className="w-20 h-20 md:w-24 md:h-24 flex justify-center items-center rounded-full"
                   style={{
                     background: `conic-gradient(#FF6B6B ${profile?.profile_completion_percentage || 0}%, #F5F5F5 0)`
                   }}
                 >
                   <div className="relative rounded-full p-[4px] bg-white">
-                    <div className="w-20 h-20 bg-[#9C9C9C] rounded-full flex items-center justify-center overflow-hidden">
+                    <div className="md:w-20  w-16  h-16 md:h-20 bg-[#9C9C9C] rounded-full flex items-center justify-center overflow-hidden">
                       <svg
                         className="w-8 h-8 text-white"
                         fill="none"
@@ -525,9 +523,7 @@ const Profile = () => {
                   </div>
                 </div>
               }
-              {/* {copied && (
-                <div className="text-orange mt-2 text-sm">Code Copied!</div>
-              )} */}
+              
             </div>
           </div>
         </div>
