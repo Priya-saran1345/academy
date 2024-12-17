@@ -17,7 +17,8 @@ export default function RootLayout(
 }: {
   children: React.ReactNode;
 }
-) {
+)
+ {
   return (
     <html lang="en">
       <head>
@@ -29,7 +30,6 @@ export default function RootLayout(
             {children}
         </ApiProvider>
           </DashboardProvider>
-       
       </body>
     </html>
   );
