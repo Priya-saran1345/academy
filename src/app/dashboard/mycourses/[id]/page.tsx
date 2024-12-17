@@ -246,7 +246,7 @@ export default function Page() {
                             onClick={() => setOpenModule(openModule === moduleIndex ? null : moduleIndex)}
                             className="w-full flex items-center justify-between p-4 border-slate-200 border-1 hover:shadow-lg mb-3 duration-250 rounded-lg"
                           >
-                            <span className="font-medium">{moduleIndex + 1}. {module?.title || 'Untitled Module'}</span>
+                            <span className="font-semibold text-[18px]">{moduleIndex + 1}. {module?.title || 'Untitled Module'}</span>
                             {openModule === moduleIndex ? <FiMinus className="text-[24px] text-orange" /> : <FiPlus className="text-[24px] text-orange" />}
                           </button>
                           <AnimatePresence>
@@ -271,7 +271,7 @@ export default function Page() {
                                             <div className="flex items-start gap-2">
                                               <div className="w-[13px] h-[13px] border-2 mt-1 border-orange rounded-full"></div>
                                               <div className="items-center gap-2">
-                                                <div className={`font-medium text-[18px] ${expandedLessonIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title}</div>
+                                                <div className={`font-normal text-[16px] ${expandedLessonIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title}</div>
                                                 <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
                                               </div>
                                             </div>
@@ -299,7 +299,8 @@ export default function Page() {
 
                                     {/* pdf content here */}
 
-                                    <div key={lessonIndex} className={`flex  ${expandednotesIndex === lessonIndex ? "border-orange" : "border-slate-200"} rounded-lg border-1 flex-col gap-2 mt-2`}>
+                                    <div key={lessonIndex} className={`flex  ${expandednotesIndex === lessonIndex 
+                                      ? "border-orange" : "border-slate-200"} rounded-lg border-1 flex-col gap-2 mt-2`}>
                                       <div
                                         className={`flex p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
                                         onClick={() => toggleNotes(lessonIndex)}
@@ -309,7 +310,7 @@ export default function Page() {
                                             <div className="flex items-start gap-2">
                                               <div className="w-[13px] h-[13px]  mt-1 border-2 border-orange  rounded-full"></div>
                                               <div className="items-center gap-2">
-                                                <div className={`font-medium text-[18px] ${expandednotesIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>
+                                                <div className={`font-normal text-[16px] ${expandednotesIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>
                                                 <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
                                               </div>
                                             </div>

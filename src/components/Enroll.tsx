@@ -197,6 +197,7 @@ const Profile = () => {
           }
         });
       const { order_id, amount, currency, key, course_name } = orderData;
+      toast.success('Order created successfully')
       if (!window.Razorpay) {
         toast.error('Razorpay SDK not loaded');
         return;
@@ -221,11 +222,13 @@ const Profile = () => {
                   Authorization: `Bearer ${token}`
                 }
               });
-            alert("Payment successful! You are enrolled in the course.");
+            toast.success('Payment successful! You are enrolled in the course.')
             console.log('payment verification', verifyResponse)
+            router.push('/thank-you')
           } catch (err) {
+            toast.error("Payment verification failed. Please try again.");
             console.error("Payment verification failed:", err);
-            alert("Payment verification failed. Please try again.");
+
           }
         },
         prefill: {
@@ -246,11 +249,11 @@ const Profile = () => {
       console.log('Error fetching data :', error);
       toast.error(error.message)
     }
-    finally {
-      fetch();
-      toast.success('Enrolled successfully')
-      router.push('/thank-you')
-    }
+    // finally {
+    //   fetch();
+    
+    //   router.push('/thank-you')
+    // }
   }
 
   const ApplyCouponcode = async (e: any) => {

@@ -173,7 +173,7 @@ const MyCourses = () => {
                   </p>
                   <p>
                     <span className="font-semibold">Payment Status - </span>
-                    <span className="text-orange font-bold">{course.payment_status}</span>
+                    <span className="text-orange font-bold capitalize">{course.payment_status}</span>
                   </p>
                   <p>
                     <span className="font-semibold">Access Expiry Date - </span>Dec 8, 2025

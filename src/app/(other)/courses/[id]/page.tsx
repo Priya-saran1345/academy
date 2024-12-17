@@ -276,7 +276,7 @@ const renderStars = (rating: any) => {
                                             onClick={() => {
                                                 localStorage.setItem("courseid", id || "");
                                                 setcourseid(id);
-                                                router.push(`/enroll`);
+                                                router.push(`/dashboard/enroll`);
                                             }}
                                         >
                                             Enroll Now
@@ -475,12 +475,6 @@ const renderStars = (rating: any) => {
                                 </div>
                                 {
                                 ApiData?.is_purchased ? (
-                                <div className=' shadow  mt-4 p-6 border-l-4 border-orange rounded-lg '>
-                                 <p className=' text-[20px] font-medium'>Unlock Full Access to All Course Modules!</p>
-                                 <p className=' text-[16px] text-textGrey'>To access all the modules and start learning in-depth, click the button below to enroll in 
-                                    &apos;{ApiData?.name} &apos; today! The first module is available for preview.</p>
-                                </div>
-                                    ):
                                     <div className=' shadow  mt-4 p-6 border-l-4 border-orange rounded-lg '>
                                     <p className=' text-[20px] font-medium'>Welcome Back! Continue Your Learning Journey</p>
                                     <p className=' text-[16px] text-textGrey'>
@@ -488,6 +482,13 @@ const renderStars = (rating: any) => {
                                     &apos;{ApiData?.name} &apos; course. You can access all the modules and start learning right away.             
                                          </p>
                                  </div>
+                                    ):
+                                  
+                                 <div className=' shadow  mt-4 p-6 border-l-4 border-orange rounded-lg '>
+                                 <p className=' text-[20px] font-medium'>Unlock Full Access to All Course Modules!</p>
+                                 <p className=' text-[16px] text-textGrey'>To access all the modules and start learning in-depth, click the button below to enroll in 
+                                    &apos;{ApiData?.name} &apos; today! The first module is available for preview.</p>
+                                </div>
                                 }
                             </div>
                             {ApiData?.modules.length > 0 &&
@@ -506,7 +507,7 @@ const renderStars = (rating: any) => {
                                                                 onClick={() => setOpenModule(openModule === moduleIndex ? null : moduleIndex)}
                                                                 className="w-full flex items-center justify-between p-4 border-slate-200 border-1 hover:shadow-lg mb-3 duration-250 rounded-lg"
                                                             >
-                                                                <span className="font-medium">{moduleIndex + 1}. {module?.title || 'Untitled Module'}</span>
+                                                                <span className="font-medium text-[18px]">{moduleIndex + 1}. {module?.title || 'Untitled Module'}</span>
                                                                 {openModule === moduleIndex ? <FiMinus className="text-[24px] text-orange" /> : <FiPlus className="text-[24px] text-orange" />}
                                                             </button>:
                                                             <div>
@@ -516,7 +517,7 @@ const renderStars = (rating: any) => {
                                                                 className="w-full flex items-center justify-between p-4
                                                                  border-slate-200 border-1 hover:shadow-lg mb-3 duration-250 rounded-lg"
                                                                 > 
-                                                                <span  className="font-medium">{moduleIndex + 1}. {module?.title || 'Untitled Module'}</span>
+                                                                <span  className=" font-semibold text-[18px]">{moduleIndex + 1}. {module?.title || 'Untitled Module'}</span>
                                                                 <CiLock className='text-[24px] text-textGrey' />
                                                                 {/* {openModule === moduleIndex ? <FiMinus className="text-[24px] text-orange" /> : 
                                                                 <FiPlus className="text-[24px] text-orange" />} */}
@@ -552,8 +553,9 @@ const renderStars = (rating: any) => {
                                                                                                 <div className="flex items-start gap-2">
                                                                                                     <div className="min-w-[13px] h-[13px] border-2 mt-1 border-orange rounded-full"></div>
                                                                                                     <div className="items-center gap-2">
-                                                                                                        <div className={`font-medium text-[16px] md:text-[18px] 
-                                                                                                            ${expandedLessonIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title}</div>
+                                                                                                        <div className={`font-normal text-[16px]
+                                                                                                            ${expandedLessonIndex === lessonIndex
+                                                                                                             ? "text-orange" : "text-textGrey"}`}>{lesson?.title}</div>
                                                                                                         <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
                                                                                                     </div>
                                                                                                 </div>
@@ -591,7 +593,9 @@ const renderStars = (rating: any) => {
                                                                                                 <div className="flex items-start gap-2">
                                                                                                     <div className="min-w-[13px] h-[13px]  mt-1 border-2 border-orange  rounded-full"></div>
                                                                                                     <div className="items-center gap-2">
-                                                                                                        <div className={`font-medium text-[16px] md:text-[18px] ${expandednotesIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>
+                                                                                                        <div className={`font-normal text-[16px]
+                                                                                                            ${expandednotesIndex === lessonIndex
+                                                                                                             ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>
                                                                                                         <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
                                                                                                     </div>
                                                                                                 </div>
