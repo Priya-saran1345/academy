@@ -49,6 +49,7 @@ const page = () => {
     const toggleLesson = (index: number) => {
         setExpandedLessonIndex(expandedLessonIndex === index ? null : index);
     };
+    
     const toggleNotes = (index: number) => {
         setexpandednotesIndex(expandednotesIndex === index ? null : index);
     };
@@ -248,7 +249,6 @@ const renderStars = (rating: any) => {
                             </nav>
                         </div>
                     </div>
-                    {/* //top bar under lg */}
                     <div className='lg:ml-5  w-full'>
                         <div className=' flex h-fit flex-wrap md:flex-nowrap  lg:hidden pb-20 mb-8 gap-5 shadow-xl p-6 border-[1px] border-lightGrey rounded-sm'>
                             <div className='py-4 md:w-2/3'>
@@ -353,7 +353,7 @@ const renderStars = (rating: any) => {
                                 </div>
                                 <div>
                                     <p className='text-black text-[18px] font-bold mb-4'>Skills You’ll Master in This Course</p>
-                                    <div className='flex justify-center gap-3 flex-wrap text-[16px]'>
+                                    <div className='flex justify-center sm:justify-start gap-3 flex-wrap text-[16px]'>
                                         {ApiData?.skills?.map((elem: any) => (
                                             <span key={elem} className='bg-lightGrey rounded-md p-1'>{elem}</span>
                                         ))}

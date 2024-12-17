@@ -20,7 +20,6 @@ interface ApiContextType {
     basic_detail:any
 
 }
-
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
 
 export const ApiProvider = ({ children }: { children: React.ReactNode }) => {

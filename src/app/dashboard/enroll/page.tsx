@@ -16,7 +16,7 @@ const Page = () => {
 <div className="w-full flex  relative">
   {/* Sidebar with absolute positioning */}
   <div className="w-fit hidden lg:block  absolute top-0 left-0 h-full">
-    <DashboardSidebar />
+              <DashboardSidebar />
   </div>
   {/* Main content area with appropriate padding to avoid overlap */}
   <div className="w-[100%]  lg:pl-[85px]"> {/* Adjust `pl` based on the sidebar width */}

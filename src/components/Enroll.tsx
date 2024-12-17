@@ -168,10 +168,7 @@ const Profile = () => {
       });
     }
   }, [apidata, data]);
-  // const changeValue = (event: any) => {
-  //   const newdata = { ...updateddata, [event.target.name]: event.target.value }
-  //   setupdateddata(newdata)
-  // }
+
   const codeset = (event: any) => {
     const newdata = { ...coupanData, [event.target.name]: event.target.value }
     const data1 = { ...newdata, ['course_id']: data?.id }
@@ -184,12 +181,17 @@ const Profile = () => {
         console.error('No token found');
         return;
       }
+      const payload = {
+        course_id: data?.id,
+        discount_code:''
+      };
+      if (discount > 0) {
+        payload.discount_code =coupanData.discount_code;
+      }
+      
       // console.log('the order data', updateddata)
       const { data: orderData } = await axios.post(`${BASE_URL}create-order/`,
-        {
-          course_id: data?.id,
-          discount_code: coupanData.discount_code
-        },
+        payload,
 
         {
           headers: {
@@ -255,7 +257,6 @@ const Profile = () => {
     //   router.push('/thank-you')
     // }
   }
-
   const ApplyCouponcode = async (e: any) => {
     try {
       const token = Cookies.get('login_access_token');
@@ -263,12 +264,10 @@ const Profile = () => {
         toast.error('Please login first')
         return;
       }
-
       const response = await axios.post(`${BASE_URL}apply-discount/`, coupanData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
-
       });
       setdiscount(response.data.discount_amount)
       // console.log(response.data)
@@ -295,7 +294,6 @@ const Profile = () => {
               {data?.short_description}
             </h3>
             <div className=' flex  items-center font-semibold text-black text-[16px]'>Price:<span className='text-orange'> Rs.{data?.price}</span></div>
-
             <div className=' flex  items-center font-semibold text-black text-[16px]'>Rating:{renderStars(data?.rating)}</div>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
               ( {data?.review_count}reviews)
@@ -428,8 +426,8 @@ const Profile = () => {
         sm:items-center lg:justify-start flex-shrink p-4 sm:justify-between  gap-2 lg:gap-6  font-medium text-[17px] 
                 text-slate-600  py-3 top-24 logout-div' >
           <Image src={'/images/checkout.svg'} height={243} width={430} alt='' className='mb-4 lg:w-[430px] w-full sm:w-[280px] '></Image>
-          <div>
-            <div className="w-full flex justify-start gap-5 items-center">
+          <div className='w-full'>
+            <div className="w-full flex justify-start gap-5 items-center ">
               <div className="relative">
                 <div
                   className="w-20 h-20 md:w-24 md:h-24 flex justify-center items-center rounded-full"
@@ -481,11 +479,11 @@ const Profile = () => {
             <div className='w-full bg-orange-100  p-3 rounded-md '>
               <p className=' text-black font-bold text-[18px]  mb-2   mx-auto'>
                 {
-                  profile?.profile_completion_percentage == 100 ? 'Congratulations You Got  this Offer' : 'First Complete Your Profile to Avail this Offer'
+                  profile?.profile_completion_percentage == 100 ? 'Well done! Your profile is 100% complete.' : 'First Complete Your Profile to Avail this Offer'
                 }
               </p>
-              {
-                profile?.profile_completion_percentage == 100 &&
+              {/* {
+                profile?.profile_completion_percentage == 100 && */}
                 <div>
                   <p className=' text-start text-textGrey'>Use code:</p>
                   <div className="flex items-center gap-3 ">
@@ -522,7 +520,7 @@ const Profile = () => {
                     </button>
                   </div>
                 </div>
-              }
+              {/* } */}
               
             </div>
           </div>
