@@ -16,9 +16,9 @@ const [discountCode, setdiscountCode] = useState<any>('Welcome20')
       {/* Top Section with Image and Discount */}
       <div className="relative">
         <Image
-          src="/images/discount.png" // Replace with your image path
+          src="/images/discount.svg" // Replace with your image path
           alt="Discount Offer"
-          width={457}
+          width={450}
           height={190}
           className="rounded-lg"
         />
