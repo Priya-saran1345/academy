@@ -48,13 +48,13 @@ const setnavigate=()=>{
             </div>
             <div className='flex mb-3 gap-3'>
             <Link href={`/${link1}`}>
-                <button className='hover:bg-orange bg-[#F24A2533] hover:text-white border text-orange center px-4 py-2 rounded-lg w-32 mt-5 smooth1'>
+                <button className='hover:bg-orange bg-[#F24A2533] hover:text-white border text-orange center px-4 py-2 rounded-lg  mt-5 smooth1'>
                     {text}
                 </button>
             </Link>
             {
              text1&&
-                <button className='hover:bg-orange bg-[#F24A2533] hover:text-white border text-orange center px-4 py-2 rounded-lg w-32 mt-5 smooth1'  
+                <button className='hover:bg-orange bg-[#F24A2533] hover:text-white border text-orange center px-4 py-2 rounded-lg  mt-5 smooth1'  
                 onClick={setnavigate}         
                 >
                     {text1}

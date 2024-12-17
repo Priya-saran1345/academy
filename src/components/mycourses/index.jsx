@@ -120,13 +120,13 @@ const MyCourses = () => {
              
               <div className="bg-white  sm:w-full  shadow h-fit rounded-lg p-3 flex lg:flex-nowrap flex-wrap gap-2 sm:gap-6 items-start  mx-auto ">
                 {/* Course Image */}
-                <div className="flex-shrink-1">
+                <div className="flex-shrink-0">
                   <Image
                     src={course?.card_image}// Replace with the correct path
                     alt="Python Course"
-                    width={325}
+                    width={425}
                     height={193}
-                    className="rounded-lg w-full  mx-auto sm:mx-0 sm:w-[250px] min-h-[193px] xl:w-[325]"
+                    className="rounded-lg w-full  mx-auto sm:mx-0 sm:w-[250px] min-h-[193px] xl:w-[375px]"
                   />
                 </div>
                 <div className="flex-grow  sm:w-1/2 lg:w-1/4 min-h-full">
@@ -166,25 +166,25 @@ const MyCourses = () => {
                 <div className=" border-t sm:border-t-0 w-full sm:border-l sm:w-1/2  lg:w-1/4 mt-2  h-full  pl-2 lg:pl-6">
                 <div className="text-textGrey text-[14px] xl:text-[16px] xl:gap-2 pt-2 sm:pt-0 flex flex-col justify-between">
                   <p>
-                    <span className="font-semibold">Amount - </span>₹{course.payment}
+                    Amount -  <span className="text-black ">{course.payment}</span>₹
+                  </p>
+                 <p>
+                    Payment Date - <span className="text-black ">{course.order_date}</span>
                   </p>
                   <p>
-                    <span className="font-semibold">Payment Date - </span>{course.order_date}
-                  </p>
-                  <p>
-                    <span className="font-semibold">Payment Status - </span>
+                    Payment Status - 
                     <span className="text-orange font-bold capitalize">{course.payment_status}</span>
                   </p>
                   <p>
-                    <span className="font-semibold">Access Expiry Date - </span>Dec 8, 2025
+                    Access Expiry Date - <span className="text-black ">Life Time</span>
                   </p>
                   <p>
-                    <span className="font-semibold">Discount - </span>
-                    <span className=" ">{course?.discount_amount}</span>
+                    Discount - 
+                    <span className="text-black ">{course?.discount_amount} </span>
                   </p>
                   <p>
-                    <span className="font-semibold">Coupan Code- </span>
-                    <span className=" ">{course?.discount_code ||'No coupan used'} </span>
+                    Coupan Code- 
+                    <span className="text-black ">{course?.discount_code ||'No coupan used'} </span>
                   </p>
                 </div>
                 </div>

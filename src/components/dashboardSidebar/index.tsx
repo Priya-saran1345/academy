@@ -64,13 +64,13 @@ const DashboardSidebar = () => {
   };
 
   const sidebarVariants = {
-    expanded: { width: "245px" },
+    expanded: { width: "245px" ,  boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.5)"  },
     collapsed: { width: "55px" },
   };
 
   return (
     <motion.div
-      className="group w-fit z-50 sticky top-16 min-h-[93vh] h-[90vh] overflow-hidden flex flex-col"
+      className="group w-fit z-50 sticky  top-16 min-h-[93vh] h-[90vh] overflow-hidden flex flex-col"
       initial="collapsed"
       animate={isExpanded ? "expanded" : "collapsed"}
       variants={sidebarVariants}

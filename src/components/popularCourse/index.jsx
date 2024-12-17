@@ -20,9 +20,9 @@ const PopularCourse = ({ course = [] }) => {
               id={elem.id}
               link1={`courses/${elem.slug}`}
               image={`${BASE_URL_IMAGE}${elem.card_image}`}
-              text="View"
-              link="dashboard/enroll"
-              text1={'Enroll'}
+              text="Go To Course"
+              // link="dashboard/enroll"
+              // text1={'Enroll'}
             />
           );
         }

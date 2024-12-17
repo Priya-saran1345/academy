@@ -64,7 +64,6 @@ const OtherCourses = () => {
       },
     ],
   };
-
   const fetchCourses = async () => {
     try {
       const response = await axios.get(`${BASE_URL}courses/`);
@@ -110,7 +109,7 @@ const OtherCourses = () => {
         <p className="text-[22px] text-black font-semibold mb-5 border-orange border-b-2 w-fit">
           Courses For You
         </p>
-        <div className="flex items-center h-[45px] text-[20px] border-lightOrange border-[1px] rounded-md px-4 w-full md:w-fit">
+        <div className="flex items-center h-[38px] text-[16px] border-lightOrange border-[1px] rounded-md px-4 w-full md:w-fit">
           <input
             type="text"
             onChange={handleselect}
@@ -127,7 +126,7 @@ const OtherCourses = () => {
             key={course.id}
             slug={course.slug}
             name={course.name}
-            text={"View"}
+            text={"Go To Course"}
             // text1={"Enroll"}
             description={course.short_description}
             level={course.course_level}
@@ -143,7 +142,7 @@ const OtherCourses = () => {
         }
         return (
           <div key={category} className="my-6">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-3">
+            <div className="flex flex-col md:flex-row  items-center gap-3">
               <p className="text-[22px] font-semibold text-black">{category}</p>
               <div className="flex gap-3 justify-center md:justify-end">
                 <div
@@ -152,15 +151,15 @@ const OtherCourses = () => {
                     sliderRefs.current[category]?.current?.slickPrev()
                   }
                 >
-                  <MdKeyboardArrowLeft />
+                  <MdKeyboardArrowLeft className="text-[28px]" />
                 </div>
                 <div
                   className="w-[40px] h-[40px] bg-lightOrange rounded-full hover:bg-orange active:bg-orange text-orange hover:text-white flex justify-center items-center cursor-pointer"
                   onClick={() =>
                     sliderRefs.current[category]?.current?.slickNext()
                   }
-                >
-                  <MdKeyboardArrowRight />
+                > 
+                  <MdKeyboardArrowRight className="text-[28px]" />
                 </div>
               </div>
             </div>
@@ -178,7 +177,7 @@ const OtherCourses = () => {
                     slug={course.slug}
                     name={course.name}
                     image={`${BASE_URL_IMAGE}${course.card_image}`}
-                    text={"View"}
+                    text={"Go To Course"}
                     link1={`courses/${course.slug}`}
                     // text1={"Enroll"}
                     // link={`dashboard/enroll`}

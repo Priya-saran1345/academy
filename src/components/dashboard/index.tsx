@@ -173,26 +173,26 @@ const Dashboard = () => {
                   }}
                 >
                   <div className="w-full h-full group-hover:text-white flex gap-5 text-black">
-                    <div className="w-[102px]">
+                    <div className="w-[202px]">
                       <Image
                         src={course?.card_image}
                         alt="Business & Entrepreneurship"
-                        width={100}
-                        height={100}
+                        width={202}
+                        height={202}
                       // className="transition group-hover:brightness-0 group-hover:invert"
                       />
                     </div>
                     <div className="w-full pr-2">
                       <div className="flex w-full justify-between">
                         <p className="text-[17px] font-semibold">{course?.course_name}</p>
-                        <FaArrowUpRightFromSquare className="text-[22px]" />
+                        <FaArrowUpRightFromSquare className="font-normal ml-2 text-[16px]" />
                       </div>
-                      <p className="text-[14px]">
+                      {/* <p className="text-[14px]">
                         Total Amount:&nbsp;{course?.payment + course?.discount_amount}
                       </p>
                       <p className="text-[14px]">Status:&nbsp;{course?.completion_status}</p>
                       <p className="text-[14px]">Discount:&nbsp;{course?.discount_amount}</p>
-                      <p className="text-[14px]">Payed Amount:&nbsp;{course?.payment}</p>
+                      <p className="text-[14px]">Payed Amount:&nbsp;{course?.payment}</p> */}
                     </div>
                   </div>
                   <div className="w-full h-2 bg-slate-200 rounded-md  group-hover:bg-white">
