@@ -1,16 +1,38 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import axios from 'axios';
+import { BASE_URL } from '@/utils/api';
 const OfferCard = () => {
   const [copied, setCopied] = useState(false);
   const codeRef = useRef(null);
-const [discountCode, setdiscountCode] = useState<any>('Welcome20')
+const [discountCode, setdiscountCode] = useState<any>()
   const handleCopy = () => {
     navigator.clipboard.writeText(discountCode).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
   };
+
+
+
+  const fetch = async () => {
+    try {
+    
+      const response = await axios.get(`${BASE_URL}active-discounts/`
+    
+    );
+      console.log('my courses are ', response.data)
+      setdiscountCode(response.data.code);
+    } catch (error:any) {
+      console.log("my courses error", error.message);
+    }
+  };
+  useEffect(() => {
+    fetch();
+  }, []);
+
+
   return (
     <div className=" max-w-md mx-auto relative">
       {/* Top Section with Image and Discount */}

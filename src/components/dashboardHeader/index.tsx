@@ -17,6 +17,8 @@ import DashboardSidebar from '../dashboardSidebar';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6';
 import { LuBookOpen } from 'react-icons/lu';
+import axios from 'axios';
+import { BASE_URL } from '@/utils/api';
 
 const DashboardHeader = ({ props }: any) => {
   const { profile } = useapi();
@@ -30,7 +32,22 @@ const DashboardHeader = ({ props }: any) => {
   const basic_detail = useapi()
   const [copied, setCopied] = useState(false);
   const divRef = useRef<any>(null); // Create a ref for the div
-
+  const [discount, setdiscount] = useState<any>()
+  const fetch = async () => {
+    try {
+    
+      const response = await axios.get(`${BASE_URL}active-discounts/`
+    
+    );
+      console.log('my courses are ', response.data)
+      setdiscount(response.data.code);
+    } catch (error:any) {
+      console.log("my courses error", error.message);
+    }
+  };
+  useEffect(() => {
+    fetch();
+  }, []);
   const handleCopy = () => {
     const textToCopy = divRef.current?.innerText; // Get the dynamic content from the div
     navigator.clipboard.writeText(textToCopy).then(() => {
@@ -190,8 +207,8 @@ const DashboardHeader = ({ props }: any) => {
                           ref={divRef} // Attach the ref to the div
                           className='border-dashed border-orange bg-orange/5 mt-3 text-orange border-2 border-orange-400 text-orange-600 font-bold py-1 rounded-md cursor-pointer'
                           onClick={handleCopy}
-                        >
-                          Welcome10 {/* This text can now be dynamic */}
+                        > 
+                          {discount} {/* This text can now be dynamic */}
                         </div>
                         {copied && (
                           <div className='absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-black text-white text-xs rounded px-2 py-1 mt-1'>

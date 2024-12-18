@@ -52,6 +52,10 @@ declare global {
     Razorpay: typeof Razorpay;
   }
 }
+
+
+
+
 const Profile = () => {
   const router = useRouter()
   const { profile, fetch, discount, setdiscount } = useapi();
@@ -61,7 +65,7 @@ const Profile = () => {
   const [copied, setCopied] = useState(false);
   // Create a ref for the div
   const codeRef = useRef(null);
-  const [discountCode, setdiscountCode] = useState<any>('Welcome20')
+  const [discountCode, setdiscountCode] = useState<any>()
   const handleCopy = () => {
     navigator.clipboard.writeText(discountCode).then(() => {
       setCopied(true);
@@ -74,7 +78,21 @@ const Profile = () => {
       // setshowremove(true)
     });
   };
-
+  const fetch1 = async () => {
+    try {
+    
+      const response = await axios.get(`${BASE_URL}active-discounts/`
+    
+    );
+      console.log('my courses are ', response.data)
+      setdiscountCode(response.data.code);
+    } catch (error:any) {
+      console.log("my courses error", error.message);
+    }
+  };
+  useEffect(() => {
+    fetch1();
+  }, []);
 
   const renderStars = (rating: any) => {
     const stars = [];
