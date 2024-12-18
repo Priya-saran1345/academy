@@ -202,7 +202,7 @@ const Profile = () => {
             <br />
             <input
               type="text"
-              className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+              className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               readOnly
               placeholder='Your Name'
               value={`${apidata?.first_name ?? ''} ${apidata?.last_name ?? ''}`}
@@ -213,7 +213,7 @@ const Profile = () => {
             </label>
             <br />
             <input type="text"
-              className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+              className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               readOnly value={apidata?.email} placeholder='Enter your Email' />
           </div>
           <div className='w-full sm:w-[48%]'>
@@ -223,7 +223,7 @@ const Profile = () => {
             </label>
             <br />
             <input type="text"
-              className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+              className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               readOnly placeholder=' Username' value={apidata?.username} />
           </div>
           <div className='w-full sm:w-[48%]'>
@@ -231,7 +231,7 @@ const Profile = () => {
             </label>
             <br />
             <input type="number"
-              className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+              className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               readOnly placeholder=' your phone' value={apidata?.phone} />
           </div>
           <div className='w-full sm:w-[48%]'>
@@ -239,7 +239,7 @@ const Profile = () => {
             </label>
             <br />
             <input type="text"
-              className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+              className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               readOnly placeholder=' your Gender' value={apidata?.gender} />
           </div>
           <div className='w-full sm:w-[48%]'>
@@ -247,7 +247,7 @@ const Profile = () => {
             </label>
             <br />
             <input type="text"
-              className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+              className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               readOnly placeholder=' your DOB' value={apidata?.date_of_birth} />
           </div>
           <div className='w-full sm:w-[48%]'>
@@ -255,7 +255,7 @@ const Profile = () => {
             </label>
             <br />
             <input type="text"
-              className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+              className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               value={apidata?.address} readOnly placeholder=' your Address' />
           </div>
           <div className='w-full sm:w-[48%]'>
@@ -263,7 +263,7 @@ const Profile = () => {
             </label>
             <br />
             <input type="text"
-              className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+              className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               value={apidata?.city} readOnly placeholder=' your City' />
           </div>
           
@@ -283,7 +283,7 @@ const Profile = () => {
               </label>
               <br />
               <input type="number"
-                className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+                className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your Email' value={apidata?.alternate_phone} />
             </div>
             <div className='w-full sm:w-[48%]'>
@@ -291,7 +291,7 @@ const Profile = () => {
               </label>
               <br />
               <input type="text"
-                className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+                className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your Qualification' value={apidata?.qualification} />
             </div>
 
@@ -300,7 +300,7 @@ const Profile = () => {
               </label>
               <br />
               <input type="text"
-                className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+                className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 value={apidata?.course_interested
                 } readOnly placeholder='your Password' />
             </div>
@@ -309,7 +309,7 @@ const Profile = () => {
               </label>
               <br />
               <input type="text"
-                className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+                className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your Goals' value={apidata?.goals} />
             </div>
             <div className='w-full sm:w-[48%]'>
@@ -317,7 +317,7 @@ const Profile = () => {
               </label>
               <br />
               <input type="text"
-                className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+                className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your extracurriculars' value={apidata?.extracurriculars} />
             </div>
             <div className='w-full sm:w-[48%]'>
@@ -325,7 +325,7 @@ const Profile = () => {
               </label>
               <br />
               <input type="text"
-                className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+                className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your Current Job Title' value={apidata?.current_job_title} />
             </div>
             <div className='w-full sm:w-[48%]'>
@@ -333,7 +333,7 @@ const Profile = () => {
               </label>
               <br />
               <input type="text"
-                className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+                className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your Industry' value={apidata?.industry} />
             </div>
             <div className='w-full sm:w-[48%]'>
@@ -341,7 +341,7 @@ const Profile = () => {
               </label>
               <br />
               <input type="text"
-                className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+                className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your Company Name' value={apidata?.company_name} />
             </div>
             <div className='w-full sm:w-[48%]'>
@@ -349,7 +349,7 @@ const Profile = () => {
               </label>
               <br />
               <input type="text"
-                className='capitalize text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
+                className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' your LinkedIn Profile' value={apidata?.linkedin_profile_url} />
             </div>
 
@@ -371,7 +371,7 @@ const Profile = () => {
 
             {/** Form Fields **/}
             <div className='w-full flex justify-center flex-col items-center'>
-              <label htmlFor="first_name" className='text-[16px] mb-3 font-medium textGreyblack Capitalize'>First Name</label>
+              <label htmlFor="first_name" className='text-[16px] mb-3 font-medium textGreyblack Capitalize'>Profile Image</label>
 
               <div className="size-[122px] bg-[#F5F5F5] rounded-full flex justify-center items-center relative">
                 {imagePreview ? (
@@ -380,7 +380,7 @@ const Profile = () => {
                     width={122}
                     height={122}  
                     alt="Selected Profile Image"
-                    className="rounded-full"
+                    className="rounded-full h-full"
                   />
                 ) : apidata?.profile_image ? (
                   <Image
@@ -388,7 +388,7 @@ const Profile = () => {
                     width={122}
                     height={122}
                     alt="Profile Image"
-                    className="rounded-full"
+                    className="rounded-full h-full"
                   />
                 ) : (
                   <FaUser className="text-[53px] text-textGrey" />
@@ -411,7 +411,7 @@ const Profile = () => {
                 type="text"
                 value={updateddata.first_name}
                 name='first_name'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter Your Name'
                 onChange={changeValue}
               />
@@ -424,7 +424,7 @@ const Profile = () => {
                 type="text"
                 value={updateddata.last_name}
                 name='last_name'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter Your Name'
                 onChange={changeValue}
               />
@@ -437,7 +437,7 @@ const Profile = () => {
                 type="number"
                 value={updateddata.phone}
                 name='phone'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter Your phone no'
                 onChange={changeValue}
               />
@@ -450,7 +450,7 @@ const Profile = () => {
                 type="number"
                 value={updateddata.alternate_phone}
                 name='alternate_phone'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter alternate phone no'
                 onChange={changeValue}
               />
@@ -463,7 +463,7 @@ const Profile = () => {
                 type="text"
                 value={updateddata.qualification}
                 name='qualification'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter Qualification'
                 onChange={changeValue}
               />
@@ -476,7 +476,7 @@ const Profile = () => {
                 type="text"
                 value={updateddata.gender}
                 name='gender'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter Gender'
                 onChange={changeValue}
               />
@@ -489,7 +489,7 @@ const Profile = () => {
                 type="text"
                 value={updateddata.course_interested}
                 name='course_interested'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter Interested Course'
                 onChange={changeValue}
               />
@@ -515,7 +515,7 @@ const Profile = () => {
                 type="text"
                 value={updateddata.goals}
                 name='goals'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter Goals'
                 onChange={changeValue}
               />
@@ -528,7 +528,7 @@ const Profile = () => {
                 type="text"
                 value={updateddata.extracurriculars}
                 name='extracurriculars'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter Extracurriculars'
                 onChange={changeValue}
               />
@@ -541,7 +541,7 @@ const Profile = () => {
                 type="text"
                 value={updateddata.address}
                 name='address'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter Address'
                 onChange={changeValue}
               />
@@ -553,7 +553,7 @@ const Profile = () => {
                 type="text"
                 value={updateddata.industry}
                 name='industry'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter Industry'
                 onChange={changeValue}
               />
@@ -565,19 +565,19 @@ const Profile = () => {
                 type="text"
                 value={updateddata.company_name}
                 name='company_name'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter Company Name'
                 onChange={changeValue}
               />
             </div>
             <div>
-              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>linkedin Profile Url</label>
+              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Linkedin Profile Url</label>
               <br />
               <input
                 type="text"
                 value={updateddata.linkedin_profile_url}
                 name='linkedin_profile_url'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter LinkedIn Profile URL'
                 onChange={changeValue}
               />
@@ -589,19 +589,19 @@ const Profile = () => {
                 type="text"
                 value={updateddata.current_job_title}
                 name='current_job_title'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter Current Job Title'
                 onChange={changeValue}
               />
             </div>
             <div>
-              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>city</label>
+              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>City</label>
               <br />
               <input
                 type="text"
                 value={updateddata.city}
                 name='city'
-                className='capitalize text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
+                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
                 placeholder='Enter City'
                 onChange={changeValue}
               />

@@ -4,7 +4,6 @@ import React from 'react'
 import InnerPage from '@/components/CoursesInnerPage'
 import { fetchMeta } from "@/app/action";
 import { Suspense } from 'react'
-
 async function SchemaScript({ params}:any) {
   const  slug  = params?.id;
   const metaData = await fetchMeta(`courses/${slug}`);
