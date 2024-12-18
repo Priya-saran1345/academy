@@ -3,6 +3,8 @@ import HomeCom from '@/components/Home'
 import { fetchMeta } from "@/app/action";
 import { Metadata } from 'next';
 import { Suspense } from 'react'
+import { BASE_URL } from '@/utils/api'
+
 async function SchemaScript() {
   const metaData = await fetchMeta("/")
   const schemaData = metaData?.scripts[0].content
@@ -13,6 +15,10 @@ async function SchemaScript() {
     />
   )
 }
+  const  fetchdata=async() => {
+    const data = await fetch(`${BASE_URL}home/`)
+
+  }
 export default function Home() {
   return (
     <>

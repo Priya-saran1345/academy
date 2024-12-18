@@ -32,8 +32,7 @@ const page = () => {
     const [ApiData, setApiData] = useState<any>();
     const [error, setError] = useState();
     const { setcourseid } = useapi()
-    const pathname = usePathname()
-    const id = pathname.split('/').pop();
+    const [id, setid] = useState<any>()
     const [openIndex, setOpenIndex] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpen1, setisOpen1] = useState(false)
@@ -46,10 +45,14 @@ const page = () => {
     const [openModule, setOpenModule] = useState<number | null>(0);
     const [expandedLessonIndex, setExpandedLessonIndex] = useState<number | null>(0);
     const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
+    const pathname = usePathname()
     const toggleLesson = (index: number) => {
         setExpandedLessonIndex(expandedLessonIndex === index ? null : index);
     };
-    
+    useEffect(()=>{
+        const id = pathname.split('/').pop();
+        setid(id)
+    },[])
     const toggleNotes = (index: number) => {
         setexpandednotesIndex(expandednotesIndex === index ? null : index);
     };
@@ -171,7 +174,7 @@ const renderStars = (rating: any) => {
                                                     console.error('Slug is missing');
                                                 }
                                             }}
-                                        >
+                                            >
                                             Let's Dive In!
                                         </button>
                                     </>
@@ -521,6 +524,8 @@ const renderStars = (rating: any) => {
                                                                 <FiPlus className="text-[24px] text-orange" />} */}
                                                             </button>
                                                             <div className='w-full  flex justify-end items-center cursor-pointer  gap-2 px-3 py-1 text-orange' onClick={()=>{
+                                                                                                                localStorage.setItem('courseid', id);
+                                                                                                                setcourseid(id);
                                                                                                             router.push(`/dashboard/enroll`);
                                                             }}>
                                                             Unlock This Module and Begin Your Learning Journey!
