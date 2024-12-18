@@ -45,13 +45,13 @@ export default function Home({data}:any) {
   }, []);
   return (
     <>
-      {
+      {/* {
         !Apidata && <div className="min-h-[90vh] w-full flex justify-center items-center">
           <div className="loader"></div>
-        </div>
-      }
+        </div> 
+      } */}
       {
-        Apidata &&
+
         <div>
           <Header />
           <Banner props={website_banner} />

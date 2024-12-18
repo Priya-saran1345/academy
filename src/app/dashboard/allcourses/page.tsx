@@ -7,22 +7,6 @@ import React from 'react'
 const allcourse = () => {
   return (
 
-
-// <div className="min-h-screen ">
-// <DashboardHeader />
-// <div className="w-full flex  relative">
-//   {/* Sidebar with absolute positioning */}
-//   <div className="w-fit  z-50 hidden absolute lg:block  top-0 left-0 h-fit">
-//     <DashboardSidebar />
-//   </div>
-//   {/* Main content area with appropriate padding to avoid overlap */}
-//   <div className=" w-[100%] lg:pl-[80px]"> {/* Adjust `pl` based on the sidebar width */}
-//     <div className=" min-h-[88vh] bg-white rounded-sm px-4 py-5">
-//     <OtherCourses />
-//     </div>
-//   </div>
-// </div>
-// </div>
 <div className="min-h-screen bg-[#F7F7F7]">
 <DashboardHeader />
 <div className="w-full flex  relative">

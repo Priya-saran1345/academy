@@ -6,7 +6,6 @@ import React from 'react'
 import { fetchMeta } from "@/app/action";
 import { Metadata } from 'next';
 import { Suspense } from 'react'
-import { BASE_URL } from '@/utils/api'
 async function SchemaScript() {
   const metaData = await fetchMeta("courses")
   const schemaData = metaData?.scripts[0].content
@@ -17,13 +16,7 @@ async function SchemaScript() {
     />
   )
 }
-const  fetchdata=async() => {
-  const data = await fetch(`${BASE_URL}courses/`)
-  return data.json()
-}
-export default async function Courses() {
-  const data = await fetchdata()
-
+export default function Courses() {
   return (
     <>
       <Suspense fallback={null}>
@@ -32,12 +25,11 @@ export default async function Courses() {
       <div className='w-full'>
         <Header/>
         <div className='w-full xl:w-[75%] mt-40 mx-auto px-4 flex justify-center items-center'>
-        <OtherCourses data={data}/>
+        <OtherCourses/>
         </div>
         <FooterBanner/>
         <Footer/>
     </div>
-    
     </>
   )
 }

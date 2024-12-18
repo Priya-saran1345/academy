@@ -18,7 +18,6 @@ async function SchemaScript() {
   const  fetchdata=async() => {
     const data = await fetch(`${BASE_URL}home/`)
     return data.json()
-
   }
 export default async function Home() {
   const data = await fetchdata()
