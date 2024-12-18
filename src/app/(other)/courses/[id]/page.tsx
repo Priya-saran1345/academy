@@ -4,6 +4,7 @@ import React from 'react'
 import InnerPage from '@/components/CoursesInnerPage'
 import { fetchMeta } from "@/app/action";
 import { Suspense } from 'react'
+import { BASE_URL } from '@/utils/api';
 async function SchemaScript({ params}:any) {
   const  slug  = params?.id;
   const metaData = await fetchMeta(`courses/${slug}`);
@@ -26,6 +27,8 @@ const Page = async({params}: any) => {
   )
 }
 export default Page
+
+
   export async function generateMetadata({ params  }: any) {
     const  slug  = params?.id;
     try {

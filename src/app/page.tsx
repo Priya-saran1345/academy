@@ -17,19 +17,24 @@ async function SchemaScript() {
 }
   const  fetchdata=async() => {
     const data = await fetch(`${BASE_URL}home/`)
+    return data.json()
 
   }
-export default function Home() {
+export default async function Home() {
+  const data = await fetchdata()
+  const homeComContent = <HomeCom data={data} />
+
   return (
     <>
       <Suspense fallback={null}>
-        <SchemaScript />
+      <SchemaScript />
       </Suspense>
-      <HomeCom/>
+      {homeComContent}
     
     </>
   )
 }
+
 export async function generateMetadata(): Promise<Metadata> {
   try {
     const metaData = await fetchMeta("/");

@@ -16,7 +16,7 @@ import FooterBanner from '@/components/footerBanner'
 import Link from "next/link";
 import Script from 'next/script';
 import Popup from '@/components/Popup'
-export default function Home() {
+export default function Home({data}:any) {
   const [showPopup, setShowPopup] = useState(false);
   useEffect(() => {
     // Set a timer to show the popup after 5 seconds
@@ -25,7 +25,6 @@ export default function Home() {
     }, 3000);
     // Cleanup the timer if the component unmounts
     return () => clearTimeout(timer);
-
   }, []);
   const [website_banner, setwebsite_banner] = useState()
   const [instructor, setinstructor] = useState()
@@ -33,24 +32,16 @@ export default function Home() {
   const [testimonial, settestimonial] = useState()
   const [courses, setcourses] = useState()
   const [Apidata, setApidata] = useState<any>()
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(`${BASE_URL}home/`);
-      const data = response.data;
-      setApidata(data) // Assuming the response is structured correctly
-      setwebsite_banner(data.website_banner[0])
-      setinstructor(data.instructors)
-      setfaq(data.faqs)
-      settestimonial(data.testimonials)
-      setcourses(data.courses)
-      localStorage.setItem('banner-heading', data.website_banner[0].heading)
-    } catch (error: any) {
-      console.log('Error fetching data:', error.message);
-    }
-  };
-
+  
   useEffect(() => {
-    fetchData();
+    // fetchData();
+    setApidata(data) 
+    setwebsite_banner(data.website_banner[0])
+    setinstructor(data.instructors)
+    setfaq(data.faqs)
+    settestimonial(data.testimonials)
+    setcourses(data.courses)
+    localStorage.setItem('banner-heading', data.website_banner[0].heading)
   }, []);
   return (
     <>

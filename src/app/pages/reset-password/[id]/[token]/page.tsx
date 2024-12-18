@@ -27,7 +27,7 @@ const ResetPasswordPage = ({ params }: { params: { id: string; token: string } }
     }
     try {
       const response = await axios.post(
-        `http://192.168.211.41:8000/api/reset-password/${params.id}/${params.token}/`,
+        `${BASE_URL}reset-password/${params.id}/${params.token}/`,
         {
           password: newPassword,
           password_confirm: confirmPassword,

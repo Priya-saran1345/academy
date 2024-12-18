@@ -97,6 +97,7 @@ const page = () => {
             setError(error.message); // Store the error message in state
         }
     };
+
 const renderStars = (rating: any) => {
     const stars = [];
     const fullStars = Math.floor(rating); // Integer part of the rating
@@ -111,7 +112,7 @@ const renderStars = (rating: any) => {
     }
     return <div className="flex gap-1">{stars}</div>;
   };
-    useEffect(() => {
+useEffect(() => {
         if (id == 'undefined') {
             router.push('/four/'); // Redirect to /four if id is undefined
         }
