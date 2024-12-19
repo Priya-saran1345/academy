@@ -32,7 +32,6 @@ export default function Home({data}:any) {
   const [testimonial, settestimonial] = useState()
   const [courses, setcourses] = useState()
   const [Apidata, setApidata] = useState<any>()
-  
   useEffect(() => {
     // fetchData();
     setApidata(data) 
@@ -51,7 +50,6 @@ export default function Home({data}:any) {
         </div> 
       } */}
       {
-
         <div>
           <Header />
           <Banner props={website_banner} />

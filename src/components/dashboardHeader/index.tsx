@@ -181,7 +181,6 @@ const DashboardHeader = ({ props }: any) => {
                         </div>
                       </div>
                     </div>
-
                     {/* Navigation Options */}
                     <div className=' w-full font-semibold border-b-1 border-slate-200 pb-5 text-black mt-4 px-8'>
                       <div className='flex hover:text-orange cursor-pointer  items-center gap-3' onClick={() => router.push('/dashboard/mycourses')}>

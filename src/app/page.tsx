@@ -4,7 +4,11 @@ import { fetchMeta } from "@/app/action";
 import { Metadata } from 'next';
 import { Suspense } from 'react'
 import { BASE_URL } from '@/utils/api'
+import { GetServerSideProps } from 'next'
 
+interface DynamicPageProps {
+  data: string
+}
 async function SchemaScript() {
   const metaData = await fetchMeta("/")
   const schemaData = metaData?.scripts[0].content
@@ -15,14 +19,16 @@ async function SchemaScript() {
     />
   )
 }
-  const  fetchdata=async() => {
-    const data = await fetch(`${BASE_URL}home/`)
-    return data.json()
+async function getData() {
+  const res = await fetch(`${BASE_URL}home/`, { cache: 'no-store' })
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
   }
+  return res.json()
+}
 export default async function Home() {
-  const data = await fetchdata()
+  const data = await getData()
   const homeComContent = <HomeCom data={data} />
-
   return (
     <>
       <Suspense fallback={null}>
