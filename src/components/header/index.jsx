@@ -41,13 +41,25 @@ const Header = () => {
         <div className='flex justify-between  transition-all duration-300 items-center p-4 text-black z-50 px-6 mx-auto w-full lg:w-[95%] 2xl:w-[77%] mt-2'>
           <div className="text-lg font-bold">
             <Link href="/">
-            {
-basic_detail.basic_detail
-?.logo_image?
-              <Image src={basic_detail.basic_detail
-                ?.logo_image} loading='eager' priority decoding='async' alt="logo" width={230} height={100} className='' />:
-                "logo"
-            }
+              {
+                basic_detail.basic_detail
+                  ?.logo_image ?
+                  <Image src={basic_detail.basic_detail
+                    ?.logo_image}
+                    loading='eager'
+                    priority
+                    unoptimized
+                    alt="logo"
+                    width={230}
+                    height={100} /> :
+                    <Image src={'/images/logo1.svg' }
+                      loading='eager'
+                      priority
+                      unoptimized
+                      alt="logo"
+                      width={230}
+                      height={100} />
+              }
             </Link>
           </div>
           <div className={`flex flex-col md:flex-row items-center md:space-x-8 transition-all duration-300 ${isOpen ? 'hidden' : 'hidden md:block'}`}>
@@ -94,15 +106,15 @@ basic_detail.basic_detail
                       <p className='text-[16px] font-semibold'>{profile?.username}</p>
                       <p className='text-[14px] hidden md:block -mt-2 font-medium text-[#616161]'>{profile?.email}</p>
                     </div> */}
-                     <div className="rounded-md ">
-                                              <button className="px-3 py-[5px] rounded-md bg-orange  text-white  hover:bg-orange/30 hover:text-orange transition duration-200">
-                                             
-                                              Dashboard  
+                    <div className="rounded-md ">
+                      <button className="px-3 py-[5px] rounded-md bg-orange  text-white  hover:bg-orange/30 hover:text-orange transition duration-200">
 
-                       </button>
-                                                
-                                              {/* <a href="#" className="px-4 py-2 bg-orange-600  rounded-lg hover:bg-orange-500 transition duration-200">Download PDF-2</a> */}
-                     </div>
+                        Dashboard
+
+                      </button>
+
+                      {/* <a href="#" className="px-4 py-2 bg-orange-600  rounded-lg hover:bg-orange-500 transition duration-200">Download PDF-2</a> */}
+                    </div>
                   </div>
                   {/* </Link> */}
                 </div>
@@ -162,14 +174,14 @@ basic_detail.basic_detail
                     <p className='text-[16px] font-semibold'>{profile?.username}</p>
                     <p className='text-[14px] hidden md:block -mt-2 font-medium text-[#616161]'>{profile?.email}</p>
                   </div> */}
-                   <div className="rounded-md ">
-                                              <button className="px-3 py-[5px] rounded-md bg-orange  text-white  hover:bg-orange/30 hover:text-orange transition duration-200">
-                                             
-                                              Dashboard  
+                  <div className="rounded-md ">
+                    <button className="px-3 py-[5px] rounded-md bg-orange  text-white  hover:bg-orange/30 hover:text-orange transition duration-200">
 
-                       </button>
-                       </div>
-                  
+                      Dashboard
+
+                    </button>
+                  </div>
+
                 </div>
                 {/* </Link> */}
               </div>
