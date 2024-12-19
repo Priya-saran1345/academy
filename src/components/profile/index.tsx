@@ -10,6 +10,9 @@ import { FaUser } from "react-icons/fa";
 import toast from 'react-hot-toast';
 import Image from 'next/image'
 import Link from 'next/link';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 const Profile = () => {
   const { profile, fetch } = useapi();
   const [apidata, setApiData] = useState<any>()
@@ -191,7 +194,6 @@ const Profile = () => {
                 Download Certificates &rarr;
               </Link>
             </div>
-    
       </div>
       <div className='w-full shadow p-2  lg:p-6 rounded-lg'>
         <div className='flex gap-3 border-b-1 border-slate-200  justify-between items-center'>
@@ -476,17 +478,24 @@ const Profile = () => {
             </div>
 
             <div>
-              <label htmlFor="gender" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Gender</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.gender}
-                name='gender'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter Gender'
-                onChange={changeValue}
-              />
-            </div>
+  <label
+    htmlFor="gender"
+    className="text-[16px] mb-3 font-medium textGreyblack capitalize"
+  >
+    Gender
+  </label>
+  <br />
+  <select
+    name="gender"
+    value={updateddata.gender}
+    onChange={changeValue}
+    className="text-textGrey mt-2  outline-none w-full border-[2px] px-4 py-3 border-slate-200 rounded-lg"
+  >
+    <option value="">Select Gender</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+</div>
 
             <div>
               <label htmlFor="course_interested" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Course Interested</label>
@@ -502,17 +511,21 @@ const Profile = () => {
             </div>
 
             <div>
-              <label htmlFor="date_of_birth" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Date of Birth</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.date_of_birth}
-                name='date_of_birth'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='yyyy-mm-dd'
-                onChange={changeValue}
-              />
-            </div>
+      <label
+        htmlFor="date_of_birth"
+        className="text-[16px] mb-3 font-medium textGreyblack capitalize"
+      >
+        Date of Birth
+      </label>
+      <br />
+      <DatePicker
+        selected={updateddata.date_of_birth ? new Date(updateddata.date_of_birth) : null}
+        onChange={(date) => changeValue({ target: { name: "date_of_birth", value: date?.toISOString().split("T")[0] } })}
+        dateFormat="yyyy-MM-dd"
+        className="text-textGrey mt-2 outline-none w-full border-[2px] px-4 py-3 border-slate-200 rounded-lg"
+        placeholderText="yyyy-mm-dd"
+      />
+    </div>
 
             <div>
               <label htmlFor="goals" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Goals</label>

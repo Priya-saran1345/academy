@@ -27,8 +27,6 @@ const Page = async({params}: any) => {
   )
 }
 export default Page
-
-
   export async function generateMetadata({ params  }: any) {
     const  slug  = params?.id;
     try {
