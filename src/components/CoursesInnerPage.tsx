@@ -77,7 +77,6 @@ const page = () => {
 
     const fetchData = async () => {
         const token = Cookies.get('login_access_token'); // Retrieve the token from cookies
-
         try {
             const headers: any = {}; // Initialize headers as an empty object
 

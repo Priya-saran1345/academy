@@ -36,7 +36,7 @@ const Signup = () => {
     } catch (error) {
       console.error("Signup failed", error.response ? error.response.data : error.message);
       const err = error.response.data.email ? error.response.data.email : error.response.data.username
-      toast.error(``);
+      toast.error(err);
     }
   };
   const validateFirstName = (value) => {
