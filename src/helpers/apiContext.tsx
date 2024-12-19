@@ -29,21 +29,14 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     const [courseid, setcourseid] = useState<any>()
     const [basic_detail, setbasic_detail] = useState<any>()
     const fetch = async () => {
-
-
-
         try {
             // API call to fetch dashboard data
             const response = await axios.get(`${BASE_URL}basic-settings/`);
-           
             setbasic_detail(response.data);  // Update state with fetched data
           } catch (err) {
             console.log("Dashboard error", err);  // Log the full error for debugging
             // Update error state with error message
           }
-
-
-
         // dashboard api==========================================
         try {
             const token = Cookies.get('login_access_token');

@@ -63,6 +63,7 @@ const Profile = () => {
   const [data, setdata] = useState<any>();
   const [showremove, setshowremove] = useState<any>(false)
   const [copied, setCopied] = useState(false);
+  
   // Create a ref for the div
   const codeRef = useRef(null);
   const [discountCode, setdiscountCode] = useState<any>()
@@ -245,6 +246,7 @@ const Profile = () => {
             toast.success('Payment successful! You are enrolled in the course.')
             console.log('payment verification', verifyResponse)
             router.push('/thank-you')
+            fetch()
           } catch (err) {
             toast.error("Payment verification failed. Please try again.");
             console.error("Payment verification failed:", err);

@@ -23,9 +23,6 @@ const Dashboard = () => {
     setpurchased_courses(dashboard?.purchased_courses)
   }, [dashboard]);
 
-
-
-
   console.log(Apidata)
   let data = [
     {

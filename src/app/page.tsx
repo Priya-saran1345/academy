@@ -35,7 +35,6 @@ export default async function Home() {
       <SchemaScript />
       </Suspense>
       {homeComContent}
-    
     </>
   )
 }
@@ -86,9 +85,9 @@ export async function generateMetadata(): Promise<Metadata> {
             images: metaData.twitter.images,
           }
         : undefined,
-
     };
   } 
+  
   catch (error) {
     console.error('Error fetching meta data:', error);
     return {
