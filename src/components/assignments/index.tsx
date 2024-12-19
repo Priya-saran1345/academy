@@ -107,7 +107,7 @@ const Support = () => {
           </div>
         </div>
         <div className='lg:w-[40%]'>
-          <p className='font-semibold text-[22px] text-black'>Common Issues & Fixes</p>
+          <p className='font-semibold text-[22px] text-black'>Contact Information</p>
           <div className='rounded-lg shadow-lg mt-5 border-[1px] border-slate-200 p-8'>
 
             <div className='flex gap-3 text-medium items-center'>
@@ -123,7 +123,7 @@ const Support = () => {
               <div className='text-medium'>
 
                 Reach out to us at
-                <span className='text-orange mx-[2px]'> <a href="mailto:">studilyft@Gmail.com</a></span> for detailed inquiries. We aim to respond within 24 hours.
+                <span className='text-orange mx-[2px]'> <a href="mailto:"></a></span> for detailed inquiries. We aim to respond within 24 hours.
                 <div>
                   <Link href="mailto:">
                     <button className='px-8 py-3 rounded-md bg-orange text-white text-[18px] mt-4'>Email US</button>

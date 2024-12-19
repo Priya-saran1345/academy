@@ -10,7 +10,7 @@ import useDownloader  from "react-use-downloader";
 
 const Certificates: React.FC = () => {
   const { download } = useDownloader(); // Use the downloader hook
-  const [apidata, setApidata] = useState< any>(null);
+  const [apidata, setApidata] = useState< any>();
   const [error, setError] = useState<string | null>(null);
   const [showCertificate, setShowCertificate] = useState(false);
   const [selectedCertificate, setSelectedCertificate] = useState<string | null>(null);
@@ -72,7 +72,7 @@ useEffect(() => {
     <div className='w-full relative'>
       <p className='text-[22px] font-semibold'>Certificates</p>
       <div className='flex flex-wrap justify-start gap-5 mt-8'>
-        {apidata.map((elem:any, index:number) => (
+        {apidata?.map((elem:any, index:number) => (
          
           <div key={index}>
             <div className='border-[1px] h-[217px] w-full md:min-w-[45%] xl:min-w-[30%]  gap-3 rounded-lg border-slate-200 shadow-xl p-3 flex'>
@@ -135,6 +135,7 @@ useEffect(() => {
           </div>
         ))}
       </div>
+      
     </div>
   );
 };

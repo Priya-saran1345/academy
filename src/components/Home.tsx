@@ -62,6 +62,8 @@ export default function Home({data}:any) {
                 exit={{ scale: 0, opacity: 0 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
+                {/* <button className="text-orange absolute z-50 top-4 right-4 font-bold underline" onClick={() => { setShowPopup(false) }}>X</button> */}
+
                 <Popup />
                 <div className="flex items-center gap-4 mt-6">
                   <button className="bg-orange text-white py-2 px-6 rounded-full font-medium">

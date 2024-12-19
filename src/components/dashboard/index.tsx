@@ -127,22 +127,31 @@ const Dashboard = () => {
                   <p className='font-semibold text-center text-black'>Course Completed</p>
                   <Doughnut data={finalData} options={options} className='rotate-[224deg] w-[50%] mx-auto' />
                   <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats.completed}/ {purchased_courses?.length ?? 0}</p>
-                  <p className='text-center font-semibold'>Goal: {purchased_courses?.length ?? 0}</p>
-                  <p className='text-textGrey text-center'>Almost there! Keep going!</p>
+                  <p className='text-center font-semibold'>Goal: {purchased_courses?.length ?? 'N/A'}</p>
+                  {
+                    purchased_courses?.length > 0 &&
+                    <p className='text-textGrey text-center'>Almost there! Keep going!</p>
+                  }
                 </div>
                 <div className='shadow  py-4 rounded-xl flex flex-col gap-6 max-h-[355px] w-[80%]   min-h-[331px]  sm:w-[31%]'>
                   <p className='font-semibold text-center text-black'>Course completed</p>
                   <Doughnut data={finalData} options={options} className='rotate-[224deg] w-[50%] mx-auto' />
                   <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats.completed}/{purchased_courses?.length ?? 0}</p>
-                  <p className='text-center  font-semibold'>Goal: {purchased_courses?.length ?? 0}</p>
-                  <p className='text-textGrey text-center'>Almost there! Keep going!</p>
+                  <p className='text-center  font-semibold'>Goal: {purchased_courses?.length ?? 'N/A'}</p>
+                  {
+                    purchased_courses?.length > 0 &&
+                    <p className='text-textGrey text-center'>Almost there! Keep going!</p>
+                  }
                 </div>
                 <div className='shadow  py-4 rounded-xl flex flex-col gap-6 max-h-[355px] w-[80%]   min-h-[331px]  sm:w-[31%]'>
                   <p className='font-semibold text-center text-black'>Certificate Gained</p>
                   <Doughnut data={finalData2} options={options} className='rotate-[224deg] w-[50%] mx-auto' />
                   <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats.completed}/{purchased_courses?.length ?? 0}</p>
-                  <p className='text-center  font-semibold'>Goal: {purchased_courses?.length ?? 0} </p>
-                  <p className='text-textGrey text-center'>Almost there! Keep going!</p>
+                  <p className='text-center  font-semibold'>Goal: {purchased_courses?.length ?? 'N/A'} </p>
+                  {
+                    purchased_courses?.length > 0 &&
+                    <p className='text-textGrey text-center'>Almost there! Keep going!</p>
+                  }
                 </div>
               </div>
             </div>
@@ -198,7 +207,7 @@ const Dashboard = () => {
                 </div>
               ))}
             </div>
-            
+
           </div>
           {/* last cards */}
           <div className='flex flex-wrap   lg:flex-nowrap gap-6 mt-8 justify-center lg:justify-center '>
