@@ -41,8 +41,13 @@ const Header = () => {
         <div className='flex justify-between  transition-all duration-300 items-center p-4 text-black z-50 px-6 mx-auto w-full lg:w-[95%] 2xl:w-[77%] mt-2'>
           <div className="text-lg font-bold">
             <Link href="/">
+            {
+basic_detail.basic_detail
+?.logo_image?
               <Image src={basic_detail.basic_detail
-                ?.logo_image} alt="logo" width={230} height={100} className='' />
+                ?.logo_image} loading='eager' priority decoding='async' alt="logo" width={230} height={100} className='' />:
+                "logo"
+            }
             </Link>
           </div>
           <div className={`flex flex-col md:flex-row items-center md:space-x-8 transition-all duration-300 ${isOpen ? 'hidden' : 'hidden md:block'}`}>
