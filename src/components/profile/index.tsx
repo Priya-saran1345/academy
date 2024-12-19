@@ -162,6 +162,12 @@ const Profile = () => {
               <strong>NOTE:</strong> Complete Your Profile to Avail Amazing Offers.
             </p>
             }
+            {
+              apidata?.profile_completion_percentage==100 &&
+            <p className="text-textGrey text-[12px] mt-4">
+              Congratulations  Your Profile is complete
+            </p>
+            }
 
             {/* <div className="mt-6 text-left">
               <h3 className="text-lg w-full border-b-1 border-slate-200  font-semibold mb-2">Courses Status:</h3>
@@ -214,7 +220,7 @@ const Profile = () => {
             <br />
             <input type="text"
               className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-              readOnly value={apidata?.email} placeholder='Enter your Email' />
+              readOnly value={apidata?.email} placeholder='Enter Your Email' />
           </div>
           <div className='w-full sm:w-[48%]'>
             <label htmlFor="email"
@@ -232,7 +238,7 @@ const Profile = () => {
             <br />
             <input type="number"
               className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-              readOnly placeholder=' your phone' value={apidata?.phone} />
+              readOnly placeholder=' Your phone' value={apidata?.phone} />
           </div>
           <div className='w-full sm:w-[48%]'>
             <label htmlFor="text" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Gender
@@ -240,7 +246,7 @@ const Profile = () => {
             <br />
             <input type="text"
               className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-              readOnly placeholder=' your Gender' value={apidata?.gender} />
+              readOnly placeholder=' Your gender' value={apidata?.gender} />
           </div>
           <div className='w-full sm:w-[48%]'>
             <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Date Of Birth
@@ -248,7 +254,7 @@ const Profile = () => {
             <br />
             <input type="text"
               className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-              readOnly placeholder=' your DOB' value={apidata?.date_of_birth} />
+              readOnly placeholder=' Your DOB' value={apidata?.date_of_birth} />
           </div>
           <div className='w-full sm:w-[48%]'>
             <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Address
@@ -256,7 +262,7 @@ const Profile = () => {
             <br />
             <input type="text"
               className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-              value={apidata?.address} readOnly placeholder=' your Address' />
+              value={apidata?.address} readOnly placeholder=' Your Address' />
           </div>
           <div className='w-full sm:w-[48%]'>
             <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>City
@@ -264,7 +270,7 @@ const Profile = () => {
             <br />
             <input type="text"
               className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-              value={apidata?.city} readOnly placeholder=' your City' />
+              value={apidata?.city} readOnly placeholder=' Your City' />
           </div>
           
         </div>
@@ -284,7 +290,7 @@ const Profile = () => {
               <br />
               <input type="number"
                 className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-                readOnly placeholder=' your Email' value={apidata?.alternate_phone} />
+                readOnly placeholder=' Your Email' value={apidata?.alternate_phone} />
             </div>
             <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Qualification
@@ -292,7 +298,7 @@ const Profile = () => {
               <br />
               <input type="text"
                 className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-                readOnly placeholder=' your Qualification' value={apidata?.qualification} />
+                readOnly placeholder=' Your Qualification' value={apidata?.qualification} />
             </div>
 
             <div className='w-full sm:w-[48%]'>
@@ -302,7 +308,7 @@ const Profile = () => {
               <input type="text"
                 className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 value={apidata?.course_interested
-                } readOnly placeholder='your Password' />
+                } readOnly placeholder='Your Interested Course' />
             </div>
             <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Goals
@@ -310,7 +316,7 @@ const Profile = () => {
               <br />
               <input type="text"
                 className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-                readOnly placeholder=' your Goals' value={apidata?.goals} />
+                readOnly placeholder=' Your Goals' value={apidata?.goals} />
             </div>
             <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Extracurriculars
@@ -318,7 +324,7 @@ const Profile = () => {
               <br />
               <input type="text"
                 className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-                readOnly placeholder=' your extracurriculars' value={apidata?.extracurriculars} />
+                readOnly placeholder=' Enter extracurriculars' value={apidata?.extracurriculars} />
             </div>
             <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Current Job Title
@@ -326,7 +332,7 @@ const Profile = () => {
               <br />
               <input type="text"
                 className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-                readOnly placeholder=' your Current Job Title' value={apidata?.current_job_title} />
+                readOnly placeholder=' Your Current Job Title' value={apidata?.current_job_title} />
             </div>
             <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Industry
@@ -334,7 +340,7 @@ const Profile = () => {
               <br />
               <input type="text"
                 className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-                readOnly placeholder=' your Industry' value={apidata?.industry} />
+                readOnly placeholder=' Your Industry' value={apidata?.industry} />
             </div>
             <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>Company/Organization Name
@@ -342,7 +348,7 @@ const Profile = () => {
               <br />
               <input type="text"
                 className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-                readOnly placeholder=' your Company Name' value={apidata?.company_name} />
+                readOnly placeholder=' Your Company Name' value={apidata?.company_name} />
             </div>
             <div className='w-full sm:w-[48%]'>
               <label htmlFor="email" className='text[16px] font-medium text-textGrey mb-3 Capitalize'>LinkedIn Profile URL
@@ -350,7 +356,7 @@ const Profile = () => {
               <br />
               <input type="text"
                 className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
-                readOnly placeholder=' your LinkedIn Profile' value={apidata?.linkedin_profile_url} />
+                readOnly placeholder=' Your LinkedIn Profile' value={apidata?.linkedin_profile_url} />
             </div>
 
           </div>
@@ -590,7 +596,7 @@ const Profile = () => {
                 value={updateddata.current_job_title}
                 name='current_job_title'
                 className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter Current Job Title'
+                placeholder='Enter current Job Title'
                 onChange={changeValue}
               />
             </div>

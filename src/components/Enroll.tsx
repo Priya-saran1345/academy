@@ -311,23 +311,23 @@ const Profile = () => {
             <h3 className='text-sm text-gray-500 font-medium'>
               {data?.short_description}
             </h3>
-            <div className=' flex  items-center font-semibold text-black text-[16px]'>Price:<span className='text-orange'> Rs.{data?.price}</span></div>
+            <div className=' flex  items-center font-semibold text-black text-[16px]'>Price: <span className='text-orange ml-1'> &#8377; {data?.price}</span></div>
             <div className=' flex  items-center font-semibold text-black text-[16px]'>Rating:{renderStars(data?.rating)}</div>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
-              ( {data?.review_count}reviews)
+              ({data?.review_count} reviews)
             </p>
             <div className=' flex  items-center font-semibold text-black text-[16px]'>{data?.course_level
             } level</div>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
               No prior experience required            </p>
-            <div className=' flex  items-center font-semibold text-black text-[16px]'>Payment Date -</div>
+            {/* <div className=' flex  items-center font-semibold text-black text-[16px]'>Payment Date -</div>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
               {data?.start_date
-              }              </p>
+              }              
+          </p> */}
             <div className=' flex  items-center font-semibold text-black text-[16px]'>Access Expiry Date  -</div>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
-              {data?.start_date
-              }              </p>
+             Life Time             </p>
             <p className='font-semibold text-black text-[16px]'>{data?.duration} Days to complete</p>
             <p className='text-sm text-gray-500 -mt-2 font-medium'>
               3 weeks at 3 hours a week
@@ -412,22 +412,22 @@ const Profile = () => {
               <div className='border-b-[1px]'>
                 <div className="flex justify-between my-2 px-2">
                   <p className='text-black font-medium text-[18px]'>Total Amount</p>
-                  <p className='text-textGrey'>Rs.{data?.price}</p>
+                  <p className='text-textGrey'>&#8377;{data?.price}</p>
                 </div>
                 <div className="flex justify-between my-2 px-2">
                   <p className='text-black font-medium text-[18px]'>Discount
                   </p>
-                  <p className='text-textGrey'>Rs.{discount || 0}</p>
+                  <p className='text-textGrey'>&#8377;{discount || 0}</p>
                 </div>
                 <div className="flex justify-between my-2 px-2">
                   <p className='text-black font-medium text-[18px]'>Final Price</p>
-                  <p className='text-textGrey'> Rs.{data?.price - discount}</p>
+                  <p className='text-textGrey'> &#8377;{data?.price - discount}.00</p>
                 </div>
               </div>
               <div className='flex justify-between px-2 mt-3'>
                 <p className='text-[19px]   w-full mb-2 capitalize  font-semibold'>Final Amount
                 </p>
-                <p className='text-orange text-[26px] font-bold'>Rs.{data?.price - discount}</p>
+                <p className='text-orange text-[26px] font-bold'>&#8377;{data?.price - discount}.00</p>
               </div>
               <div className='w-full flex justify-end px-2 mt-4'>
                 <button

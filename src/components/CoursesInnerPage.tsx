@@ -198,7 +198,7 @@ useEffect(() => {
                                 {
                                     !ApiData?.is_purchased &&
                                     <div>
-                                        <p className='text-[24px] font-bold'> {ApiData?.price}<span className='text-[24px] text-orange'>Rs.</span></p>
+                                        <p className='text-[24px] font-bold'> {ApiData?.price} <span className='text-[24px] text-orange'> &#8377;</span></p>
                                     </div>
                                 }
                             </div>
@@ -332,7 +332,7 @@ useEffect(() => {
                                     <p className='text-textGrey text-[14px]'>(3,915 reviews)</p>
                                 </div>
                                 <div className='lg:max-w-[216px]  w-[45%] sm:w-[30%] md:w-[22%] text-center flex-col h-[98px] hover:shadow-xl duration-200  rounded-lg flex border-[1px] justify-center items-center border-slate-300 '>
-                                    <p className='text-[18px] font-bold'>{ApiData?.course_level}</p>
+                                    <p className='text-[18px] font-bold capitalize'>{ApiData?.course_level}</p>
                                     <p className='text-textGrey text-[14px]'>No prior experience required</p>
                                 </div>
                                 <div className='lg:max-w-[216px]  w-[45%] sm:w-[30%] md:w-[22%] text-center flex-col h-[98px] hover:shadow-xl duration-200  rounded-lg flex border-[1px] justify-center items-center border-slate-300 '>
