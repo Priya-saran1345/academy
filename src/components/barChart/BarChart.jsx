@@ -20,7 +20,8 @@ const BarChart = () => {
         ],
         datasets: [
           {
-            label: new Date().getFullYear() - 1,
+            // label: new Date().getFullYear() - 1,
+            
             fill: false,
             backgroundColor: "#F24A2533",
             borderColor: "#F24A2533",
@@ -28,7 +29,7 @@ const BarChart = () => {
             barThickness: 8,
           },
           {
-            label: new Date().getFullYear(),
+            // label: new Date().getFullYear(),
             backgroundColor: "#F24A25",
             borderColor: "#F24A25",
             data: [30, 78, 56, 34, 100, 45, 13],

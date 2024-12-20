@@ -25,7 +25,6 @@ const DashboardHeader = ({ props }: any) => {
   const { setProfileState } = useDashboard();
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   // const [profileCompletion, setProfileCompletion] = useState(0) // Example value, replace with actual logic
-
   const router = useRouter();
   const [showLogout, setShowLogout] = useState(false);
   const [ApiData, setApiData] = useState<any>(); // Use a more standard naming convention
@@ -35,9 +34,7 @@ const DashboardHeader = ({ props }: any) => {
   const [discount, setdiscount] = useState<any>()
   const fetch = async () => {
     try {
-    
       const response = await axios.get(`${BASE_URL}active-discounts/`
-    
     );
       console.log('my courses are ', response.data)
       setdiscount(response.data.code);
@@ -45,6 +42,7 @@ const DashboardHeader = ({ props }: any) => {
       console.log("my courses error", error.message);
     }
   };
+
   useEffect(() => {
     fetch();
   }, []);
@@ -56,14 +54,10 @@ const DashboardHeader = ({ props }: any) => {
       setTimeout(() => setCopied(false), 2000);
     });
   };
-
   useEffect(() => {
-    
     setApiData(profile);
-
   }, [profile]);
-
-
+  
   const logout = () => {
     // Delete cookies using js-cookie
     Cookies.remove('login_access_token');
@@ -81,7 +75,7 @@ const DashboardHeader = ({ props }: any) => {
 
   console.log('profile is ',profile)
   return (
-    <div className=' px-2 md:px-5 py-3 pt-4  sticky z-50 top-0 w-full bg-[#F7F7F7]'>
+    <div className=' px-2 md:px-5 py-3 pt-4   sticky z-50 top-0 w-full bg-[#F7F7F7]'>
       <div className='absolute w-fit top-[60px] sm:top-20 left-0 z-50'>
 
         {/* Animate the sidebar with framer-motion */}
@@ -119,7 +113,7 @@ const DashboardHeader = ({ props }: any) => {
           </div>
         </div>
         <div className='flex gap-2 md:gap-6 items-center'>
-          <IoIosNotifications className='text-orange text-[20px] md:text-[35px]' />
+          {/* <IoIosNotifications className='text-orange text-[20px] md:text-[35px]' /> */}
           <div className='flex gap-1 md:gap-2 items-center'>
             <div className=' hidden size-[30px] md:size-[50px] rounded-full bg-orange border-4 border-red-200 text-[18px] md:text-[27px] center text-white capitalize'>
               {ApiData?.username[0]}

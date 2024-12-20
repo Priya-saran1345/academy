@@ -103,13 +103,11 @@ const Support = () => {
                 <p className='text-[16px] text-textGrey'>Try refreshing the page, clearing your browser cache, or switching to a different browser. If the issue persists, contact support.</p>
               </li>
             </ol>
-
           </div>
         </div>
         <div className='lg:w-[40%]'>
           <p className='font-semibold text-[22px] text-black'>Contact Information</p>
           <div className='rounded-lg shadow-lg mt-5 border-[1px] border-slate-200 p-8'>
-
             <div className='flex gap-3 text-medium items-center'>
               <div className='size-[40px] rounded-full bg-[#F24A2540] flex justify-center items-center text-textGrey'><IoCall className='text-orange text-[20px]' />
               </div>

@@ -16,18 +16,22 @@ import { FaStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
 import Link from "next/link";
 import { GoDownload } from "react-icons/go";
+import { useapi } from "@/helpers/apiContext";
 
 export default function Page() {
   const pathname = usePathname();
-  const id = pathname.split("/").pop();
+   const { profile } = useapi();
+   const id = pathname.split("/").pop();
   const [ApiData, setApiData] = useState<any>(null);
   const [moduleTitles, setModuleTitles] = useState<string[]>([]);
   const [topics, setTopics] = useState<any[]>([]);
   const [sidecontentindex, setsidecontentindex] = useState<number>(0);
-  
+  const [playCount, setPlayCount] = useState(0);
   const [openModule, setOpenModule] = useState<number | null>(0);
   const [expandedLessonIndex, setExpandedLessonIndex] = useState<number | null>(0);
   const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
+  const [lessonId, setlessonId] = useState<any>()
+  const [userId, setuserId] = useState<any>()
   const toggleLesson = (index: number) => {
     setExpandedLessonIndex(expandedLessonIndex === index ? null : index);
   };
@@ -46,11 +50,9 @@ export default function Page() {
       setTopics(getAllTopics(ApiData, sidecontentindex));
     }
   }, [ApiData, sidecontentindex]);
-
   const getModuleTitles = (apiData: any) => {
     return apiData?.modules?.map((module: any) => module?.module_title) || [];
   };
-
   useEffect(() => {
     if (ApiData) {
       setModuleTitles(getModuleTitles(ApiData));
@@ -78,10 +80,11 @@ export default function Page() {
       console.error("My courses error:", error.message);
     }
   };
-
   useEffect(() => {
     fetch();
-  }, [id]);
+    setuserId(profile?.id)
+    console.log('user id is ----------',profile?.id)
+  }, [id ,profile]);
   const renderStars = (rating: any) => {
     const stars = [];
     const fullStars = Math.floor(rating); // Integer part of the rating
@@ -95,7 +98,57 @@ export default function Page() {
       stars.push(<FaStarHalfAlt key="half" className="text-orange " />);
     }
     return <div className="flex gap-1">{stars}</div>;
-  };  
+  };
+
+
+  
+  // useEffect(() => {
+  //   const fetchPlayCount = async () => {
+  //     try {
+  //       const token = Cookies.get("login_access_token");
+  //       if (!token) {
+  //         console.error("No token found");
+  //         return;
+  //       }
+  //       const response = await axios.get(`${BASE_URL}video-progress/${lessonId}`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setPlayCount(response.data.views);
+  //       console.log('the start viodeo progress is ',response)
+  //     } catch (error) {
+  //       console.error("Error fetching play count:", error);
+  //     }
+  //   };
+  //   fetchPlayCount();
+  // }, [lessonId, userId]);
+
+  useEffect(()=>{
+    console.log('content id is -------------------(((((((((((((((((((((((((((((((((',lessonId)
+  })
+
+  const handleStart = async () => {
+    try {
+      const token = Cookies.get("login_access_token");
+        if (!token) {
+          console.error("No token found");
+          return;
+        }
+      await axios.post(`${BASE_URL}video-progress`, {content:lessonId ,progress:playCount},
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                });
+      setPlayCount((prevCount) => prevCount + 1)  ;
+      console.log('the new [revount is]')
+    } catch (error) {
+      console.error("Error updating play count:", error);
+    }
+  };
   return (
     <div className="min-h-screen bg-[#F7F7F7]">
       <DashboardHeader />
@@ -112,7 +165,7 @@ export default function Page() {
                   height={350}
                   width={410}
                   alt="Python Course"
-                  className="w-full rounded-lg mb-4"
+                  className=" w-full rounded-lg mb-4"
                 />
                 <div className="border-b pb-4 mb-4">
                   <h3 className="font-semibold text-xl text-gray-900">{ApiData?.course_title}</h3>
@@ -129,7 +182,7 @@ export default function Page() {
                     Rating: {renderStars(ApiData?.rating)}
                   </div>
                   <p className="flex text-textGrey text-[14px] items-center mt-1  gap-1">
-                   (  {ApiData?.review_count} reviews)
+                    ({ApiData?.review_count} reviews)
                   </p>
                 </div>
                 <div className="space-y-4">
@@ -157,9 +210,11 @@ export default function Page() {
                           <nav className="space-y-1">
                             {moduleTitles?.map((module: string, index: number) => (
                               <div
+
                                 key={index}
                                 onClick={() => setsidecontentindex(index)}
-                                className={`w-full items-center ${sidecontentindex==index?'bg-gray-100':'bg-white'} text-left px-4 border-none py-3 rounded-lg text-sm hover:bg-gray-100 focus:outline-none`}
+                                className={`w-full items-center ${sidecontentindex == index ? 'bg-gray-100' : 'bg-white'} text-left 
+                                px-4 border-none py-3 rounded-lg text-sm hover:bg-gray-100 focus:outline-none`}
                               >
                                 <div className="flex cursor-pointer text-textGrey font-medium text-[15px] gap-4">
                                   <div className="min-w-[13px] h-[13px] border-2 border-orange rounded-full"></div>
@@ -202,7 +257,6 @@ export default function Page() {
                     )}
                   </AnimatePresence>
                 </div>
-
                 <div>
                   <button
                     onClick={() => toggleSection('courseInfo')}
@@ -231,10 +285,7 @@ export default function Page() {
                     )}
                   </AnimatePresence>
                 </div>
-
-
               </div>
-
               <div className="flex-1 min-w-0">
                 <div className="rounded-lg shadow overflow-hidden">
                   {
@@ -259,9 +310,8 @@ export default function Page() {
                                 className="overflow-hidden"
                               >
                                 {module?.content?.map((lesson: any, lessonIndex: number) => (
-                                  <>
-
-                                    <div key={lessonIndex} className="flex flex-col gap-2 mt-2">
+                                  <div key={lessonIndex}>
+                                    <div  className="flex flex-col gap-2 mt-2">
                                       <div
                                         className={`flex border-1 ${expandedLessonIndex === lessonIndex ? "border-orange" : "border-slate-200"} p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
                                         onClick={() => toggleLesson(lessonIndex)}
@@ -289,17 +339,25 @@ export default function Page() {
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                             className="overflow-hidden"
                                           >
-                                            <div className="h-[500px] rounded-md">
-                                              <ReactPlayer url={lesson?.video_url} controls width="100%" height="100%" />
+                                            <div className="h-[500px] rounded-md"  >
+                                              <ReactPlayer
+                                                url={lesson?.video_url}
+                                                controls
+                                                width="100%"
+                                                height="100%"
+                                                onStart={()=>{setlessonId(lesson.id)
+                                                  handleStart()
+                                                   }}
+                                              />
+                                              <p className="mt-2">Video watched {playCount} times</p>
+                                              {/* <ReactPlayer url={lesson?.video_url} controls width="100%" height="100%" /> */}
                                             </div>
                                           </motion.div>
                                         )}
                                       </AnimatePresence>
                                     </div>
-
                                     {/* pdf content here */}
-
-                                    <div key={lessonIndex} className={`flex  ${expandednotesIndex === lessonIndex 
+                                    <div key={lessonIndex} className={`flex  ${expandednotesIndex === lessonIndex
                                       ? "border-orange" : "border-slate-200"} rounded-lg border-1 flex-col gap-2 mt-2`}>
                                       <div
                                         className={`flex p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
@@ -330,24 +388,22 @@ export default function Page() {
                                           >
                                             <div className="rounded-md mx-8 pb-3">
                                               <button className="px-4 py-[9px] rounded-md bg-orange  text-white  hover:bg-orange/30 hover:text-orange transition duration-200">
-                                              <Link
-                                                href={`${BASE_URL_IMAGE}${lesson.notes}`}
-                                               className="flex gap-2 items-center"
-                                                download
+                                                <Link
+                                                  href={`${BASE_URL_IMAGE}${lesson.notes}`}
+                                                  className="flex gap-2 items-center"
+                                                  download
                                                 >
-                                                Download PDF-1  <GoDownload className="text-[20px]" />
-                                              </Link>
-                                                </button>
+                                                  Download PDF-1  <GoDownload className="text-[20px]" />
+                                                </Link>
+                                              </button>
                                               {/* <a href="#" className="px-4 py-2 bg-orange-600  rounded-lg hover:bg-orange-500 transition duration-200">Download PDF-2</a> */}
                                             </div>
                                           </motion.div>
                                         )}
                                       </AnimatePresence>
                                     </div>
-                                  </>
-
+                                  </div>
                                 ))}
-
                               </motion.div>
                             )}
                           </AnimatePresence>
@@ -359,7 +415,6 @@ export default function Page() {
                     topics.length === 0 &&
                     <div className="p-4 text-center">No topics found</div>
                   }
-
                 </div>
               </div>
             </div>
