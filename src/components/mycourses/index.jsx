@@ -137,7 +137,7 @@ const MyCourses = () => {
                   <div className=" mb-1 xl:mb-4">
                     <span className="font-semibold text-[18px] text-black">Learning Progress</span>
                     <div className="w-[85%] h-2 mt-2  bg-gray-200 rounded-full ">
-                      <div className="h-2 bg-orange rounded-full w-2/3"></div> {/* 25% progress */}
+                    <div className="h-2 bg-orange rounded-full" style={{ width: `${course.course_progress ||0}%` }}></div>
                     </div>
                   </div>
                   {/* Continue Learning Link */}

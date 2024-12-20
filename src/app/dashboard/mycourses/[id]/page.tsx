@@ -107,22 +107,6 @@ export default function Page() {
   };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Fetch the initial play count and progress on component mount
 
 
@@ -411,7 +395,8 @@ const handlePauseOrEnd = async () => {
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                             className="overflow-hidden"
                                             onAnimationComplete={() =>{ setlessonId(lesson.id)
-                                            handleStart}}                                          >
+                                            handleStart}}      
+                                                                                >
                                             <div className="h-[500px] rounded-md"  >
                                               <ReactPlayer
                                                 ref={playerRef}
@@ -419,6 +404,8 @@ const handlePauseOrEnd = async () => {
                                                 controls
                                                 width="100%"
                                                 height="100%"
+                                                autoplay="true"
+                                           
                                                 // onStart={handleStart}
                                                 onReady={() => {
                                                   // handleStart
@@ -449,7 +436,7 @@ const handlePauseOrEnd = async () => {
                                               <div className="min-w-[13px] h-[13px]  mt-1 border-2 border-orange  rounded-full"></div>
                                               <div className="items-center gap-2">
                                                 <div className={`font-normal text-[16px] ${expandednotesIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>
-                                                <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
+                                                {/* <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div> */}
                                               </div>
                                             </div>
                                             {expandednotesIndex === lessonIndex ? <BiChevronUp className="text-[28px] text-orange" />
