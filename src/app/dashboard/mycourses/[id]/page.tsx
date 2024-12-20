@@ -410,21 +410,27 @@ const handlePauseOrEnd = async () => {
                                             exit={{ height: 0, opacity: 0 }}
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                             className="overflow-hidden"
-                                            onAnimationComplete={() => setlessonId(lesson.id)}                                          >
+                                            onAnimationComplete={() =>{ setlessonId(lesson.id)
+                                            handleStart}}                                          >
                                             <div className="h-[500px] rounded-md"  >
-                                            <ReactPlayer
-      ref={playerRef}
-      url={lesson?.video_url}
-      controls
-      width="100%"
-      height="100%"
-      onStart={handleStart}
-      onProgress={(state) => setPlayedPercentage(parseFloat((state.played * 100).toFixed(2)))}
-      onPause={handlePauseOrEnd}
-      onEnded={handlePauseOrEnd}
-    />
-                                              {/* <p className="mt-2">Video watched {playCount} times</p> */}
-                                              {/* <ReactPlayer url={lesson?.video_url} controls width="100%" height="100%" /> */}
+                                              <ReactPlayer
+                                                ref={playerRef}
+                                                url={lesson?.video_url}
+                                                controls
+                                                width="100%"
+                                                height="100%"
+                                                // onStart={handleStart}
+                                                onReady={() => {
+                                                  // handleStart
+                                                  if (playerRef.current && initialProgress > 0) {
+                                                    playerRef.current.seekTo(initialProgress / 100, "fraction");
+                                                    console.log("Seeking to", initialProgress / 100);
+                                                  }
+                                                }}
+                                                onProgress={(state) => setPlayedPercentage(parseFloat((state.played * 100).toFixed(2)))}
+                                                onPause={handlePauseOrEnd}
+                                                onEnded={handlePauseOrEnd}
+                                              />
                                             </div>
                                           </motion.div>
                                         )}
