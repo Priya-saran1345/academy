@@ -305,9 +305,10 @@ const handlePauseOrEnd = async () => {
                         transition={{ duration: 0.4, ease: 'easeInOut' }}
                         className="overflow-hidden pb-4 pl-4 text-sm text-gray-700"
                       >
-                        <p>Your progress: 60%</p>
+                        <p>Your progress: {Math.floor(ApiData?.course_progress)
+}%</p>
                         <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                          <div className="bg-orange-500 h-2.5 rounded-full" style={{ width: '60%' }}></div>
+                          <div className="bg-orange h-2.5 rounded-full" style={{ width: `${ApiData?.course_progress}%` }}></div>
                         </div>
                       </motion.div>
                     )}
