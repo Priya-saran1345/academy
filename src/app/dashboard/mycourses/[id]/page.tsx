@@ -11,13 +11,12 @@ import ReactPlayer from "react-player";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { BASE_URL, BASE_URL_IMAGE } from "@/utils/api";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FaStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
 import Link from "next/link";
 import { GoDownload } from "react-icons/go";
 import { useapi } from "@/helpers/apiContext";
-
 export default function Page() {
   const pathname = usePathname();
   const { profile } = useapi();
@@ -35,7 +34,6 @@ export default function Page() {
   const [playedPercentage, setPlayedPercentage] = useState(0);
   const [initialProgress, setInitialProgress] = useState(0);
   const playerRef = useRef<any>(null);
-
   const toggleLesson = (index: number) => {
     setExpandedLessonIndex(expandedLessonIndex === index ? null : index);
   };
@@ -49,6 +47,7 @@ export default function Page() {
   const getAllTopics = (apiData: any, index: number) => {
     return apiData?.modules?.[index]?.topics || [];
   };
+  const router = useRouter();
   useEffect(() => {
     if (ApiData) {
       setTopics(getAllTopics(ApiData, sidecontentindex));
@@ -68,7 +67,8 @@ export default function Page() {
     try {
       const token = Cookies.get("login_access_token");
       if (!token) {
-        console.error("No token found");
+        alert("No token found");
+        router.push("/login")
         return;
       }
 
@@ -124,6 +124,8 @@ export default function Page() {
 
 
 // Fetch the initial play count and progress on component mount
+
+
 useEffect(() => {
   const fetchPlayCount = async () => {
     try {
@@ -145,24 +147,23 @@ useEffect(() => {
       setPlayCount(response.data.progress);
       setInitialProgress(response.data.progress);
       console.log("The start video progress is", response.data.progress);
+
+      // Set the video to start from the initial progress
+      if (response.data.progress > 0) {
+        playerRef.current.seekTo(response.data.progress / 100, "fraction");
+      }
     } catch (error) {
       console.error("Error fetching play count:", error);
     }
   };
 
   if (lessonId) {
-    // setLessonId(lesson.id);
     fetchPlayCount();
   }
 }, [lessonId]);
 
-// Handle video start and update play count
 const handleStart = async () => {
-  if (playerRef.current && initialProgress > 0) {
-    // Convert percentage to a fraction and seek to that position
-    playerRef.current.seekTo(initialProgress / 100, "fraction");
-    console.log("Seeking to", initialProgress / 100);
-  }
+  
 
   try {
     const token = Cookies.get("login_access_token");
@@ -189,7 +190,7 @@ const handleStart = async () => {
     console.error("Error updating play count:", error);
   }
 };
-// Handle video pause or end
+
 const handlePauseOrEnd = async () => {
   try {
     const token = Cookies.get("login_access_token");
@@ -214,12 +215,6 @@ const handlePauseOrEnd = async () => {
     console.error("Error sending progress:", error);
   }
 };
-
-
-
-
-
-
 
 
 
@@ -415,7 +410,7 @@ const handlePauseOrEnd = async () => {
                                             exit={{ height: 0, opacity: 0 }}
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                             className="overflow-hidden"
-                                          >
+                                            onAnimationComplete={() => setlessonId(lesson.id)}                                          >
                                             <div className="h-[500px] rounded-md"  >
                                             <ReactPlayer
       ref={playerRef}
@@ -423,10 +418,7 @@ const handlePauseOrEnd = async () => {
       controls
       width="100%"
       height="100%"
-      onStart={()=>{
-      setlessonId(lesson.id);
-
-        handleStart}}
+      onStart={handleStart}
       onProgress={(state) => setPlayedPercentage(parseFloat((state.played * 100).toFixed(2)))}
       onPause={handlePauseOrEnd}
       onEnded={handlePauseOrEnd}

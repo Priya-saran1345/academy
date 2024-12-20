@@ -3,7 +3,7 @@ import { useEffect, createContext, useContext, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "@/utils/api";
 import Cookies from 'js-cookie';
-
+import {useRouter} from 'next/navigation';
 // Define an interface for the dashboard data
 interface DashboardData {
     // Add fields based on the structure of your API response
@@ -28,6 +28,8 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     const [discount, setdiscount] = useState<any>(0)
     const [courseid, setcourseid] = useState<any>()
     const [basic_detail, setbasic_detail] = useState<any>()
+    const router = useRouter();
+
     const fetch = async () => {
         try {
             // API call to fetch dashboard data
@@ -62,6 +64,8 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
 
             if (!token) {
                 console.error('No token found');
+                alert("No token found");
+                router.push("/login")
                 return;
             }
             const response = await axios.get(`${BASE_URL}profile/`, {
