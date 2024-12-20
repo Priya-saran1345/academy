@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 import { FiMinus, FiPlus } from "react-icons/fi";
@@ -20,8 +20,8 @@ import { useapi } from "@/helpers/apiContext";
 
 export default function Page() {
   const pathname = usePathname();
-   const { profile } = useapi();
-   const id = pathname.split("/").pop();
+  const { profile } = useapi();
+  const id = pathname.split("/").pop();
   const [ApiData, setApiData] = useState<any>(null);
   const [moduleTitles, setModuleTitles] = useState<string[]>([]);
   const [topics, setTopics] = useState<any[]>([]);
@@ -32,6 +32,10 @@ export default function Page() {
   const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
   const [lessonId, setlessonId] = useState<any>()
   const [userId, setuserId] = useState<any>()
+  const [playedPercentage, setPlayedPercentage] = useState(0);
+  const [initialProgress, setInitialProgress] = useState(0);
+  const playerRef = useRef<any>(null);
+
   const toggleLesson = (index: number) => {
     setExpandedLessonIndex(expandedLessonIndex === index ? null : index);
   };
@@ -83,8 +87,10 @@ export default function Page() {
   useEffect(() => {
     fetch();
     setuserId(profile?.id)
-    console.log('user id is ----------',profile?.id)
-  }, [id ,profile]);
+    console.log('user id is ----------', profile?.id)
+  }, [id, profile]);
+
+
   const renderStars = (rating: any) => {
     const stars = [];
     const fullStars = Math.floor(rating); // Integer part of the rating
@@ -101,54 +107,125 @@ export default function Page() {
   };
 
 
-  
-  // useEffect(() => {
-  //   const fetchPlayCount = async () => {
-  //     try {
-  //       const token = Cookies.get("login_access_token");
-  //       if (!token) {
-  //         console.error("No token found");
-  //         return;
-  //       }
-  //       const response = await axios.get(`${BASE_URL}video-progress/${lessonId}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       setPlayCount(response.data.views);
-  //       console.log('the start viodeo progress is ',response)
-  //     } catch (error) {
-  //       console.error("Error fetching play count:", error);
-  //     }
-  //   };
-  //   fetchPlayCount();
-  // }, [lessonId, userId]);
 
-  useEffect(()=>{
-    console.log('content id is -------------------(((((((((((((((((((((((((((((((((',lessonId)
-  })
 
-  const handleStart = async () => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Fetch the initial play count and progress on component mount
+useEffect(() => {
+  const fetchPlayCount = async () => {
     try {
       const token = Cookies.get("login_access_token");
-        if (!token) {
-          console.error("No token found");
-          return;
+      if (!token) {
+        console.error("No token found");
+        return;
+      }
+
+      const response = await axios.get(
+        `${BASE_URL}video-progress/${lessonId}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      await axios.post(`${BASE_URL}video-progress`, {content:lessonId ,progress:playCount},
-                {
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                  },
-                });
-      setPlayCount((prevCount) => prevCount + 1)  ;
-      console.log('the new [revount is]')
+      );
+
+      setPlayCount(response.data.progress);
+      setInitialProgress(response.data.progress);
+      console.log("The start video progress is", response.data.progress);
     } catch (error) {
-      console.error("Error updating play count:", error);
+      console.error("Error fetching play count:", error);
     }
   };
+
+  if (lessonId) {
+    // setLessonId(lesson.id);
+    fetchPlayCount();
+  }
+}, [lessonId]);
+
+// Handle video start and update play count
+const handleStart = async () => {
+  if (playerRef.current && initialProgress > 0) {
+    // Convert percentage to a fraction and seek to that position
+    playerRef.current.seekTo(initialProgress / 100, "fraction");
+    console.log("Seeking to", initialProgress / 100);
+  }
+
+  try {
+    const token = Cookies.get("login_access_token");
+    if (!token) {
+      console.error("No token found");
+      return;
+    }
+
+    setPlayCount((prevCount) => prevCount + 1);
+
+    await axios.post(
+      `${BASE_URL}video-progress/`,
+      { content: lessonId, progress: playCount, is_complete: false },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("The new play count is", playCount);
+  } catch (error) {
+    console.error("Error updating play count:", error);
+  }
+};
+// Handle video pause or end
+const handlePauseOrEnd = async () => {
+  try {
+    const token = Cookies.get("login_access_token");
+    if (!token) {
+      console.error("No token found");
+      return;
+    }
+
+    await axios.post(
+      `${BASE_URL}video-progress/`,
+      { content: lessonId, progress: playedPercentage, is_complete: false },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Progress updated to", playedPercentage);
+  } catch (error) {
+    console.error("Error sending progress:", error);
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className="min-h-screen bg-[#F7F7F7]">
       <DashboardHeader />
@@ -311,7 +388,7 @@ export default function Page() {
                               >
                                 {module?.content?.map((lesson: any, lessonIndex: number) => (
                                   <div key={lessonIndex}>
-                                    <div  className="flex flex-col gap-2 mt-2">
+                                    <div className="flex flex-col gap-2 mt-2">
                                       <div
                                         className={`flex border-1 ${expandedLessonIndex === lessonIndex ? "border-orange" : "border-slate-200"} p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
                                         onClick={() => toggleLesson(lessonIndex)}
@@ -340,16 +417,21 @@ export default function Page() {
                                             className="overflow-hidden"
                                           >
                                             <div className="h-[500px] rounded-md"  >
-                                              <ReactPlayer
-                                                url={lesson?.video_url}
-                                                controls
-                                                width="100%"
-                                                height="100%"
-                                                onStart={()=>{setlessonId(lesson.id)
-                                                  handleStart()
-                                                   }}
-                                              />
-                                              <p className="mt-2">Video watched {playCount} times</p>
+                                            <ReactPlayer
+      ref={playerRef}
+      url={lesson?.video_url}
+      controls
+      width="100%"
+      height="100%"
+      onStart={()=>{
+      setlessonId(lesson.id);
+
+        handleStart}}
+      onProgress={(state) => setPlayedPercentage(parseFloat((state.played * 100).toFixed(2)))}
+      onPause={handlePauseOrEnd}
+      onEnded={handlePauseOrEnd}
+    />
+                                              {/* <p className="mt-2">Video watched {playCount} times</p> */}
                                               {/* <ReactPlayer url={lesson?.video_url} controls width="100%" height="100%" /> */}
                                             </div>
                                           </motion.div>
@@ -366,7 +448,7 @@ export default function Page() {
                                         <div className="flex-1 min-w-0">
                                           <div className="flex justify-between">
                                             <div className="flex items-start gap-2">
-                                              <div className="w-[13px] h-[13px]  mt-1 border-2 border-orange  rounded-full"></div>
+                                              <div className="min-w-[13px] h-[13px]  mt-1 border-2 border-orange  rounded-full"></div>
                                               <div className="items-center gap-2">
                                                 <div className={`font-normal text-[16px] ${expandednotesIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>
                                                 <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
