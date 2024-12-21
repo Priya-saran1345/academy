@@ -18,26 +18,29 @@ const Dashboard = () => {
   let purchasedCoursesLength = purchased_courses?.length ?? 0;
   let completedCourses = Apidata?.user_stats?.completed ?? 0;
   let gainercertificate = Apidata?.user_stats?.completed ?? 0;
+  let ongoingCourses = Apidata?.user_stats?.ongoing ?? 0;
+  let notStartedCourses = Apidata?.user_stats?.not_started?? 0;
   useEffect(() => {
     setApidata(dashboard)
     setpurchased_courses(dashboard?.purchased_courses)
   }, [dashboard]);
-
   console.log(Apidata)
+
   let data = [
     {
       label: "Label 2",
-      value: completedCourses,  // Total purchased courses
+      value: ongoingCourses,  // Total purchased courses
       color: "#F24A25",
       // cutout: "50%",
     },
     {
       label: "Label 1",
-      value: purchasedCoursesLength - completedCourses,  // Remaining courses
+      value: purchasedCoursesLength - ongoingCourses,  // Remaining courses
       color: "#F24A2540",
       // cutout: "50%",
     },
   ];
+
   const data2 = [
     {
       // label: "Label 2", // Completed certificates
@@ -50,8 +53,18 @@ const Dashboard = () => {
       color: "#F24A2540",
     },
   ];
-
-
+  const data3 = [
+    {
+      // label: "Label 2", // Completed certificates
+      value: notStartedCourses,
+      color: "#F24A25",
+    },
+    {
+      // label: "Label 1", // Remaining certificates
+      value: purchasedCoursesLength - notStartedCourses,
+      color: "#F24A2540",
+    },
+  ];
   const options: any = {
     plugins: {
       responsive: true,
@@ -72,6 +85,19 @@ const Dashboard = () => {
         borderColor: data.map((item) => item.color),
         borderWidth: 0,
         dataVisibility: new Array(data.length).fill(true),
+        borderRadius: 10
+      },
+    ],
+  };
+  const finalData3 = {
+    // labels: data.map((item) => item.label),
+    datasets: [
+      {
+        data: data3.map((item) => Math.round(item.value)),
+        backgroundColor: data3.map((item) => item.color),
+        borderColor: data3.map((item) => item.color),
+        borderWidth: 0,
+        dataVisibility: new Array(data3.length).fill(true),
         borderRadius: 10
       },
     ],
@@ -121,9 +147,9 @@ const Dashboard = () => {
               </div>
               <div className='flex justify-center md:justify-start sm:justify-start flex-wrap  gap-2'>
                 <div className='shadow py-4 rounded-xl flex flex-col gap-6 max-h-[355px] w-[80%]   min-h-[331px]  sm:w-[31%]'>
-                  <p className='font-semibold text-center text-black'>Course Completed</p>
+                  <p className='font-semibold text-center text-black'>Course Ongoing</p>
                   <Doughnut data={finalData} options={options} className='rotate-[224deg] w-[50%] mx-auto' />
-                  <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats.completed}/ {purchased_courses?.length ?? 0}</p>
+                  <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats?.ongoing}/ {purchased_courses?.length ?? 0}</p>
                   <p className='text-center font-semibold'>Goal: {purchased_courses?.length ?? 0}</p>
                   {
                     purchased_courses?.length > 0 &&
@@ -132,7 +158,7 @@ const Dashboard = () => {
                 </div>
                 <div className='shadow  py-4 rounded-xl flex flex-col gap-6 max-h-[355px] w-[80%]   min-h-[331px]  sm:w-[31%]'>
                   <p className='font-semibold text-center text-black'>Course Not Started</p>
-                  <Doughnut data={finalData} options={options} className='rotate-[224deg] w-[50%] mx-auto' />
+                  <Doughnut data={finalData3} options={options} className='rotate-[224deg] w-[50%] mx-auto' />
                   <p className='text-center mt-[-130px]  text-[30px] font-medium text-black'>{Apidata?.user_stats.not_started}/{purchased_courses?.length ?? 0}</p>
                   <p className='text-center  font-semibold'>Goal: {purchased_courses?.length ?? 0}</p>
                   {
