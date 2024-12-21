@@ -25,7 +25,7 @@ const setnavigate=()=>{
     return (
         <div 
             className='rounded-lg   hover:scale-105 border-[1px] justify-between h-[500px]
-             border-slate-200  my-4 min-w-[300px] max-w-[300px] sm:max-w-[320px] hover:shadow-lg group flex flex-col gap-1 p-4 smooth1 flex-1' 
+             border-slate-200  my-4 min-w-[315px] max-w-[315px] sm:max-w-[320px] hover:shadow-lg group flex flex-col gap-1 p-4 smooth1 flex-1' 
             key={id}   
         >
             <Image src={`${image}`} height={350} width={350} alt='te' />

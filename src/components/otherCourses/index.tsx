@@ -13,7 +13,6 @@ const OtherCourses = () => {
   const [allcourse, setAllCourse] = useState<Record<string, any[]>>({});
   const sliderRefs = useRef<{ [key: string]: React.RefObject<Slider> }>({});
   const [searched, setsearched] = useState<any[]>([]);
-
   const settings = {
     infinite: true,
     speed: 300,

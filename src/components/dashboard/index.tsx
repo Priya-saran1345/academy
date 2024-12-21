@@ -105,9 +105,6 @@ const Dashboard = () => {
     ],
   };
   return (
-
-
-
     <>
       {
         !Apidata && <div className="min-h-[90vh]  w-full flex justify-center items-center">
@@ -164,7 +161,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          {/* make the slider here */}
           <div className="lg:px-6 w-full ">
             <p className="text-[22px] mb-3 my text-center sm:text-left text-black font-semibold mx-4 sm:mx-0">Enrolled Courses</p>
             
@@ -185,7 +181,6 @@ const Dashboard = () => {
                         alt="Business & Entrepreneurship"
                         width={202}
                         height={202}
-                      // className="transition group-hover:brightness-0 group-hover:invert"
                       />
                     </div>
                     <div className="w-full pr-2">
@@ -204,7 +199,6 @@ const Dashboard = () => {
             </div>
 
           </div>
-          {/* last cards */}
           <div className='flex flex-wrap   lg:flex-nowrap gap-6 mt-8 justify-center lg:justify-center '>
             <div className='bg-white pb-4 xl:pb-0 xl:min-h-[91px] xl:gap-3 w-[90%] sm:w-[47%] lg:w-[23%] flex xl:flex-row  flex-col justify-center items-center
          rounded-xl shadow border-[1px] border-slate-200'>
