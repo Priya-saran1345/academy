@@ -134,13 +134,12 @@ const Support = () => {
             </div>
           </div>
         </div>
-
       </div>
       <div className='mt-10 lg:w-1/2'>
-      <p className='text-[22px] font-semibold text-black'>Contact Us</p>
+      <p className='text-[22px] mb-4 font-semibold text-black'>Contact Us</p>
       <div className='border-[1px] px-4 lg:px-8 py-8 border-slate-200 flex justify-between gap-7 shadow-lg rounded-lg'>
         <div className='flex flex-wrap gap-6'>
-          <div>
+          <div className=' w-full md:w-[48%]'>
             <label className='text-[17px] font-medium text-black'>Full Name</label>
             <br />
             <input
@@ -154,7 +153,7 @@ const Support = () => {
             {errors.name && <p className='text-red-500 text-sm'>{errors.name}</p>}
           </div>
 
-          <div>
+          <div className=' w-full md:w-[48%]'>
             <label htmlFor="email" className='text-[17px] font-medium text-black'>Email Address</label>
             <br />
             <input
@@ -167,8 +166,7 @@ const Support = () => {
             />
             {errors.email && <p className='text-red-500 text-sm'>{errors.email}</p>}
           </div>
-
-          <div>
+          <div  className=' w-full md:w-[48%]'>
             <label htmlFor="subject" className='text-[17px] font-medium text-black'>Subject</label>
             <br />
             <input
@@ -182,7 +180,7 @@ const Support = () => {
             {errors.subject && <p className='text-red-500 text-sm'>{errors.subject}</p>}
           </div>
 
-          <div>
+          <div className=' w-full md:w-[48%]'>
             <label className='text-[17px] font-medium text-black'>Phone Number</label>
             <br />
             <input
@@ -196,7 +194,7 @@ const Support = () => {
             {errors.phone_number && <p className='text-red-500 text-sm'>{errors.phone_number}</p>}
           </div>
 
-          <div className='w-[87%]'>
+          <div className='w-full'>
             <label htmlFor="message" className='text-[17px] font-medium text-black'>Message</label>
             <br />
             <textarea

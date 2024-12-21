@@ -18,11 +18,9 @@ const MyCourses = () => {
     const stars = [];
     const fullStars = Math.floor(rating); // Integer part of the rating
     const hasHalfStar = rating % 1 !== 0; // Check if there's a fractional part
-    // Add full stars
     for (let i = 1; i <= fullStars; i++) {
       stars.push(<FaStar key={i} className="text-orange " />);
     }
-    // Add half star if there's a fractional part
     if (hasHalfStar) {
       stars.push(<FaStarHalfAlt key="half" className="text-orange " />);
     }
@@ -133,23 +131,25 @@ const MyCourses = () => {
                   <p className="text-gray-600 mb-1  xl:mb-4">
                   {course.short_description}
                   </p>
-                  {/* Learning Progress */}
                   <div className=" mb-1 xl:mb-4">
+                    <div className='flex justify-between items-center'>
+
                     <span className="font-semibold text-[18px] text-black">Learning Progress</span>
+                    <span className="font-bold text-[18px] text-orange">{Math.floor(course?.course_progress) ||0}%</span>
+                    </div>
                     <div className="w-[85%] h-2 mt-2  bg-gray-200 rounded-full ">
                     <div className="h-2 bg-orange rounded-full" style={{ width: `${course.course_progress ||0}%` }}></div>
                     </div>
                   </div>
-                  {/* Continue Learning Link */}
                   <Link href={`/dashboard/mycourses/${course?.course_slug}`} className="text-orange text-[15px] xl:text-[18px] flex  items-center gap-2  font-semibold ">
                     Continue Learning <BsArrowRight />
                   </Link>
                 </div>
-                {/* Course Info */}
+             
                 <div className="border-t sm:border-t-0 lg:border-l w-full  sm:w-[45%]  lg:w-1/4 h-full pl-2 lg:pl-6">
                   <div className=" mt-2 sm:mt-0 lg:mt-2 mb-2">
                     <div className="text-lg flex items-center font-bold mr-1"> Rating: {renderStars(course?.rating)}</div>
-                    {/* <FaStar className="text-orange" /> */}
+                   
                     <br />
                     <div className="text-textGrey text-sm  -mt-6 ">({course?.review_count} reviews)</div>
                   </div>
