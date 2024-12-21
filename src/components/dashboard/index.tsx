@@ -107,8 +107,8 @@ const Dashboard = () => {
   return (
 
 
-    <>
 
+    <>
       {
         !Apidata && <div className="min-h-[90vh]  w-full flex justify-center items-center">
           <div className="loader"></div>
@@ -117,7 +117,7 @@ const Dashboard = () => {
       {
         Apidata &&
         <div className=''>
-          <div className=' flex flex-wrap  rounded-sm px-0 md:px-4 py-5 '>
+          <div className=' flex flex-wrap w-full rounded-sm px-0 md:px-4 py-5 '>
             <div className='flex flex-col w-full md:w-[70%] xl:w-[60%]  gap-3'>
               <div>
                 <p className='text-[22px] font-medium text-center sm:text-left text-black'>Progress Overview</p>
@@ -165,14 +165,15 @@ const Dashboard = () => {
             </div>
           </div>
           {/* make the slider here */}
-          <div className="px-6 w-full max-w-[1750px] min-w-[370px]">
-            <p className="text-[22px] mb-3 my text-black font-semibold">Enrolled Courses</p>
-            {/* <Slider {...settings}> */}
+          <div className="lg:px-6 w-full ">
+            <p className="text-[22px] mb-3 my text-center sm:text-left text-black font-semibold mx-4 sm:mx-0">Enrolled Courses</p>
+            
             <div className='flex w-full flex-wrap gap-4 justify-center lg:justify-start '>
               {purchased_courses?.map((course: any) => (
                 <div
                   key={course.id}
-                  className="px-2 w-full cursor-pointer sm:w-[45%] border pb-4 p-2 group duration-200 hover:bg-orange border-gray-200 rounded-xl lg:w-[30%] xl:w-[24%]"
+                  className=" w-[90%] cursor-pointer sm:w-[45%] border pb-4 p-2 group duration-200 hover:bg-orange border-gray-200 rounded-xl 
+                  lg:w-[30%] xl:w-[24%]"
                   onClick={() => {
                     router.push(`/dashboard/mycourses/${course?.course_slug}`);
                   }}
@@ -192,16 +193,11 @@ const Dashboard = () => {
                         <p className="text-[17px] font-semibold">{course?.course_name}</p>
                         <FaArrowUpRightFromSquare className="font-normal ml-2 text-[16px]" />
                       </div>
-                      {/* <p className="text-[14px]">
-                        Total Amount:&nbsp;{course?.payment + course?.discount_amount}
-                      </p>
-                      <p className="text-[14px]">Status:&nbsp;{course?.completion_status}</p>
-                      <p className="text-[14px]">Discount:&nbsp;{course?.discount_amount}</p>
-                      <p className="text-[14px]">Payed Amount:&nbsp;{course?.payment}</p> */}
+                     
                     </div>
                   </div>
                   <div className="w-full h-2 bg-slate-200 rounded-md  group-hover:bg-white">
-                    <div className="w-7/12 group-hover:bg-lightOrange bg-orange rounded-md h-full"></div>
+                    <div className=" group-hover:bg-lightOrange bg-orange rounded-md h-full" style={{width:`${course?.course_progress}%`}}></div>
                   </div>
                 </div>
               ))}
@@ -240,3 +236,11 @@ const Dashboard = () => {
 }
 
 export default Dashboard
+
+
+ {/* <p className="text-[14px]">
+                        Total Amount:&nbsp;{course?.payment + course?.discount_amount}
+                      </p>
+                      <p className="text-[14px]">Status:&nbsp;{course?.completion_status}</p>
+                      <p className="text-[14px]">Discount:&nbsp;{course?.discount_amount}</p>
+                      <p className="text-[14px]">Payed Amount:&nbsp;{course?.payment}</p> */}

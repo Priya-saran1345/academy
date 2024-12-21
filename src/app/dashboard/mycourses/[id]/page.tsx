@@ -118,7 +118,6 @@ useEffect(() => {
         console.error("No token found");
         return;
       }
-
       const response = await axios.get(
         `${BASE_URL}video-progress/${lessonId}/`,
         {
@@ -127,11 +126,9 @@ useEffect(() => {
           },
         }
       );
-
       setPlayCount(response.data.progress);
       setInitialProgress(response.data.progress);
       console.log("The start video progress is", response.data.progress);
-
       // Set the video to start from the initial progress
       if (response.data.progress > 0) {
         playerRef.current.seekTo(response.data.progress / 100, "fraction");
@@ -140,7 +137,7 @@ useEffect(() => {
       console.error("Error fetching play count:", error);
     }
   };
-
+  
   if (lessonId) {
     fetchPlayCount();
   }
@@ -199,10 +196,6 @@ const handlePauseOrEnd = async () => {
     console.error("Error sending progress:", error);
   }
 };
-
-
-
-
 
 
   return (
