@@ -131,7 +131,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex justify-center items-center py-3 text-slate-500 font-semibold text-[14px] md:text-[16px]">
-      <p>Copyright © - All rights reserved by W3era Pvt Ltd.</p>
+      <p>Copyright © - All Rights Reserved By W3era Pvt Ltd.</p>
       </div>
     </div>
 

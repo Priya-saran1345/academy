@@ -108,7 +108,6 @@ export default function Page() {
     }
     return <div className="flex gap-1">{stars}</div>;
   };
-
   useEffect(() => {
     const fetchPlayCount = async () => {
       try {
@@ -134,12 +133,10 @@ export default function Page() {
         console.error("Error fetching play count:", error);
       }
     };
-    
     if (lessonId) {
       fetchPlayCount();
     }
   }, [lessonId]);
-
   const handleStart = async () => {
     try {
       const token = Cookies.get("login_access_token");
@@ -147,7 +144,6 @@ export default function Page() {
         console.error("No token found");
         return;
       }
-
       await axios.post(
         `${BASE_URL}video-progress/`,
         { content: lessonId, progress: initialProgress, is_complete: false },
@@ -158,13 +154,11 @@ export default function Page() {
           },
         }
       );
-
       console.log("Video started from progress:", initialProgress);
     } catch (error) {
       console.error("Error updating play count:", error);
     }
   };
-
   const handlePauseOrEnd = async () => {
     try {
       const token = Cookies.get("login_access_token");
@@ -172,7 +166,6 @@ export default function Page() {
         console.error("No token found");
         return;
       }
-
       await axios.post(
         `${BASE_URL}video-progress/`,
         { content: lessonId, progress: playedPercentage, is_complete: false },
@@ -183,7 +176,6 @@ export default function Page() {
           },
         }
       );
-
       console.log("Progress updated to", playedPercentage);
     } catch (error) {
       console.error("Error sending progress:", error);
