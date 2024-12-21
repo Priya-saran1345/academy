@@ -16,7 +16,6 @@ const OtherCourses = () => {
   const settings = {
     infinite: true,
     speed: 300,
-    
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: false,

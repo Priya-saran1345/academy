@@ -17,6 +17,7 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import Link from "next/link";
 import { GoDownload } from "react-icons/go";
 import { useapi } from "@/helpers/apiContext";
+
 export default function Page() {
   const pathname = usePathname();
   const { profile } = useapi();
@@ -25,50 +26,55 @@ export default function Page() {
   const [moduleTitles, setModuleTitles] = useState<string[]>([]);
   const [topics, setTopics] = useState<any[]>([]);
   const [sidecontentindex, setsidecontentindex] = useState<number>(0);
-  const [playCount, setPlayCount] = useState(0);
   const [openModule, setOpenModule] = useState<number | null>(0);
   const [expandedLessonIndex, setExpandedLessonIndex] = useState<number | null>(0);
-  const [expandednotesIndex, setexpandednotesIndex] = useState<any>()
-  const [lessonId, setlessonId] = useState<any>()
-  const [userId, setuserId] = useState<any>()
+  const [expandednotesIndex, setexpandednotesIndex] = useState<any>();
+  const [lessonId, setlessonId] = useState<any>();
+  const [userId, setuserId] = useState<any>();
   const [playedPercentage, setPlayedPercentage] = useState(0);
   const [initialProgress, setInitialProgress] = useState(0);
   const playerRef = useRef<any>(null);
+  const router = useRouter();
+
   const toggleLesson = (index: number) => {
     setExpandedLessonIndex(expandedLessonIndex === index ? null : index);
   };
+
   const toggleNotes = (index: number) => {
     setexpandednotesIndex(expandednotesIndex === index ? null : index);
   };
+
   const [openSection, setOpenSection] = useState<string | null>(null);
   const toggleSection = (section: string) => {
     setOpenSection(openSection === section ? null : section);
   };
+
   const getAllTopics = (apiData: any, index: number) => {
     return apiData?.modules?.[index]?.topics || [];
   };
-  const router = useRouter();
+
   useEffect(() => {
     if (ApiData) {
       setTopics(getAllTopics(ApiData, sidecontentindex));
     }
   }, [ApiData, sidecontentindex]);
+
   const getModuleTitles = (apiData: any) => {
     return apiData?.modules?.map((module: any) => module?.module_title) || [];
   };
+
   useEffect(() => {
     if (ApiData) {
       setModuleTitles(getModuleTitles(ApiData));
     }
   }, [ApiData]);
 
-  console.log('topics', topics)
   const fetch = async () => {
     try {
       const token = Cookies.get("login_access_token");
       if (!token) {
         alert("No token found");
-        router.push("/login")
+        router.push("/login");
         return;
       }
 
@@ -84,119 +90,105 @@ export default function Page() {
       console.error("My courses error:", error.message);
     }
   };
+
   useEffect(() => {
     fetch();
-    setuserId(profile?.id)
-    console.log('user id is ----------', profile?.id)
+    setuserId(profile?.id);
   }, [id, profile]);
-
 
   const renderStars = (rating: any) => {
     const stars = [];
-    const fullStars = Math.floor(rating); // Integer part of the rating
-    const hasHalfStar = rating % 1 !== 0; // Check if there's a fractional part
-    // Add full stars
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
     for (let i = 1; i <= fullStars; i++) {
       stars.push(<FaStar key={i} className="text-orange " />);
     }
-    // Add half star if there's a fractional part
     if (hasHalfStar) {
       stars.push(<FaStarHalfAlt key="half" className="text-orange " />);
     }
     return <div className="flex gap-1">{stars}</div>;
   };
 
+  useEffect(() => {
+    const fetchPlayCount = async () => {
+      try {
+        const token = Cookies.get("login_access_token");
+        if (!token) {
+          console.error("No token found");
+          return;
+        }
+        const response = await axios.get(
+          `${BASE_URL}video-progress/${lessonId}/`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setInitialProgress(response.data.progress);
+        console.log("The start video progress is", response.data.progress);
+        if (response.data.progress > 0 && playerRef.current) {
+          playerRef.current.seekTo(response.data.progress / 100, "fraction");
+        }
+      } catch (error) {
+        console.error("Error fetching play count:", error);
+      }
+    };
+    
+    if (lessonId) {
+      fetchPlayCount();
+    }
+  }, [lessonId]);
 
-// Fetch the initial play count and progress on component mount
-
-
-useEffect(() => {
-  const fetchPlayCount = async () => {
+  const handleStart = async () => {
     try {
       const token = Cookies.get("login_access_token");
       if (!token) {
         console.error("No token found");
         return;
       }
-      const response = await axios.get(
-        `${BASE_URL}video-progress/${lessonId}/`,
+
+      await axios.post(
+        `${BASE_URL}video-progress/`,
+        { content: lessonId, progress: initialProgress, is_complete: false },
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         }
       );
-      setPlayCount(response.data.progress);
-      setInitialProgress(response.data.progress);
-      console.log("The start video progress is", response.data.progress);
-      // Set the video to start from the initial progress
-      if (response.data.progress > 0) {
-        playerRef.current.seekTo(response.data.progress / 100, "fraction");
-      }
+
+      console.log("Video started from progress:", initialProgress);
     } catch (error) {
-      console.error("Error fetching play count:", error);
+      console.error("Error updating play count:", error);
     }
   };
-  
-  if (lessonId) {
-    fetchPlayCount();
-  }
-}, [lessonId]);
 
-const handleStart = async () => {
-  
-
-  try {
-    const token = Cookies.get("login_access_token");
-    if (!token) {
-      console.error("No token found");
-      return;
-    }
-
-    setPlayCount((prevCount) => prevCount + 1);
-
-    await axios.post(
-      `${BASE_URL}video-progress/`,
-      { content: lessonId, progress: playCount, is_complete: false },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+  const handlePauseOrEnd = async () => {
+    try {
+      const token = Cookies.get("login_access_token");
+      if (!token) {
+        console.error("No token found");
+        return;
       }
-    );
 
-    console.log("The new play count is", playCount);
-  } catch (error) {
-    console.error("Error updating play count:", error);
-  }
-};
+      await axios.post(
+        `${BASE_URL}video-progress/`,
+        { content: lessonId, progress: playedPercentage, is_complete: false },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-const handlePauseOrEnd = async () => {
-  try {
-    const token = Cookies.get("login_access_token");
-    if (!token) {
-      console.error("No token found");
-      return;
+      console.log("Progress updated to", playedPercentage);
+    } catch (error) {
+      console.error("Error sending progress:", error);
     }
-
-    await axios.post(
-      `${BASE_URL}video-progress/`,
-      { content: lessonId, progress: playedPercentage, is_complete: false },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    console.log("Progress updated to", playedPercentage);
-  } catch (error) {
-    console.error("Error sending progress:", error);
-  }
-};
-
+  };
 
   return (
     <div className="min-h-screen bg-[#F7F7F7]">
@@ -259,7 +251,6 @@ const handlePauseOrEnd = async () => {
                           <nav className="space-y-1">
                             {moduleTitles?.map((module: string, index: number) => (
                               <div
-
                                 key={index}
                                 onClick={() => setsidecontentindex(index)}
                                 className={`w-full items-center ${sidecontentindex == index ? 'bg-gray-100' : 'bg-white'} text-left 
@@ -298,8 +289,7 @@ const handlePauseOrEnd = async () => {
                         transition={{ duration: 0.4, ease: 'easeInOut' }}
                         className="overflow-hidden pb-4 pl-4 text-sm text-gray-700"
                       >
-                        <p>Your progress: {Math.floor(ApiData?.course_progress)
-}%</p>
+                        <p>Your progress: {Math.floor(ApiData?.course_progress)}%</p>
                         <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
                           <div className="bg-orange h-2.5 rounded-full" style={{ width: `${ApiData?.course_progress}%` }}></div>
                         </div>
@@ -388,21 +378,19 @@ const handlePauseOrEnd = async () => {
                                             exit={{ height: 0, opacity: 0 }}
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                             className="overflow-hidden"
-                                            onAnimationComplete={() =>{ setlessonId(lesson.id)
-                                            handleStart}}      
-                                                                                >
-                                            <div className="h-[500px] rounded-md"  >
+                                            onAnimationComplete={() => {
+                                              setlessonId(lesson.id);
+                                              handleStart();
+                                            }}
+                                          >
+                                            <div className="h-[500px] rounded-md">
                                               <ReactPlayer
                                                 ref={playerRef}
                                                 url={lesson?.video_url}
                                                 controls
                                                 width="100%"
                                                 height="100%"
-                                                autoplay="true"
-                                           
-                                                // onStart={handleStart}
                                                 onReady={() => {
-                                                  // handleStart
                                                   if (playerRef.current && initialProgress > 0) {
                                                     playerRef.current.seekTo(initialProgress / 100, "fraction");
                                                     console.log("Seeking to", initialProgress / 100);
@@ -417,8 +405,7 @@ const handlePauseOrEnd = async () => {
                                         )}
                                       </AnimatePresence>
                                     </div>
-                                    {/* pdf content here */}
-                                    <div key={lessonIndex} className={`flex  ${expandednotesIndex === lessonIndex
+                                    <div key={lessonIndex} className={`flex ${expandednotesIndex === lessonIndex
                                       ? "border-orange" : "border-slate-200"} rounded-lg border-1 flex-col gap-2 mt-2`}>
                                       <div
                                         className={`flex p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
@@ -427,10 +414,9 @@ const handlePauseOrEnd = async () => {
                                         <div className="flex-1 min-w-0">
                                           <div className="flex justify-between">
                                             <div className="flex items-start gap-2">
-                                              <div className="min-w-[13px] h-[13px]  mt-1 border-2 border-orange  rounded-full"></div>
+                                              <div className="min-w-[13px] h-[13px] mt-1 border-2 border-orange rounded-full"></div>
                                               <div className="items-center gap-2">
                                                 <div className={`font-normal text-[16px] ${expandednotesIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>
-                                                {/* <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div> */}
                                               </div>
                                             </div>
                                             {expandednotesIndex === lessonIndex ? <BiChevronUp className="text-[28px] text-orange" />
@@ -448,16 +434,15 @@ const handlePauseOrEnd = async () => {
                                             className="overflow-hidden"
                                           >
                                             <div className="rounded-md mx-8 pb-3">
-                                              <button className="px-4 py-[9px] rounded-md bg-orange  text-white  hover:bg-orange/30 hover:text-orange transition duration-200">
+                                              <button className="px-4 py-[9px] rounded-md bg-orange text-white hover:bg-orange/30 hover:text-orange transition duration-200">
                                                 <Link
                                                   href={`${BASE_URL_IMAGE}${lesson.notes}`}
                                                   className="flex gap-2 items-center"
                                                   download
                                                 >
-                                                  Download PDF-1  <GoDownload className="text-[20px]" />
+                                                  Download PDF-1 <GoDownload className="text-[20px]" />
                                                 </Link>
                                               </button>
-                                              {/* <a href="#" className="px-4 py-2 bg-orange-600  rounded-lg hover:bg-orange-500 transition duration-200">Download PDF-2</a> */}
                                             </div>
                                           </motion.div>
                                         )}
@@ -485,3 +470,4 @@ const handlePauseOrEnd = async () => {
     </div>
   );
 }
+

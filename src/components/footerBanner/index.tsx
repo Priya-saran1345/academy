@@ -12,10 +12,10 @@ const banner = () => {
       <div className=" flex flex-col gap-4 items-center">
         <button className="w-fit bg-white center px-4 py-2 rounded-lg text-[20px] font-semibold text-orange">
           <Link href='/courses'>
-          Start Your Journey
+                Start Your Journey
           </Link>
           </button>
-        <h3 className=" text-sm font-semibold text-white ">Join today ! Pay after 7 days </h3>
+        <h3 className=" text-sm font-semibold text-white ">Join today ! for getting offers  </h3>
       </div>
     </div>
   </div>

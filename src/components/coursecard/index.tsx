@@ -6,8 +6,9 @@ import Image from 'next/image'
 import { useRouter } from "next/navigation"
 import { useapi } from '@/helpers/apiContext';
 import { BASE_URL_IMAGE } from '@/utils/api'
-// Updated truncateText function to limit characters instead of words
-const truncateText = (text: any, charLimit: number) => {
+
+const truncateText = (text: any, charLimit: 
+    number) => {
     if (text?.length > charLimit) {
         return text?.substring(0, charLimit) + " ...";
     }
