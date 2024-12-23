@@ -247,7 +247,6 @@ outline: none;
 .social-icon-4 {
   transition-duration: 0.4s;
   transition-timing-function: cubic-bezier(0.46, -0.78, 0.5, 1.56);
-
   background: linear-gradient(
     180deg,
     rgba(129, 34, 144, 1) 0%,
@@ -259,17 +258,7 @@ outline: none;
   transform: translateY(-70px);
 }
 
-
-
-/* .no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-.no-scrollbar {
-  -ms-overflow-style: none;  
-  scrollbar-width: none;     
-} */
- /* In a global CSS file */
 .shadow{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+

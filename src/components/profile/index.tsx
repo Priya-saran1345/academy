@@ -60,7 +60,6 @@ const Profile = () => {
         last_name: apidata.last_name || '',
         phone: apidata.phone || '',
         qualification: apidata.qualification || '',
-        // profile_image: apidata.profile_image ||'',
         city:apidata.city || '',
         current_job_title:apidata.current_job_title || '',
         company_name:apidata.company_name || '',
@@ -76,11 +75,9 @@ const Profile = () => {
       const file = event.target.files[0];
       newdata = { ...updateddata, [event.target.name]: file };
 
-      // Generate a preview URL for the selected image
       if (file) {
         setImagePreview(URL.createObjectURL(file));
-      }// Use files[0] for the selected file
-
+      }
     }
     else {
       newdata = { ...updateddata, [event.target.name]: event.target.value }
@@ -120,7 +117,6 @@ const Profile = () => {
     };
   }, [imagePreview]);
 
-  // console.log(apidata)
   return (
     <div className='w-full flex flex-wrap md:flex-nowrap  gap-5 justify-between relative px-2 lg:px-4 p-4'>
       <div className=" w-full md:w-[275px] flex flex-col justify-between  lg:w-[457px] md:sticky  md:top-24 md:h-[87vh] flex-shrink rounded-lg shadow ">
@@ -360,14 +356,9 @@ const Profile = () => {
                 className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
                 readOnly placeholder=' Your LinkedIn Profile' value={apidata?.linkedin_profile_url} />
             </div>
-
           </div>
         </div>
       </div>
-
-
-
-
       {/* //editable form is here */}
       {
         showupdate &&
@@ -376,11 +367,9 @@ const Profile = () => {
             <div className='absolute right-3 top-3' onClick={() => setshowupdate(false)}>
               <RxCross1 className='text-[22px]' />
             </div>
-
-            {/** Form Fields **/}
+          
             <div className='w-full flex justify-center flex-col items-center'>
               <label htmlFor="first_name" className='text-[16px] mb-3 font-medium textGreyblack Capitalize'>Profile Image</label>
-
               <div className="size-[122px] bg-[#F5F5F5] rounded-full flex justify-center items-center relative">
                 {imagePreview ? (
                   <Image
@@ -401,8 +390,6 @@ const Profile = () => {
                 ) : (
                   <FaUser className="text-[53px] text-textGrey" />
                 )}
-
-                {/* Hidden file input for uploading the profile image */}
                 <input
                   type="file"
                   name="profile_image"

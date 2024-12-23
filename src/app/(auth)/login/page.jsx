@@ -23,7 +23,6 @@ const Login = () => {
         const refreshToken = Cookies.get('login_refresh_token');
         return !!accessToken && !!refreshToken; 
       };
-      
 // code for login
 const handleLogin = async (e) => {
   e.preventDefault(); 
@@ -39,7 +38,7 @@ const handleLogin = async (e) => {
     // Log the response
     console.log("Login response:", response.data);
     Cookies.set('login_access_token', response.data.access, {
-      expires: 1/24, // valid for 1 day
+      expires: 1, // valid for 1 day
       path: '/',
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'Strict',

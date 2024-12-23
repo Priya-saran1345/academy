@@ -189,7 +189,6 @@ const Dashboard = () => {
           </div>
           <div className="lg:px-6 w-full ">
             <p className="text-[22px] mb-3 my text-center sm:text-left text-black font-semibold mx-4 sm:mx-0">Enrolled Courses</p>
-
             <div className='flex w-full flex-wrap gap-4 justify-center lg:justify-start '>
               {purchased_courses?.map((course: any) => (
                 <div
@@ -214,7 +213,6 @@ const Dashboard = () => {
                         <p className="text-[17px] font-semibold">{course?.course_name}</p>
                         <FaArrowUpRightFromSquare className="font-normal ml-2 text-[16px]" />
                       </div>
-
                     </div>
                   </div>
                   <div className="w-full h-2 bg-slate-200 rounded-md group relative group-hover:bg-white">
@@ -222,7 +220,6 @@ const Dashboard = () => {
                       className="group-hover:bg-lightOrange bg-orange rounded-md h-full"
                       style={{ width: `${course?.course_progress}%` }}
                     ></div>
-
                     <div className="tooltip lg:hidden  border-orange border-2 
   absolute top-[-30px] flex  left-1/2 text-[14px] lg:text-[16px] font-bold transform -translate-x-1/2 w-12 h-12 lg:w-16 lg:h-16 rounded-full bg-white
    text-orange  items-center justify-center shadow-lg group-hover:flex">
@@ -232,7 +229,6 @@ const Dashboard = () => {
                 </div>
               ))}
             </div>
-
           </div>
           <div className='flex flex-wrap   lg:flex-nowrap gap-6 mt-8 justify-center lg:justify-center '>
             <div className='bg-white pb-4 xl:pb-0 xl:min-h-[91px] xl:gap-3 w-[90%] sm:w-[47%] lg:w-[23%] flex xl:flex-row  flex-col justify-center items-center
@@ -258,7 +254,6 @@ const Dashboard = () => {
           </div>
         </div>
       }
-
     </>
 
   )

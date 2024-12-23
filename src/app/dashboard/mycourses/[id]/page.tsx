@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { BASE_URL, BASE_URL_IMAGE } from "@/utils/api";
 import { usePathname, useRouter } from "next/navigation";
-import { FaStar } from "react-icons/fa6";
+import { FaCircleCheck, FaStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
 import Link from "next/link";
 import { GoDownload } from "react-icons/go";
@@ -237,7 +237,7 @@ export default function Page() {
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.4, ease: "easeInOut" }}
+                          transition={{ duration: 0.4, ease:"easeInOut" }}
                           className="overflow-hidden pl-4 pb-3"
                         >
                           <nav className="space-y-1">
@@ -345,13 +345,19 @@ export default function Page() {
                                   <div key={lessonIndex}>
                                     <div className="flex flex-col gap-2 mt-2">
                                       <div
-                                        className={`flex border-1 ${expandedLessonIndex === lessonIndex ? "border-orange" : "border-slate-200"} p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
+                                        className={`flex border-1 ${expandedLessonIndex === lessonIndex ? "border-orange" 
+                                          : "border-slate-200"} p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
                                         onClick={() => toggleLesson(lessonIndex)}
                                       >
                                         <div className="flex-1 min-w-0">
                                           <div className="flex justify-between">
                                             <div className="flex items-start gap-2">
-                                              <div className="w-[13px] h-[13px] border-2 mt-1 border-orange rounded-full"></div>
+                                              {
+                                                lesson.video_progress===100?
+                                                <FaCircleCheck className="text-orange text-[18px] mt-1" />
+                                                :
+                                                <div className={`w-[13px] h-[13px]  border-2 mt-1 border-orange rounded-full`}></div>
+                                              }
                                               <div className="items-center gap-2">
                                                 <div className={`font-normal text-[16px] ${expandedLessonIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title}</div>
                                                 <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
@@ -383,9 +389,10 @@ export default function Page() {
                                                 width="100%"
                                                 height="100%"
                                                 onReady={() => {
-                                                  if (playerRef.current && initialProgress > 0) {
-                                                    playerRef.current.seekTo(initialProgress / 100, "fraction");
-                                                    console.log("Seeking to", initialProgress / 100);
+                                                  if (lesson.video_progress
+                                                    > 0) {
+                                                    playerRef.current.seekTo(lesson.video_progress / 100, "fraction");
+                                                    console.log("Seeking to", lesson.video_progress / 100);
                                                   }
                                                 }}
                                                 onProgress={(state) => setPlayedPercentage(parseFloat((state.played * 100).toFixed(2)))}

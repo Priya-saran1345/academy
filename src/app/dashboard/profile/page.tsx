@@ -5,7 +5,7 @@ import React from 'react';
 
 const Page = () => {
   return (
-  
+    
  <div className="min-h-screen bg-[#F7F7F7]">
  <DashboardHeader />
  <div className="w-full flex  relative">

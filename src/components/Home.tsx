@@ -32,6 +32,7 @@ export default function Home({data}:any) {
   const [testimonial, settestimonial] = useState()
   const [courses, setcourses] = useState()
   const [Apidata, setApidata] = useState<any>()
+
   useEffect(() => {
     // fetchData();
     setApidata(data) 
@@ -42,6 +43,7 @@ export default function Home({data}:any) {
     setcourses(data.courses)
     localStorage.setItem('banner-heading', data.website_banner[0].heading)
   }, []);
+  
   return (
     <>
       {/* {
@@ -49,6 +51,7 @@ export default function Home({data}:any) {
           <div className="loader"></div>
         </div> 
       } */}
+
       {
         <div>
           <Header />
