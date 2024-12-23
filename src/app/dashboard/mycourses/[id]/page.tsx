@@ -187,6 +187,7 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
       console.error("Error sending progress:", error);
     }
   };
+
   return (
     <div className="min-h-screen bg-[#F7F7F7]">
       <DashboardHeader />
@@ -258,11 +259,23 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
                                   {
                                     moduleprogress[index]===100 ?
                                     <FaCircleCheck className="text-orange text-[18px] mt-1" />:
-                                    <div className={`min-w-[13px] h-[13px] border-2  border-orange rounded-full`}></div>
+                                    // <div className={`min-w-[13px] h-[13px] border-2  border-orange rounded-full`}></div>
+                                    <div className="relative border-orange border-2 rounded-full p-[3px] " style={{
+                                      background: `conic-gradient(#F24A25 ${moduleprogress[index]}%, #F5F5F5 ${moduleprogress[index]}%)`,
+                                    }}>
+  <div className="w-[10px]  h-[10px] bg-white border-orange border-2  rounded-full flex items-center justify-center overflow-hidden z-50">
+    {/* Content inside the rounded block can be left empty or customized */}
+  </div>
+  
+</div>
                                   }
+                                  {/* {
+                                 moduleprogress[index]===0 &&<div className={`min-w-[13px] h-[13px] border-2  border-orange rounded-full`}></div>
+
+                                  } */}
                                   {module}
                                   </div>
-                                  <div className={`  text-orange`}>{Math.round(moduleprogress[index])}%</div>
+                                  {/* <div className={`  text-orange`}>{Math.round(moduleprogress[index])}%</div> */}
                                 </div>
                               </div>
                             ))}
