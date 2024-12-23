@@ -116,7 +116,11 @@ const DashboardHeader = ({ props }: any) => {
           {/* <IoIosNotifications className='text-orange text-[20px] md:text-[35px]' /> */}
           <div className='flex gap-1 md:gap-2 items-center'>
             <div className=' hidden size-[30px] md:size-[50px] rounded-full bg-orange border-4 border-red-200 text-[18px] md:text-[27px] center text-white capitalize'>
-              {ApiData?.username[0]}
+              {
+                ApiData?.profile_image?
+                <Image src={ApiData?.profile_image} alt="logo" width={60} height={60} className='' />:
+                ApiData?.username[0]}
+
             </div>
             <div onClick={() => router.push('/dashboard/profile')} className='cursor-pointer'>
               <p className='text-[14px] font-semibold'>{ApiData?.username}</p>
@@ -144,6 +148,9 @@ const DashboardHeader = ({ props }: any) => {
                       <div className=''>
                         <div className="relative rounded-full p-[5px] bg-white">
                           <div className="w-16 h-16 bg-[#9C9C9C]   rounded-full flex items-center justify-center overflow-hidden z-50 ">
+                            {ApiData?.profile_image?
+                            <Image src={ApiData?.profile_image} alt="logo" width={80} height={60} className='' />:
+
                             <svg
                               className="w-8 h-8 text-white"
                               fill="none"
@@ -158,6 +165,7 @@ const DashboardHeader = ({ props }: any) => {
                                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                               />
                             </svg>
+                            }
                           </div>
                           <div className="absolute inset-0 -z-20 scale-110 rounded-full"
                             style={{

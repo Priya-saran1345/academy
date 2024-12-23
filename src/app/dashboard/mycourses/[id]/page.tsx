@@ -17,7 +17,6 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import Link from "next/link";
 import { GoDownload } from "react-icons/go";
 import { useapi } from "@/helpers/apiContext";
-
 export default function Page() {
   const pathname = usePathname();
   const { profile } = useapi();
@@ -33,7 +32,7 @@ export default function Page() {
   const [userId, setuserId] = useState<any>();
   const [playedPercentage, setPlayedPercentage] = useState(0);
   const [initialProgress, setInitialProgress] = useState(0);
-const [moduleprogress, setmoduleprogress] = useState<any>()
+  const [moduleprogress, setmoduleprogress] = useState<any>()
   const playerRef = useRef<any>(null);
   const router = useRouter();
 
@@ -94,13 +93,12 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
   useEffect(() => {
     fetch();
     setuserId(profile?.id);
-  }, [id, profile ,playedPercentage]);
+  }, [id, profile, playedPercentage]);
   const renderStars = (rating: any) => {
     const stars = [];
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
-    for (let i = 1; i <= fullStars; i++) 
-    {
+    for (let i = 1; i <= fullStars; i++) {
       stars.push(<FaStar key={i} className="text-orange " />);
     }
     if (hasHalfStar) {
@@ -127,7 +125,7 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
         );
         setmoduleprogress(
           response.data.module_progress?.map((progress: any) => progress.module_progress || 0)
-            )        // setInitialProgress(response.data.progress);
+        )        // setInitialProgress(response.data.progress);
         console.log("The start video progress is", response.data.module_progress);
         // if (response.data.progress > 0 && playerRef.current) {
         //   playerRef.current.seekTo(response.data.progress / 100, "fraction");
@@ -188,6 +186,36 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
     }
   };
 
+  // const renderVideoDuration = async (videoUrl:any) => {
+  //   if (!videoUrl) return 'N/A'; // Handle cases where the URL is undefined or empty
+  
+  //   try {
+  //     const duration = await getVideoDurationSync(videoUrl);
+  //     return duration;
+  //   } catch (error) {
+  //     console.error('Error fetching video duration:', error);
+  //     return 'N/A';
+  //   }
+  // };
+  // const getVideoDurationSync = async (videoUrl:any) => {
+  //   return new Promise((resolve, reject) => {
+  //     const video = document.createElement('video');
+  //     video.src = videoUrl;
+  //     video.preload = 'metadata'; // Load metadata only
+  
+  //     video.onloadedmetadata = () => {
+  //       const durationInSeconds = video.duration;
+  //       const minutes = Math.floor(durationInSeconds / 60);
+  //       const seconds = Math.floor(durationInSeconds % 60);
+  //       resolve(`${minutes}:${seconds.toString().padStart(2, '0')}`);
+  //     };
+  
+  //     video.onerror = () => {
+  //       reject(new Error('Failed to load video metadata.'));
+  //     };
+  //   });
+  // };
+  
   return (
     <div className="min-h-screen bg-[#F7F7F7]">
       <DashboardHeader />
@@ -243,7 +271,7 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.4, ease:"easeInOut" }}
+                          transition={{ duration: 0.4, ease: "easeInOut" }}
                           className="overflow-hidden pl-4 pb-3"
                         >
                           <nav className="space-y-1">
@@ -256,24 +284,23 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
                               >
                                 <div className="flex justify-between cursor-pointer text-textGrey font-medium text-[15px] gap-4">
                                   <div className="flex gap-2 items-center">
-                                  {
-                                    moduleprogress[index]===100 ?
-                                    <FaCircleCheck className="text-orange text-[18px] mt-1" />:
-                                    // <div className={`min-w-[13px] h-[13px] border-2  border-orange rounded-full`}></div>
-                                    <div className="relative border-orange border-2 rounded-full p-[3px] " style={{
-                                      background: `conic-gradient(#F24A25 ${moduleprogress[index]}%, #F5F5F5 ${moduleprogress[index]}%)`,
-                                    }}>
-  <div className="w-[10px]  h-[10px] bg-white border-orange border-2  rounded-full flex items-center justify-center overflow-hidden z-50">
-    {/* Content inside the rounded block can be left empty or customized */}
-  </div>
-  
-</div>
-                                  }
-                                  {/* {
+                                    {
+                                      moduleprogress[index] === 100 ?
+                                        <FaCircleCheck className="text-orange text-[18px] mt-1" /> :
+                                        // <div className={`min-w-[13px] h-[13px] border-2  border-orange rounded-full`}></div>
+                                        <div className="relative border-orange border-2 flex justify-center items-center rounded-full p-[3px] " style={{
+                                          background: `conic-gradient(#F24A25 ${moduleprogress[index]}%, #F5F5F5 ${moduleprogress[index]}%)`,
+                                        }}>
+                                          <div className="w-[10px]  h-[10px] bg-white border-orange border-2  rounded-full flex items-center justify-center overflow-hidden z-50">
+                                            {/* Content inside the rounded block can be left empty or customized */}
+                                          </div>
+                                        </div>
+                                    }
+                                    {/* {
                                  moduleprogress[index]===0 &&<div className={`min-w-[13px] h-[13px] border-2  border-orange rounded-full`}></div>
 
                                   } */}
-                                  {module}
+                                    {module}
                                   </div>
                                   {/* <div className={`  text-orange`}>{Math.round(moduleprogress[index])}%</div> */}
                                 </div>
@@ -370,22 +397,24 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
                                   <div key={lessonIndex}>
                                     <div className="flex flex-col gap-2 mt-2">
                                       <div
-                                        className={`flex border-1 ${expandedLessonIndex === lessonIndex ? "border-orange" 
+                                        className={`flex border-1 ${expandedLessonIndex === lessonIndex ? "border-orange"
                                           : "border-slate-200"} p-3 rounded-lg items-start gap-3 text-sm cursor-pointer`}
                                         onClick={() => toggleLesson(lessonIndex)}
                                       >
                                         <div className="flex-1 min-w-0">
                                           <div className="flex justify-between">
                                             <div className="flex items-start gap-2">
-                                              {
-                                                lesson.video_progress===100?
-                                                <FaCircleCheck className="text-orange text-[18px] mt-1" />
-                                                :
-                                                <div className={`w-[13px] h-[13px]  border-2 mt-1 border-orange rounded-full`}></div>
-                                              }
+                                                {
+                                                lesson.video_progress === 100 ?
+                                                  <FaCircleCheck className="text-orange text-[18px] mt-1" />
+                                                  :
+                                                  <div className={`w-[13px] h-[13px]  border-2 mt-1 border-orange rounded-full`}></div> }
                                               <div className="items-center gap-2">
                                                 <div className={`font-normal text-[16px] ${expandedLessonIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title}</div>
-                                                <div className="text-gray-500 mt-1 text-xs">Video•{lesson.video_url.duration}</div>
+                                                <div className="text-gray-500 mt-1 text-xs">
+                                                Video • 
+                                                {/* {await renderVideoDuration(lesson.video_url || '')} */}
+                                              </div>
                                               </div>
                                             </div>
                                             {expandedLessonIndex === lessonIndex ? <BiChevronUp className="text-[28px] text-orange" />
@@ -406,6 +435,7 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
                                               // handleStart();
                                             }}
                                           >
+                                            
                                             <div className="h-[500px] rounded-md">
                                               <ReactPlayer
                                                 ref={playerRef}
@@ -416,7 +446,7 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
                                                 playing={true}
                                                 onReady={() => {
                                                   if (lesson.video_progress
-                                                    > 0 && lesson.video_progress <100) {
+                                                    > 0 && lesson.video_progress < 100) {
                                                     playerRef.current.seekTo(lesson.video_progress / 100, "fraction");
                                                     console.log("Seeking to", lesson.video_progress / 100);
                                                   }
@@ -425,7 +455,6 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
                                                 onPause={handlePauseOrEnd}
                                                 onProgressChange={handlePauseOrEnd}
                                                 onEnded={handlePauseOrEnd}
-                                                
                                               />
                                             </div>
                                           </motion.div>
