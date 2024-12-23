@@ -99,7 +99,8 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
     const stars = [];
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
-    for (let i = 1; i <= fullStars; i++) {
+    for (let i = 1; i <= fullStars; i++) 
+    {
       stars.push(<FaStar key={i} className="text-orange " />);
     }
     if (hasHalfStar) {
@@ -107,7 +108,6 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
     }
     return <div className="flex gap-1">{stars}</div>;
   };
-
 
   useEffect(() => {
     const fetchPlayCount = async () => {
@@ -258,13 +258,11 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
                                   {
                                     moduleprogress[index]===100 ?
                                     <FaCircleCheck className="text-orange text-[18px] mt-1" />:
-                                    
                                     <div className={`min-w-[13px] h-[13px] border-2  border-orange rounded-full`}></div>
                                   }
                                   {module}
                                   </div>
                                   <div className={`  text-orange`}>{Math.round(moduleprogress[index])}%</div>
-
                                 </div>
                               </div>
                             ))}
@@ -402,6 +400,7 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
                                                 controls
                                                 width="100%"
                                                 height="100%"
+                                                playing={true}
                                                 onReady={() => {
                                                   if (lesson.video_progress
                                                     > 0 && lesson.video_progress <100) {
@@ -413,6 +412,7 @@ const [moduleprogress, setmoduleprogress] = useState<any>()
                                                 onPause={handlePauseOrEnd}
                                                 onProgressChange={handlePauseOrEnd}
                                                 onEnded={handlePauseOrEnd}
+                                                
                                               />
                                             </div>
                                           </motion.div>
