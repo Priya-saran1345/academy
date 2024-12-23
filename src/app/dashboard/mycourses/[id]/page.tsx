@@ -33,6 +33,7 @@ export default function Page() {
   const [userId, setuserId] = useState<any>();
   const [playedPercentage, setPlayedPercentage] = useState(0);
   const [initialProgress, setInitialProgress] = useState(0);
+const [moduleprogress, setmoduleprogress] = useState<any>()
   const playerRef = useRef<any>(null);
   const router = useRouter();
 
@@ -69,6 +70,7 @@ export default function Page() {
     }
   }, [ApiData]);
 
+
   const fetch = async () => {
     try {
       const token = Cookies.get("login_access_token");
@@ -101,10 +103,12 @@ export default function Page() {
       stars.push(<FaStar key={i} className="text-orange " />);
     }
     if (hasHalfStar) {
-      stars.push(<FaStarHalfAlt key="half" className="text-orange " />);
+      stars.push(<FaStarHalfAlt key="half" className="text-orange" />);
     }
     return <div className="flex gap-1">{stars}</div>;
   };
+
+
   useEffect(() => {
     const fetchPlayCount = async () => {
       try {
@@ -114,27 +118,30 @@ export default function Page() {
           return;
         }
         const response = await axios.get(
-          `${BASE_URL}video-progress/${lessonId}/`,
+          `${BASE_URL}video-progress/${ApiData?.course_id}/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        setInitialProgress(response.data.progress);
-        console.log("The start video progress is", response.data.progress);
-        if (response.data.progress > 0 && playerRef.current) {
-          playerRef.current.seekTo(response.data.progress / 100, "fraction");
-        }
+        setmoduleprogress(
+          response.data.module_progress?.map((progress: any) => progress.module_progress || 0)
+            )        // setInitialProgress(response.data.progress);
+        console.log("The start video progress is", response.data.module_progress);
+        // if (response.data.progress > 0 && playerRef.current) {
+        //   playerRef.current.seekTo(response.data.progress / 100, "fraction");
+        // }
       } catch (error) {
         console.error("Error fetching play count:", error);
       }
     };
-    if (lessonId) {
+    if (ApiData) {
       fetchPlayCount();
     }
-  }, [lessonId]);
+  }, [ApiData]);
 
+  // console.log('modules progress are ',moduleprogress)
   const handleStart = async () => {
     try {
       const token = Cookies.get("login_access_token");
@@ -157,6 +164,7 @@ export default function Page() {
       console.error("Error updating play count:", error);
     }
   };
+
   const handlePauseOrEnd = async () => {
     try {
       const token = Cookies.get("login_access_token");
@@ -245,9 +253,18 @@ export default function Page() {
                                 className={`w-full items-center ${sidecontentindex == index ? 'bg-gray-100' : 'bg-white'} text-left 
                                 px-4 border-none py-3 rounded-lg text-sm hover:bg-gray-100 focus:outline-none`}
                               >
-                                <div className="flex cursor-pointer text-textGrey font-medium text-[15px] gap-4">
-                                  <div className="min-w-[13px] h-[13px] border-2 border-orange rounded-full"></div>
+                                <div className="flex justify-between cursor-pointer text-textGrey font-medium text-[15px] gap-4">
+                                  <div className="flex gap-2 items-center">
+                                  {
+                                    moduleprogress[index]===100 ?
+                                    <FaCircleCheck className="text-orange text-[18px] mt-1" />:
+                                    
+                                    <div className={`min-w-[13px] h-[13px] border-2  border-orange rounded-full`}></div>
+                                  }
                                   {module}
+                                  </div>
+                                  <div className={`  text-orange`}>{Math.round(moduleprogress[index])}%</div>
+
                                 </div>
                               </div>
                             ))}
@@ -357,7 +374,7 @@ export default function Page() {
                                               }
                                               <div className="items-center gap-2">
                                                 <div className={`font-normal text-[16px] ${expandedLessonIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title}</div>
-                                                <div className="text-gray-500 mt-1 text-xs">Video • {lesson.duration}</div>
+                                                <div className="text-gray-500 mt-1 text-xs">Video•{lesson.video_url.duration}</div>
                                               </div>
                                             </div>
                                             {expandedLessonIndex === lessonIndex ? <BiChevronUp className="text-[28px] text-orange" />
@@ -394,6 +411,7 @@ export default function Page() {
                                                 }}
                                                 onProgress={(state) => setPlayedPercentage(parseFloat((state.played * 100).toFixed(2)))}
                                                 onPause={handlePauseOrEnd}
+                                                onProgressChange={handlePauseOrEnd}
                                                 onEnded={handlePauseOrEnd}
                                               />
                                             </div>
