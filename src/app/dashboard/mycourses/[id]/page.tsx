@@ -77,13 +77,11 @@ export default function Page() {
         router.push("/login");
         return;
       }
-
       const response = await axios.get(`${BASE_URL}course/${id}/modules/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
       console.log("My enrolled course data:", response.data);
       setApiData(response.data);
     } catch (error: any) {
@@ -94,8 +92,7 @@ export default function Page() {
   useEffect(() => {
     fetch();
     setuserId(profile?.id);
-  }, [id, profile]);
-
+  }, [id, profile ,playedPercentage]);
   const renderStars = (rating: any) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -137,6 +134,7 @@ export default function Page() {
       fetchPlayCount();
     }
   }, [lessonId]);
+
   const handleStart = async () => {
     try {
       const token = Cookies.get("login_access_token");
@@ -181,7 +179,6 @@ export default function Page() {
       console.error("Error sending progress:", error);
     }
   };
-
   return (
     <div className="min-h-screen bg-[#F7F7F7]">
       <DashboardHeader />
@@ -378,7 +375,7 @@ export default function Page() {
                                             className="overflow-hidden"
                                             onAnimationComplete={() => {
                                               setlessonId(lesson.id);
-                                              handleStart();
+                                              // handleStart();
                                             }}
                                           >
                                             <div className="h-[500px] rounded-md">
@@ -390,7 +387,7 @@ export default function Page() {
                                                 height="100%"
                                                 onReady={() => {
                                                   if (lesson.video_progress
-                                                    > 0) {
+                                                    > 0 && lesson.video_progress <100) {
                                                     playerRef.current.seekTo(lesson.video_progress / 100, "fraction");
                                                     console.log("Seeking to", lesson.video_progress / 100);
                                                   }
