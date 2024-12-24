@@ -389,9 +389,9 @@ ApiData?.card_image?
                         <div key={moduleIndex} className="mb-4">
                           <button
                             onClick={() => setOpenModule(openModule === moduleIndex ? null : moduleIndex)}
-                            className="w-full flex items-center justify-between p-4 border-slate-200 border-1 hover:shadow-lg mb-3 duration-250 rounded-lg"
+                            className="w-full flex items-center justify-between  p-4 border-slate-200 border-1 hover:shadow-lg mb-3 duration-250 rounded-lg"
                           >
-                            <span className="font-semibold text-[18px]">{moduleIndex + 1}. {module?.title || 'Untitled Module'}</span>
+                            <span className="font-semibold text-left text-[18px]">{moduleIndex + 1}. {module?.title || 'Untitled Module'}</span>
                             {openModule === moduleIndex ? <FiMinus className="text-[24px] text-orange" /> : <FiPlus className="text-[24px] text-orange" />}
                           </button>
                           <AnimatePresence>
@@ -416,7 +416,7 @@ ApiData?.card_image?
                                             <div className="flex items-start gap-2">
                                                 {
                                                 lesson.video_progress === 100 ?
-                                                  <FaCircleCheck className="text-orange text-[18px] mt-1" />
+                                                  <FaCircleCheck className="text-orange h-4 min-w-4 mt-1" />
                                                   :
                                                   <div className={`w-[13px] h-[13px]  border-2 mt-1 border-orange rounded-full`}></div> }
                                               <div className="items-center gap-2">
