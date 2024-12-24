@@ -14,7 +14,11 @@ const [discountCode, setdiscountCode] = useState<any>()
     });
   };
 
+  const [isLoading, setIsLoading] = useState(true);
 
+  const handleLoad = () => {
+    setIsLoading(false);
+  };
 
   const fetch = async () => {
     try {
@@ -37,13 +41,24 @@ const [discountCode, setdiscountCode] = useState<any>()
     <div className=" max-w-md mx-auto relative">
       {/* Top Section with Image and Discount */}
       <div className="relative">
+      {isLoading && (
+        <div className="w-full h-[190px] flex justify-center items-center">
+        <div className="loader_img">
+        </div>
+        </div>
+      )}
         <Image
           src="/images/discount.svg" // Replace with your image path
           alt="Discount Offer"
           width={450}
           height={190}
           className="rounded-lg"
+          onLoad={handleLoad}
         />
+          {/* <div className="w-full h-[190px] flex justify-center items-center">
+          <div className="loader_img">
+          </div>
+          </div> */}
       </div>
       <div className="mt-4">
         <p className="text-lg text-black font-medium">

@@ -227,13 +227,23 @@ export default function Page() {
           <div className="w-full min-h-[88vh] bg-white rounded-sm py-5">
             <div className="mx-auto p-3 flex flex-col md:flex-row gap-2">
               <div className=" md:w-[275px] lg:w-[350px] md:sticky  md:top-24 md:h-[90vh] flex-shrink-0 rounded-lg shadow p-4">
-                <Image
+                {
+ApiData?.card_image?
+                  <Image
                   src={ApiData?.card_image}
                   height={350}
                   width={410}
                   alt="Python Course"
                   className=" w-full rounded-lg mb-4"
-                />
+                  />:
+                  <div className="w-full h-[350px]  flex justify-center items-center">
+                  
+
+              
+                  <div className="loader_img">
+                    </div>
+                    </div>
+                }
                 <div className="border-b pb-4 mb-4">
                   <h3 className="font-semibold text-xl text-gray-900">{ApiData?.course_title}</h3>
                   <p
