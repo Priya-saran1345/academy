@@ -9,7 +9,7 @@ import axios from "axios";
 import { BASE_URL, BASE_URL_IMAGE } from "@/utils/api";
 import { IoMdSearch } from "react-icons/io";
 
-const OtherCourses = () => {
+const OtherCourses = ({data}:any) => {
   const [allcourse, setAllCourse] = useState<Record<string, any[]>>({});
   const sliderRefs = useRef<{ [key: string]: React.RefObject<Slider> }>({});
   const [searched, setsearched] = useState<any[]>([]);
@@ -62,18 +62,19 @@ const OtherCourses = () => {
       },
     ],
   };
-  const fetchCourses = async () => {
-    try {
-      const response = await axios.get(`${BASE_URL}courses/`);
-      setAllCourse(response.data);
-      console.log("Fetched courses:", response.data);
-    } catch (error: any) {
-      console.log("All courses error", error.message);
-    }
-  };
+  // const fetchCourses = async () => {
+  //   try {
+  //     const response = await axios.get(`${BASE_URL}courses/`);
+  //     setAllCourse(response.data);
+  //     console.log("Fetched courses:", response.data);
+  //   } catch (error: any) {
+  //     console.log("All courses error", error.message);
+  //   }
+  // };
 
   useEffect(() => {
-    fetchCourses();
+    // fetchCourses();
+    setAllCourse(data);
   }, []);
 
   const handleselect = (event: React.ChangeEvent<HTMLInputElement>) => {

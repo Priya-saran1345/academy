@@ -6,6 +6,7 @@ import React from 'react'
 import { fetchMeta } from "@/app/action";
 import { Metadata } from 'next';
 import { Suspense } from 'react'
+import { BASE_URL } from '@/utils/api'
 async function SchemaScript() {
   const metaData = await fetchMeta("courses")
   const schemaData = metaData?.scripts[0].content
@@ -16,7 +17,15 @@ async function SchemaScript() {
     />
   )
 }
-export default function Courses() {
+async function getData() {
+  const res = await fetch(`${BASE_URL}courses/`, { cache: 'no-store' })
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
+export default async function Courses () {
+  const data = await getData()
   return (
     <>
       <Suspense fallback={null}>
@@ -25,7 +34,7 @@ export default function Courses() {
       <div className='w-full'>
         <Header/>
         <div className='w-full xl:w-[75%] mt-40 mx-auto px-4 flex justify-center items-center'>
-        <OtherCourses/>
+        <OtherCourses data={data}/>
         </div>
         <FooterBanner/>
         <Footer/>

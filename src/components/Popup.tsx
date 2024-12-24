@@ -36,7 +36,6 @@ const [discountCode, setdiscountCode] = useState<any>()
     fetch();
   }, []);
 
-
   return (
     <div className=" max-w-md mx-auto relative">
       {/* Top Section with Image and Discount */}
