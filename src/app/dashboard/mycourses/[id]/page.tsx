@@ -35,7 +35,7 @@ export default function Page() {
   const [moduleprogress, setmoduleprogress] = useState<any>()
   const playerRef = useRef<any>(null);
   const router = useRouter();
-
+  const [contentProgressArray , setcontentProgressArray ] = useState<any>()
   const toggleLesson = (index: number) => {
     setExpandedLessonIndex(expandedLessonIndex === index ? null : index);
   };
@@ -90,6 +90,24 @@ export default function Page() {
     }
   };
 
+
+   const getContentProgress = (data:any) => {
+    const result:any = [];
+  
+    data.module_progress.forEach((module:any) => {
+      module.topic_progress.forEach((topic:any) => {
+        topic.content_progress.forEach((content:any) => {
+          result.push({
+            id: content.content_id,
+            progress: content.progress,
+          });
+        });
+      });
+    });
+  
+    return result;
+  };
+
   useEffect(() => {
     fetch();
     setuserId(profile?.id);
@@ -125,11 +143,9 @@ export default function Page() {
         );
         setmoduleprogress(
           response.data.module_progress?.map((progress: any) => progress.module_progress || 0)
-        )        // setInitialProgress(response.data.progress);
-        console.log("The start video progress is", response.data.module_progress);
-        // if (response.data.progress > 0 && playerRef.current) {
-        //   playerRef.current.seekTo(response.data.progress / 100, "fraction");
-        // }
+        )   
+        setcontentProgressArray(getContentProgress(response.data))    
+        console.log("The start video progress is", response.data);
       } catch (error) {
         console.error("Error fetching play count:", error);
       }
@@ -138,7 +154,7 @@ export default function Page() {
       fetchPlayCount();
     }
   }, [ApiData]);
-
+console.log('content progress is ----------------',contentProgressArray)
   // console.log('modules progress are ',moduleprogress)
   const handleStart = async () => {
     try {
@@ -185,37 +201,6 @@ export default function Page() {
       console.error("Error sending progress:", error);
     }
   };
-
-  // const renderVideoDuration = async (videoUrl:any) => {
-  //   if (!videoUrl) return 'N/A'; // Handle cases where the URL is undefined or empty
-  
-  //   try {
-  //     const duration = await getVideoDurationSync(videoUrl);
-  //     return duration;
-  //   } catch (error) {
-  //     console.error('Error fetching video duration:', error);
-  //     return 'N/A';
-  //   }
-  // };
-  // const getVideoDurationSync = async (videoUrl:any) => {
-  //   return new Promise((resolve, reject) => {
-  //     const video = document.createElement('video');
-  //     video.src = videoUrl;
-  //     video.preload = 'metadata'; // Load metadata only
-  
-  //     video.onloadedmetadata = () => {
-  //       const durationInSeconds = video.duration;
-  //       const minutes = Math.floor(durationInSeconds / 60);
-  //       const seconds = Math.floor(durationInSeconds % 60);
-  //       resolve(`${minutes}:${seconds.toString().padStart(2, '0')}`);
-  //     };
-  
-  //     video.onerror = () => {
-  //       reject(new Error('Failed to load video metadata.'));
-  //     };
-  //   });
-  // };
-  
   return (
     <div className="min-h-screen bg-[#F7F7F7]">
       <DashboardHeader />
@@ -414,11 +399,14 @@ ApiData?.card_image?
                                         <div className="flex-1 min-w-0">
                                           <div className="flex justify-between">
                                             <div className="flex items-start gap-2">
-                                                {
-                                                lesson.video_progress === 100 ?
+                                            
+                                              {
+                                                contentProgressArray?.find((elem: any) => elem.id === lesson.id)?.progress === 100 ? (
                                                   <FaCircleCheck className="text-orange h-4 min-w-4 mt-1" />
-                                                  :
-                                                  <div className={`w-[13px] h-[13px]  border-2 mt-1 border-orange rounded-full`}></div> }
+                                                ) : (
+                                                  <div className={`w-[13px] h-[13px] border-2 mt-1 border-orange rounded-full`}></div>
+                                                )
+                                              }
                                               <div className="items-center gap-2">
                                                 <div className={`font-normal text-[16px] ${expandedLessonIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title}</div>
                                                 <div className="text-gray-500 mt-1 text-xs">
@@ -455,15 +443,15 @@ ApiData?.card_image?
                                                 height="100%"
                                                 playing={true}
                                                 onReady={() => {
-                                                  if (lesson.video_progress
-                                                    > 0 && lesson.video_progress < 100) {
-                                                    playerRef.current.seekTo(lesson.video_progress / 100, "fraction");
-                                                    console.log("Seeking to", lesson.video_progress / 100);
+                                                  if (contentProgressArray?.find((elem: any) => elem.id === lesson.id)?.progress 
+                                                    > 0 && contentProgressArray?.find((elem: any) => elem.id === lesson.id)?.progress  < 100) {
+                                                    playerRef.current.seekTo(contentProgressArray?.find((elem: any) => elem.id === lesson.id)?.progress  / 100, "fraction");
+                                                    console.log("Seeking to", contentProgressArray?.find((elem: any) => elem.id === lesson.id)?.progress  / 100);
                                                   }
                                                 }}
                                                 onProgress={(state) => setPlayedPercentage(parseFloat((state.played * 100).toFixed(2)))}
                                                 onPause={handlePauseOrEnd}
-                                                onProgressChange={handlePauseOrEnd}
+                                                // onProgressChange={handlePauseOrEnd}
                                                 onEnded={handlePauseOrEnd}
                                               />
                                             </div>
@@ -480,7 +468,7 @@ ApiData?.card_image?
                                         <div className="flex-1 min-w-0">
                                           <div className="flex justify-between">
                                             <div className="flex items-start gap-2">
-                                              <div className="min-w-[13px] h-[13px] mt-1 border-2 border-orange rounded-full"></div>
+                                              <div className="min-w-[13px] h-[13px] bg-orange mt-1 border-2 border-orange rounded-full"></div>
                                               <div className="items-center gap-2">
                                                 <div className={`font-normal text-[16px] ${expandednotesIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>
                                               </div>
