@@ -79,29 +79,60 @@ export default function Home({data}:any) {
               </motion.div>
             )
           }    <div className="center bg-lightGrey">
-            <div className="flex flex-col px-4 py-14 gap-10">
-              <h3 className="text-black text-[24px] md:text-4xl font-bold text-center">
-                Master the Most In-Demand <span className="text-orange">Skills</span> <br /> of Today&apos;s Job Market
-              </h3>
-              <div className="flex flex-wrap  lg:flex-nowrap items-center justify-center gap-10 xl:gap-36">
-                {
-                  Apidata?.categories?.slice(0, 4).map((elem: any, index: any) => (
-                    <div className="flex flex-col items-center gap-2 group">
-                      <div className="rounded-full mx-auto w-[110px] h-[110px] flex justify-center items-center bg-white group-hover:bg-orange transition">
-                        <Image
-                          src={`/images/animation${index + 1}.svg`}
-                          alt="Business & Entrepreneurship"
-                          width={50}
-                          height={50}
-                          className="transition group-hover:brightness-0 group-hover:invert"
-                        />
-                      </div>
-                      <h3 className="text-center text-base font-medium">{elem}</h3>
-                    </div>
-                  ))
-                }
-              </div>
-            </div>
+          <div className="flex flex-col px-4 py-14 gap-10">
+      {/* Title Animation */}
+      <motion.h3
+        className="text-black text-[24px] md:text-4xl font-bold text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }} // Fade-in effect
+      >
+        Master the Most In-Demand <span className="text-orange">Skills</span>{" "}
+        <br /> of Today&apos;s Job Market
+      </motion.h3>
+
+      {/* Cards Section */}
+      <motion.div
+      className="flex flex-wrap lg:flex-nowrap items-center justify-center gap-10 xl:gap-36"
+      initial="hidden"
+      animate="show"
+      variants={{
+        hidden: {},
+        show: {
+          transition: {
+            staggerChildren: 2, // 2 seconds delay between each child
+            delayChildren: 0.5, // This introduces an initial delay for all children
+          },
+        },
+      }}
+    >
+      {Apidata?.categories?.slice(0, 4).map((elem: any, index: any) => (
+        <motion.div
+          key={index}
+          className="flex flex-col items-center gap-2 group"
+          initial={{ opacity: 0, y: 50 }} // Start from opacity 0 and slightly below
+          animate={{ opacity: 1, y: 0 }} // Fade-in and move to normal position
+          transition={{
+            opacity: { duration: 0.5 },
+            y: { duration: 0.7 },
+            delay: index * 2, // 2-second staggered delay for each card
+          }}
+        >
+          <div className="rounded-full mx-auto w-[110px] h-[110px] flex justify-center items-center bg-white group-hover:bg-orange transition">
+            <Image
+              src={`/images/animation${index + 1}.svg`}
+              alt="Business & Entrepreneurship"
+              width={50}
+              height={50}
+              className="transition group-hover:brightness-0 group-hover:invert"
+            />
+          </div>
+          <h3 className="text-center text-base font-medium">{elem}</h3>
+        </motion.div>
+      ))}
+    </motion.div>
+
+    </div>
           </div>
           <div className="px-4   mx-auto w-full lg:w-[95%] 2xl:w-[77%]
  flex flex-col mt-10 gap-10">

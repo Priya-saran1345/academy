@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 import Link from 'next/link';
 import { BASE_URL_IMAGE } from '@/utils/api'
+import { motion } from "framer-motion";
+
 const people = [
   {
     id: 1,
@@ -50,45 +52,79 @@ const Banner = ({ props }) => {
     setRestOfString(heading?.slice(0, -5).trim());
   }, []); // Include props.heading in the dependency array
   return (
-    <div className=' h-fit md:min-h-[850px] flex  flex-col md:flex-row  bg-banner px-6  mx-auto w-full lg:w-[95%] 2xl:w-[77%]'>
-      <div className='flex-1 flex flex-col mb-16 mt-32 md:my-20 lg:my-0  justify-center gap-8'>
-        <div className='flex flex-col gap-4'>
-          <h1 className='2xl:text-[68px] xl:text-[55px] text-[35px] text-black font-bold leading-tight'>
-            <span>
-              {restOfString}
-            </span>
-            <span className=' px-0 mx-0 text-orange'>{lastFour}</span>
+    <div className="h-fit md:min-h-[850px] flex flex-col md:flex-row bg-banner px-6 mx-auto w-full lg:w-[95%] 2xl:w-[77%]">
+      {/* Left Section */}
+      <motion.div
+        className="flex-1 flex flex-col mb-16 mt-32 md:my-20 lg:my-0 justify-center gap-8"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { staggerChildren: .2 } },
+        }}
+      >
+        {/* Heading */}
+        <motion.div
+          className="flex flex-col gap-4"
+          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+        >
+          <h1 className="2xl:text-[68px] xl:text-[55px] text-[35px] text-black font-bold leading-tight">
+            <span>{restOfString}</span>
+            <span className="px-0 mx-0 text-orange">{lastFour}</span>
           </h1>
-          <p className='text-lg md:text-xl'>
-            {
-              props?.short_description
-            }
-          </p>
-        </div>
-        <Link href={`/courses`}>
-          <div className='flex items-center justify-start'>
-            <button className='bg-orange text-white text-center text-[15px] xl:text-lg px-6 py-2 xl:py-3 font-medium hover:bg-white border border-orange hover:border-orange hover:text-orange smooth1 rounded-full'>
-              {props?.button_text}
-            </button>
-          </div>
-        </Link>
-        <div className='flex flex-col gap-1'>
+        </motion.div>
+        <motion.div
+         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+        >
+
+          <p className="text-lg md:text-xl">{props?.short_description}</p>
+        </motion.div>
+
+        {/* Button */}
+        <motion.div
+          variants={{ hidden: { opacity: 0, y: 20 }, 
+          visible: { opacity: 1, y: 0 } }}
+        >
+          <Link href={`/courses`}>
+            <div className="flex items-center justify-start">
+              <button className="bg-orange text-white text-center text-[15px] xl:text-lg px-6 py-2 xl:py-3 font-medium hover:bg-white border border-orange hover:border-orange hover:text-orange smooth1 rounded-full">
+                {props?.button_text}
+              </button>
+            </div>
+          </Link>
+        </motion.div>
+
+        {/* Students Section */}
+        <motion.div
+          className="flex flex-col gap-1"
+          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+        >
           <div className="flex flex-row w-full">
             <AnimatedTooltip items={people} />
           </div>
-          <h3 className='font-medium text-gray-500 w-[250px] bg-lightGrey p-1 rounded-lg'>
-            <span className='text-orange'>Students</span>, achieve their goals.
+          <h3 className="font-medium text-gray-500 w-[250px] bg-lightGrey p-1 rounded-lg">
+            <span className="text-orange">Students</span>, achieve their goals.
           </h3>
-        </div>
-      </div>
-      <div className='md:flex flex-1 items-center justify-center hidden'>
-        {!props?.image &&
-          <div class="loader"></div>
-        }
-        {props?.image &&
-          <Image src={`${BASE_URL_IMAGE}${props?.image}`} alt='banner' height={600} width={600} />
-        }
-      </div>
+        </motion.div>
+      </motion.div>
+
+      {/* Right Section */}
+      <motion.div
+        className="md:flex flex-1 items-center justify-center hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: .5 }}
+      >
+        {!props?.image && <div className="loader"></div>}
+        {props?.image && (
+          <Image
+            src={`${BASE_URL_IMAGE}${props?.image}`}
+            alt="banner"
+            height={600}
+            width={600}
+          />
+        )}
+      </motion.div>
     </div>
   );
 }

@@ -12,11 +12,13 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { BASE_URL, BASE_URL_IMAGE } from "@/utils/api";
 import { usePathname, useRouter } from "next/navigation";
-import { FaCircleCheck, FaStar } from "react-icons/fa6";
+import { FaBook, FaCircleCheck, FaStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
 import Link from "next/link";
 import { GoDownload } from "react-icons/go";
 import { useapi } from "@/helpers/apiContext";
+import { GiSecretBook } from "react-icons/gi";
+
 export default function Page() {
   const pathname = usePathname();
   const { profile } = useapi();
@@ -433,7 +435,6 @@ ApiData?.card_image?
                                               // handleStart();
                                             }}
                                           >
-                                            
                                             <div className="h-[500px] rounded-md">
                                               <ReactPlayer
                                                 ref={playerRef}
@@ -468,7 +469,9 @@ ApiData?.card_image?
                                         <div className="flex-1 min-w-0">
                                           <div className="flex justify-between">
                                             <div className="flex items-start gap-2">
-                                              <div className="min-w-[13px] h-[13px] bg-orange mt-1 border-2 border-orange rounded-full"></div>
+                                              <div className="min-w-[13px] h-[13px] mt-1 ">
+                                              <FaBook  className="text-orange text-[16px]"/>
+                                              </div>
                                               <div className="items-center gap-2">
                                                 <div className={`font-normal text-[16px] ${expandednotesIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>
                                               </div>

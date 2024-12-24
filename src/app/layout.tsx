@@ -38,7 +38,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
     
       </head>
-      <body suppressHydrationWarning={true} className="antialiased">
+      <body suppressHydrationWarning={true} className="antialiased" 
+         >
        
 <noscript
           dangerouslySetInnerHTML={{
