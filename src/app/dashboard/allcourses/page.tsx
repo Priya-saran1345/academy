@@ -1,5 +1,4 @@
 import DashboardHeader from '@/components/dashboardHeader'
-import DashboardMain from '@/components/dashboardMain'
 import DashboardSidebar from '@/components/dashboardSidebar'
 import OtherCourses from '@/components/otherCourses'
 import { BASE_URL } from '@/utils/api'

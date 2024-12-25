@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { BsBoxArrowLeft } from "react-icons/bs";
 import { GoBook } from "react-icons/go";
 import { useRouter, usePathname } from "next/navigation";
+import { MdOutlineQuiz } from "react-icons/md";
 
 const DashboardSidebar = () => {
   const router = useRouter();
@@ -39,7 +40,9 @@ const DashboardSidebar = () => {
       setActiveOption("profile");
     } else if (pathname.includes("/dashboard/support")) {
       setActiveOption("help");
-    } else {
+    } else if (pathname.includes("/dashboard/quiz")) {
+      setActiveOption("quiz");
+    }else {
       setActiveOption("dashboard");
     }
   }, [pathname]);
@@ -89,6 +92,8 @@ const DashboardSidebar = () => {
             { option: "updates", icon: GrSettingsOption, label: "Updates", path: "/dashboard/updates" },
             { option: "profile", icon: RiUserSettingsLine, label: "Profile and Settings", path: "/dashboard/profile" },
             { option: "help", icon: MdOutlineContactSupport, label: "Help & Support", path: "/dashboard/support" },
+            { option: "quiz", icon: MdOutlineQuiz, label: "Quiz", path: "/dashboard/quiz" },
+
           ].map(({ option, icon: Icon, label, path }, index) => (
             <motion.li
               key={option}

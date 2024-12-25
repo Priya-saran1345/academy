@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { BASE_URL, BASE_URL_IMAGE } from '@/utils/api'
 import axios from 'axios';
 import { useRouter } from "next/navigation"
-import { FaMinus, FaStar } from "react-icons/fa6";
+import { FaBook, FaMinus, FaStar } from "react-icons/fa6";
 import Link from 'next/link'
 import Footer from '@/components/footer';
 import FooterBanner from '@/components/footerBanner'
@@ -594,8 +594,9 @@ useEffect(() => {
                                                                                         <div className="flex-1 min-w-0">
                                                                                             <div className="flex justify-between">
                                                                                                 <div className="flex items-start gap-2">
-                                                                                                    <div className="min-w-[13px] h-[13px]  mt-1 border-2 border-orange  rounded-full"></div>
-                                                                                                    <div className="items-center gap-2">
+<div className="min-w-[13px] h-[13px] mt-1 ">
+                                              <FaBook  className="text-orange text-[16px]"/>
+                                              </div>                                                                                                    <div className="items-center gap-2">
                                                                                                         <div className={`font-normal text-[16px]
                                                                                                             ${expandednotesIndex === lessonIndex
                                                                                                              ? "text-orange" : "text-textGrey"}`}>{lesson?.title} Notes</div>

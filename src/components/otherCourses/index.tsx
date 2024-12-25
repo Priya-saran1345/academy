@@ -62,15 +62,7 @@ const OtherCourses = ({data}:any) => {
       },
     ],
   };
-  // const fetchCourses = async () => {
-  //   try {
-  //     const response = await axios.get(`${BASE_URL}courses/`);
-  //     setAllCourse(response.data);
-  //     console.log("Fetched courses:", response.data);
-  //   } catch (error: any) {
-  //     console.log("All courses error", error.message);
-  //   }
-  // };
+ 
 
   useEffect(() => {
     // fetchCourses();
