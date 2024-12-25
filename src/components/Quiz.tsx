@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
 import { BASE_URL } from '@/utils/api';
 import React, { useState, useEffect } from 'react';
-import { useapi } from "@/helpers/apiContext";
+import { useapi } from '@/helpers/apiContext';
 
 const categories = [
   {
@@ -41,7 +41,7 @@ const Quiz = () => {
   const [level, setLevel] = useState('');
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<any>([]);
-  const [userAnswers, setUserAnswers] = useState<{ [key: string]: { question_id: string, selected_answer: string } }>({});
+  const [userAnswers, setUserAnswers] = useState<{ [key: string]: { question_id: string; selected_answer: string } }>({});
   const [message, setMessage] = useState('');
   const [quizResults, setQuizResults] = useState<any>(null);
   const { profile } = useapi();
@@ -68,7 +68,7 @@ const Quiz = () => {
       setLoading(true);
       setMessage('Wait, your quiz is generating');
 
-      const token = document.cookie.split('; ').find(row => row.startsWith('login_access_token='))?.split('=')[1];
+      const token = document.cookie.split('; ').find((row) => row.startsWith('login_access_token='))?.split('=')[1];
       if (!token) {
         console.error('No token found');
         setMessage('No token found');
@@ -88,6 +88,7 @@ const Quiz = () => {
       }
 
       const data = await response.json();
+      console.log('the generated quiz is ,------------------------------------',data)
       setQuestions(data.questions[selectedSubcategory]);
       setMessage('Quiz generated successfully');
     } catch (error) {
@@ -103,8 +104,8 @@ const Quiz = () => {
       ...prevAnswers,
       [questionId]: {
         question_id: questionId,
-        selected_answer: option
-      }
+        selected_answer: option,
+      },
     }));
   };
 
@@ -126,8 +127,8 @@ const Quiz = () => {
       }
       const data = await response.json();
       setQuizResults(data.results);
+    
       setMessage('Quiz submitted successfully!');
-      console.log(data);
     } catch (error) {
       console.error('Error submitting quiz:', error);
       setMessage('Failed to submit quiz.');
@@ -147,9 +148,13 @@ const Quiz = () => {
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
-            <option value="" disabled>Select a category</option>
+            <option value="" disabled>
+              Select a category
+            </option>
             {categories.map((category) => (
-              <option key={category.id} value={category.name}>{category.name}</option>
+              <option key={category.id} value={category.name}>
+                {category.name}
+              </option>
             ))}
           </select>
         </div>
@@ -162,9 +167,13 @@ const Quiz = () => {
             onChange={(e) => setSelectedSubcategory(e.target.value)}
             disabled={!subcategories.length}
           >
-            <option value="" disabled>Select a subcategory</option>
+            <option value="" disabled>
+              Select a subcategory
+            </option>
             {subcategories.map((subcategory: any) => (
-              <option key={subcategory.id} value={subcategory.name}>{subcategory.name}</option>
+              <option key={subcategory.id} value={subcategory.name}>
+                {subcategory.name}
+              </option>
             ))}
           </select>
         </div>
@@ -176,7 +185,9 @@ const Quiz = () => {
             value={level}
             onChange={(e) => setLevel(e.target.value)}
           >
-            <option value="" disabled>Select level</option>
+            <option value="" disabled>
+              Select level
+            </option>
             <option value="Beginner">Beginner</option>
             <option value="Intermediate">Intermediate</option>
             <option value="Advanced">Advanced</option>
@@ -197,21 +208,26 @@ const Quiz = () => {
       {questions.length > 0 && (
         <div className="w-full h-full p-4 mt-8">
           <form onSubmit={handleSubmitQuiz}>
-            {questions.map((question: any) => (
+            {questions.map((question: any, index: any) => (
               <div key={question.id} className="mb-6">
-                <h3 className="font-bold text-lg mb-2">{question.question_text}</h3>
+                <h3 className="font-bold text-lg mb-2">
+                  {index + 1}. {question.question_text}
+                </h3>
                 <div className="flex flex-col gap-2">
-                  {question.options.map((option: string, index: number) => {
-                    const optionLabel = String.fromCharCode(65 + index);
+                  {question.options.map((option: string, idx: number) => {
+                    const optionLabel = String.fromCharCode(65 + idx);
+                    const userSelected = userAnswers[question.id]?.selected_answer === optionLabel;
+
                     return (
-                      <label key={index} className="flex items-center gap-2">
-                        <input 
+                      <label key={idx} className="flex items-center gap-2">
+                        <input
                           type="radio"
                           name={`question-${question.id}`}
                           value={optionLabel}
-                          checked={userAnswers[question.id]?.selected_answer === optionLabel}
+                          checked={userSelected}
                           onChange={() => handleChange(question.id, optionLabel)}
                           className="w-4 h-4"
+                          disabled={!!quizResults}
                         />
                         <span>{optionLabel}:</span>
                         <span>{option}</span>
@@ -219,20 +235,28 @@ const Quiz = () => {
                     );
                   })}
                 </div>
+                {quizResults && (
+                  <div className="mt-2 text-sm text-black">
+                    Correct Answer: &nbsp;<span className='text-orange font-bold'>
+                    ({question?.correct_answer
+                    })
+                    </span>
+                  </div>
+                )}
               </div>
             ))}
-
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded mt-4 disabled:opacity-50"
-              disabled={loading}
-            >
-              {loading ? 'Submitting...' : 'Submit Quiz'}
-            </button>
+            {!quizResults && (
+              <button
+                type="submit"
+                className="bg-blue-500 text-white px-4 py-2 rounded mt-4 disabled:opacity-50"
+                disabled={loading}
+              >
+                {loading ? 'Submitting...' : 'Submit Quiz'}
+              </button>
+            )}
           </form>
         </div>
       )}
-
       {quizResults && (
         <div className="mt-8 p-4 border rounded">
           <h3 className="text-xl font-bold mb-2">Quiz Results</h3>
@@ -247,4 +271,3 @@ const Quiz = () => {
 };
 
 export default Quiz;
-
