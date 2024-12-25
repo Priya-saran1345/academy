@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import DashboardSidebar from '@/components/dashboardSidebar'
 import DashboardHeader from '@/components/dashboardHeader'
-import DashboardMain from '@/components/dashboardMain'
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { BASE_URL } from '@/utils/api'

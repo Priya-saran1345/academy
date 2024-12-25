@@ -1,6 +1,5 @@
 import Support from '@/components/assignments'
 import DashboardHeader from '@/components/dashboardHeader'
-import DashboardMain from '@/components/dashboardMain'
 import DashboardSidebar from '@/components/dashboardSidebar'
 import React from 'react'
 
