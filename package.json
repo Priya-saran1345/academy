@@ -12,6 +12,7 @@
     "@nextui-org/select": "^2.2.7",
     "@nextui-org/system": "^2.2.6",
     "@nextui-org/theme": "^2.2.11",
+    "antd": "^5.22.6",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.4",
