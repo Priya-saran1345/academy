@@ -276,10 +276,7 @@ const Profile = () => {
 
           <div className='flex gap-3 border-b-1 border-slate-200  justify-between items-center'>
             <p className='text-[20px] px-6  font-medium pb-2'>2. Professional Information</p>
-            {/* <button className=' text-[18px] flex items-center gap-2 text-orange rounded-lg px-3 py-2' onClick={() => {
-    setshowupdate(true)
-  }}>Edit <BiEdit className='text-[22px]' />
-  </button> */}
+        
           </div>
           <div className='flex w-full p-2 lg:p-6 justify-between flex-wrap gap-2 lg:gap-5'>
             <div className='w-full sm:w-[48%]'>
@@ -363,7 +360,7 @@ const Profile = () => {
       {
         showupdate &&
         <div className='w-full backdrop-blur-lg h-full flex justify-center items-center absolute top-0 left-0'>
-          <div className='lg:w-[75%] p-8 gap-5 border-[1px] flex flex-wrap border-slate-200 relative shadow-xl rounded-lg bg-white'>
+          <div className='xl:w-[75%] p-8 gap-5 border-[1px] flex flex-wrap border-slate-200 relative shadow-xl rounded-lg bg-white'>
             <div className='absolute right-3 top-3' onClick={() => setshowupdate(false)}>
               <RxCross1 className='text-[22px] cursor-pointer' />
             </div>
@@ -400,7 +397,7 @@ const Profile = () => {
               </div>
             </div>
             <div className='flex flex-wrap justify-between gap-3'>
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="first_name" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>First Name</label>
                 <br />
                 <input
@@ -413,7 +410,7 @@ const Profile = () => {
                 />
               </div>
 
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="last_name" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Last Name</label>
                 <br />
                 <input
@@ -426,7 +423,7 @@ const Profile = () => {
                 />
               </div>
 
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="phone" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Phone</label>
                 <br />
                 <input
@@ -439,7 +436,7 @@ const Profile = () => {
                 />
               </div>
 
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="alternate_phone" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Alternate Phone</label>
                 <br />
                 <input
@@ -452,7 +449,7 @@ const Profile = () => {
                 />
               </div>
 
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="qualification" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Qualification</label>
                 <br />
                 <input
@@ -465,7 +462,7 @@ const Profile = () => {
                 />
               </div>
 
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label
                   htmlFor="gender"
                   className="text-[16px] mb-3 font-medium textGreyblack capitalize"
@@ -485,7 +482,7 @@ const Profile = () => {
                 </select>
               </div>
 
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="course_interested" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Course Interested</label>
                 <br />
                 <input
@@ -497,7 +494,7 @@ const Profile = () => {
                   onChange={changeValue}
                 />
               </div>
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label
                   htmlFor="date_of_birth"
                   className="text-[16px] mb-3 font-medium textGreyblack capitalize"
@@ -509,12 +506,12 @@ const Profile = () => {
                   selected={updateddata.date_of_birth ? new Date(updateddata.date_of_birth) : null}
                   onChange={(date) => changeValue({ target: { name: "date_of_birth", value: date?.toISOString().split("T")[0] } })}
                   dateFormat="yyyy-MM-dd"
-                  className="text-textGrey mt-2  outline-none  border-[2px] px-2 py-2 border-slate-200 rounded-lg"
+                  className="text-textGrey mt-2 w-full outline-none  border-[2px] px-2 py-2 border-slate-200 rounded-lg"
                   placeholderText="yyyy-mm-dd"
                 />
               </div>
 
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="goals" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Goals</label>
                 <br />
                 <input
@@ -527,7 +524,7 @@ const Profile = () => {
                 />
               </div>
 
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="extracurriculars" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Extracurriculars</label>
                 <br />
                 <input
@@ -540,7 +537,7 @@ const Profile = () => {
                 />
               </div>
 
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Address</label>
                 <br />
                 <input
@@ -552,7 +549,7 @@ const Profile = () => {
                   onChange={changeValue}
                 />
               </div>
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Industry</label>
                 <br />
                 <input
@@ -564,7 +561,7 @@ const Profile = () => {
                   onChange={changeValue}
                 />
               </div>
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Company Name</label>
                 <br />
                 <input
@@ -576,7 +573,7 @@ const Profile = () => {
                   onChange={changeValue}
                 />
               </div>
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Linkedin Profile Url</label>
                 <br />
                 <input
@@ -588,7 +585,7 @@ const Profile = () => {
                   onChange={changeValue}
                 />
               </div>
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Current Job Title</label>
                 <br />
                 <input
@@ -600,7 +597,7 @@ const Profile = () => {
                   onChange={changeValue}
                 />
               </div>
-              <div className='w-[23%]'>
+              <div className='sm:w-[45%] w-full md:w-[32%] lg:w-[23%]'>
                 <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>City</label>
                 <br />
                 <input
