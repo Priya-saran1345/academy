@@ -5,39 +5,10 @@ import React, { useState, useEffect } from 'react';
 import { useapi } from '@/helpers/apiContext';
 import toast from 'react-hot-toast';
 
-const categories = [
-  {
-    id: 1,
-    name: 'Data Science',
-    subcategories: [
-      { id: 101, name: 'Python for Data Science' },
-      { id: 102, name: 'Machine Learning' },
-      { id: 103, name: 'Data Visualization' },
-    ],
-  },
-  {
-    id: 2,
-    name: 'Web Development',
-    subcategories: [
-      { id: 201, name: 'Frontend Development' },
-      { id: 202, name: 'Backend Development' },
-      { id: 203, name: 'Full Stack Development' },
-    ],
-  },
-  {
-    id: 3,
-    name: 'Digital Marketing',
-    subcategories: [
-      { id: 301, name: 'SEO' },
-      { id: 302, name: 'Social Media Marketing' },
-      { id: 303, name: 'Content Marketing' },
-    ],
-  },
-];
 
 const Quiz = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [subcategories, setSubcategories] = useState<any>([]);
+  const [subcategories, setSubcategories] = useState<string[]>([]);
   const [selectedSubcategories, setSelectedSubcategories] = useState<string[]>([]);
   const [level, setLevel] = useState('');
   const [loading, setLoading] = useState(false);
@@ -46,12 +17,14 @@ const Quiz = () => {
   const [message, setMessage] = useState('');
   const [quizResults, setQuizResults] = useState<any>(null);
   const { profile } = useapi();
+  const [categories, setCategories] = useState<{ [key: string]: string[] }>({});
 
   useEffect(() => {
-    const category = categories.find((cat) => cat.name === selectedCategory);
-    setSubcategories(category ? category.subcategories : []);
+    // Access the selected category's subcategories using the selected key.
+    const subcategories = categories && selectedCategory ? categories[selectedCategory] : [];
+    setSubcategories(subcategories);
     setSelectedSubcategories([]);
-  }, [selectedCategory]);
+  }, [selectedCategory, categories]);
 
   const handleCheckboxChange = (subcategory: string) => {
     setSelectedSubcategories((prev) =>
@@ -77,14 +50,6 @@ const Quiz = () => {
     try {
       setLoading(true);
       setMessage('Wait, your quiz is generating');
-
-      // const token = document.cookie.split('; ').find((row) => row.startsWith('login_access_token='))?.split('=')[1];
-      // if (!token) {
-      //   console.error('No token found');
-      //   setMessage('No token found');
-      //   return;
-      // }
-
       const response = await fetch(`${BASE_URL}generate-questions-live-multiple/`, {
         method: 'POST',
         headers: {
@@ -148,6 +113,23 @@ const Quiz = () => {
       setLoading(false);
     }
   };
+  // const [categories, setCategories] = useState<Category[]>([]);
+
+  const getCategories = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}quizcategories/`);
+      const data = await response.json();
+      console.log("Fetched categories:", data);
+      setCategories(data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      toast.error("Failed to load categories");
+    }
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   return (
     <div className="w-full h-full p-4">
@@ -163,26 +145,26 @@ const Quiz = () => {
             <option value="" disabled>
               Select a category
             </option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.name}>
-                {category.name}
-              </option>
-            ))}
+            {Object.keys(categories)?.map((key) => (
+  <option key={key} value={key}>
+    {key}
+  </option>
+))}
           </select>
         </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">Subcategories</label>
-          {subcategories.map((subcategory: any) => (
-            <label key={subcategory.id} className="flex items-center gap-2">
+          {subcategories.map((subcategory: string) => (
+            <label key={subcategory} className="flex items-center gap-2">
               <input
                 type="checkbox"
-                value={subcategory.name}
-                checked={selectedSubcategories.includes(subcategory.name)}
-                onChange={() => handleCheckboxChange(subcategory.name)}
+                value={subcategory}
+                checked={selectedSubcategories.includes(subcategory)}
+                onChange={() => handleCheckboxChange(subcategory)}
                 className="w-4 h-4"
               />
-              <span>{subcategory.name}</span>
+              <span>{subcategory}</span>
             </label>
           ))}
         </div>
@@ -215,10 +197,9 @@ const Quiz = () => {
       {message && <p className="mt-4 text-center">{message}</p>}
 
       {
-      // /* {questions.length > 0 && ( */}
         <div className="w-full h-full p-4 mt-8">
           <form onSubmit={handleSubmitQuiz}>
-            {Object.entries(questions)?.map(([topic, topicQuestions]: any) => (
+            {Object.entries(questions)?.map(([topic, topicQuestions ]: any) => (
               <div key={topic}>
                 <h3 className="font-bold text-lg mb-4">{topic}</h3>
                 {topicQuestions.map((question: any, index: number) => (
@@ -246,7 +227,15 @@ const Quiz = () => {
                         </label>
                       );
                     })}
+                     <div className="mt-2 text-sm text-green-600">
+          {quizResults && question.correct_answer && (
+            <span>
+              Correct Answer: <strong>{question.correct_answer}</strong>
+            </span>
+          )}
+        </div>
                   </div>
+                  
                 ))}
               </div>
             ))}
@@ -262,8 +251,7 @@ const Quiz = () => {
             )}
           </form>
         </div>
-      
-          }
+      }
 
       {quizResults && (
         <div className="mt-8 p-4 border rounded">
@@ -290,3 +278,4 @@ const Quiz = () => {
 };
 
 export default Quiz;
+
