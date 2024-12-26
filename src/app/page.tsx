@@ -38,7 +38,6 @@ export default async function Home() {
     </>
   )
 }
-
 export async function generateMetadata(): Promise<Metadata> {
   try {
     const metaData = await fetchMeta("/");

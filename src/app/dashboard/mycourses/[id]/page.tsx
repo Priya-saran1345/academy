@@ -45,7 +45,6 @@ export default function Page() {
   const toggleNotes = (index: number) => {
     setexpandednotesIndex(expandednotesIndex === index ? null : index);
   };
-
   const [openSection, setOpenSection] = useState<string | null>(null);
   const toggleSection = (section: string) => {
     setOpenSection(openSection === section ? null : section);

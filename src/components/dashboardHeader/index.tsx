@@ -36,7 +36,7 @@ const DashboardHeader = ({ props }: any) => {
     try {
       const response = await axios.get(`${BASE_URL}active-discounts/`
     );
-      console.log('my courses are ', response.data)
+      // console.log('my courses are ', response.data)
       setdiscount(response.data.code);
     } catch (error:any) {
       console.log("my courses error", error.message);
@@ -73,7 +73,7 @@ const DashboardHeader = ({ props }: any) => {
     setShowLogout((prev) => !prev); // Toggle the state
   };
 
-  console.log('profile is ',profile)
+  // console.log('profile is ',profile)
   return (
     <div className=' px-2 md:px-5 py-3 pt-4   sticky z-50 top-0 w-full bg-[#F7F7F7]'>
       <div className='absolute w-fit top-[60px] sm:top-20 left-0 z-50'>

@@ -3,6 +3,7 @@
 import { BASE_URL } from '@/utils/api';
 import React, { useState, useEffect } from 'react';
 import { useapi } from '@/helpers/apiContext';
+import toast from 'react-hot-toast';
 
 const categories = [
   {
@@ -37,7 +38,7 @@ const categories = [
 const Quiz = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [subcategories, setSubcategories] = useState<any>([]);
-  const [selectedSubcategory, setSelectedSubcategory] = useState('');
+  const [selectedSubcategories, setSelectedSubcategories] = useState<string[]>([]);
   const [level, setLevel] = useState('');
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<any>([]);
@@ -49,18 +50,27 @@ const Quiz = () => {
   useEffect(() => {
     const category = categories.find((cat) => cat.name === selectedCategory);
     setSubcategories(category ? category.subcategories : []);
-    setSelectedSubcategory('');
+    setSelectedSubcategories([]);
   }, [selectedCategory]);
+
+  const handleCheckboxChange = (subcategory: string) => {
+    setSelectedSubcategories((prev) =>
+      prev.includes(subcategory)
+        ? prev.filter((item) => item !== subcategory)
+        : [...prev, subcategory]
+    );
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedCategory || !selectedSubcategory || !level) {
+    if (!selectedCategory || selectedSubcategories.length === 0 || !level) {
       setMessage('Please fill in all fields');
       return;
     }
 
     const payload = {
-      topics: [selectedSubcategory],
+      category: selectedCategory,
+      topics: selectedSubcategories,
       level,
     };
 
@@ -68,12 +78,12 @@ const Quiz = () => {
       setLoading(true);
       setMessage('Wait, your quiz is generating');
 
-      const token = document.cookie.split('; ').find((row) => row.startsWith('login_access_token='))?.split('=')[1];
-      if (!token) {
-        console.error('No token found');
-        setMessage('No token found');
-        return;
-      }
+      // const token = document.cookie.split('; ').find((row) => row.startsWith('login_access_token='))?.split('=')[1];
+      // if (!token) {
+      //   console.error('No token found');
+      //   setMessage('No token found');
+      //   return;
+      // }
 
       const response = await fetch(`${BASE_URL}generate-questions-live-multiple/`, {
         method: 'POST',
@@ -88,8 +98,8 @@ const Quiz = () => {
       }
 
       const data = await response.json();
-      console.log('the generated quiz is ,------------------------------------',data)
-      setQuestions(data.questions[selectedSubcategory]);
+      console.log('quiz is',data)
+      setQuestions(data.questions);
       setMessage('Quiz generated successfully');
     } catch (error) {
       console.error('Error submitting quiz:', error);
@@ -125,9 +135,11 @@ const Quiz = () => {
       if (!response.ok) {
         throw new Error('Failed to submit quiz');
       }
+
       const data = await response.json();
-      setQuizResults(data.results);
-    
+      console.log('quiz response-----------------------',data)
+      setQuizResults(data);
+      toast.success('Quiz submitted successfully!');
       setMessage('Quiz submitted successfully!');
     } catch (error) {
       console.error('Error submitting quiz:', error);
@@ -160,22 +172,19 @@ const Quiz = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Subcategory</label>
-          <select
-            className="w-full p-2 border rounded"
-            value={selectedSubcategory}
-            onChange={(e) => setSelectedSubcategory(e.target.value)}
-            disabled={!subcategories.length}
-          >
-            <option value="" disabled>
-              Select a subcategory
-            </option>
-            {subcategories.map((subcategory: any) => (
-              <option key={subcategory.id} value={subcategory.name}>
-                {subcategory.name}
-              </option>
-            ))}
-          </select>
+          <label className="block text-sm font-medium mb-1">Subcategories</label>
+          {subcategories.map((subcategory: any) => (
+            <label key={subcategory.id} className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                value={subcategory.name}
+                checked={selectedSubcategories.includes(subcategory.name)}
+                onChange={() => handleCheckboxChange(subcategory.name)}
+                className="w-4 h-4"
+              />
+              <span>{subcategory.name}</span>
+            </label>
+          ))}
         </div>
 
         <div>
@@ -199,52 +208,49 @@ const Quiz = () => {
           className="bg-orange text-white px-4 py-2 rounded hover:bg-darkOrange"
           disabled={loading}
         >
-          {loading ? 'Submitting...' : 'Submit'}
+          {loading ? 'Submitting...' : 'Generate Quiz'}
         </button>
       </form>
 
       {message && <p className="mt-4 text-center">{message}</p>}
 
-      {questions.length > 0 && (
+      {
+      // /* {questions.length > 0 && ( */}
         <div className="w-full h-full p-4 mt-8">
           <form onSubmit={handleSubmitQuiz}>
-            {questions.map((question: any, index: any) => (
-              <div key={question.id} className="mb-6">
-                <h3 className="font-bold text-lg mb-2">
-                  {index + 1}. {question.question_text}
-                </h3>
-                <div className="flex flex-col gap-2">
-                  {question.options.map((option: string, idx: number) => {
-                    const optionLabel = String.fromCharCode(65 + idx);
-                    const userSelected = userAnswers[question.id]?.selected_answer === optionLabel;
+            {Object.entries(questions)?.map(([topic, topicQuestions]: any) => (
+              <div key={topic}>
+                <h3 className="font-bold text-lg mb-4">{topic}</h3>
+                {topicQuestions.map((question: any, index: number) => (
+                  <div key={question.id} className="mb-6">
+                    <h4 className="font-bold text-md mb-2">
+                      {index + 1}. {question.question_text}
+                    </h4>
+                    {question.options.map((option: string, idx: number) => {
+                      const optionLabel = String.fromCharCode(65 + idx);
+                      const userSelected = userAnswers[question.id]?.selected_answer === optionLabel;
 
-                    return (
-                      <label key={idx} className="flex items-center gap-2">
-                        <input
-                          type="radio"
-                          name={`question-${question.id}`}
-                          value={optionLabel}
-                          checked={userSelected}
-                          onChange={() => handleChange(question.id, optionLabel)}
-                          className="w-4 h-4"
-                          disabled={!!quizResults}
-                        />
-                        <span>{optionLabel}:</span>
-                        <span>{option}</span>
-                      </label>
-                    );
-                  })}
-                </div>
-                {quizResults && (
-                  <div className="mt-2 text-sm text-black">
-                    Correct Answer: &nbsp;<span className='text-orange font-bold'>
-                    ({question?.correct_answer
-                    })
-                    </span>
+                      return (
+                        <label key={idx} className="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name={`question-${question.id}`}
+                            value={optionLabel}
+                            checked={userSelected}
+                            onChange={() => handleChange(question.id, optionLabel)}
+                            className="w-4 h-4"
+                            disabled={!!quizResults}
+                          />
+                          <span>{optionLabel}:</span>
+                          <span>{option}</span>
+                        </label>
+                      );
+                    })}
                   </div>
-                )}
+                ))}
               </div>
             ))}
+
             {!quizResults && (
               <button
                 type="submit"
@@ -256,14 +262,27 @@ const Quiz = () => {
             )}
           </form>
         </div>
-      )}
+      
+          }
+
       {quizResults && (
         <div className="mt-8 p-4 border rounded">
-          <h3 className="text-xl font-bold mb-2">Quiz Results</h3>
-          <p>Total Questions: {quizResults.total_questions}</p>
-          <p>Correct Answers: {quizResults.correct_answers}</p>
-          <p>Wrong Answers: {quizResults.wrong_answers}</p>
-          <p>Score: {quizResults.score_percentage}%</p>
+          <h3 className="text-xl font-bold mb-2">Overall Results</h3>
+          <p>Total Questions: {quizResults.overall_result.total_questions}</p>
+          <p>Attempted Questions: {quizResults.overall_result.attempted_questions}</p>
+          <p>Correct Answers: {quizResults.overall_result.correct_answers}</p>
+          <p>Score: {quizResults.overall_result.overall_percentage}%</p>
+
+          <h4 className="text-lg font-bold mt-4">Topic-wise Results</h4>
+          {Object.entries(quizResults.topic_results).map(([topic, result]: any) => (
+            <div key={topic} className="mt-2">
+              <h5 className="font-bold">{topic}</h5>
+              <p>Total Questions: {result.total_questions}</p>
+              <p>Attempted Questions: {result.attempted_questions}</p>
+              <p>Correct Answers: {result.correct_answers}</p>
+              <p>Score: {result.score_percentage}%</p>
+            </div>
+          ))}
         </div>
       )}
     </div>
