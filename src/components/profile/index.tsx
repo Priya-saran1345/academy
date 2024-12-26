@@ -32,18 +32,18 @@ const Profile = () => {
     phone: '',
     qualification: '',
     // profile_image: '',
-    city:'',
-    current_job_title:'',
-    company_name:'',
-    industry:'',
-    linkedin_profile_url:'',
+    city: '',
+    current_job_title: '',
+    company_name: '',
+    industry: '',
+    linkedin_profile_url: '',
   })
 
   const [showupdate, setshowupdate] = useState(false)
   useEffect(() => {
     setApiData(profile)
   }, [profile]);
-  
+
   useEffect(() => {
     if (apidata) {
       setupdateddata({
@@ -60,11 +60,11 @@ const Profile = () => {
         last_name: apidata.last_name || '',
         phone: apidata.phone || '',
         qualification: apidata.qualification || '',
-        city:apidata.city || '',
-        current_job_title:apidata.current_job_title || '',
-        company_name:apidata.company_name || '',
-        industry:apidata.industry || '',
-        linkedin_profile_url:apidata.linkedin_profile_url || '',
+        city: apidata.city || '',
+        current_job_title: apidata.current_job_title || '',
+        company_name: apidata.company_name || '',
+        industry: apidata.industry || '',
+        linkedin_profile_url: apidata.linkedin_profile_url || '',
       });
     }
   }, [apidata]);
@@ -122,24 +122,24 @@ const Profile = () => {
       <div className=" w-full md:w-[275px] flex flex-col justify-between  lg:w-[457px] md:sticky  md:top-24 md:h-[87vh] flex-shrink rounded-lg shadow ">
         <div>
           <div className="bg-orange rounded-t-lg h-28 relative">
-          {
+            {
               apidata?.profile_image ?
 
-            <img
-              className="w-24 h-24 rounded-full absolute bottom-[-40px] left-20 transform -translate-x-1/2 border-4 border-white"
-              src={apidata?.profile_image}
-              alt="Profile"
-            
-            />:
-            <div className='w-24 h-24 rounded-full flex bg-[#F5F5F5] justify-center items-center absolute bottom-[-40px] left-10'>
+                <img
+                  className="w-24 h-24 rounded-full absolute bottom-[-40px] left-20 transform -translate-x-1/2 border-4 border-white"
+                  src={apidata?.profile_image}
+                  alt="Profile"
 
-            <FaUser className='text-[53px] text-textGrey'></FaUser>
-            </div> 
-          }
+                /> :
+                <div className='w-24 h-24 rounded-full flex bg-[#F5F5F5] justify-center items-center absolute bottom-[-40px] left-10'>
+
+                  <FaUser className='text-[53px] text-textGrey'></FaUser>
+                </div>
+            }
           </div>
 
           <div className="pt-12 pb-8  h-fulljustify-between px-6 ">
-          
+
             <h2 className="text-lg font-semibold">{apidata?.username}</h2>
             <p className="text-gray-500 text-sm">{apidata?.email}</p>
             <div className="">
@@ -147,25 +147,25 @@ const Profile = () => {
                 <span>{apidata?.profile_completion_percentage}%</span>
               </div>
               <div className="w-full bg-gray-200 h-3 rounded-full">
-              <div
-  className="bg-orange h-3 rounded-full"
-  style={{ width: `${apidata?.profile_completion_percentage}%` }}
-></div>
-                  
-               
+                <div
+                  className="bg-orange h-3 rounded-full"
+                  style={{ width: `${apidata?.profile_completion_percentage}%` }}
+                ></div>
+
+
               </div>
             </div>
             {
-              apidata?.profile_completion_percentage!=100 &&
-            <p className="text-textGrey text-[12px] mt-4">
-              <strong>NOTE:</strong> Complete Your Profile to Avail Amazing Offers.
-            </p>
+              apidata?.profile_completion_percentage != 100 &&
+              <p className="text-textGrey text-[12px] mt-4">
+                <strong>NOTE:</strong> Complete Your Profile to Avail Amazing Offers.
+              </p>
             }
             {
-              apidata?.profile_completion_percentage==100 &&
-            <p className="text-textGrey text-[12px] mt-4">
-              Congratulations  Your Profile is complete
-            </p>
+              apidata?.profile_completion_percentage == 100 &&
+              <p className="text-textGrey text-[12px] mt-4">
+                Congratulations  Your Profile is complete
+              </p>
             }
 
             {/* <div className="mt-6 text-left">
@@ -180,16 +180,16 @@ const Profile = () => {
               </p>
             </div> */}
           </div>
-          </div>
-            {/* Links */}
-            <div className="my-6 mx-6 pt-2 border-t-1  ">
-              <Link href="/dashboard/mycourses" className="text-orange font-semibold block mb-2 hover:underline">
-                View Enrolled Courses &rarr;
-              </Link>
-              <Link href="/dashboard/certificate" className="text-orange font-semibold block hover:underline">
-                Download Certificates &rarr;
-              </Link>
-            </div>
+        </div>
+        {/* Links */}
+        <div className="my-6 mx-6 pt-2 border-t-1  ">
+          <Link href="/dashboard/mycourses" className="text-orange font-semibold block mb-2 hover:underline">
+            View Enrolled Courses &rarr;
+          </Link>
+          <Link href="/dashboard/certificate" className="text-orange font-semibold block hover:underline">
+            Download Certificates &rarr;
+          </Link>
+        </div>
       </div>
       <div className='w-full shadow p-2  lg:p-6 rounded-lg'>
         <div className='flex gap-3 border-b-1 border-slate-200  justify-between items-center'>
@@ -270,7 +270,7 @@ const Profile = () => {
               className=' text-textGrey outline-none w-full border-[2px] px-3 py-2 border-slate-200 rounded-md'
               value={apidata?.city} readOnly placeholder=' Your City' />
           </div>
-          
+
         </div>
         <div className='w-full  rounded-lg'>
 
@@ -365,9 +365,9 @@ const Profile = () => {
         <div className='w-full backdrop-blur-lg h-full flex justify-center items-center absolute top-0 left-0'>
           <div className='lg:w-[75%] p-8 gap-5 border-[1px] flex flex-wrap border-slate-200 relative shadow-xl rounded-lg bg-white'>
             <div className='absolute right-3 top-3' onClick={() => setshowupdate(false)}>
-              <RxCross1 className='text-[22px]' />
+              <RxCross1 className='text-[22px] cursor-pointer' />
             </div>
-          
+
             <div className='w-full flex justify-center flex-col items-center'>
               <label htmlFor="first_name" className='text-[16px] mb-3 font-medium textGreyblack Capitalize'>Profile Image</label>
               <div className="size-[122px] bg-[#F5F5F5] rounded-full flex justify-center items-center relative">
@@ -375,7 +375,7 @@ const Profile = () => {
                   <Image
                     src={imagePreview}
                     width={122}
-                    height={122}  
+                    height={122}
                     alt="Selected Profile Image"
                     className="rounded-full h-full"
                   />
@@ -399,219 +399,220 @@ const Profile = () => {
                 />
               </div>
             </div>
-            <div>
-              <label htmlFor="first_name" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>First Name</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.first_name}
-                name='first_name'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter Your Name'
-                onChange={changeValue}
-              />
-            </div>
+            <div className='flex flex-wrap justify-between gap-3'>
+              <div className='w-[23%]'>
+                <label htmlFor="first_name" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>First Name</label>
+                <br />
+                <input
+                  type="text"
+                  value={updateddata.first_name}
+                  name='first_name'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter Your Name'
+                  onChange={changeValue}
+                />
+              </div>
 
-            <div>
-              <label htmlFor="last_name" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Last Name</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.last_name}
-                name='last_name'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter Your Name'
-                onChange={changeValue}
-              />
-            </div>
+              <div className='w-[23%]'>
+                <label htmlFor="last_name" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Last Name</label>
+                <br />
+                <input
+                  type="text"
+                  value={updateddata.last_name}
+                  name='last_name'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px]  px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter Your Name'
+                  onChange={changeValue}
+                />
+              </div>
 
-            <div>
-              <label htmlFor="phone" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Phone</label>
-              <br />
-              <input
-                type="number"
-                value={updateddata.phone}
-                name='phone'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter Your phone no'
-                onChange={changeValue}
-              />
-            </div>
+              <div className='w-[23%]'>
+                <label htmlFor="phone" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Phone</label>
+                <br />
+                <input
+                  type="number"
+                  value={updateddata.phone}
+                  name='phone'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px]  px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter Your phone no'
+                  onChange={changeValue}
+                />
+              </div>
 
-            <div>
-              <label htmlFor="alternate_phone" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Alternate Phone</label>
-              <br />
-              <input
-                type="number"
-                value={updateddata.alternate_phone}
-                name='alternate_phone'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter alternate phone no'
-                onChange={changeValue}
-              />
-            </div>
+              <div className='w-[23%]'>
+                <label htmlFor="alternate_phone" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Alternate Phone</label>
+                <br />
+                <input
+                  type="number"
+                  value={updateddata.alternate_phone}
+                  name='alternate_phone'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px]  px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter alternate phone no'
+                  onChange={changeValue}
+                />
+              </div>
 
-            <div>
-              <label htmlFor="qualification" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Qualification</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.qualification}
-                name='qualification'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter Qualification'
-                onChange={changeValue}
-              />
-            </div>
+              <div className='w-[23%]'>
+                <label htmlFor="qualification" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Qualification</label>
+                <br />
+                <input
+                  type="text"
+                  value={updateddata.qualification}
+                  name='qualification'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px]  px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter Qualification'
+                  onChange={changeValue}
+                />
+              </div>
 
-            <div>
-  <label
-    htmlFor="gender"
-    className="text-[16px] mb-3 font-medium textGreyblack capitalize"
-  >
-    Gender
-  </label>
-  <br />
-  <select
-    name="gender"
-    value={updateddata.gender}
-    onChange={changeValue}
-    className="text-textGrey mt-2  outline-none w-full border-[2px] px-4 py-3 border-slate-200 rounded-lg"
-  >
-    <option value="">Select Gender</option>
-    <option value="male">Male</option>
-    <option value="female">Female</option>
-  </select>
-</div>
+              <div className='w-[23%]'>
+                <label
+                  htmlFor="gender"
+                  className="text-[16px] mb-3 font-medium textGreyblack capitalize"
+                >
+                  Gender
+                </label>
+                <br />
+                <select
+                  name="gender"
+                  value={updateddata.gender}
+                  onChange={changeValue}
+                  className="text-textGrey mt-2  outline-none w-full border-[2px] px-2 py-2 border-slate-200 rounded-lg"
+                >
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
 
-            <div>
-              <label htmlFor="course_interested" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Course Interested</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.course_interested}
-                name='course_interested'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter Interested Course'
-                onChange={changeValue}
-              />
-            </div>
+              <div className='w-[23%]'>
+                <label htmlFor="course_interested" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Course Interested</label>
+                <br />
+                <input
+                  type="text"
+                  value={updateddata.course_interested}
+                  name='course_interested'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px]  px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter Interested Course'
+                  onChange={changeValue}
+                />
+              </div>
+              <div className='w-[23%]'>
+                <label
+                  htmlFor="date_of_birth"
+                  className="text-[16px] mb-3 font-medium textGreyblack capitalize"
+                >
+                  Date of Birth
+                </label>
+                <br />
+                <DatePicker
+                  selected={updateddata.date_of_birth ? new Date(updateddata.date_of_birth) : null}
+                  onChange={(date) => changeValue({ target: { name: "date_of_birth", value: date?.toISOString().split("T")[0] } })}
+                  dateFormat="yyyy-MM-dd"
+                  className="text-textGrey mt-2  outline-none  border-[2px] px-2 py-2 border-slate-200 rounded-lg"
+                  placeholderText="yyyy-mm-dd"
+                />
+              </div>
 
-            <div>
-      <label
-        htmlFor="date_of_birth"
-        className="text-[16px] mb-3 font-medium textGreyblack capitalize"
-      >
-        Date of Birth
-      </label>
-      <br />
-      <DatePicker
-        selected={updateddata.date_of_birth ? new Date(updateddata.date_of_birth) : null}
-        onChange={(date) => changeValue({ target: { name: "date_of_birth", value: date?.toISOString().split("T")[0] } })}
-        dateFormat="yyyy-MM-dd"
-        className="text-textGrey mt-2 outline-none w-full border-[2px] px-4 py-3 border-slate-200 rounded-lg"
-        placeholderText="yyyy-mm-dd"
-      />
-    </div>
+              <div className='w-[23%]'>
+                <label htmlFor="goals" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Goals</label>
+                <br />
+                <input
+                  type="text"
+                  value={updateddata.goals}
+                  name='goals'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px]  px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter Goals'
+                  onChange={changeValue}
+                />
+              </div>
 
-            <div>
-              <label htmlFor="goals" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Goals</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.goals}
-                name='goals'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter Goals'
-                onChange={changeValue}
-              />
-            </div>
+              <div className='w-[23%]'>
+                <label htmlFor="extracurriculars" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Extracurriculars</label>
+                <br />
+                <input
+                  type="text"
+                  value={updateddata.extracurriculars}
+                  name='extracurriculars'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px]  px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter Extracurriculars'
+                  onChange={changeValue}
+                />
+              </div>
 
-            <div>
-              <label htmlFor="extracurriculars" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Extracurriculars</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.extracurriculars}
-                name='extracurriculars'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter Extracurriculars'
-                onChange={changeValue}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Address</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.address}
-                name='address'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter Address'
-                onChange={changeValue}
-              />
-            </div>
-            <div>
-              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Industry</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.industry}
-                name='industry'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter Industry'
-                onChange={changeValue}
-              />
-            </div>
-            <div>
-              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Company Name</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.company_name}
-                name='company_name'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter Company Name'
-                onChange={changeValue}
-              />
-            </div>
-            <div>
-              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Linkedin Profile Url</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.linkedin_profile_url}
-                name='linkedin_profile_url'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter LinkedIn Profile URL'
-                onChange={changeValue}
-              />
-            </div>
-            <div>
-              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Current Job Title</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.current_job_title}
-                name='current_job_title'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter current Job Title'
-                onChange={changeValue}
-              />
-            </div>
-            <div>
-              <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>City</label>
-              <br />
-              <input
-                type="text"
-                value={updateddata.city}
-                name='city'
-                className=' text-textGrey mt-2 outline-none w-full border-[2px] px-8 py-3 border-slate-200 rounded-lg'
-                placeholder='Enter City'
-                onChange={changeValue}
-              />
-            </div>
+              <div className='w-[23%]'>
+                <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Address</label>
+                <br />
+                <input
+                  type="text"
+                  value={updateddata.address}
+                  name='address'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px]  px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter Address'
+                  onChange={changeValue}
+                />
+              </div>
+              <div className='w-[23%]'>
+                <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Industry</label>
+                <br />
+                <input
+                  type="text"
+                  value={updateddata.industry}
+                  name='industry'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px]  px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter Industry'
+                  onChange={changeValue}
+                />
+              </div>
+              <div className='w-[23%]'>
+                <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Company Name</label>
+                <br />
+                <input
+                  type="text"
+                  value={updateddata.company_name}
+                  name='company_name'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px]  px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter Company Name'
+                  onChange={changeValue}
+                />
+              </div>
+              <div className='w-[23%]'>
+                <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Linkedin Profile Url</label>
+                <br />
+                <input
+                  type="text"
+                  value={updateddata.linkedin_profile_url}
+                  name='linkedin_profile_url'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px]  px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter LinkedIn Profile URL'
+                  onChange={changeValue}
+                />
+              </div>
+              <div className='w-[23%]'>
+                <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>Current Job Title</label>
+                <br />
+                <input
+                  type="text"
+                  value={updateddata.current_job_title}
+                  name='current_job_title'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px]  px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter current Job Title'
+                  onChange={changeValue}
+                />
+              </div>
+              <div className='w-[23%]'>
+                <label htmlFor="address" className='text[16px] mb-3 font-medium textGreyblack Capitalize'>City</label>
+                <br />
+                <input
+                  type="text"
+                  value={updateddata.city}
+                  name='city'
+                  className=' text-textGrey mt-2 outline-none w-full border-[2px]  px-2 py-2 border-slate-200 rounded-lg'
+                  placeholder='Enter City'
+                  onChange={changeValue}
+                />
+              </div>
+            </div  >
             <div className='w-full'>
               <button
                 onClick={submitData}

@@ -129,11 +129,9 @@ const Quiz = () => {
       toast.error("Failed to load categories");
     }
   };
-
   useEffect(() => {
     getCategories();
   }, []);
-
   const overallData = {
     labels: ['Total Questions', 'Attempted Questions', 'Correct Answers'],
     datasets: [
@@ -151,14 +149,12 @@ const Quiz = () => {
   const handleChange1 = (value: any) => {
     setSelectedCategory(value);
   };
-
   const handleChange2 = (values: any) => {
     setSelectedSubcategories(values);
   };
   const handleChange3 = (values: any) => {
     setLevel(values);
   };
-
   const handleStartAgain = () => {
     setSelectedCategory('');
     setSelectedSubcategories([]);
@@ -174,7 +170,7 @@ const Quiz = () => {
     <div className="w-full h-full p-4">
       <h2 className=" mb-4 font-medium text-[20px] text-black">  <span className='text-orange  text-2xl font-bold   '> Welcome:</span>  Create a Quiz</h2>
       <div className='flex justify-between gap-5'>
-        <div className='w-[25%] sticky top-24 h-fit rounded-xl shadow p-4'>
+        <div className='w-[25%] h-[85vh] overflow-y-auto sticky top-24  rounded-xl shadow p-4'>
           <div className='w-full'>
             {quizResults && (
               <div className=" p-4 rounded">
@@ -193,7 +189,8 @@ const Quiz = () => {
                   return (
                     <div key={topic} className="mt-6 border-b-1 pb-4">
                       <h5 className="font-bold text-center">{topic}</h5>
-                      <Bar className='mb-6' data={topicData} options={{ plugins: { legend: { display: false } } }} />
+                      <Pie className="mb-6 " data={topicData} options={{ plugins: { legend: { display: true } } }}  />
+                      {/* <Bar className='mb-6' data={topicData} options={{ plugins: { legend: { display: false } } }} /> */}
                       <div className='p-4 rounded-lg bg-lightGrey'>
                         <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Total Questions: {result.total_questions}</p>
                         <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Attempted Questions: {result.attempted_questions}</p>
