@@ -251,7 +251,6 @@ const Quiz = () => {
     );
   };
 
-
     const [activeIndex, setActiveIndex] = useState(null);
     const handleToggle = (index:any) => {
       setActiveIndex(activeIndex === index ? null : index);
@@ -282,9 +281,6 @@ const Quiz = () => {
         description: "Get AI-powered insights on your learning pattern, suggesting areas to focus on for faster improvement.",
       },
     ];
-
-
-
 
   return (
     <div className="w-full h-full p-4">

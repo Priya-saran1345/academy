@@ -20,11 +20,15 @@ const ResetPasswordPage = ({ params }: { params: { id: string; token: string } }
   const handleResetPassword = async (e: any) => {
     e.preventDefault();
 
-    // Check if the new password and confirm password match
     if (newPassword !== confirmPassword) {
       toast.error("Passwords do not match.");
       return;
     }
+    if(newPassword.length<6)
+  {
+    toast.error("Password must be minimum 6 character.");
+    return;
+  }
     try {
       const response = await axios.post(
         `${BASE_URL}reset-password/${params.id}/${params.token}/`,
@@ -52,7 +56,8 @@ const ResetPasswordPage = ({ params }: { params: { id: string; token: string } }
       <Header />
       <div className='flex h-screen flex-col lg:flex-row   px-6 w-full  mx-auto xl:w-[77%]'>
         <div className='flex-1 center flex-col gap-4 mt-28  '>
-          <Image src="/images/Browk Shop.svg" alt="logo" width={180} height={180} className='' />
+          {/* <Image src="/images/Browk Shop.svg" alt="logo" width={180} height={180} className='' /> */}
+          <p className='text-orange text-[34px] font-semibold'>Forget Password</p>
           <h3 className='text-base text-center text-gray-500 '>Sign in now and dive into a world of endless <br /> learning opportunities.</h3>
           <Image src="/images/Group 1000004450.svg" alt="logo" width={480} height={480} className='hidden lg:flex' />
         </div>
