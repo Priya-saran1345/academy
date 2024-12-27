@@ -159,6 +159,8 @@ const Quiz = () => {
          ( quizResults?.overall_result?.attempted_questions)- (quizResults?.overall_result?.correct_answers) || 0,
         ],
         backgroundColor: ['#0C680C', '#F24A2540', '#F24A25'],
+        height:"200px",
+        width:"200px"
       },
     ],
   };
@@ -207,7 +209,7 @@ const Quiz = () => {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
-        className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+        className={`fixed top-1/2 left-[10%] w-[340px] sm:left-[20%] md:left-[40%]  lg:left-1/2 transform -translate-x-1/2 -translate-y-1/2 
                     bg-white p-8 rounded-lg shadow z-50 text-center
                     ${isGoodScore ? 'bg-green-100' : 'bg-orange'}`}
       >
@@ -289,8 +291,8 @@ const Quiz = () => {
             {showGenerateConfetti && <Confetti width={width} height={height} />}
             {showResultConfetti && <Confetti width={width} height={height} />}
       <h2 className=" mb-4 font-medium text-[20px] text-black">  <span className='text-orange  text-2xl font-bold   '> Welcome:</span>  Create a Quiz</h2>
-      <div className='flex justify-between gap-5'>
-        <div className='w-[25%] h-[85vh] overflow-y-auto sticky top-24  rounded-xl shadow p-4'>
+      <div className='flex md:flex-row flex-col justify-between gap-5'>
+        <div className='md:w-[25%] min-w-[300px] md:h-[85vh] max-h-[85vh] overflow-y-auto md:sticky md:top-24  rounded-xl shadow p-4'>
           <div className='w-full'>
             {quizResults && (
               <div className=" p-4 rounded">
@@ -309,7 +311,9 @@ const Quiz = () => {
                   return (
                     <div key={topic} className="mt-6 border-b-1 pb-4">
                       <h5 className="font-bold text-center">{topic}</h5>
+                      <div className='w-[98%]'>
                       <Pie className="mb-6 " data={topicData} options={{ plugins: { legend: { display: true } } }}  />
+                      </div>
                       <div className='p-4 rounded-lg bg-lightGrey'>
                         <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Total Questions: {result.total_questions}</p>
                         <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Attempted Questions: {result.attempted_questions}</p>
@@ -321,7 +325,10 @@ const Quiz = () => {
                   );
                 })}
                 <h3 className="text-xl mt-4  font-bold mb-2">Overall Result</h3>
+                <div className='w-[98%]'>
+
                 <Pie className='mb-4' data={overallData} />
+                </div>
                 <div className='p-4 rounded-lg bg-lightGrey'>
                   <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />
                     Total Questions:<span>{quizResults.overall_result.total_questions}</span></p>
@@ -425,7 +432,7 @@ const Quiz = () => {
           </form>
         </div>
         {!showquizsection  && 
-          <div className="w-[73%] h-full shadow bg-gradient-to-r p-6 rounded-xl">
+          <div className="md:w-[73%] h-full shadow bg-gradient-to-r p-6 rounded-xl">
           <p className="text-[20px] font-semibold text-center mb-6">
             Test Your Skill By AI Generated Quiz
           </p>
@@ -457,8 +464,8 @@ const Quiz = () => {
         </div>
        }
         {showquizsection && (
-          <div className='w-[73%] shadow h-full rounded-lg p-4 '>
-            <div className="w-full h-full p-4 ">
+          <div className='md:w-[73%] shadow h-full rounded-lg px-2 md:px-4  p-4 '>
+            <div className="w-full h-full px-2 md:p-4 ">
 
             <div className="flex items-center space-x-4">
       {/* Blinking Gemini Icon */}
@@ -487,7 +494,6 @@ const Quiz = () => {
     </div>
     </div>
               <form onSubmit={handleSubmitQuiz}>
-
                 {Object.entries(questions)?.map(([topic, topicQuestions]: any) => (
                  <div key={topic}>
                  <motion.h3
