@@ -18,6 +18,9 @@ import Link from "next/link";
 import { GoDownload } from "react-icons/go";
 import { useapi } from "@/helpers/apiContext";
 import { GiSecretBook } from "react-icons/gi";
+import Confetti from 'react-confetti';
+// import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useWindowSize } from 'react-use';
 
 export default function Page() {
   const pathname = usePathname();
@@ -110,9 +113,13 @@ export default function Page() {
   };
 
   useEffect(() => {
+    
     fetch();
     setuserId(profile?.id);
   }, [id, profile, playedPercentage]);
+
+
+
   const renderStars = (rating: any) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -125,6 +132,9 @@ export default function Page() {
     }
     return <div className="flex gap-1">{stars}</div>;
   };
+  const { width, height } = useWindowSize();
+
+  const [showCelebration, setShowCelebration] = useState(false);
 
   useEffect(() => {
     const fetchPlayCount = async () => {
@@ -147,6 +157,12 @@ export default function Page() {
         )   
         setcontentProgressArray(getContentProgress(response.data))    
         console.log("The start video progress is", response.data);
+      
+        // Check if course progress is 100%
+        if (Math.floor(ApiData?.course_progress) === 100) {
+          setShowCelebration(true);
+          setTimeout(() => setShowCelebration(false), 5000);     
+        }
       } catch (error) {
         console.error("Error fetching play count:", error);
       }
@@ -412,8 +428,7 @@ ApiData?.card_image?
                                                 <div className={`font-normal text-[16px] ${expandedLessonIndex === lessonIndex ? "text-orange" : "text-textGrey"}`}>{lesson?.title}</div>
                                                 <div className="text-gray-500 mt-1 text-xs">
                                                 Video • 
-                                                {/* {await renderVideoDuration(lesson.video_url || '')} */}
-                                              </div>
+                                                                                              </div>
                                               </div>
                                             </div>
                                             {expandedLessonIndex === lessonIndex ? <BiChevronUp className="text-[28px] text-orange" />
@@ -449,7 +464,12 @@ ApiData?.card_image?
                                                     console.log("Seeking to", contentProgressArray?.find((elem: any) => elem.id === lesson.id)?.progress  / 100);
                                                   }
                                                 }}
-                                                onProgress={(state) => setPlayedPercentage(parseFloat((state.played * 100).toFixed(2)))}
+                                                onProgress={(state) => {
+                                                  if (ApiData?.course_progress < 100) {
+                                                    const playedPercentage = parseFloat((state.played * 100).toFixed(2));
+                                                    setPlayedPercentage(playedPercentage);
+                                                  }
+                                                }}
                                                 onPause={handlePauseOrEnd}
                                                 // onProgressChange={handlePauseOrEnd}
                                                 onEnded={handlePauseOrEnd}
@@ -523,6 +543,55 @@ ApiData?.card_image?
           </div>
         </div>
       </div>
+      {showCelebration && (
+        <>
+          {/* Confetti Effect */}
+          <Confetti width={width} height={height} />
+          {/* Dialog */}
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white rounded-lg shadow-lg max-w-md w-full">
+              <div className="p-4">
+                {/* Header */}
+                <div className="text-center">
+                  <h2 className="text-xl font-bold">Congratulations!</h2>
+                </div>
+                {/* Body */}
+                <div className="p-4 text-center">
+                  <h3 className="text-2xl font-bold text-orange mb-4">
+                    You've completed the course!
+                  </h3>
+                  <p className="text-lg text-gray-700">
+                    Well done on finishing all the modules. Your dedication and
+                    hard work have paid off!
+                  </p>
+                  <div className="flex gap-3 justify-center">
+
+                  <button
+                    
+                    className="mt-6 px-4 py-2 bg-orange text-white rounded-md hover:bg-orange/80 transition-colors"
+                  >
+                    <Link href={'/dashboard/certificate'}>
+                    Get Certificate
+                    </Link>
+                  </button>
+                  <button
+                    
+                    className="mt-6 px-4 py-2 bg-orange text-white rounded-md hover:bg-orange/80 transition-colors"
+                    onClick={()=>setShowCelebration(false)}
+                  >
+                    
+                    close
+                   
+                  </button>
+                
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

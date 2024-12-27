@@ -99,16 +99,13 @@ const ResetPasswordPage = ({ params }: { params: { id: string; token: string } }
                     </span>
                   ))}
                 </label>
-
               </div>
               {message && <p>{message}</p>}
               <button className='rounded-lg bg-orange text-white py-2 w-full hover:bg-white hover:scale-105 hover:text-orange border border-orange
                          hover:border-orange smooth3' onClick={handleResetPassword}>
-                Reset                        </button>
-
+                Reset</button>
             </div>
           </div>
-
         </div>
       </div>
       <div className=" px-6 lg:px-[10%] xl:px-[12%] h-[499px] py-16 sm:py-0 banner2 w-full">
