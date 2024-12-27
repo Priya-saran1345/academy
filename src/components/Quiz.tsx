@@ -254,7 +254,7 @@ const Quiz = () => {
   const AnimatedText = () => {
     return (
       <motion.div
-        className="text-4xl font-bold text-center my-12"
+        className="text-4xl w-fit font-bold text-center my-12"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -402,14 +402,56 @@ const Quiz = () => {
             </div>
           </form>
         </div>
+{/* <div className='w-[73%] shadow h-full'>
+
+
+        {!showquizsection  && <AnimatedText />}
+</div> */}
+
+
+
+
+
+
+
+
+
+
+
+
         {showquizsection && (
           <div className='w-[73%] shadow h-full rounded-lg p-4 '>
-            <div className="w-full h-full p-4 mt-8">
+            <div className="w-full h-full p-4 ">
 
+            <div className="flex items-center space-x-4">
+      {/* Blinking Gemini Icon */}
+      <div className="flex items-center mb-4 space-x-4">
+      {/* Blinking Icon */}
+      <motion.div
+        className="w-10 h-10"
+        animate={{ opacity: [1, 0, 1] }}
+        transition={{ duration: 5, repeat: Infinity }}
+      >
+        <img
+          src="/images/gemini.png" // Update the path if needed based on the saved location
+          alt="Gemini Icon"
+          className="w-full h-full"
+        />
+      </motion.div>
+      {/* AI Generated Quiz Text */}
+      <motion.div
+        className="text-xl font-semibold text-gray-700"
+        initial={{ x: -20, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+      >
+        AI Generated Quiz
+      </motion.div>
+    </div>
+    </div>
 
+             
 
-
-              
               <form onSubmit={handleSubmitQuiz}>
 
                 {Object.entries(questions)?.map(([topic, topicQuestions]: any) => (
@@ -514,7 +556,7 @@ const Quiz = () => {
       </div>
       {showPopup && <ResultPopup />}
       {questions.length > 0 && <BlinkingAIIcon />}
-      {!showquizsection && !isGenerating && <AnimatedText />}
+    
     </div>
   );
 };
