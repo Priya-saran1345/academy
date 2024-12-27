@@ -6,7 +6,6 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { BASE_URL } from '@/utils/api'
 import Dashboard from '@/components/dashboard'
-
 const Dashboardpage = () => {
   return (
     <>

@@ -29,13 +29,13 @@ const Dashboard = () => {
   let data = [
     {
       label: "Label 2",
-      value: ongoingCourses,  // Total purchased courses
+      value: ongoingCourses ,  // Total purchased courses
       color: "#F24A25",
       // cutout: "50%",
     },
     {
       label: "Label 1",
-      value: purchasedCoursesLength - ongoingCourses,  // Remaining courses
+      value:purchasedCoursesLength>0? (purchasedCoursesLength - ongoingCourses):200,  // Remaining courses
       color: "#F24A2540",
       // cutout: "50%",
     },
@@ -44,24 +44,24 @@ const Dashboard = () => {
   const data2 = [
     {
       // label: "Label 2", // Completed certificates
-      value: gainercertificate,
+      value: gainercertificate ,
       color: "#F24A25",
     },
     {
       // label: "Label 1", // Remaining certificates
-      value: purchasedCoursesLength - gainercertificate,
+      value:purchasedCoursesLength>0? (purchasedCoursesLength - gainercertificate):200,
       color: "#F24A2540",
     },
   ];
   const data3 = [
     {
       // label: "Label 2", // Completed certificates
-      value: notStartedCourses,
+      value: notStartedCourses ,
       color: "#F24A25",
     },
     {
       // label: "Label 1", // Remaining certificates
-      value: purchasedCoursesLength - notStartedCourses,
+      value: purchasedCoursesLength>0?(purchasedCoursesLength - notStartedCourses):200 ,
       color: "#F24A2540",
     },
   ];
