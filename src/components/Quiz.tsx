@@ -53,6 +53,7 @@ const Quiz = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedCategory || selectedSubcategories.length === 0 || !level) {
+      toast.error('Please fill in all fields');
       setMessage('Please fill in all fields');
       return;
     }
@@ -65,8 +66,10 @@ const Quiz = () => {
 
     try {
       setLoading(true);
+      setMessage('');
+
       setIsGenerating(true);
-      setMessage('Wait, your quiz is generating');
+      // setMessage('Wait, your quiz is generating');
       const response = await fetch(`${BASE_URL}generate-questions-live-multiple/`, {
         method: 'POST',
         headers: {
@@ -74,20 +77,15 @@ const Quiz = () => {
         },
         body: JSON.stringify(payload),
       });
-
       if (!response.ok) {
         throw new Error('Failed to fetch questions');
       }
       const data = await response.json();
       console.log('quiz is', data)
       setQuestions(data.questions);
-      // setShowGenerateConfetti(true); 
-      // setTimeout(() => setShowGenerateConfetti(false), 5000);
       setshowquizsection(true)
-      setMessage('Quiz generated successfully');
     } catch (error) {
       console.error('Error submitting quiz:', error);
-      setMessage('Failed to submit quiz');
     } finally {
       setLoading(false);
       setIsGenerating(false);
@@ -204,7 +202,6 @@ const Quiz = () => {
     if (!quizResults) return null;
     const score = quizResults.overall_result.overall_percentage;
     const isGoodScore = score > 50;
-
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
@@ -218,7 +215,7 @@ const Quiz = () => {
           {isGoodScore ? 'Congratulations!' : 'Keep practicing!'}
         </h2>
         <p className="text-xl mb-4">
-          Your final score is {score.toFixed(2)}%
+          Your final score is <span className='text-orange'>{score.toFixed(2)}%</span>
         </p>
         {isGoodScore ? (
           <FaThumbsUp className="text-5xl text-green-500 mx-auto mb-4" />
@@ -232,7 +229,7 @@ const Quiz = () => {
         </p>
         <button
           onClick={() => setShowPopup(false)}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="bg-orange text-white px-4 py-2 rounded hover:bg-orange/20 hover:text-orange"
         >
           Close
         </button>
@@ -251,19 +248,42 @@ const Quiz = () => {
       </motion.div>
     );
   };
-  const AnimatedText = () => {
-    return (
-      <motion.div
-        className="text-4xl w-fit font-bold text-center my-12"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        whileHover={{ scale: 1.05, color: '#f97316' }}
-      >
-        Generate AI-Based Quiz
-      </motion.div>
-    );
-  };
+
+
+    const [activeIndex, setActiveIndex] = useState(null);
+    const handleToggle = (index:any) => {
+      setActiveIndex(activeIndex === index ? null : index);
+    };
+    const items = [
+      {
+        title: "Personalized quiz based on your skill level",
+        description: "The quiz adapts to your skill level, offering a personalized experience tailored to your strengths and weaknesses.",
+      },
+      {
+        title: "Instant feedback after every question",
+        description: "Receive immediate feedback on your answers, helping you learn and improve your knowledge instantly.",
+      },
+      {
+        title: "Adaptive difficulty for a better challenge",
+        description: "The difficulty level adjusts dynamically based on your performance, keeping you challenged but not overwhelmed.",
+      },
+      {
+        title: "Track your progress with detailed reports",
+        description: "View detailed reports of your performance over time, identifying areas of strength and areas for improvement.",
+      },
+      {
+        title: "Time-based challenges for a competitive experience",
+        description: "Compete against the clock in time-limited challenges to test your speed and accuracy.",
+      },
+      {
+        title: "AI-powered insights to improve your knowledge",
+        description: "Get AI-powered insights on your learning pattern, suggesting areas to focus on for faster improvement.",
+      },
+    ];
+
+
+
+
   return (
     <div className="w-full h-full p-4">
             {showGenerateConfetti && <Confetti width={width} height={height} />}
@@ -290,7 +310,6 @@ const Quiz = () => {
                     <div key={topic} className="mt-6 border-b-1 pb-4">
                       <h5 className="font-bold text-center">{topic}</h5>
                       <Pie className="mb-6 " data={topicData} options={{ plugins: { legend: { display: true } } }}  />
-                      {/* <Bar className='mb-6' data={topicData} options={{ plugins: { legend: { display: false } } }} /> */}
                       <div className='p-4 rounded-lg bg-lightGrey'>
                         <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Total Questions: {result.total_questions}</p>
                         <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Attempted Questions: {result.attempted_questions}</p>
@@ -370,6 +389,9 @@ const Quiz = () => {
                   <Select.Option value="Advanced">Advanced</Select.Option>
                 </Select>
               </div>
+              <div className='text-red-700 mt-2'>
+            { message}
+              </div>
               <div className="flex gap-4 mt-4">
                 {!showquizsection && (
                   <div>
@@ -402,23 +424,38 @@ const Quiz = () => {
             </div>
           </form>
         </div>
-{/* <div className='w-[73%] shadow h-full'>
-
-
-        {!showquizsection  && <AnimatedText />}
-</div> */}
-
-
-
-
-
-
-
-
-
-
-
-
+        {!showquizsection  && 
+          <div className="w-[73%] h-full shadow bg-gradient-to-r p-6 rounded-xl">
+          <p className="text-[20px] font-semibold text-center mb-6">
+            Test Your Skill By AI Generated Quiz
+          </p>
+          <div className="text-textGrey text-[16px] font-medium">
+            {items.map((item, index) => (
+                <div key={index} className="mb-4 p-3 border-slate-200 border-1 bg-gray-100 rounded-lg">
+                <div
+              onClick={() => handleToggle(index)}
+              className="flex items-center justify-between cursor-pointer text-lg font-semibold p-3 rounded-lg transition-all duration-300"
+            >
+              <span>{index + 1}. {item.title}</span>
+              <span className="text-xl font-bold">{activeIndex === index ? "-" : "+"}</span>
+            </div>
+            {/* Using Framer Motion for smooth transitions */}
+            {activeIndex === index && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-sm text-gray-600 bg-white p-3 rounded-lg"
+              >
+                {item.description}
+              </motion.div>
+            )}
+              </div>
+            ))}
+          </div>
+        </div>
+       }
         {showquizsection && (
           <div className='w-[73%] shadow h-full rounded-lg p-4 '>
             <div className="w-full h-full p-4 ">
@@ -449,9 +486,6 @@ const Quiz = () => {
       </motion.div>
     </div>
     </div>
-
-             
-
               <form onSubmit={handleSubmitQuiz}>
 
                 {Object.entries(questions)?.map(([topic, topicQuestions]: any) => (
