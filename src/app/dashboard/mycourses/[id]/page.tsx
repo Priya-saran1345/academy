@@ -31,7 +31,7 @@ export default function Page() {
   const [topics, setTopics] = useState<any[]>([]);
   const [sidecontentindex, setsidecontentindex] = useState<number>(0);
   const [openModule, setOpenModule] = useState<number | null>(0);
-  const [expandedLessonIndex, setExpandedLessonIndex] = useState<number | null>(0);
+  const [expandedLessonIndex, setExpandedLessonIndex] = useState<number | null>(null);
   const [expandednotesIndex, setexpandednotesIndex] = useState<any>();
   const [lessonId, setlessonId] = useState<any>();
   const [userId, setuserId] = useState<any>();
@@ -565,7 +565,6 @@ ApiData?.card_image?
                     hard work have paid off!
                   </p>
                   <div className="flex gap-3 justify-center">
-
                   <button
                     
                     className="mt-6 px-4 py-2 bg-orange text-white rounded-md hover:bg-orange/80 transition-colors"
