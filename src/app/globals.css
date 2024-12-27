@@ -8,6 +8,7 @@
  --lightGrey:#F8F8F8;
  --textGrey: #616161;
  --lightOrange:  #F24A2540;
+ 
  ;
  
 
@@ -30,6 +31,7 @@ transition:  all 0.1s ease-in-out;
 }
 .smooth3{
 transition:  all 0.3s ease-in-out;
+/* background-color: rgb(12, 104, 12); */
 }
 .center{
   display: flex;

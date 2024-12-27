@@ -4,13 +4,20 @@ import { BASE_URL } from '@/utils/api';
 import React, { useState, useEffect } from 'react';
 import { useapi } from '@/helpers/apiContext';
 import toast from 'react-hot-toast';
-import { Select } from "antd";
+import { Select, Spin } from "antd";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
-import { Bar, Pie } from 'react-chartjs-2';
+import {  Pie } from 'react-chartjs-2';
+import { motion } from 'framer-motion';
+import Confetti from 'react-confetti';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
 import { MdOutlineKeyboardDoubleArrowRight, MdTopic } from 'react-icons/md';
+import { FaCheck } from 'react-icons/fa6';
+import { RxCross2 } from 'react-icons/rx';
+import { useWindowSize } from 'react-use';
+
+
 const Quiz = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [subcategories, setSubcategories] = useState<string[]>([]);
@@ -25,6 +32,8 @@ const Quiz = () => {
   const [categories, setCategories] = useState<{ [key: string]: string[] }>({});
   const [showquizsection, setshowquizsection] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false);
+  const [showGenerateConfetti, setShowGenerateConfetti] = useState(false);
+  const [showResultConfetti, setShowResultConfetti] = useState(false);
 
   useEffect(() => {
     const subcategories = categories && selectedCategory ? categories[selectedCategory] : [];
@@ -69,6 +78,8 @@ const Quiz = () => {
       const data = await response.json();
       console.log('quiz is', data)
       setQuestions(data.questions);
+      setShowGenerateConfetti(true); 
+      setTimeout(() => setShowGenerateConfetti(false), 5000);
       setshowquizsection(true)
       setMessage('Quiz generated successfully');
     } catch (error) {
@@ -108,6 +119,8 @@ const Quiz = () => {
       const data = await response.json();
       console.log('quiz response-----------------------', data)
       setQuizResults(data);
+      setShowResultConfetti(true);
+      setTimeout(() => setShowResultConfetti(false), 5000);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       toast.success('Quiz submitted successfully!');
     } catch (error) {
@@ -133,16 +146,16 @@ const Quiz = () => {
     getCategories();
   }, []);
   const overallData = {
-    labels: ['Total Questions', 'Attempted Questions', 'Correct Answers'],
+    labels: ['Correct Answers', 'Not Attempted Questions', 'Incorrect Answers'],
     datasets: [
       {
         label: 'Overall Results',
         data: [
-          quizResults?.overall_result?.total_questions || 0,
-          quizResults?.overall_result?.attempted_questions || 0,
           quizResults?.overall_result?.correct_answers || 0,
+         ( quizResults?.overall_result?.total_questions) - (quizResults?.overall_result?.attempted_questions) || 0,
+         ( quizResults?.overall_result?.attempted_questions)- (quizResults?.overall_result?.correct_answers) || 0,
         ],
-        backgroundColor: ['#F24A23', '#F24A2540', '#616162'],
+        backgroundColor: ['#0C680C', '#F24A2540', '#F24A23'],
       },
     ],
   };
@@ -166,8 +179,32 @@ const Quiz = () => {
     setMessage('');
     setIsGenerating(false);
   };
+
+
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+  };
+
+
+  const { width, height } = useWindowSize();
+
+
   return (
     <div className="w-full h-full p-4">
+            {showGenerateConfetti && <Confetti width={width} height={height} />}
+            {showResultConfetti && <Confetti width={width} height={height} />}
       <h2 className=" mb-4 font-medium text-[20px] text-black">  <span className='text-orange  text-2xl font-bold   '> Welcome:</span>  Create a Quiz</h2>
       <div className='flex justify-between gap-5'>
         <div className='w-[25%] h-[85vh] overflow-y-auto sticky top-24  rounded-xl shadow p-4'>
@@ -177,12 +214,12 @@ const Quiz = () => {
                 <h4 className="text-lg font-bold  border-slate-200 pt-3">Topic-wise Results</h4>
                 {Object.entries(quizResults.topic_results).map(([topic, result]: any) => {
                   const topicData = {
-                    labels: ['Total Questions', 'Attempted Questions', 'Correct Answers'],
+                    labels: ['Correct Answers', 'Not Attempted Questions', 'Incorrect Answers'],
                     datasets: [
                       {
                         label: `${topic} Results`,
-                        data: [result.total_questions, result.attempted_questions, result.correct_answers],
-                        backgroundColor: ['#F24A23', '#F24A2540', '#616162'],
+                        data: [result.correct_answers, (result.total_questions-result.attempted_questions), (result.attempted_questions- result.correct_answers)],
+                        backgroundColor: ['#0C680C', '#F24A2540', '#F24A23'],
                       },
                     ],
                   };
@@ -203,13 +240,11 @@ const Quiz = () => {
                 <h3 className="text-xl mt-4  font-bold mb-2">Overall Result</h3>
                 <Pie className='mb-4' data={overallData} />
                 <div className='p-4 rounded-lg bg-lightGrey'>
-
-
                   <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />
                     Total Questions:<span>{quizResults.overall_result.total_questions}</span></p>
                   <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Attempted Questions: <span>{quizResults.overall_result.attempted_questions}</span></p>
                   <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Correct Answers: <span>{quizResults.overall_result.correct_answers}</span></p>
-                  <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Score: <span>{quizResults.overall_result.overall_percentage}%</span></p>
+                  <p className='flex items-center '><MdOutlineKeyboardDoubleArrowRight />Score: <span>{quizResults.overall_result.overall_percentage}%</span></p>
                 </div>
               </div>
             )}
@@ -308,48 +343,94 @@ const Quiz = () => {
               <div className="w-full h-full p-4 mt-8">
                 <form onSubmit={handleSubmitQuiz}>
                   {Object.entries(questions)?.map(([topic, topicQuestions]: any) => (
-                    <div key={topic}>
-                      <h3 className="font-bold text-lg mb-4 flex items-center"> <MdTopic className='text-orange text-[24px]' />
-                        Topic: &nbsp;<span>{topic}</span> </h3>
-                      {topicQuestions.map((question: any, index: number) => (
-                        <div key={question.id} className="mb-6">
-                          <h4 className="font-bold text-md mb-2">
-                            {index + 1}. {question.question_text}
-                          </h4>
-                          {question.options.map((option: string, idx: number) => {
-                            const optionLabel = String.fromCharCode(65 + idx);
-                            const userSelected = userAnswers[question.id]?.selected_answer === optionLabel;
-                            return (
-                              <label key={idx} className="flex items-center gap-2">
-                                <input
-                                  type="radio"
-                                  name={`question-${question.id}`}
-                                  value={optionLabel}
-                                  checked={userSelected}
-                                  onChange={() => handleChange(question.id, optionLabel)}
-                                  className="w-4  h-4"
-                                  disabled={!!quizResults}
-                                />
-                                <span className=''>{optionLabel}:</span>
-                                <span className=''>{option}</span>
-                              </label>
-                            );
-                          })}
-                            {quizResults && question.correct_answer && (
-                          <div className="mt-2 text-[18px] text-orangce">
-                              <div>
-                              Your Answer: <span className='text-orange'>{userAnswers[question.id]?.selected_answer || 'Not selected'}</span>
-                            </div>
-                              <div>
-                                Correct Answer: <span className='text-orange'>{question.correct_answer}</span>
-                              </div>
-                          </div>
-                            )}
-                        </div>
+                   <div key={topic}>
+                   <motion.h3
+                     className="font-bold text-lg mb-4 flex items-center"
+                     initial={{ opacity: 0, y: -10 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     transition={{ duration: 0.6 }}
+                   >
+                     <MdTopic className="text-orange text-[24px]" />
+                     Topic: &nbsp;<span>{topic}</span>
+                   </motion.h3>
+             
+                   <motion.div
+                     variants={containerVariants}
+                     initial="hidden"
+                     animate="visible"
+                     className="questions-container"
+                   >
+                     {topicQuestions.map((question: any, index: number) => (
+                       <motion.div key={question.id} variants={itemVariants} className="mb-6">
+                         <h4 className="font-bold text-md mb-2">
+                           {index + 1}. {question.question_text}
+                         </h4>
+                         {question.options.map((option: string, idx: number) => {
+                           const optionLabel = String.fromCharCode(65 + idx);
+                           const userSelected =
+                             userAnswers[question.id]?.selected_answer === optionLabel;
+                           return (
+                             <label key={idx} className="flex items-center gap-2">
+                               <input
+                                 type="radio"
+                                 name={`question-${question.id}`}
+                                 value={optionLabel}
+                                 checked={userSelected}
+                                 onChange={() => handleChange(question.id, optionLabel)}
+                                 className="w-4 h-4"
+                                 disabled={!!quizResults}
+                               />
+                               <span>{optionLabel}:</span>
+                               <span>{option}</span>
+                             </label>
+                           );
+                         })}
+                         {quizResults && question.correct_answer && (
+                           <motion.div
+                           className={`mt-2 text-[18px] flex justify-between items-center rounded-lg p-2 
+                            ${userAnswers[question.id]?.selected_answer === question.correct_answer ? 'bg-green-200' : 'bg-orange/10'}`}
+                
+                             initial={{ opacity: 0 }}
+                             animate={{ opacity: 1 }}
+                             transition={{ delay: 0.5 }}
+                           >
+                            <div className='text-[14px]'>
 
-                      ))}
-                    </div>
+                             <div>
+                               Your Answer:{' '}
+                               <span className="text-orange font-bold">
+                                 {userAnswers[question.id]?.selected_answer || 'Not selected'}
+                               </span>
+                             </div>
+                             <div>
+                               Correct Answer:{' '}
+                               <span className="text-orange font-bold">{question.correct_answer}</span>
+                             </div>
+                            </div>
+                            {userAnswers[question.id]?.selected_answer === question.correct_answer ?
+                            <div className='flex items-center'>
+                            <FaCheck className='text-green-700 text-[24px]' />
+                            <span className='text-2xl'> &#128512;</span>
+                            </div>:
+                            <div className='flex  items-center'>
+                            <RxCross2 className='text-red-800 text-[24px]' />
+                           
+                            <span className='text-2xl'> &#128561;</span>
+
+                            </div>
+                            }
+                           </motion.div>
+                         )}
+                       </motion.div>
+                     ))}
+                   </motion.div>
+                 </div>
                   ))}
+                  {loading && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                      <Spin size="large" />
+                    </div>
+                  )}
                   {!quizResults &&
                     <button
                       type="submit"
