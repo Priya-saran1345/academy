@@ -9,6 +9,8 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearSca
 import {  Pie } from 'react-chartjs-2';
 import { motion } from 'framer-motion';
 import Confetti from 'react-confetti';
+import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
+import { IoSparkles } from 'react-icons/io5';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
@@ -34,6 +36,7 @@ const Quiz = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [showGenerateConfetti, setShowGenerateConfetti] = useState(false);
   const [showResultConfetti, setShowResultConfetti] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const subcategories = categories && selectedCategory ? categories[selectedCategory] : [];
@@ -78,8 +81,8 @@ const Quiz = () => {
       const data = await response.json();
       console.log('quiz is', data)
       setQuestions(data.questions);
-      setShowGenerateConfetti(true); 
-      setTimeout(() => setShowGenerateConfetti(false), 5000);
+      // setShowGenerateConfetti(true); 
+      // setTimeout(() => setShowGenerateConfetti(false), 5000);
       setshowquizsection(true)
       setMessage('Quiz generated successfully');
     } catch (error) {
@@ -112,15 +115,17 @@ const Quiz = () => {
         },
         body: JSON.stringify({ user_id: profile.id, responses: responses, topics: selectedSubcategories }),
       });
-
       if (!response.ok) {
         throw new Error('Failed to submit quiz');
       }
       const data = await response.json();
       console.log('quiz response-----------------------', data)
       setQuizResults(data);
-      setShowResultConfetti(true);
-      setTimeout(() => setShowResultConfetti(false), 5000);
+      if(data.overall_result.overall_percentage > 50) {
+        setShowResultConfetti(true);
+        setTimeout(() => setShowResultConfetti(false), 5000);
+      }
+      setShowPopup(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       toast.success('Quiz submitted successfully!');
     } catch (error) {
@@ -155,7 +160,7 @@ const Quiz = () => {
          ( quizResults?.overall_result?.total_questions) - (quizResults?.overall_result?.attempted_questions) || 0,
          ( quizResults?.overall_result?.attempted_questions)- (quizResults?.overall_result?.correct_answers) || 0,
         ],
-        backgroundColor: ['#0C680C', '#F24A2540', '#F24A23'],
+        backgroundColor: ['#0C680C', '#F24A2540', '#F24A25'],
       },
     ],
   };
@@ -178,9 +183,8 @@ const Quiz = () => {
     setshowquizsection(false);
     setMessage('');
     setIsGenerating(false);
+    setShowPopup(false);
   };
-
-
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -191,16 +195,75 @@ const Quiz = () => {
       },
     },
   };
-
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
   };
-
-
   const { width, height } = useWindowSize();
+  const ResultPopup = () => {
+    if (!quizResults) return null;
+    const score = quizResults.overall_result.overall_percentage;
+    const isGoodScore = score > 50;
 
-
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.8 }}
+        className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+                    bg-white p-8 rounded-lg shadow z-50 text-center
+                    ${isGoodScore ? 'bg-green-100' : 'bg-orange'}`}
+      >
+        <h2 className="text-2xl font-bold mb-4">
+          {isGoodScore ? 'Congratulations!' : 'Keep practicing!'}
+        </h2>
+        <p className="text-xl mb-4">
+          Your final score is {score.toFixed(2)}%
+        </p>
+        {isGoodScore ? (
+          <FaThumbsUp className="text-5xl text-green-500 mx-auto mb-4" />
+        ) : (
+          <FaThumbsDown className="text-5xl text-orange-500 mx-auto mb-4" />
+        )}
+        <p className="mb-4">
+          {isGoodScore
+            ? "Great job! You've mastered this quiz."
+            : "Don't give up! Try again to improve your score."}
+        </p>
+        <button
+          onClick={() => setShowPopup(false)}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Close
+        </button>
+      </motion.div>
+    );
+  };
+  const BlinkingAIIcon = () => {
+    return (
+      <motion.div
+        animate={{ opacity: [1, 0.5, 1] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+        className="fixed top-4 right-4 z-50"
+      >
+        <IoSparkles className="text-3xl text-blue-500" />
+        <span className="ml-2 font-semibold">AI Generated Quiz</span>
+      </motion.div>
+    );
+  };
+  const AnimatedText = () => {
+    return (
+      <motion.div
+        className="text-4xl font-bold text-center my-12"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        whileHover={{ scale: 1.05, color: '#f97316' }}
+      >
+        Generate AI-Based Quiz
+      </motion.div>
+    );
+  };
   return (
     <div className="w-full h-full p-4">
             {showGenerateConfetti && <Confetti width={width} height={height} />}
@@ -219,7 +282,7 @@ const Quiz = () => {
                       {
                         label: `${topic} Results`,
                         data: [result.correct_answers, (result.total_questions-result.attempted_questions), (result.attempted_questions- result.correct_answers)],
-                        backgroundColor: ['#0C680C', '#F24A2540', '#F24A23'],
+                        backgroundColor: ['#0C680C', '#F24A2540', '#F24A25'],
                       },
                     ],
                   };
@@ -232,6 +295,7 @@ const Quiz = () => {
                         <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Total Questions: {result.total_questions}</p>
                         <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Attempted Questions: {result.attempted_questions}</p>
                         <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Correct Answers: {result.correct_answers}</p>
+                        <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Incorrect Answers: {result.attempted_questions-result.correct_answers}</p>
                         <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Score: {result.score_percentage}%</p>
                       </div>
                     </div>
@@ -244,6 +308,7 @@ const Quiz = () => {
                     Total Questions:<span>{quizResults.overall_result.total_questions}</span></p>
                   <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Attempted Questions: <span>{quizResults.overall_result.attempted_questions}</span></p>
                   <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Correct Answers: <span>{quizResults.overall_result.correct_answers}</span></p>
+                  <p className='flex items-center'><MdOutlineKeyboardDoubleArrowRight />Incorrect Answers: <span>{quizResults.overall_result.attempted_questions-quizResults.overall_result.correct_answers}</span></p>
                   <p className='flex items-center '><MdOutlineKeyboardDoubleArrowRight />Score: <span>{quizResults.overall_result.overall_percentage}%</span></p>
                 </div>
               </div>
@@ -252,7 +317,6 @@ const Quiz = () => {
           <form onSubmit={handleSubmit} className="flex border-t-1 pt-4 flex-col gap-4">
             <div className='  flex-col   '>
               <h5 className="font-medium text-[20px] mb-3 ">Quiz Details:</h5>
-
               <div className=' mb-3'>
                 <label className="block text-[16px] font-medium mb-1">Category</label>
                 <Select
@@ -307,147 +371,150 @@ const Quiz = () => {
                 </Select>
               </div>
               <div className="flex gap-4 mt-4">
-                {!showquizsection &&
+                {!showquizsection && (
                   <div>
-
-
-                    {isGenerating ? <div className="ml-2 flex border-1 text-orange gap-5 border-orange p-2 rounded-lg ">Generating..
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-orange"></div>
-                    </div> :
+                    {isGenerating ? (
+                      <div className="ml-2 flex border-1 text-orange gap-5 border-orange p-2 rounded-lg">
+                        Generating..
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-orange"></div>
+                      </div>
+                    ) : (
                       <button
                         type="submit"
                         className="bg-orange hover:cursor-pointer hover:bg-orange/30 hover:text-orange text-white px-4 py-2 rounded hover:bg-darkOrange disabled:opacity-50"
                         disabled={loading || isGenerating}
                       >
-                        Generate Quiz
+                        Generate AI Quiz
                       </button>
-                    }
-                  </div>}
-                {showquizsection &&
+                    )}
+                  </div>
+                )}
+                {showquizsection && (
                   <button
                     type="button"
                     onClick={handleStartAgain}
                     className="bg-orange text-white px-4 py-2 rounded hover:text-orange hover:bg-orange/30"
                   >
                     Start Again
-                  </button>}
+                  </button>
+                )}
               </div>
             </div>
-
           </form>
         </div>
-        {
-          showquizsection &&
+        {showquizsection && (
           <div className='w-[73%] shadow h-full rounded-lg p-4 '>
-            {
-              <div className="w-full h-full p-4 mt-8">
-                <form onSubmit={handleSubmitQuiz}>
-                  {Object.entries(questions)?.map(([topic, topicQuestions]: any) => (
-                   <div key={topic}>
-                   <motion.h3
-                     className="font-bold text-lg mb-4 flex items-center"
-                     initial={{ opacity: 0, y: -10 }}
-                     animate={{ opacity: 1, y: 0 }}
-                     transition={{ duration: 0.6 }}
-                   >
-                     <MdTopic className="text-orange text-[24px]" />
-                     Topic: &nbsp;<span>{topic}</span>
-                   </motion.h3>
-             
-                   <motion.div
-                     variants={containerVariants}
-                     initial="hidden"
-                     animate="visible"
-                     className="questions-container"
-                   >
-                     {topicQuestions.map((question: any, index: number) => (
-                       <motion.div key={question.id} variants={itemVariants} className="mb-6">
-                         <h4 className="font-bold text-md mb-2">
-                           {index + 1}. {question.question_text}
-                         </h4>
-                         {question.options.map((option: string, idx: number) => {
-                           const optionLabel = String.fromCharCode(65 + idx);
-                           const userSelected =
-                             userAnswers[question.id]?.selected_answer === optionLabel;
-                           return (
-                             <label key={idx} className="flex items-center gap-2">
-                               <input
-                                 type="radio"
-                                 name={`question-${question.id}`}
-                                 value={optionLabel}
-                                 checked={userSelected}
-                                 onChange={() => handleChange(question.id, optionLabel)}
-                                 className="w-4 h-4"
-                                 disabled={!!quizResults}
-                               />
-                               <span>{optionLabel}:</span>
-                               <span>{option}</span>
-                             </label>
-                           );
-                         })}
-                         {quizResults && question.correct_answer && (
-                           <motion.div
-                           className={`mt-2 text-[18px] flex justify-between items-center rounded-lg p-2 
-                            ${userAnswers[question.id]?.selected_answer === question.correct_answer ? 'bg-green-200' : 'bg-orange/10'}`}
-                
-                             initial={{ opacity: 0 }}
-                             animate={{ opacity: 1 }}
-                             transition={{ delay: 0.5 }}
-                           >
-                            <div className='text-[14px]'>
+            <div className="w-full h-full p-4 mt-8">
 
-                             <div>
-                               Your Answer:{' '}
-                               <span className="text-orange font-bold">
-                                 {userAnswers[question.id]?.selected_answer || 'Not selected'}
-                               </span>
-                             </div>
-                             <div>
-                               Correct Answer:{' '}
-                               <span className="text-orange font-bold">{question.correct_answer}</span>
-                             </div>
-                            </div>
-                            {userAnswers[question.id]?.selected_answer === question.correct_answer ?
-                            <div className='flex items-center'>
-                            <FaCheck className='text-green-700 text-[24px]' />
-                            <span className='text-2xl'> &#128512;</span>
-                            </div>:
-                            <div className='flex  items-center'>
-                            <RxCross2 className='text-red-800 text-[24px]' />
-                           
-                            <span className='text-2xl'> &#128561;</span>
 
-                            </div>
-                            }
-                           </motion.div>
-                         )}
-                       </motion.div>
-                     ))}
-                   </motion.div>
-                 </div>
-                  ))}
-                  {loading && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                      <Spin size="large" />
-                    </div>
-                  )}
-                  {!quizResults &&
-                    <button
-                      type="submit"
-                      className="bg-blue-500 text-white px-4 py-2 rounded mt-4 disabled:opacity-50"
-                      disabled={loading}
-                    >
-                      {loading ? 'Submitting...' : 'Submit Quiz'}
-                    </button>
-                  }
-                </form>
-              </div>
-            }
 
+
+              
+              <form onSubmit={handleSubmitQuiz}>
+
+                {Object.entries(questions)?.map(([topic, topicQuestions]: any) => (
+                 <div key={topic}>
+                 <motion.h3
+                   className="font-bold text-lg mb-4 flex items-center"
+                   initial={{ opacity: 0, y: -10 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   transition={{ duration: 0.6 }}
+                 >
+                   <MdTopic className="text-orange text-[24px]" />
+                   Topic: &nbsp;<span>{topic}</span>
+                 </motion.h3>
+           
+                 <motion.div
+                   variants={containerVariants}
+                   initial="hidden"
+                   animate="visible"
+                   className="questions-container"
+                 >
+                   {topicQuestions.map((question: any, index: number) => (
+                     <motion.div key={question.id} variants={itemVariants} className="mb-6">
+                       <h4 className="font-bold text-md mb-2">
+                         {index + 1}. {question.question_text}
+                       </h4>
+                       {question.options.map((option: string, idx: number) => {
+                         const optionLabel = String.fromCharCode(65 + idx);
+                         const userSelected =
+                           userAnswers[question.id]?.selected_answer === optionLabel;
+                         return (
+                           <label key={idx} className="flex items-center gap-2">
+                             <input
+                               type="radio"
+                               name={`question-${question.id}`}
+                               value={optionLabel}
+                               checked={userSelected}
+                               onChange={() => handleChange(question.id, optionLabel)}
+                               className="w-4 h-4"
+                               disabled={!!quizResults}
+                             />
+                             <span>{optionLabel}:</span>
+                             <span>{option}</span>
+                           </label>
+                         );
+                       })}
+                       {quizResults && question.correct_answer && (
+                         <motion.div
+                         className={`mt-2 text-[18px] flex justify-between items-center rounded-lg p-2 
+                          ${userAnswers[question.id]?.selected_answer === question.correct_answer ? 'bg-green-100' : 'bg-orange/10'}`}
+              
+                           initial={{ opacity: 0 }}
+                           animate={{ opacity: 1 }}
+                           transition={{ delay: 0.5 }}
+                         >
+                          <div className='text-[14px]'>
+                           <div>
+                             Your Answer:{' '}
+                             <span className="text-orange font-bold">
+                               {userAnswers[question.id]?.selected_answer || 'Not selected'}
+                             </span>
+                           </div>
+                           <div>
+                             Correct Answer:{' '}
+                             <span className="text-orange font-bold">{question.correct_answer}</span>
+                           </div>
+                          </div>
+                          {userAnswers[question.id]?.selected_answer === question.correct_answer ?
+                          <div className='flex items-center'>
+                          <FaCheck className='text-green-700 text-[24px]' />
+                          {/* <span className='text-2xl'> &#128512;</span> */}
+                          </div>:
+                          <div className='flex  items-center'>
+                          <RxCross2 className='text-red-800 text-[24px]' />
+                          {/* <span className='text-2xl'> &#128561;</span> */}
+                          </div>
+                          }
+                         </motion.div>
+                       )}
+                     </motion.div>
+                   ))}
+                 </motion.div>
+               </div>
+                ))}
+                {loading && (
+                  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <Spin size="large" />
+                  </div>
+                )}
+                {!quizResults && (
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-4 py-2 rounded mt-4 disabled:opacity-50"
+                    disabled={loading}
+                  >
+                    {loading ? 'Submitting...' : 'Submit Quiz'}
+                  </button>
+                )}
+              </form>
+            </div>
           </div>
-        }
+        )}
       </div>
-
+      {showPopup && <ResultPopup />}
+      {questions.length > 0 && <BlinkingAIIcon />}
+      {!showquizsection && !isGenerating && <AnimatedText />}
     </div>
   );
 };
