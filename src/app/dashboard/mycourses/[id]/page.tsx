@@ -310,7 +310,6 @@ ApiData?.card_image?
                                     }
                                     {/* {
                                  moduleprogress[index]===0 &&<div className={`min-w-[13px] h-[13px] border-2  border-orange rounded-full`}></div>
-
                                   } */}
                                     {module}
                                   </div>
@@ -549,7 +548,7 @@ ApiData?.card_image?
           <Confetti width={width} height={height} />
           {/* Dialog */}
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <div className="bg-white rounded-lg shadow-lg max-w-md w-full">
+            <div className="bg-white rounded-lg shadow max-w-md w-full">
               <div className="p-4">
                 {/* Header */}
                 <div className="text-center">
@@ -578,13 +577,9 @@ ApiData?.card_image?
                     className="mt-6 px-4 py-2 bg-orange text-white rounded-md hover:bg-orange/80 transition-colors"
                     onClick={()=>setShowCelebration(false)}
                   >
-                    
                     close
-                   
                   </button>
-                
                   </div>
-
                 </div>
               </div>
             </div>
